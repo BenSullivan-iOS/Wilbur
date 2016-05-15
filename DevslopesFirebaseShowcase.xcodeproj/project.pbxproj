@@ -12,6 +12,16 @@
 		B548A4361CE8FFC40084215C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B548A4341CE8FFC40084215C /* Main.storyboard */; };
 		B548A4381CE8FFC40084215C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B548A4371CE8FFC40084215C /* Assets.xcassets */; };
 		B548A43B1CE8FFC40084215C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B548A4391CE8FFC40084215C /* LaunchScreen.storyboard */; };
+		B548A44A1CE903690084215C /* NotoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B548A4461CE903690084215C /* NotoSans-Bold.ttf */; };
+		B548A44B1CE903690084215C /* NotoSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B548A4471CE903690084215C /* NotoSans-BoldItalic.ttf */; };
+		B548A44C1CE903690084215C /* NotoSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B548A4481CE903690084215C /* NotoSans-Italic.ttf */; };
+		B548A44D1CE903690084215C /* NotoSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B548A4491CE903690084215C /* NotoSans-Regular.ttf */; };
+		B548A44F1CE905950084215C /* RoundedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A44E1CE905950084215C /* RoundedViews.swift */; };
+		B548A4521CE906A80084215C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4511CE906A80084215C /* Constants.swift */; };
+		B548A4541CE90A5E0084215C /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4531CE90A5E0084215C /* MaterialButton.swift */; };
+		B548A4561CE90F630084215C /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4551CE90F630084215C /* MaterialTextField.swift */; };
+		B548A45A1CE913910084215C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B548A4581CE913910084215C /* FBSDKCoreKit.framework */; };
+		B548A45B1CE913910084215C /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B548A4591CE913910084215C /* FBSDKLoginKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +32,16 @@
 		B548A4371CE8FFC40084215C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B548A43A1CE8FFC40084215C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B548A43C1CE8FFC40084215C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B548A4461CE903690084215C /* NotoSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Bold.ttf"; sourceTree = "<group>"; };
+		B548A4471CE903690084215C /* NotoSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		B548A4481CE903690084215C /* NotoSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Italic.ttf"; sourceTree = "<group>"; };
+		B548A4491CE903690084215C /* NotoSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Regular.ttf"; sourceTree = "<group>"; };
+		B548A44E1CE905950084215C /* RoundedViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedViews.swift; sourceTree = "<group>"; };
+		B548A4511CE906A80084215C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B548A4531CE90A5E0084215C /* MaterialButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
+		B548A4551CE90F630084215C /* MaterialTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
+		B548A4581CE913910084215C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		B548A4591CE913910084215C /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +49,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B548A45B1CE913910084215C /* FBSDKLoginKit.framework in Frameworks */,
+				B548A45A1CE913910084215C /* FBSDKCoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,14 +76,72 @@
 		B548A42F1CE8FFC40084215C /* DevslopesFirebaseShowcase */ = {
 			isa = PBXGroup;
 			children = (
+				B548A4571CE913800084215C /* Frameworks */,
+				B548A4501CE906970084215C /* Util */,
+				B548A4451CE903070084215C /* Resources */,
+				B548A4441CE903020084215C /* Model */,
+				B548A4431CE902FB0084215C /* View */,
+				B548A4421CE902F10084215C /* Controller */,
 				B548A4301CE8FFC40084215C /* AppDelegate.swift */,
-				B548A4321CE8FFC40084215C /* ViewController.swift */,
-				B548A4341CE8FFC40084215C /* Main.storyboard */,
 				B548A4371CE8FFC40084215C /* Assets.xcassets */,
 				B548A4391CE8FFC40084215C /* LaunchScreen.storyboard */,
 				B548A43C1CE8FFC40084215C /* Info.plist */,
 			);
 			path = DevslopesFirebaseShowcase;
+			sourceTree = "<group>";
+		};
+		B548A4421CE902F10084215C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B548A4321CE8FFC40084215C /* ViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		B548A4431CE902FB0084215C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B548A4341CE8FFC40084215C /* Main.storyboard */,
+				B548A44E1CE905950084215C /* RoundedViews.swift */,
+				B548A4531CE90A5E0084215C /* MaterialButton.swift */,
+				B548A4551CE90F630084215C /* MaterialTextField.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		B548A4441CE903020084215C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B548A4451CE903070084215C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B548A4461CE903690084215C /* NotoSans-Bold.ttf */,
+				B548A4471CE903690084215C /* NotoSans-BoldItalic.ttf */,
+				B548A4481CE903690084215C /* NotoSans-Italic.ttf */,
+				B548A4491CE903690084215C /* NotoSans-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		B548A4501CE906970084215C /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				B548A4511CE906A80084215C /* Constants.swift */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		B548A4571CE913800084215C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B548A4581CE913910084215C /* FBSDKCoreKit.framework */,
+				B548A4591CE913910084215C /* FBSDKLoginKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,9 +202,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B548A44A1CE903690084215C /* NotoSans-Bold.ttf in Resources */,
 				B548A43B1CE8FFC40084215C /* LaunchScreen.storyboard in Resources */,
+				B548A44B1CE903690084215C /* NotoSans-BoldItalic.ttf in Resources */,
+				B548A44C1CE903690084215C /* NotoSans-Italic.ttf in Resources */,
 				B548A4381CE8FFC40084215C /* Assets.xcassets in Resources */,
 				B548A4361CE8FFC40084215C /* Main.storyboard in Resources */,
+				B548A44D1CE903690084215C /* NotoSans-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,8 +219,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B548A4561CE90F630084215C /* MaterialTextField.swift in Sources */,
+				B548A44F1CE905950084215C /* RoundedViews.swift in Sources */,
 				B548A4331CE8FFC40084215C /* ViewController.swift in Sources */,
 				B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */,
+				B548A4521CE906A80084215C /* Constants.swift in Sources */,
+				B548A4541CE90A5E0084215C /* MaterialButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +339,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DevslopesFirebaseShowcase",
+				);
 				INFOPLIST_FILE = DevslopesFirebaseShowcase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.DevslopesFirebaseShowcase;
@@ -262,6 +354,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DevslopesFirebaseShowcase",
+				);
 				INFOPLIST_FILE = DevslopesFirebaseShowcase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.DevslopesFirebaseShowcase;
