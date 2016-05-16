@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		504E562126AD937490972E65 /* Pods_DevslopesFirebaseShowcase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC2DE1734EFE93763659295 /* Pods_DevslopesFirebaseShowcase.framework */; };
 		B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4301CE8FFC40084215C /* AppDelegate.swift */; };
 		B548A4331CE8FFC40084215C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4321CE8FFC40084215C /* ViewController.swift */; };
 		B548A4361CE8FFC40084215C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B548A4341CE8FFC40084215C /* Main.storyboard */; };
@@ -22,9 +23,15 @@
 		B548A4561CE90F630084215C /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4551CE90F630084215C /* MaterialTextField.swift */; };
 		B548A45A1CE913910084215C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B548A4581CE913910084215C /* FBSDKCoreKit.framework */; };
 		B548A45B1CE913910084215C /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B548A4591CE913910084215C /* FBSDKLoginKit.framework */; };
+		B566CB411CE920A500415A3E /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB401CE920A500415A3E /* DataService.swift */; };
+		B566CB431CE9C6A500415A3E /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB421CE9C6A500415A3E /* FeedVC.swift */; };
+		B566CB451CE9C72500415A3E /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB441CE9C72500415A3E /* PostCell.swift */; };
+		B566CB471CE9E15500415A3E /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB461CE9E15500415A3E /* Post.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5FC2DE1734EFE93763659295 /* Pods_DevslopesFirebaseShowcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DevslopesFirebaseShowcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		930FD3C7575503FA9817D8FA /* Pods-DevslopesFirebaseShowcase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.debug.xcconfig"; sourceTree = "<group>"; };
 		B548A42D1CE8FFC40084215C /* DevslopesFirebaseShowcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DevslopesFirebaseShowcase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B548A4301CE8FFC40084215C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B548A4321CE8FFC40084215C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +49,11 @@
 		B548A4551CE90F630084215C /* MaterialTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextField.swift; sourceTree = "<group>"; };
 		B548A4581CE913910084215C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		B548A4591CE913910084215C /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		B566CB401CE920A500415A3E /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		B566CB421CE9C6A500415A3E /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		B566CB441CE9C72500415A3E /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		B566CB461CE9E15500415A3E /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		CF306A26CE6C883552981654 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.release.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,17 +63,37 @@
 			files = (
 				B548A45B1CE913910084215C /* FBSDKLoginKit.framework in Frameworks */,
 				B548A45A1CE913910084215C /* FBSDKCoreKit.framework in Frameworks */,
+				504E562126AD937490972E65 /* Pods_DevslopesFirebaseShowcase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13E585E71FD23F201985E821 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5FC2DE1734EFE93763659295 /* Pods_DevslopesFirebaseShowcase.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8A4EA044928352F50AEACDC6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				930FD3C7575503FA9817D8FA /* Pods-DevslopesFirebaseShowcase.debug.xcconfig */,
+				CF306A26CE6C883552981654 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B548A4241CE8FFC40084215C = {
 			isa = PBXGroup;
 			children = (
 				B548A42F1CE8FFC40084215C /* DevslopesFirebaseShowcase */,
 				B548A42E1CE8FFC40084215C /* Products */,
+				8A4EA044928352F50AEACDC6 /* Pods */,
+				13E585E71FD23F201985E821 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +108,7 @@
 		B548A42F1CE8FFC40084215C /* DevslopesFirebaseShowcase */ = {
 			isa = PBXGroup;
 			children = (
+				B566CB3F1CE9209100415A3E /* Services */,
 				B548A4571CE913800084215C /* Frameworks */,
 				B548A4501CE906970084215C /* Util */,
 				B548A4451CE903070084215C /* Resources */,
@@ -94,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				B548A4321CE8FFC40084215C /* ViewController.swift */,
+				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -105,6 +139,7 @@
 				B548A44E1CE905950084215C /* RoundedViews.swift */,
 				B548A4531CE90A5E0084215C /* MaterialButton.swift */,
 				B548A4551CE90F630084215C /* MaterialTextField.swift */,
+				B566CB441CE9C72500415A3E /* PostCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -112,6 +147,7 @@
 		B548A4441CE903020084215C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B566CB461CE9E15500415A3E /* Post.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -144,6 +180,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B566CB3F1CE9209100415A3E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B566CB401CE920A500415A3E /* DataService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,9 +195,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B548A43F1CE8FFC40084215C /* Build configuration list for PBXNativeTarget "DevslopesFirebaseShowcase" */;
 			buildPhases = (
+				52FF0AB7A4295E28F77BA5B6 /* Check Pods Manifest.lock */,
 				B548A4291CE8FFC40084215C /* Sources */,
 				B548A42A1CE8FFC40084215C /* Frameworks */,
 				B548A42B1CE8FFC40084215C /* Resources */,
+				466A1CCFCA5C9C1FABB20CCA /* Embed Pods Frameworks */,
+				6A1E3D13641E120AFF0B53B0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,17 +261,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		466A1CCFCA5C9C1FABB20CCA /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		52FF0AB7A4295E28F77BA5B6 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6A1E3D13641E120AFF0B53B0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B548A4291CE8FFC40084215C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B548A4561CE90F630084215C /* MaterialTextField.swift in Sources */,
+				B566CB411CE920A500415A3E /* DataService.swift in Sources */,
 				B548A44F1CE905950084215C /* RoundedViews.swift in Sources */,
 				B548A4331CE8FFC40084215C /* ViewController.swift in Sources */,
+				B566CB431CE9C6A500415A3E /* FeedVC.swift in Sources */,
+				B566CB451CE9C72500415A3E /* PostCell.swift in Sources */,
 				B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */,
 				B548A4521CE906A80084215C /* Constants.swift in Sources */,
 				B548A4541CE90A5E0084215C /* MaterialButton.swift in Sources */,
+				B566CB471CE9E15500415A3E /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,11 +436,13 @@
 		};
 		B548A4401CE8FFC40084215C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 930FD3C7575503FA9817D8FA /* Pods-DevslopesFirebaseShowcase.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/DevslopesFirebaseShowcase",
+					"$(inherited)/**",
+					"$(PROJECT_DIR)/DevslopesFirebaseShowcase/**",
 				);
 				INFOPLIST_FILE = DevslopesFirebaseShowcase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -352,11 +453,13 @@
 		};
 		B548A4411CE8FFC40084215C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF306A26CE6C883552981654 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/DevslopesFirebaseShowcase",
+					"$(inherited)/**",
+					"$(PROJECT_DIR)/DevslopesFirebaseShowcase/**",
 				);
 				INFOPLIST_FILE = DevslopesFirebaseShowcase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -384,6 +487,7 @@
 				B548A4411CE8FFC40084215C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
