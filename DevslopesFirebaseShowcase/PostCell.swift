@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Firebase
 
 class PostCell: UITableViewCell {
 
@@ -15,6 +16,9 @@ class PostCell: UITableViewCell {
   @IBOutlet weak var showcaseImg: UIImageView!
   @IBOutlet weak var descriptionText: UITextView!
   @IBOutlet weak var likesLabel: UILabel!
+  @IBOutlet weak var likeImage: UIImageView!
+  
+  var likeRef: Firebase!
   
   var request: Request?
 
@@ -22,6 +26,16 @@ class PostCell: UITableViewCell {
   
   var post: Post? {
     return _post
+  }
+  
+  override func awakeFromNib() {
+    
+    let tap = UITapGestureRecognizer(target: self, action: #selector(PostCell.likeTapped))
+    
+    tap.numberOfTapsRequired = 1
+    
+    likeImage.addGestureRecognizer(tap)
+    likeImage.userInteractionEnabled = true
   }
   
   override func drawRect(rect: CGRect) {
@@ -33,46 +47,11 @@ class PostCell: UITableViewCell {
   }
 
   func configureCell(post: Post, img: UIImage?) {
-    
-//    
-//    //Clear existing image (because its old)
-//    self.showcaseImg.image = nil
-//    self._post = post
-//    
-////    if let desc = post.postDescription where post.postDescription != "" {
-////      self.descriptionText.text = desc
-////    } else {
-////      self.descriptionText.hidden = true
-////    }
-//    
-////    self.likesLbl.text = "\(post.likes)"
-//    
-//    if post.imageUrl != nil {
-//      //Use the cached image if there is one, otherwise download the image
-//      if img != nil {
-//        showcaseImg.image = img!
-//      } else {
-//        //Must store the request so we can cancel it later if this cell is now out of the users view
-//        request = Alamofire.request(.GET, post.imageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
-//          
-//          if err == nil {
-//            let img = UIImage(data: data!)!
-//            self.showcaseImg.image = img
-//            FeedVC.imageCache.setObject(img, forKey: self.post!.imageUrl!)
-//          }
-//        })
-//      }
-//      
-//    } else {
-//      self.showcaseImg.hidden = true
-//    }
-//    
-//    
-//    //can't set user image yet because we dont have user images set up yet
-//    
-//    
-//  }
   
+    likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
+    
+    
+    
     self._post = post
     self.descriptionText.text = post.postDescription
     self.likesLabel.text = "\(post.likes)"
@@ -81,7 +60,7 @@ class PostCell: UITableViewCell {
       print("here")
       if img != nil {
         print("then here")
-        self.showcaseImg.image = img
+//        self.showcaseImg.image = img
         
       } else {
         
@@ -91,17 +70,64 @@ class PostCell: UITableViewCell {
           if err == nil {
             print("Image downloaded")
             let img = UIImage(data: data!)!
-            self.showcaseImg.image = img
+//            self.showcaseImg.image = img
             FeedVC.imageCache.setObject(img, forKey: self.post!.imageUrl!)
           }
         })
       }
-      
+      showcaseImg.hidden = false
+
     } else {
       print("hidden the image")
       showcaseImg.hidden = true
     }
-  }
     
+//    let likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
+    //look for like once then toggle heart
+    likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+    
+      
+      //in firebase if there's no data in .value you will receive an NSNull not nil
+      if let _ = snapshot.value as? NSNull {
+        //we have not liked this specific post
+        
+        self.likeImage.image = UIImage(named: "heart-empty")
+        
+        
+      } else {
+        
+        self.likeImage.image = UIImage(named: "heart-full")
+      }
+    
+    
+    })
+  }
+  //change image displaying, then add one like or remove one like
+  func likeTapped() {
+    
+    likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+      
+      //in firebase if there's no data in .value you will receive an NSNull not nil
+      if let _ = snapshot.value as? NSNull {
+        //we have not liked this specific post
+        
+        self.likeImage.image = UIImage(named: "heart-full")
+        self.post?.adjustLikes(true)
+        self.likeRef.setValue(true)
+
+      } else {
+
+        self.likeImage.image = UIImage(named: "heart-empty")
+        self.post?.adjustLikes(false)
+        self.likeRef.removeValue()
+        
+      }
+      
+      
+    })
+
+  }
+  
+  
   }
 

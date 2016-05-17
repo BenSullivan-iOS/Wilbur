@@ -14,9 +14,25 @@ import FBSDKLoginKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
+  
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Override point for customization after application launch.
+        
+    //Quite a cool colour, consider this instead of orange?
+//    UINavigationBar.appearance().barTintColor = UIColor(red: 42/255.0, green: 140/255.0, blue: 166/255.0, alpha: 0.5)
+    
+    //Back button tint color change
+    
+    UINavigationBar.appearance().barStyle = UIBarStyle.Default
+    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+      
+//      UIColor(red: 204/255.0, green: 255/255.0, blue: 204/255.0, alpha: 1)
+    
+    //Navigation Menu font tint color change
+    
+//    UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 204/255.0, green: 255/255.0, blue: 204/255.0, alpha: 1), NSFontAttributeName: UIFont(name: "FightThis", size: 25)!]//UIColor(red: 42/255.0, green: 140/255.0, blue: 166/255.0, alpha: 1.0)
+    
+//    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+
     return FBSDKApplicationDelegate.sharedInstance()
       .application(application, didFinishLaunchingWithOptions: launchOptions)
   

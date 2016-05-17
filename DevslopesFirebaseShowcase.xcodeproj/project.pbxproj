@@ -27,6 +27,9 @@
 		B566CB431CE9C6A500415A3E /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB421CE9C6A500415A3E /* FeedVC.swift */; };
 		B566CB451CE9C72500415A3E /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB441CE9C72500415A3E /* PostCell.swift */; };
 		B566CB471CE9E15500415A3E /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB461CE9E15500415A3E /* Post.swift */; };
+		B5D3F9971CEB41BD00EEB78F /* FIGHTT3_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */; };
+		B5D3F9991CEB498500EEB78F /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F9981CEB498500EEB78F /* extensions.swift */; };
+		B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +55,9 @@
 		B566CB421CE9C6A500415A3E /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		B566CB441CE9C72500415A3E /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		B566CB461CE9E15500415A3E /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FIGHTT3_.ttf; sourceTree = "<group>"; };
+		B5D3F9981CEB498500EEB78F /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		CEDC6C5B0D355C547B558914 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.release.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.release.xcconfig"; sourceTree = "<group>"; };
 		FA5F4A36BE45184243C76295 /* Pods_DevslopesFirebaseShowcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DevslopesFirebaseShowcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -128,6 +134,7 @@
 			children = (
 				B548A4321CE8FFC40084215C /* ViewController.swift */,
 				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
+				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -155,6 +162,7 @@
 		B548A4451CE903070084215C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */,
 				B548A4461CE903690084215C /* NotoSans-Bold.ttf */,
 				B548A4471CE903690084215C /* NotoSans-BoldItalic.ttf */,
 				B548A4481CE903690084215C /* NotoSans-Italic.ttf */,
@@ -167,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				B548A4511CE906A80084215C /* Constants.swift */,
+				B5D3F9981CEB498500EEB78F /* extensions.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -249,6 +258,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D3F9971CEB41BD00EEB78F /* FIGHTT3_.ttf in Resources */,
 				B548A44A1CE903690084215C /* NotoSans-Bold.ttf in Resources */,
 				B548A43B1CE8FFC40084215C /* LaunchScreen.storyboard in Resources */,
 				B548A44B1CE903690084215C /* NotoSans-BoldItalic.ttf in Resources */,
@@ -314,9 +324,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */,
 				B548A4561CE90F630084215C /* MaterialTextField.swift in Sources */,
 				B566CB411CE920A500415A3E /* DataService.swift in Sources */,
 				B548A44F1CE905950084215C /* RoundedViews.swift in Sources */,
+				B5D3F9991CEB498500EEB78F /* extensions.swift in Sources */,
 				B548A4331CE8FFC40084215C /* ViewController.swift in Sources */,
 				B566CB431CE9C6A500415A3E /* FeedVC.swift in Sources */,
 				B566CB451CE9C72500415A3E /* PostCell.swift in Sources */,

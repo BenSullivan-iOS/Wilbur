@@ -21,6 +21,7 @@ struct Constants {
   struct Segues {
     
     let loggedIn = "loggedIn"
+    let showProfile = "showProfile"
   }
   
   struct StatusCodes {

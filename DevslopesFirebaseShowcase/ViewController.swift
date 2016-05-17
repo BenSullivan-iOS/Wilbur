@@ -130,6 +130,10 @@ class ViewController: UIViewController {
     
     presentViewController(alert, animated: true, completion: nil)
   }
+  
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
+  }
 
 }
 
