@@ -11,7 +11,13 @@ import Firebase
 import Alamofire
 import AVFoundation
 
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+protocol PlayingAudioDelegate {
+  
+  func playingState()
+  
+}
+
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PlayingAudioDelegate {
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var imageSelectorImage: UIImageView!
@@ -257,6 +263,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
   
   }
   
+//  weak var VC2: AudioControlsVC
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
@@ -265,14 +272,39 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     backItem.title = "Back"
     navigationItem.backBarButtonItem = backItem
     }
+    
+//    if segue.identifier == "audioControls" {
+//      
+//      let dest = segue.destinationViewController as? AudioControlsVC
+//      playingState()
+//      
+//      self.VC2 = dest
+//      
+//      let vc = segue.destinationViewController as! AudioControlsVC
+//      vc.delegate = self
+//    }
   }
-  
-  var recordButton: UIButton!
-  
+
   var recordingSession: AVAudioSession!
   var audioRecorder: AVAudioRecorder!
-  
   var player = AVAudioPlayer()
+  
+  func playingState() {
+//    VC2.delegate = self
+  }
+}
+
+class AudioControlsVC: UIViewController {
+  
+  var delegate: PlayingAudioDelegate?
+  
+  override func viewDidAppear(animated: Bool) {
+    
+    
+    
+  }
+  
+  
 }
 
 extension FeedVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
@@ -282,34 +314,33 @@ extension FeedVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     recordingSession = AVAudioSession.sharedInstance()
     
     do {
+      
+
+      try recordingSession.overrideOutputAudioPort(AVAudioSessionPortOverride.Speaker)
       try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
       try recordingSession.setActive(true)
       recordingSession.requestRecordPermission() { [unowned self] (allowed: Bool) -> Void in
         dispatch_async(dispatch_get_main_queue()) {
           if allowed {
-            self.loadRecordingUI()
+            //load recording ui?
           } else {
             // failed to record!
           }
         }
       }
-    } catch {
+    } catch let error as NSError {
+      
+      print("failed to setup", error.debugDescription)
       // failed to record!
     }
-  }
-  
-  func loadRecordingUI() {
-    recordButton = UIButton(frame: CGRect(x: 64, y: 64, width: 128, height: 64))
-    recordButton.setTitle("Tap to Record", forState: .Normal)
-    recordButton.titleLabel?.font = UIFont.preferredFontForTextStyle(UIFontTextStyleTitle1)
-    recordButton.addTarget(self, action: #selector(FeedVC.recordTapped), forControlEvents: .TouchUpInside)
-    view.addSubview(recordButton)
+    
   }
   
   func startRecording() {
     
-    let audioURL = getDocumentsDirectory().URLByAppendingPathComponent("recording.m4a") //stringByAppendingPathComponent("recording.m4a")
-//    let audioURL = NSURL(fileURLWithPath: audioFilename)
+    print("preparing to record")
+    
+    let audioURL = getDocumentsDirectory().URLByAppendingPathComponent("recording.m4a")
     
     let settings = [
       AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -320,35 +351,41 @@ extension FeedVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     do {
       audioRecorder = try AVAudioRecorder(URL: audioURL, settings: settings)
+      print("Recording...")
       audioRecorder.delegate = self
       audioRecorder.record()
       
-      recordButton.setTitle("Tap to Stop", forState: .Normal)
     } catch {
       finishRecording(success: false)
     }
   }
   
   func finishRecording(success success: Bool) {
+    
+    print("Finished recording")
+    
     audioRecorder.stop()
     audioRecorder = nil
     
     if success {
-      recordButton.setTitle("Tap to Re-record", forState: .Normal)
+      
+      print("Recording successful")
       
       play()
     } else {
-      recordButton.setTitle("Tap to Record", forState: .Normal)
       // recording failed :(
     }
   }
   
   func recordTapped() {
-    if audioRecorder == nil {
-      startRecording()
-    } else {
-      finishRecording(success: true)
-    }
+    
+    performSegueWithIdentifier("audioControls", sender: self)
+
+//    if audioRecorder == nil {
+//      startRecording()
+//    } else {
+//      finishRecording(success: true)
+//    }
   }
   
   func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
@@ -367,16 +404,13 @@ extension FeedVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
 
   func play() {
     
-//    let path = NSBundle.mainBundle().pathForResource("recording", ofType: "m4a")
-//    let fileURL = NSURL(fileURLWithPath: path!)
-    
     let fileURL = getDocumentsDirectory().URLByAppendingPathComponent("recording.m4a")
 
     do {
       
       player = try AVAudioPlayer(contentsOfURL: fileURL)
       player.prepareToPlay()
-      player.volume = 1
+//      player.volume = 1
       player.delegate = self
       player.play()
       
