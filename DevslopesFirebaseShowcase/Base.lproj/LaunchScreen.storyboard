@@ -17,18 +17,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fartSplash" translatesAutoresizingMaskIntoConstraints="NO" id="1Ys-2N-KJH">
-                                <rect key="frame" x="169" y="210" width="263" height="179"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="13250446_988781857903116_1711681653_n" translatesAutoresizingMaskIntoConstraints="NO" id="Xeh-0S-1D8">
+                                <rect key="frame" x="169" y="168" width="263" height="263"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="263" id="CWF-fv-WlD"/>
-                                    <constraint firstAttribute="height" constant="179" id="TDa-ES-ayg"/>
+                                    <constraint firstAttribute="width" constant="263" id="5vf-6u-P4t"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="1Ys-2N-KJH" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="J8c-OF-Kli"/>
-                            <constraint firstItem="1Ys-2N-KJH" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="NU1-O6-EAU"/>
+                            <constraint firstItem="Xeh-0S-1D8" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="148" id="5Ye-0b-bvV"/>
+                            <constraint firstItem="Xeh-0S-1D8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Y5Z-Gj-bJq"/>
+                            <constraint firstItem="Xeh-0S-1D8" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="oW8-DY-tiX"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -38,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="fartSplash" width="931" height="655"/>
+        <image name="13250446_988781857903116_1711681653_n" width="400" height="400"/>
     </resources>
 </document>

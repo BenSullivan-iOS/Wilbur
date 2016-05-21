@@ -47,11 +47,14 @@ class PostCell: UITableViewCell {
   }
 
   func configureCell(post: Post, img: UIImage?) {
+    
+    if let like = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey) {
+    likeRef = like
+  }
   
-    likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
+//    likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
     
-    
-    
+        
     self._post = post
     self.descriptionText.text = post.postDescription
     self.likesLabel.text = "\(post.likes)"
@@ -60,7 +63,7 @@ class PostCell: UITableViewCell {
       print("here")
       if img != nil {
         print("then here")
-//        self.showcaseImg.image = img
+        self.showcaseImg.image = img
         
       } else {
         
@@ -70,7 +73,7 @@ class PostCell: UITableViewCell {
           if err == nil {
             print("Image downloaded")
             let img = UIImage(data: data!)!
-//            self.showcaseImg.image = img
+            self.showcaseImg.image = img
             FeedVC.imageCache.setObject(img, forKey: self.post!.imageUrl!)
           }
         })

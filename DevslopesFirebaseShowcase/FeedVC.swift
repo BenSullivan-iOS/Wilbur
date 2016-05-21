@@ -17,6 +17,15 @@ protocol PlayingAudioDelegate {
   
 }
 
+class NavController: UIViewController {
+  
+  override func viewDidLoad() {
+    
+    self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "FightThis", size: 40)!,  NSForegroundColorAttributeName: UIColor.whiteColor()]
+
+  }
+}
+
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PlayingAudioDelegate {
   
   @IBOutlet weak var tableView: UITableView!
@@ -36,7 +45,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    record()
+    //FIXME: - Add this back
+//    record()
     
     ////////////
     let button: UIButton = UIButton(type: .Custom)
@@ -49,7 +59,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     self.navigationItem.rightBarButtonItem = barButton
     
     let leftButton: UIButton = UIButton(type: .Custom)
-    leftButton.setImage(UIImage(named: "micIconThin"), forState: .Normal)
+    leftButton.setImage(UIImage(named: "micIcon"), forState: .Normal)
 //    leftButton.addTarget(self, action: #selector(FeedVC.showProfilePressed), forControlEvents: .TouchUpInside)
         leftButton.addTarget(self, action: #selector(FeedVC.recordTapped), forControlEvents: .TouchUpInside)
 
@@ -60,8 +70,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     self.navigationItem.leftBarButtonItem = leftBarButton
 
         
-    self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "FightThis", size: 40)!,  NSForegroundColorAttributeName: UIColor.whiteColor()]
-//    
+//
 //    self.navigationController!.navigationBar.tintColor = UIColor.whiteColor();
 //    
 //    self.navigationBar.barStyle = UIBarStyle.Black
@@ -107,18 +116,16 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    return posts.count + 1
+    return posts.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-    if indexPath.row > 0 {
-      
     if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
     
       cell.request?.cancel()
 
-      let post = posts[indexPath.row - 1]
+      let post = posts[indexPath.row]
 
       var img: UIImage?
       
@@ -130,12 +137,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
       cell.configureCell(post, img: img)
 
       return cell
-      
-    } else {
-      
-      return PostCell()
-    }
-    
   }
     
     let cell = tableView.dequeueReusableCellWithIdentifier("uploadCell")!
@@ -145,17 +146,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     
-    if indexPath.row > 0 {
-    let post = posts[indexPath.row - 1]
+    let post = posts[indexPath.row]
     
     if post.imageUrl == nil {
       return 150
     } else {
-      return tableView.estimatedRowHeight
+      return self.view.bounds.height - 44
     }
-    }
-    
-    return 66
   }
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
@@ -304,7 +301,8 @@ class AudioControlsVC: UIViewController {
     
   }
   
-  
+  //setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions:AVAudioSessionCategoryOptions.DefaultToSpeaker, error: nil)
+
 }
 
 extension FeedVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
@@ -315,9 +313,7 @@ extension FeedVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     do {
       
-
-      try recordingSession.overrideOutputAudioPort(AVAudioSessionPortOverride.Speaker)
-      try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+      try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: .DefaultToSpeaker)
       try recordingSession.setActive(true)
       recordingSession.requestRecordPermission() { [unowned self] (allowed: Bool) -> Void in
         dispatch_async(dispatch_get_main_queue()) {
@@ -355,6 +351,8 @@ extension FeedVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
       audioRecorder.delegate = self
       audioRecorder.record()
       
+      NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(FeedVC.finishRecording(success: )), userInfo: nil, repeats: false)
+      
     } catch {
       finishRecording(success: false)
     }
@@ -379,13 +377,14 @@ extension FeedVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
   
   func recordTapped() {
     
-    performSegueWithIdentifier("audioControls", sender: self)
-
-//    if audioRecorder == nil {
-//      startRecording()
-//    } else {
-//      finishRecording(success: true)
-//    }
+//    performSegueWithIdentifier("audioControls", sender: self)
+    record()//FIXME: - Delete this, put in view did load
+    
+    if audioRecorder == nil {
+      startRecording()
+    } else {
+      finishRecording(success: true)
+    }
   }
   
   func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {

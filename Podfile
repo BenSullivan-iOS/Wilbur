@@ -2,7 +2,7 @@
 # platform :ios, '8.0'
 # Uncomment this line if you're using Swift
 use_frameworks!
-
+pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
 target 'DevslopesFirebaseShowcase' do
 pod 'Firebase', '>= 2.5.1'
 
