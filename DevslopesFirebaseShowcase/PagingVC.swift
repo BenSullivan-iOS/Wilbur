@@ -10,6 +10,10 @@ import UIKit
 
 class PagingVC: UIPageViewController {
   
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -30,7 +34,7 @@ class PagingVC: UIPageViewController {
     print("creating ordered vc")
     return [self.newViewController("Record"),
             self.newViewController("Feed"),
-            self.newViewController("Profile")]
+            self.newViewController("TopTrumpsVC")]
   }()
   
   private func newViewController(title: String) -> UIViewController {
@@ -152,19 +156,4 @@ extension PagingVC: UIPageViewControllerDataSource {
   //
   //    return orderedViewControllers[nextIndex]
   //  }
-  
-  //MARK: - DOTS
-  
-  func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
-    return orderedViewControllers.count
-  }
-  
-  func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-    guard let firstViewController = viewControllers?.first,
-      firstViewControllerIndex = orderedViewControllers.indexOf(firstViewController) else {
-        return 0
-    }
-    
-    return firstViewControllerIndex
-  }
 }

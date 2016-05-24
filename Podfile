@@ -5,7 +5,7 @@ use_frameworks!
 pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
 target 'DevslopesFirebaseShowcase' do
 pod 'Firebase', '>= 2.5.1'
-
+pod 'FDWaveformView'
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 

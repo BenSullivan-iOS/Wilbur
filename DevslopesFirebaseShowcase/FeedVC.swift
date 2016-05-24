@@ -11,23 +11,17 @@ import Firebase
 import Alamofire
 import AVFoundation
 
-protocol PlayingAudioDelegate {
-  
-  func playingState()
-  
-}
+//class NavController: UIViewController {
+//  
+//  override func viewDidLoad() {
+//    
+//    self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "FightThis", size: 40)!,  NSForegroundColorAttributeName: UIColor.whiteColor()]
+//
+//  }
+//}
 
-class NavController: UIViewController {
-  
-  override func viewDidLoad() {
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "FightThis", size: 40)!,  NSForegroundColorAttributeName: UIColor.whiteColor()]
-
-  }
-}
-
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PlayingAudioDelegate {
-  
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var imageSelectorImage: UIImageView!
 
@@ -42,6 +36,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
   
   static var imageCache = NSCache()
   
+  @IBOutlet weak var profileButton: UIButton!
+  @IBOutlet weak var navBar: UINavigationBar!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -49,32 +46,16 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
 //    record()
     
     ////////////
-    let button: UIButton = UIButton(type: .Custom)
-    button.setImage(UIImage(named: "profileFartWhite"), forState: .Normal)
-    button.addTarget(self, action: #selector(FeedVC.showProfilePressed), forControlEvents: .TouchUpInside)
-    button.frame = CGRectMake(0, 0, 30, 30)
-    button.contentMode = .ScaleAspectFill
-    
-    let barButton = UIBarButtonItem(customView: button)
-    self.navigationItem.rightBarButtonItem = barButton
-    
-    let leftButton: UIButton = UIButton(type: .Custom)
-    leftButton.setImage(UIImage(named: "micIcon"), forState: .Normal)
-//    leftButton.addTarget(self, action: #selector(FeedVC.showProfilePressed), forControlEvents: .TouchUpInside)
-        leftButton.addTarget(self, action: #selector(FeedVC.recordTapped), forControlEvents: .TouchUpInside)
-
-    leftButton.frame = CGRectMake(0, 0, 30, 30)
-    leftButton.contentMode = .ScaleAspectFill
-    
-    let leftBarButton = UIBarButtonItem(customView: leftButton)
-    self.navigationItem.leftBarButtonItem = leftBarButton
-
-        
-//
-//    self.navigationController!.navigationBar.tintColor = UIColor.whiteColor();
 //    
-//    self.navigationBar.barStyle = UIBarStyle.Black
-//    self.navigationBar.tintColor = UIColor.whiteColor()
+//    let leftButton: UIButton = UIButton(type: .Custom)
+//    leftButton.setImage(UIImage(named: "micIcon"), forState: .Normal)
+//    leftButton.addTarget(self, action: #selector(FeedVC.recordTapped), forControlEvents: .TouchUpInside)
+
+//    leftButton.frame = CGRectMake(0, 0, 30, 30)
+//    leftButton.contentMode = .ScaleAspectFill
+//    
+//    let leftBarButton = UIBarButtonItem(customView: leftButton)
+//    self.navigationItem.leftBarButtonItem = leftBarButton
     
     ////////////
     
@@ -113,7 +94,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
       
     })
   }
-  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    print("Selected")
+  }
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
     return posts.count
@@ -151,7 +134,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     if post.imageUrl == nil {
       return 150
     } else {
-      return self.view.bounds.height - 44
+      return self.view.bounds.height - navBar.bounds.height - 20
     }
   }
   
@@ -253,13 +236,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     return .LightContent
   }
   
-  
-  func showProfilePressed() {
-    print("pressed")
+  @IBAction func profileButtonPressed(sender: UIButton) {
     performSegueWithIdentifier(Constants.sharedSegues.showProfile, sender: self)
-  
+
   }
-  
+    
 //  weak var VC2: AudioControlsVC
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -282,145 +263,20 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
 //    }
   }
 
-  var recordingSession: AVAudioSession!
-  var audioRecorder: AVAudioRecorder!
-  var player = AVAudioPlayer()
-  
-  func playingState() {
 //    VC2.delegate = self
   }
-}
 
-class AudioControlsVC: UIViewController {
-  
-  var delegate: PlayingAudioDelegate?
-  
-  override func viewDidAppear(animated: Bool) {
-    
-    
-    
-  }
-  
-  //setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions:AVAudioSessionCategoryOptions.DefaultToSpeaker, error: nil)
-
-}
-
-extension FeedVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
-  
-  func record() {
-    
-    recordingSession = AVAudioSession.sharedInstance()
-    
-    do {
-      
-      try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: .DefaultToSpeaker)
-      try recordingSession.setActive(true)
-      recordingSession.requestRecordPermission() { [unowned self] (allowed: Bool) -> Void in
-        dispatch_async(dispatch_get_main_queue()) {
-          if allowed {
-            //load recording ui?
-          } else {
-            // failed to record!
-          }
-        }
-      }
-    } catch let error as NSError {
-      
-      print("failed to setup", error.debugDescription)
-      // failed to record!
-    }
-    
-  }
-  
-  func startRecording() {
-    
-    print("preparing to record")
-    
-    let audioURL = getDocumentsDirectory().URLByAppendingPathComponent("recording.m4a")
-    
-    let settings = [
-      AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-      AVSampleRateKey: 12000.0,
-      AVNumberOfChannelsKey: 1 as NSNumber,
-      AVEncoderAudioQualityKey: AVAudioQuality.High.rawValue
-    ]
-    
-    do {
-      audioRecorder = try AVAudioRecorder(URL: audioURL, settings: settings)
-      print("Recording...")
-      audioRecorder.delegate = self
-      audioRecorder.record()
-      
-      NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(FeedVC.finishRecording(success: )), userInfo: nil, repeats: false)
-      
-    } catch {
-      finishRecording(success: false)
-    }
-  }
-  
-  func finishRecording(success success: Bool) {
-    
-    print("Finished recording")
-    
-    audioRecorder.stop()
-    audioRecorder = nil
-    
-    if success {
-      
-      print("Recording successful")
-      
-      play()
-    } else {
-      // recording failed :(
-    }
-  }
-  
-  func recordTapped() {
-    
-//    performSegueWithIdentifier("audioControls", sender: self)
-    record()//FIXME: - Delete this, put in view did load
-    
-    if audioRecorder == nil {
-      startRecording()
-    } else {
-      finishRecording(success: true)
-    }
-  }
-  
-  func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
-    if !flag {
-      finishRecording(success: false)
-    }
-  }
-  
-  func getDocumentsDirectory() -> NSURL {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
-    
-    let url = NSURL(string: documentsDirectory)!
-    return url
-  }
-
-  func play() {
-    
-    let fileURL = getDocumentsDirectory().URLByAppendingPathComponent("recording.m4a")
-
-    do {
-      
-      player = try AVAudioPlayer(contentsOfURL: fileURL)
-      player.prepareToPlay()
-//      player.volume = 1
-      player.delegate = self
-      player.play()
-      
-    } catch {
-      print("error playing file")
-    }
-
-  }
-  
-  
-}
-
-
+//class AudioControlsVC: UIViewController {
+//  
+//  var delegate: PlayingAudioDelegate?
+//  
+//  override func viewDidAppear(animated: Bool) {
+//    
+//    
+//    
+//  }
+//  
+//  //setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions:AVAudioSessionCategoryOptions.DefaultToSpeaker, error: nil)
+//
+//}
 

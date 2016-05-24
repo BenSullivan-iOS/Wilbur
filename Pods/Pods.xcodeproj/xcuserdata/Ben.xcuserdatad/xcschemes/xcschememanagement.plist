@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FDWaveformView-FDWaveformView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FDWaveformView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Firebase.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,17 +37,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1F768EFCE755B99BE781A5FAFDB29620</key>
+		<key>148C6FAEC985ACF4882390703BEBB15F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>49BD4703120AAE36A934A03477F9361E</key>
+		<key>43B3DCFC1782D3C4D90EB7C04C6158C0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6560ABBA85F5D93AB82659BCDC9227F0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8E87ADD4AB9D85900D80FEB8122CD688</key>
 		<dict>
 			<key>primary</key>
 			<true/>

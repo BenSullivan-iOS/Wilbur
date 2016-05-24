@@ -1,10 +1,12 @@
 PODS:
   - Alamofire (3.4.0)
+  - FDWaveformView (0.3.1)
   - Firebase (2.5.1)
   - Spring (1.0.3)
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
+  - FDWaveformView
   - Firebase (>= 2.5.1)
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift2`)
 
@@ -20,9 +22,10 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
+  FDWaveformView: 9d641a95bc0abd8af27cac4c973b015735d916f0
   Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
 
-PODFILE CHECKSUM: f55e7543896f7f6f6ac37da31114e8081eeb54ba
+PODFILE CHECKSUM: 0141abe2121ede686ed6013dee34107dc83881a2
 
 COCOAPODS: 1.0.0

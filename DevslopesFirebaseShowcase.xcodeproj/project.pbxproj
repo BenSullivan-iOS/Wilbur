@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		41A1D35B3F3944BDB0A5CA4F /* Pods_DevslopesFirebaseShowcase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5F4A36BE45184243C76295 /* Pods_DevslopesFirebaseShowcase.framework */; };
 		B5068C3D1CEF18F400AA8C86 /* PagingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */; };
+		B51CBCD41CF45DB000112B51 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD21CF45DB000112B51 /* Feed.storyboard */; };
+		B51CBCD91CF4797E00112B51 /* audio_test.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD81CF4788500112B51 /* audio_test.m4a */; };
+		B51CBCF91CF4DA4900112B51 /* FDWaveformView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */; };
 		B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4301CE8FFC40084215C /* AppDelegate.swift */; };
 		B548A4331CE8FFC40084215C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4321CE8FFC40084215C /* ViewController.swift */; };
 		B548A4361CE8FFC40084215C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B548A4341CE8FFC40084215C /* Main.storyboard */; };
@@ -28,16 +31,22 @@
 		B566CB431CE9C6A500415A3E /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB421CE9C6A500415A3E /* FeedVC.swift */; };
 		B566CB451CE9C72500415A3E /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB441CE9C72500415A3E /* PostCell.swift */; };
 		B566CB471CE9E15500415A3E /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB461CE9E15500415A3E /* Post.swift */; };
+		B59520F51CF3599E008987A0 /* TopTrumpsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */; };
 		B5967D511CEE0407006CB7BB /* CreatePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5967D501CEE0407006CB7BB /* CreatePostVC.swift */; };
 		B5967D551CEE5414006CB7BB /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5967D541CEE5414006CB7BB /* Spring.framework */; };
+		B5B063361CF35BE4001DDFDD /* TopTrumpsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */; };
 		B5D3F9971CEB41BD00EEB78F /* FIGHTT3_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */; };
 		B5D3F9991CEB498500EEB78F /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F9981CEB498500EEB78F /* extensions.swift */; };
 		B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */; };
+		B5DEA6381CF39E7D00AE38A1 /* RecordAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A10FD833B2524E7A8D4BCE1C /* Pods-DevslopesFirebaseShowcase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.debug.xcconfig"; sourceTree = "<group>"; };
 		B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingVC.swift; sourceTree = "<group>"; };
+		B51CBCD31CF45DB000112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feed.storyboard; sourceTree = "<group>"; };
+		B51CBCD81CF4788500112B51 /* audio_test.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = audio_test.m4a; path = ../../../../../Downloads/audio_test.m4a; sourceTree = "<group>"; };
+		B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FDWaveformView.framework; path = "../../../../Library/Developer/Xcode/DerivedData/DevslopesFirebaseShowcase-aebdmajtydenumdhaiuprfwxpxmv/Build/Products/Debug-iphonesimulator/FDWaveformView/FDWaveformView.framework"; sourceTree = "<group>"; };
 		B548A42D1CE8FFC40084215C /* DevslopesFirebaseShowcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DevslopesFirebaseShowcase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B548A4301CE8FFC40084215C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B548A4321CE8FFC40084215C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,11 +68,14 @@
 		B566CB421CE9C6A500415A3E /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		B566CB441CE9C72500415A3E /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		B566CB461CE9E15500415A3E /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopTrumpsVC.swift; sourceTree = "<group>"; };
 		B5967D501CEE0407006CB7BB /* CreatePostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostVC.swift; sourceTree = "<group>"; };
 		B5967D541CEE5414006CB7BB /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = "../../../../Library/Developer/Xcode/DerivedData/DevslopesFirebaseShowcase-aebdmajtydenumdhaiuprfwxpxmv/Build/Products/Debug-iphonesimulator/Spring/Spring.framework"; sourceTree = "<group>"; };
+		B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopTrumpsCell.swift; sourceTree = "<group>"; };
 		B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FIGHTT3_.ttf; sourceTree = "<group>"; };
 		B5D3F9981CEB498500EEB78F /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordAudio.swift; sourceTree = "<group>"; };
 		CEDC6C5B0D355C547B558914 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.release.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.release.xcconfig"; sourceTree = "<group>"; };
 		FA5F4A36BE45184243C76295 /* Pods_DevslopesFirebaseShowcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DevslopesFirebaseShowcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -73,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B51CBCF91CF4DA4900112B51 /* FDWaveformView.framework in Frameworks */,
 				B5967D551CEE5414006CB7BB /* Spring.framework in Frameworks */,
 				B548A45B1CE913910084215C /* FBSDKLoginKit.framework in Frameworks */,
 				B548A45A1CE913910084215C /* FBSDKCoreKit.framework in Frameworks */,
@@ -86,6 +99,7 @@
 		06BB2FE03B25609296D5A959 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */,
 				B5967D541CEE5414006CB7BB /* Spring.framework */,
 				FA5F4A36BE45184243C76295 /* Pods_DevslopesFirebaseShowcase.framework */,
 			);
@@ -133,6 +147,7 @@
 				B548A4371CE8FFC40084215C /* Assets.xcassets */,
 				B548A4391CE8FFC40084215C /* LaunchScreen.storyboard */,
 				B548A43C1CE8FFC40084215C /* Info.plist */,
+				B51CBCD81CF4788500112B51 /* audio_test.m4a */,
 			);
 			path = DevslopesFirebaseShowcase;
 			sourceTree = "<group>";
@@ -141,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				B548A4321CE8FFC40084215C /* ViewController.swift */,
+				B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */,
 				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
 				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
 				B5967D501CEE0407006CB7BB /* CreatePostVC.swift */,
@@ -153,10 +169,12 @@
 			isa = PBXGroup;
 			children = (
 				B548A4341CE8FFC40084215C /* Main.storyboard */,
+				B51CBCD21CF45DB000112B51 /* Feed.storyboard */,
 				B548A44E1CE905950084215C /* RoundedViews.swift */,
 				B548A4531CE90A5E0084215C /* MaterialButton.swift */,
 				B548A4551CE90F630084215C /* MaterialTextField.swift */,
 				B566CB441CE9C72500415A3E /* PostCell.swift */,
+				B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -165,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				B566CB461CE9E15500415A3E /* Post.swift */,
+				B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -268,8 +287,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B51CBCD91CF4797E00112B51 /* audio_test.m4a in Resources */,
 				B5D3F9971CEB41BD00EEB78F /* FIGHTT3_.ttf in Resources */,
 				B548A44A1CE903690084215C /* NotoSans-Bold.ttf in Resources */,
+				B51CBCD41CF45DB000112B51 /* Feed.storyboard in Resources */,
 				B548A43B1CE8FFC40084215C /* LaunchScreen.storyboard in Resources */,
 				B548A44B1CE903690084215C /* NotoSans-BoldItalic.ttf in Resources */,
 				B548A44C1CE903690084215C /* NotoSans-Italic.ttf in Resources */,
@@ -336,15 +357,18 @@
 			files = (
 				B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */,
 				B548A4561CE90F630084215C /* MaterialTextField.swift in Sources */,
+				B59520F51CF3599E008987A0 /* TopTrumpsVC.swift in Sources */,
 				B5068C3D1CEF18F400AA8C86 /* PagingVC.swift in Sources */,
 				B5967D511CEE0407006CB7BB /* CreatePostVC.swift in Sources */,
 				B566CB411CE920A500415A3E /* DataService.swift in Sources */,
 				B548A44F1CE905950084215C /* RoundedViews.swift in Sources */,
+				B5DEA6381CF39E7D00AE38A1 /* RecordAudio.swift in Sources */,
 				B5D3F9991CEB498500EEB78F /* extensions.swift in Sources */,
 				B548A4331CE8FFC40084215C /* ViewController.swift in Sources */,
 				B566CB431CE9C6A500415A3E /* FeedVC.swift in Sources */,
 				B566CB451CE9C72500415A3E /* PostCell.swift in Sources */,
 				B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */,
+				B5B063361CF35BE4001DDFDD /* TopTrumpsCell.swift in Sources */,
 				B548A4521CE906A80084215C /* Constants.swift in Sources */,
 				B548A4541CE90A5E0084215C /* MaterialButton.swift in Sources */,
 				B566CB471CE9E15500415A3E /* Post.swift in Sources */,
@@ -354,6 +378,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		B51CBCD21CF45DB000112B51 /* Feed.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B51CBCD31CF45DB000112B51 /* Base */,
+			);
+			name = Feed.storyboard;
+			sourceTree = "<group>";
+		};
 		B548A4341CE8FFC40084215C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
