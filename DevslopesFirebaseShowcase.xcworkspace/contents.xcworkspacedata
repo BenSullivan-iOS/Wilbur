@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:DevslopesFirebaseShowcase.xcodeproj">
+      location = "group:/Users/Ben/iOS Swift Projects/Courses/Devslopes Normal/DevslopesFirebaseShowcase/FartClub.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

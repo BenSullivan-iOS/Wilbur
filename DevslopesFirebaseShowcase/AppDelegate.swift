@@ -9,6 +9,7 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,8 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //Back button tint color change
     
-    UINavigationBar.appearance().barStyle = UIBarStyle.Default
-    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+    UINavigationBar.appearance().barStyle = .Default
+    UINavigationBar.appearance().tintColor = .whiteColor()
       
 //      UIColor(red: 204/255.0, green: 255/255.0, blue: 204/255.0, alpha: 1)
     
@@ -32,7 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 204/255.0, green: 255/255.0, blue: 204/255.0, alpha: 1), NSFontAttributeName: UIFont(name: "FightThis", size: 25)!]//UIColor(red: 42/255.0, green: 140/255.0, blue: 166/255.0, alpha: 1.0)
     
 //    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-
+    FIRApp.configure()
+    
     return FBSDKApplicationDelegate.sharedInstance()
       .application(application, didFinishLaunchingWithOptions: launchOptions)
   

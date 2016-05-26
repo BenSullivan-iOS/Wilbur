@@ -72,7 +72,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
       print(snapshot.value)
       self.posts = []
 
-      if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
+      if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
         
         for snap in snapshots {
           

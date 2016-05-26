@@ -17,8 +17,9 @@ class TopTrumpsCell: UITableViewCell {
 //  @IBOutlet weak var descriptionText: UITextView!
   @IBOutlet weak var likesLabel: UILabel!
 //  @IBOutlet weak var likeImage: UIImageView!
+  @IBOutlet weak var cellBackground: MaterialView!
 
-  var likeRef: Firebase!
+  var likeRef: FIRDatabaseReference!
   
   var request: Request?
   
@@ -50,7 +51,7 @@ class TopTrumpsCell: UITableViewCell {
     
     print("configure cell")
     
-    if let like = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey) {
+    if let like = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey) as? FIRDatabaseReference? {
       likeRef = like
     }
     

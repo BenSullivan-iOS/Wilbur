@@ -43,14 +43,20 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     let audioURL = getDocumentsDirectory().URLByAppendingPathComponent("recording.m4a")
     
     let settings = [
-      AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+      AVFormatIDKey: Int(kAudioFormatAC3),
       AVSampleRateKey: 12000.0,
       AVNumberOfChannelsKey: 1 as NSNumber,
       AVEncoderAudioQualityKey: AVAudioQuality.High.rawValue
     ]
     
+    let recordSettings = [AVSampleRateKey : NSNumber(float: Float(44100.0)),
+                          AVFormatIDKey : NSNumber(int: Int32(kAudioFormatAppleLossless)),
+                          AVNumberOfChannelsKey : NSNumber(int: 1),
+                          AVEncoderAudioQualityKey : NSNumber(int: Int32(AVAudioQuality.Medium.rawValue)),
+                          AVEncoderBitRateKey : NSNumber(int: Int32(320000))]
+    
     do {
-      audioRecorder = try AVAudioRecorder(URL: audioURL, settings: settings)
+      audioRecorder = try AVAudioRecorder(URL: audioURL, settings: recordSettings)
       print("Recording...")
       audioRecorder.delegate = self
       audioRecorder.record()
@@ -114,6 +120,13 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
   func play() {
     
     let fileURL = getDocumentsDirectory().URLByAppendingPathComponent("recording.m4a")
+    
+    var stringfileURL = String(fileURL)
+    
+    let shorter = stringfileURL.stringByReplacingOccurrencesOfString("/Users/Ben/Library/Developer/CoreSimulator/Devices/", withString: " ")
+    
+    let evenShorter = shorter.stringByReplacingOccurrencesOfString("data/Containers/Data/Application", withString: " ")
+    print(evenShorter)
     
     do {
       

@@ -8,46 +8,41 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 		<key>FDWaveformView-FDWaveformView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>FDWaveformView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-		</dict>
-		<key>Firebase.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>Pods-DevslopesFirebaseShowcase.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>Spring.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>148C6FAEC985ACF4882390703BEBB15F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>43B3DCFC1782D3C4D90EB7C04C6158C0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6560ABBA85F5D93AB82659BCDC9227F0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +57,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B7AC9326D819482593FE118E915409D7</key>
+		<key>C9E54A035DED6EC307DAB0166EC65A1F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D7135C15E79AAB0AB83BB9E6BAF2DDEB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

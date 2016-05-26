@@ -14,37 +14,53 @@ class TopTrumpsVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
   var posts = [Post]()
   
   @IBOutlet weak var tableView: UITableView!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-      DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
+      
+      print(snapshot.value)
+      self.posts = []
+      
+      if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
         
-        print(snapshot.value)
-        self.posts = []
-        
-        if let snapshots = snapshot.children.allObjects as? [FDataSnapshot] {
+        for snap in snapshots {
           
-          for snap in snapshots {
+          if let postDict = snap.value as? [String: AnyObject] {
             
-            if let postDict = snap.value as? [String: AnyObject] {
-              
-              let key = snap.key
-              
-              let post = Post(postKey: key, dictionary: postDict)
-              
-              self.posts.append(post)
-              
-            }
-            print("SNAP: ", snap)
+            let key = snap.key
+            
+            let post = Post(postKey: key, dictionary: postDict)
+            
+            self.posts.append(post)
+            
           }
-          
-          self.tableView.reloadData()
-          
+          print("SNAP: ", snap)
         }
         
-      })    }
-
+        self.tableView.reloadData()
+        
+      }
+      
+    })
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+    let cell = tableView.cellForRowAtIndexPath(indexPath) as! TopTrumpsCell
+    
+    if cell.cellBackground.backgroundColor == .whiteColor() {
+      
+      cell.cellBackground.backgroundColor = UIColor(colorLiteralRed: 240/255, green: 250/255, blue: 255/255, alpha: 1)
+      
+    } else {
+      
+      cell.cellBackground.backgroundColor = .whiteColor()
+    }
+    
+  }
+  
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
     return posts.count
@@ -74,5 +90,5 @@ class TopTrumpsVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     return cell
   }
-
+  
 }

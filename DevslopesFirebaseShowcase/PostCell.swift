@@ -18,7 +18,7 @@ class PostCell: UITableViewCell {
   @IBOutlet weak var likesLabel: UILabel!
   @IBOutlet weak var likeImage: UIImageView!
   
-  var likeRef: Firebase!
+  var likeRef: FIRDatabaseReference!
   
   var request: Request?
 
@@ -48,7 +48,7 @@ class PostCell: UITableViewCell {
 
   func configureCell(post: Post, img: UIImage?) {
     
-    if let like = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey) {
+    if let like = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey) as? FIRDatabaseReference? {
     likeRef = like
   }
   

@@ -10,6 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
+import FirebaseAuth
 
 class ViewController: UIViewController {
   
@@ -18,21 +19,39 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    
   }
   
   override func viewDidAppear(animated: Bool) {
     
+    
+    print("view did appear")
+    
     if NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) != nil {
       
+      print("perform login segue")
       self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)
     }
   }
+  
+  func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+    
+    if let error = error {
+      print(error.localizedDescription)
+      return
+    }
+
+
+  }
+    
   
   @IBAction func FbBtnPressed(sender: UIButton) {
     
     let facebookLogin = FBSDKLoginManager()
     
-    facebookLogin.logInWithReadPermissions(["email"], fromViewController: self) { (facebookResult: FBSDKLoginManagerLoginResult!, facebookError: NSError!) in
+    facebookLogin.logInWithReadPermissions(["email"], fromViewController: self) {
+      (facebookResult: FBSDKLoginManagerLoginResult!, facebookError: NSError!) in
       
       guard let facebookResult = facebookResult where facebookError == nil else { print("Facebook login error:", facebookError); return }
       
@@ -41,82 +60,104 @@ class ViewController: UIViewController {
       print("Successfully logged in ", facebookResult, accessToken)
       //Custom syntax, might not work
       //Save a user to firebase
-      DataService.ds.REF_BASE.authWithOAuthProvider("facebook", token: accessToken) { error, authData in
-        
-        guard let authData = authData where error == nil else { print("Login failed"); return }
-        
-        print("Logged in to firebase, ", authData)
-        
-        let user = ["provider" : authData.provider!]
-        
-        DataService.ds.createFirebaseUser(authData.uid, user: user)
-        
-        NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: Constants.shared.KEY_UID)
-        
-        self.performSegueWithIdentifier("loggedIn", sender: self)
-        
-        
-        
-      }
-    }
-  }
-  
-  
-  @IBAction func attemptLogin(sender: UIButton!) {
-    
-    if let email = emailField.text where email != "", let pwd = passwordField.text where pwd != "" {
       
-      DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { error, authData in
+      let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+      
+      FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
         
-        guard let authData = authData where error == nil else {
-          
-          print(error)
-          
-          if error.code == Constants.sharedStatusCodes.STATUS_ACCOUNT_NONEXIST {
-            
-            DataService.ds.REF_BASE.createUser(email, password: pwd, withValueCompletionBlock: { error, result in
-              
-              guard let result = result where error == nil else { self.showErrorAlert("buggar", error: "couldn't create account")
-              
-               print(error)
-                
-                self.showErrorAlert("buggar", error: "Didn't exist and couldn't create user")
-              
-                return
-              }
-              
-              NSUserDefaults.standardUserDefaults().setValue(result[Constants.shared.KEY_UID], forKey: Constants.shared.KEY_UID)
-              
-              DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { err, authData in
-                
-                guard let authData = authData where err == nil else { print("buggar!"); return }
-                
-                let user = ["provider" : authData.provider!, "username": email, "password": pwd]
-                
-                DataService.ds.createFirebaseUser(authData.uid, user: user)
-                
-                print("success", authData)
-                self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)
-                
-              })
-            })
-          }
-          
-          
-          return }
+        guard let user = user where error == nil else { print("Login failed"); return }
+
         
-        print(authData)
-        print("got here")
+        user.uid
+        print("got here", user)
+        
+        let provider = ["provider" : user.providerID]
+
+        DataService.ds.createFirebaseUser(user.uid, user: provider)
+        
+        NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.shared.KEY_UID)
+        
+
         self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)
 
-      })
-      
-    } else {
-      
-      showErrorAlert("Fields incomplete", error: "Enter an email and password")
+
+      }
     }
-    
+//      DataService.ds.REF_BASE.authWithOAuthProvider("facebook", token: accessToken) { error, authData in
+////
+//        guard let authData = authData where error == nil else { print("Login failed"); return }
+//        
+//        print("Logged in to firebase, ", authData)
+//        
+//        let provider = ["provider" : authData.provider!]
+//        
+//
+//        NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: Constants.shared.KEY_UID)
+//
+//        self.performSegueWithIdentifier("loggedIn", sender: self)
+//        
+//        
+//        
+//      }
+//    }
   }
+  
+  
+//  @IBAction func attemptLogin(sender: UIButton!) {
+    
+//    if let email = emailField.text where email != "", let pwd = passwordField.text where pwd != "" {
+//      
+//      DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { error, authData in
+//        
+//        guard let authData = authData where error == nil else {
+//          
+//          print(error)
+//          
+//          if error.code == Constants.sharedStatusCodes.STATUS_ACCOUNT_NONEXIST {
+//            
+//            DataService.ds.REF_BASE.createUser(email, password: pwd, withValueCompletionBlock: { error, result in
+//              
+//              guard let result = result where error == nil else { self.showErrorAlert("buggar", error: "couldn't create account")
+//              
+//               print(error)
+//                
+//                self.showErrorAlert("buggar", error: "Didn't exist and couldn't create user")
+//              
+//                return
+//              }
+//              
+//              NSUserDefaults.standardUserDefaults().setValue(result[Constants.shared.KEY_UID], forKey: Constants.shared.KEY_UID)
+//              
+//              DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { err, authData in
+//                
+//                guard let authData = authData where err == nil else { print("buggar!"); return }
+//                
+//                let user = ["provider" : authData.provider!, "username": email, "password": pwd]
+//                
+//                DataService.ds.createFirebaseUser(authData.uid, user: user)
+//                
+//                print("success", authData)
+//                self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)
+//                
+//              })
+//            })
+//          }
+//          
+//          
+//          return }
+//        
+//        print(authData)
+//        print("got here")
+//        self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)
+//
+//      })
+//      
+//    } else {
+//      
+//      showErrorAlert("Fields incomplete", error: "Enter an email and password")
+//    }
+    
+//  }
   
   func showErrorAlert(title: String, error: String) {
     
