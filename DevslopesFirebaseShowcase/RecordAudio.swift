@@ -40,23 +40,17 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     print("preparing to record")
     
-    let audioURL = getDocumentsDirectory().URLByAppendingPathComponent("recording.m4a")
-    
+    let audioURL = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "recording.m4a")
+
     let settings = [
-      AVFormatIDKey: Int(kAudioFormatAC3),
+      AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
       AVSampleRateKey: 12000.0,
       AVNumberOfChannelsKey: 1 as NSNumber,
       AVEncoderAudioQualityKey: AVAudioQuality.High.rawValue
     ]
     
-    let recordSettings = [AVSampleRateKey : NSNumber(float: Float(44100.0)),
-                          AVFormatIDKey : NSNumber(int: Int32(kAudioFormatAppleLossless)),
-                          AVNumberOfChannelsKey : NSNumber(int: 1),
-                          AVEncoderAudioQualityKey : NSNumber(int: Int32(AVAudioQuality.Medium.rawValue)),
-                          AVEncoderBitRateKey : NSNumber(int: Int32(320000))]
-    
     do {
-      audioRecorder = try AVAudioRecorder(URL: audioURL, settings: recordSettings)
+      audioRecorder = try AVAudioRecorder(URL: audioURL, settings: settings)
       print("Recording...")
       audioRecorder.delegate = self
       audioRecorder.record()
@@ -84,7 +78,8 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
       print("Recording successful")
       recordingSuccess = false
 
-      play()
+      saveAudio(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "recording.m4a"))
+//      play()
     } else {
       // recording failed :(
     }
@@ -117,31 +112,20 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     return url
   }
   
-  func play() {
-    
-    let fileURL = getDocumentsDirectory().URLByAppendingPathComponent("recording.m4a")
-    
-    var stringfileURL = String(fileURL)
-    
-    let shorter = stringfileURL.stringByReplacingOccurrencesOfString("/Users/Ben/Library/Developer/CoreSimulator/Devices/", withString: " ")
-    
-    let evenShorter = shorter.stringByReplacingOccurrencesOfString("data/Containers/Data/Application", withString: " ")
-    print(evenShorter)
+  func play(fileURL: NSURL) {
     
     do {
       
       player = try AVAudioPlayer(contentsOfURL: fileURL)
       player.prepareToPlay()
-      //      player.volume = 1
       player.delegate = self
       player.play()
       
       showWaveForm(fileURL)
       
-      
     } catch {
-      print("error playing file")
+      print("error playing file", error)
     }
-    
   }
+
 }

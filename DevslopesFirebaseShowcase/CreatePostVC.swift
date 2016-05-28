@@ -10,76 +10,145 @@ import UIKit
 import Spring
 import AVFoundation
 import FDWaveformView
+import FirebaseStorage
 
-class CreatePostVC: UIViewController {
+extension FDWaveformView {
+  
+  public override func awakeFromNib() {
+    
+    wavesColor = .orangeColor()
+  }
+}
+
+class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
   @IBOutlet weak var recordButton: SpringButton!
   @IBOutlet weak var playButton: SpringButton!
   @IBOutlet weak var pauseButton: SpringButton!
   
+  @IBOutlet weak var descriptionTextField: MaterialTextField!
   @IBOutlet weak var controlsBackground: MaterialView!
-  
   @IBOutlet weak var timerViewCover: UIView!
-  
   @IBOutlet weak var waveFormView: FDWaveformView!
+  
+  private let imagePicker = UIImagePickerController()
   
   var pressed = false
   var recordingSuccess = Bool()
-
   var recordingSession: AVAudioSession!
   var audioRecorder: AVAudioRecorder!
   var player = AVAudioPlayer()
   
-  @IBAction func playButtonPressed(sender: SpringButton!) {
+  //MARK: - VC Lifecycle
+  
+  override func viewDidLoad() {
+    record()
     
-    print("Play button pressed")
+    imagePicker.delegate = self
     
-    play()
+    playButton.alpha = 0
+    pauseButton.alpha = 0
+    
+    playButton.imageView?.contentMode = .ScaleAspectFit
+    pauseButton.imageView?.contentMode = .ScaleAspectFit
+    recordButton.imageView?.contentMode = .ScaleAspectFit
   }
   
-  func getDocumentsDirectoryForWaveform() -> NSURL {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
+  //MARK: - Audio controls
+  
+  @IBAction func playButtonPressed(sender: SpringButton!) {
+    play(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "recording.m4a"))
+  }
+  
+  
+  @IBAction func recordButtonPressed(sender: UIButton) {
     
-    let url = NSURL(string: documentsDirectory)!
+    recordTapped()
+    animateRecordControls()
+  }
+  
+  func saveAudio(localFile: NSURL) {
     
-    return url
+    let storage = FIRStorage.storage()
+    let storageRef = storage.reference()
+    
+    let riversRef = storageRef.child("testAudio/recording.m4a")
+    
+    let uploadTask = riversRef.putFile(localFile, metadata: nil) { metadata, error in
+      if error != nil {
+        print("error", error)
+      } else {
+        
+        let downloadURL = metadata!.downloadURL
+        
+        self.downloadAudio(localFile)
+        print("success", downloadURL)
+        
+      }
+    }
+    
+  }
+  
+  @IBAction func takePhotoButtonPressed(sender: AnyObject) {
+    
+    presentViewController(imagePicker, animated: true, completion: nil)
+    
+  }
+  
+  func downloadAudio(localURL: NSURL) {
+    
+    let storageRef = FIRStorage.storage().reference()
+    
+    let pathReference = storageRef.child("testAudio/recording.m4a")
+    
+    let downloadTask = pathReference.writeToFile(localURL) { (URL, error) -> Void in
+      if (error != nil) {
+        
+        print("ERROR - ", error.debugDescription)
+      } else {
+        print("SUCCESS - ", URL)
+        self.play(localURL)
+        
+      }
+    }
   }
   
   func showWaveForm(fileURL: NSURL) {
     
-    print("ShowWaveform")
-    
-//    let fileURL = getDocumentsDirectoryForWaveform().URLByAppendingPathComponent("recording.mp2")
-    
-    print(fileURL)
-//    let fileURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("audio_test", ofType: "m4a")!)
-    
-//    let fileURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ding", ofType: "m4a")!)
-
     self.waveFormView.audioURL = fileURL
-//    self.waveFormView.doesAllowScrubbing = false
+    self.waveFormView.doesAllowScrubbing = false
     self.waveFormView.alpha = 1.0
-
-//    self.waveFormView.doesAllowStretchAndScroll = false
   }
   
   func waveformViewDidRender(waveformView: FDWaveformView) {
     self.waveFormView.alpha = 1.0
   }
   
-  @IBAction func recordButtonPressed(sender: UIButton) {
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+    print("did finish picking")
+    dismissViewControllerAnimated(true, completion: nil)
     
-    recordTapped()
+    //perhaps put image behind the view and use blue on it?
+  }
+  
+  
+  //MARK: - Animations etc...
+  
+  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    
+    self.view.endEditing(true)
+  }
+  
+  func animateRecordControls() {
     
     if !pressed {
-//      timerViewCover.alpha = 1
-
-//      timerMic.y = 100
-//      timerMic.duration = 10
-//      timerMic.animateTo()
+      //      timerViewCover.alpha = 1
       
-//      recordButton.setImage(UIImage(named: "micIconRecording"), forState: .Normal)
+      //      timerMic.y = 100
+      //      timerMic.duration = 10
+      //      timerMic.animateTo()
+      
+      //      recordButton.setImage(UIImage(named: "micIconRecording"), forState: .Normal)
       
       controlsBackground.backgroundColor = UIColor(colorLiteralRed: 252/255, green: 71/255, blue: 103/255, alpha: 1.0)
       
@@ -89,28 +158,49 @@ class CreatePostVC: UIViewController {
       recordButton.animateToNext {
         self.recordButton.duration = 1
         self.recordButton.animation = "pop"
-        
+        //if button pressed, return from function to stop animation etc...
         self.recordButton.animateToNext {
-          
           self.recordButton.duration = 1
           self.recordButton.animation = "pop"
           
           self.recordButton.animateToNext {
-            
             self.recordButton.duration = 1
             self.recordButton.animation = "pop"
             
             self.recordButton.animateToNext {
-              //            self.recordButton.duration = 1
-              //            self.recordButton.animation = "pop"
+              self.recordButton.duration = 1
+              self.recordButton.animation = "pop"
               
-              //            self.recordButton.animateToNext {
-              //              self.recordButton.duration = 1
-              //              self.recordButton.animation = "pop"
-              //              self.recordButton.animateToNext {
-              //
-              //              }
-              //            }
+              self.recordButton.animateToNext {
+                self.recordButton.duration = 1
+                self.recordButton.animation = "pop"
+                
+                self.recordButton.animateToNext {
+                  self.recordButton.duration = 1
+                  self.recordButton.animation = "pop"
+                  
+                  self.recordButton.animateToNext {
+                    self.recordButton.duration = 1
+                    self.recordButton.animation = "pop"
+                    
+                    self.recordButton.animateToNext {
+                      self.recordButton.duration = 1
+                      self.recordButton.animation = "pop"
+                      
+                      self.recordButton.animateToNext {
+                        self.recordButton.duration = 1
+                        self.recordButton.animation = "pop"
+                        
+                        self.recordButton.animateToNext {
+                          self.recordButton.duration = 1
+                          self.recordButton.animation = "pop"
+                          
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -136,35 +226,6 @@ class CreatePostVC: UIViewController {
       
       pressed = false
     }
-    
-    //    if recordButton.imageView?.image == UIImage(named: "stopButtonWhite") {
-    //
-    //      recordButton.imageView?.image = UIImage(named: "recordButtonWhite")
-    //
-    //    } else {
-    //
-    //    recordButton.imageView?.image = UIImage(named: "stopButtonWhite")
-    //
-    //    }
-    
-  }
-  
-  override func viewDidLoad() {
-    
-//    showWaveForm()
-    
-    record()
-    
-    playButton.alpha = 0
-    pauseButton.alpha = 0
-    
-    playButton.imageView?.contentMode = .ScaleAspectFit
-    pauseButton.imageView?.contentMode = .ScaleAspectFit
-    recordButton.imageView?.contentMode = .ScaleAspectFit
-    
-//    timerMic.imageView?.contentMode = .ScaleAspectFit
-    
-//    recordTimerBackground.imageView?.contentMode = .ScaleAspectFit
     
   }
   

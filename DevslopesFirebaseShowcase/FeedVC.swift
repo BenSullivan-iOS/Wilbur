@@ -129,13 +129,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     
-    let post = posts[indexPath.row]
-    
-    if post.imageUrl == nil {
-      return 150
-    } else {
-      return self.view.bounds.height - navBar.bounds.height - 20
-    }
+    return self.view.bounds.height - navBar.bounds.height - 20
   }
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
@@ -228,7 +222,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     postField.text = ""
     imageSelectorImage.image = UIImage(named: "camera")
     tableView.reloadData()
-
   }
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -238,7 +231,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
   
   @IBAction func profileButtonPressed(sender: UIButton) {
     performSegueWithIdentifier(Constants.sharedSegues.showProfile, sender: self)
-
   }
     
 //  weak var VC2: AudioControlsVC

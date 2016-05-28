@@ -48,7 +48,7 @@ class PostCell: UITableViewCell {
 
   func configureCell(post: Post, img: UIImage?) {
     
-    if let like = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey) as? FIRDatabaseReference? {
+    if let like = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey) as? FIRDatabaseReference? {
     likeRef = like
   }
   
@@ -82,7 +82,7 @@ class PostCell: UITableViewCell {
 
     } else {
       print("hidden the image")
-      showcaseImg.hidden = true
+      showcaseImg.image = UIImage(named: "placeholder")
     }
     
 //    let likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)

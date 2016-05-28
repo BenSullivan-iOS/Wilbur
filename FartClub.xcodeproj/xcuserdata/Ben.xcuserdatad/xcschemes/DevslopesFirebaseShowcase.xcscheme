@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B548A42C1CE8FFC40084215C"
-               BuildableName = "FartClub.app"
+               BuildableName = "Fart Club.app"
                BlueprintName = "FartClub"
                ReferencedContainer = "container:FartClub.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B548A42C1CE8FFC40084215C"
-            BuildableName = "FartClub.app"
+            BuildableName = "Fart Club.app"
             BlueprintName = "FartClub"
             ReferencedContainer = "container:FartClub.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B548A42C1CE8FFC40084215C"
-            BuildableName = "FartClub.app"
+            BuildableName = "Fart Club.app"
             BlueprintName = "FartClub"
             ReferencedContainer = "container:FartClub.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B548A42C1CE8FFC40084215C"
-            BuildableName = "FartClub.app"
+            BuildableName = "Fart Club.app"
             BlueprintName = "FartClub"
             ReferencedContainer = "container:FartClub.xcodeproj">
          </BuildableReference>

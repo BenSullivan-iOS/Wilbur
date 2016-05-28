@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41A1D35B3F3944BDB0A5CA4F /* Pods_DevslopesFirebaseShowcase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA5F4A36BE45184243C76295 /* Pods_DevslopesFirebaseShowcase.framework */; };
 		B5068C3D1CEF18F400AA8C86 /* PagingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */; };
 		B51CBCD41CF45DB000112B51 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD21CF45DB000112B51 /* Feed.storyboard */; };
 		B51CBCD91CF4797E00112B51 /* audio_test.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD81CF4788500112B51 /* audio_test.m4a */; };
 		B51CBCF91CF4DA4900112B51 /* FDWaveformView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */; };
 		B51CBCFC1CF4EBBE00112B51 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */; };
 		B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4301CE8FFC40084215C /* AppDelegate.swift */; };
-		B548A4331CE8FFC40084215C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4321CE8FFC40084215C /* ViewController.swift */; };
+		B548A4331CE8FFC40084215C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4321CE8FFC40084215C /* LoginVC.swift */; };
 		B548A4361CE8FFC40084215C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B548A4341CE8FFC40084215C /* Main.storyboard */; };
 		B548A4381CE8FFC40084215C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B548A4371CE8FFC40084215C /* Assets.xcassets */; };
 		B548A43B1CE8FFC40084215C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B548A4391CE8FFC40084215C /* LaunchScreen.storyboard */; };
@@ -26,7 +25,6 @@
 		B548A4521CE906A80084215C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4511CE906A80084215C /* Constants.swift */; };
 		B548A4541CE90A5E0084215C /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4531CE90A5E0084215C /* MaterialButton.swift */; };
 		B548A4561CE90F630084215C /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4551CE90F630084215C /* MaterialTextField.swift */; };
-		B548A45A1CE913910084215C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B548A4581CE913910084215C /* FBSDKCoreKit.framework */; };
 		B548A45B1CE913910084215C /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B548A4591CE913910084215C /* FBSDKLoginKit.framework */; };
 		B55808371CF713CE00FEC41D /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55808361CF713CE00FEC41D /* SplashVC.swift */; };
 		B566CB411CE920A500415A3E /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB401CE920A500415A3E /* DataService.swift */; };
@@ -36,16 +34,19 @@
 		B59520F51CF3599E008987A0 /* TopTrumpsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */; };
 		B5967D511CEE0407006CB7BB /* CreatePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5967D501CEE0407006CB7BB /* CreatePostVC.swift */; };
 		B5B063361CF35BE4001DDFDD /* TopTrumpsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */; };
-		B5C62FBA1CF5BB2C00E73BFF /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5967D541CEE5414006CB7BB /* Spring.framework */; };
 		B5C62FBD1CF6EADC00E73BFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5C62FBC1CF6EADC00E73BFF /* GoogleService-Info.plist */; };
 		B5D3F9971CEB41BD00EEB78F /* FIGHTT3_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */; };
 		B5D3F9991CEB498500EEB78F /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F9981CEB498500EEB78F /* extensions.swift */; };
 		B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */; };
+		B5D85BF11CF8B44100E62148 /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5967D541CEE5414006CB7BB /* Spring.framework */; };
+		B5D85BF31CF8B48C00E62148 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D85BF21CF8B48C00E62148 /* Alamofire.framework */; };
 		B5DEA6381CF39E7D00AE38A1 /* RecordAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8EEC5473B9D2FC2DECB789CA /* Pods-FartClub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FartClub.release.xcconfig"; path = "Pods/Target Support Files/Pods-FartClub/Pods-FartClub.release.xcconfig"; sourceTree = "<group>"; };
 		A10FD833B2524E7A8D4BCE1C /* Pods-DevslopesFirebaseShowcase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.debug.xcconfig"; sourceTree = "<group>"; };
+		B154599EBB037EB410F81CD5 /* Pods_FartClub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FartClub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingVC.swift; sourceTree = "<group>"; };
 		B51CBCD31CF45DB000112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feed.storyboard; sourceTree = "<group>"; };
 		B51CBCD81CF4788500112B51 /* audio_test.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = audio_test.m4a; path = ../../../../../Downloads/audio_test.m4a; sourceTree = "<group>"; };
@@ -53,7 +54,7 @@
 		B51CBCFB1CF4EBBE00112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		B548A42D1CE8FFC40084215C /* Fart Club.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fart Club.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B548A4301CE8FFC40084215C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B548A4321CE8FFC40084215C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B548A4321CE8FFC40084215C /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		B548A4351CE8FFC40084215C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B548A4371CE8FFC40084215C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B548A43A1CE8FFC40084215C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,7 +82,9 @@
 		B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FIGHTT3_.ttf; sourceTree = "<group>"; };
 		B5D3F9981CEB498500EEB78F /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		B5D85BF21CF8B48C00E62148 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordAudio.swift; sourceTree = "<group>"; };
+		C05FA781DCB3890015580319 /* Pods-FartClub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FartClub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FartClub/Pods-FartClub.debug.xcconfig"; sourceTree = "<group>"; };
 		CEDC6C5B0D355C547B558914 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.release.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.release.xcconfig"; sourceTree = "<group>"; };
 		FA5F4A36BE45184243C76295 /* Pods_DevslopesFirebaseShowcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DevslopesFirebaseShowcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -91,11 +94,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5C62FBA1CF5BB2C00E73BFF /* Spring.framework in Frameworks */,
+				B5D85BF31CF8B48C00E62148 /* Alamofire.framework in Frameworks */,
+				B5D85BF11CF8B44100E62148 /* Spring.framework in Frameworks */,
 				B51CBCF91CF4DA4900112B51 /* FDWaveformView.framework in Frameworks */,
 				B548A45B1CE913910084215C /* FBSDKLoginKit.framework in Frameworks */,
-				B548A45A1CE913910084215C /* FBSDKCoreKit.framework in Frameworks */,
-				41A1D35B3F3944BDB0A5CA4F /* Pods_DevslopesFirebaseShowcase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,9 +107,11 @@
 		06BB2FE03B25609296D5A959 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5D85BF21CF8B48C00E62148 /* Alamofire.framework */,
 				B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */,
 				B5967D541CEE5414006CB7BB /* Spring.framework */,
 				FA5F4A36BE45184243C76295 /* Pods_DevslopesFirebaseShowcase.framework */,
+				B154599EBB037EB410F81CD5 /* Pods_FartClub.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -117,6 +121,8 @@
 			children = (
 				A10FD833B2524E7A8D4BCE1C /* Pods-DevslopesFirebaseShowcase.debug.xcconfig */,
 				CEDC6C5B0D355C547B558914 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */,
+				C05FA781DCB3890015580319 /* Pods-FartClub.debug.xcconfig */,
+				8EEC5473B9D2FC2DECB789CA /* Pods-FartClub.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -151,7 +157,6 @@
 				B548A4421CE902F10084215C /* Controller */,
 				B548A4301CE8FFC40084215C /* AppDelegate.swift */,
 				B548A4371CE8FFC40084215C /* Assets.xcassets */,
-				B548A4391CE8FFC40084215C /* LaunchScreen.storyboard */,
 				B548A43C1CE8FFC40084215C /* Info.plist */,
 				B5C62FBC1CF6EADC00E73BFF /* GoogleService-Info.plist */,
 				B51CBCD81CF4788500112B51 /* audio_test.m4a */,
@@ -162,13 +167,13 @@
 		B548A4421CE902F10084215C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B548A4321CE8FFC40084215C /* ViewController.swift */,
-				B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */,
-				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
-				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
-				B5967D501CEE0407006CB7BB /* CreatePostVC.swift */,
-				B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */,
 				B55808361CF713CE00FEC41D /* SplashVC.swift */,
+				B548A4321CE8FFC40084215C /* LoginVC.swift */,
+				B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */,
+				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
+				B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */,
+				B5967D501CEE0407006CB7BB /* CreatePostVC.swift */,
+				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -180,6 +185,7 @@
 				B548A4341CE8FFC40084215C /* Main.storyboard */,
 				B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */,
 				B51CBCD21CF45DB000112B51 /* Feed.storyboard */,
+				B548A4391CE8FFC40084215C /* LaunchScreen.storyboard */,
 				B548A44E1CE905950084215C /* RoundedViews.swift */,
 				B548A4531CE90A5E0084215C /* MaterialButton.swift */,
 				B548A4551CE90F630084215C /* MaterialTextField.swift */,
@@ -335,7 +341,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FartClub/Pods-FartClub-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C8A3361D6B1B09E4E6FDF4BA /* 📦 Check Pods Manifest.lock */ = {
@@ -365,7 +371,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FartClub/Pods-FartClub-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -384,7 +390,7 @@
 				B548A44F1CE905950084215C /* RoundedViews.swift in Sources */,
 				B5DEA6381CF39E7D00AE38A1 /* RecordAudio.swift in Sources */,
 				B5D3F9991CEB498500EEB78F /* extensions.swift in Sources */,
-				B548A4331CE8FFC40084215C /* ViewController.swift in Sources */,
+				B548A4331CE8FFC40084215C /* LoginVC.swift in Sources */,
 				B566CB431CE9C6A500415A3E /* FeedVC.swift in Sources */,
 				B566CB451CE9C72500415A3E /* PostCell.swift in Sources */,
 				B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */,
@@ -529,12 +535,15 @@
 		};
 		B548A4401CE8FFC40084215C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A10FD833B2524E7A8D4BCE1C /* Pods-DevslopesFirebaseShowcase.debug.xcconfig */;
+			baseConfigurationReference = C05FA781DCB3890015580319 /* Pods-FartClub.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/Alamofire",
+				);
 				INFOPLIST_FILE = DevslopesFirebaseShowcase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.FartClub;
@@ -544,12 +553,15 @@
 		};
 		B548A4411CE8FFC40084215C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEDC6C5B0D355C547B558914 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */;
+			baseConfigurationReference = 8EEC5473B9D2FC2DECB789CA /* Pods-FartClub.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/Alamofire",
+				);
 				INFOPLIST_FILE = DevslopesFirebaseShowcase/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.FartClub;

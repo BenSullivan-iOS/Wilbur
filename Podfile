@@ -3,11 +3,14 @@
 # Uncomment this line if you're using Swift
 use_frameworks!
 pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
-target 'DevslopesFirebaseShowcase' do
+target 'FartClub' do
 pod 'Firebase/Core'
 pod 'Firebase/Database'
 pod 'FDWaveformView'
 pod 'Firebase/Auth'
+pod 'Firebase/Storage'
+pod 'FBSDKCoreKit'
+pod 'FBSDKLoginKit'
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 

@@ -11,40 +11,40 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
 import FirebaseAuth
+import Spring
 
-class ViewController: UIViewController {
+class LoginVC: UIViewController {
   
   @IBOutlet weak var emailField: UITextField!
   @IBOutlet weak var passwordField: UITextField!
+  @IBOutlet weak var facebookLoginButton: SpringButton!
 
+  func styleButton() {
+    
+    let color = Constants.shared.shadowColor
+    
+    facebookLoginButton.layer.shadowColor = UIColor(red: color, green: color, blue: color, alpha: 0.5).CGColor
+    facebookLoginButton.layer.shadowOpacity = 0.8
+    facebookLoginButton.layer.shadowRadius = 5.0
+    facebookLoginButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+    facebookLoginButton.layer.cornerRadius = 2.0
+    facebookLoginButton.clipsToBounds = true
+    
+  }
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
+    styleButton()
     
   }
-  
-  override func viewDidAppear(animated: Bool) {
     
-    
-    print("view did appear")
-    
-    if NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) != nil {
-      
-      print("perform login segue")
-      self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)
-    }
-  }
-  
   func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
     
     if let error = error {
       print(error.localizedDescription)
       return
     }
-
-
   }
-    
   
   @IBAction func FbBtnPressed(sender: UIButton) {
     
@@ -172,9 +172,9 @@ class ViewController: UIViewController {
     presentViewController(alert, animated: true, completion: nil)
   }
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
-  }
+//  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+//    return .LightContent
+//  }
 
 }
 

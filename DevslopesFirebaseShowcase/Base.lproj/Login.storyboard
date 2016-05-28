@@ -13,6 +13,7 @@
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
+            <string>NotoSans-Bold</string>
         </mutableArray>
         <mutableArray key="NotoSans-Regular.ttf">
             <string>NotoSans</string>
@@ -63,16 +64,18 @@
                     <connections>
                         <outlet property="quote" destination="Rpi-NJ-gRU" id="b7N-Ou-Llj"/>
                         <outlet property="saidBy" destination="Iqi-hp-2DN" id="797-qz-HsQ"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="signUp" animates="NO" id="Ngg-sA-JzT"/>
+                        <segue destination="ArX-Yy-GJ7" kind="show" identifier="loggedInFromSplash" id="7tS-R6-LHN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gbl-1s-ZaJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-22" y="170"/>
+            <point key="canvasLocation" x="-249" y="125"/>
         </scene>
-        <!--View Controller-->
+        <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Fart_Club" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginVC" customModule="Fart_Club" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -81,171 +84,100 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RpB-gA-h6w">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5x-vH-WGC" customClass="SpringView" customModule="Spring">
+                                <rect key="frame" x="0.0" y="214" width="600" height="172"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="code-icon-logo" translatesAutoresizingMaskIntoConstraints="NO" id="ZB8-dr-5y1">
-                                        <rect key="frame" x="533" y="20" width="46" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="7DH-vl-PKH"/>
-                                            <constraint firstAttribute="width" constant="46" id="QOV-Mg-eal"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in / Sign up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7MG-s4-oNy">
-                                        <rect key="frame" x="195" y="20" width="210" height="48"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="210" id="U1Z-zO-dyi"/>
-                                            <constraint firstAttribute="height" constant="48" id="dmw-Kp-yjG"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="FightThis" family="FightThis" pointSize="33"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.95686274509803915" green="0.31764705882352939" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="ZB8-dr-5y1" firstAttribute="top" secondItem="RpB-gA-h6w" secondAttribute="top" constant="20" id="9oZ-hC-ey8"/>
-                                    <constraint firstItem="7MG-s4-oNy" firstAttribute="top" secondItem="RpB-gA-h6w" secondAttribute="top" constant="20" id="Uob-Ca-sWA"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZB8-dr-5y1" secondAttribute="trailing" constant="21" id="V5O-kh-V6b"/>
-                                    <constraint firstItem="7MG-s4-oNy" firstAttribute="centerX" secondItem="RpB-gA-h6w" secondAttribute="centerX" id="hcW-ts-Bhk"/>
-                                    <constraint firstAttribute="height" constant="110" id="oUW-rr-FPE"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jho-Yk-WXk" customClass="MaterialView" customModule="Fart_Club" customModuleProvider="target">
-                                <rect key="frame" x="20" y="71" width="560" height="106"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Gzt-1H-jTL">
-                                        <rect key="frame" x="20" y="10" width="520" height="86"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jho-Yk-WXk" customClass="MaterialView" customModule="Fart_Club" customModuleProvider="target">
+                                        <rect key="frame" x="-20" y="22" width="633" height="129"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fb-icon" translatesAutoresizingMaskIntoConstraints="NO" id="CEo-uq-pPk">
-                                                <rect key="frame" x="0.0" y="9" width="70" height="69"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="70" id="Vbg-nU-L3B"/>
-                                                    <constraint firstAttribute="height" constant="69" id="id7-TQ-a23"/>
-                                                </constraints>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-Dm-DUf" customClass="MaterialButton" customModule="Fart_Club" customModuleProvider="target">
-                                                <rect key="frame" x="110" y="27" width="410" height="33"/>
-                                                <color key="backgroundColor" red="0.11764705882352941" green="0.53333333333333333" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="33" id="7OL-JA-bbU"/>
-                                                    <constraint firstAttribute="width" constant="410" id="v3X-hX-LuV"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
-                                                <state key="normal" title="FACEBOOK LOGIN">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="FbBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8GN-FS-q2D"/>
-                                                </connections>
-                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="t2U-cE-2EK">
+                                                <rect key="frame" x="25" y="30" width="583" height="70"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebookIcon" translatesAutoresizingMaskIntoConstraints="NO" id="CEo-uq-pPk" customClass="SpringImageView" customModule="Spring">
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="70" id="057-xk-oFx"/>
+                                                            <constraint firstAttribute="width" constant="70" id="P3S-yZ-egX"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeRight"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="damping">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                                <real key="value" value="0.20000000000000001"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-Dm-DUf" customClass="SpringButton" customModule="Spring">
+                                                        <rect key="frame" x="75" y="19" width="508" height="33"/>
+                                                        <color key="backgroundColor" red="0.27058823529411763" green="0.35294117647058826" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="33" id="ctc-2e-O3Y"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
+                                                        <state key="normal" title="FACEBOOK LOGIN">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeLeft"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="damping">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
+                                                                <real key="value" value="0.20000000000000001"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="FbBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8GN-FS-q2D"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
-                                    </stackView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="t2U-cE-2EK" firstAttribute="leading" secondItem="Jho-Yk-WXk" secondAttribute="leading" constant="25" id="2pQ-y7-4r7"/>
+                                            <constraint firstItem="t2U-cE-2EK" firstAttribute="centerY" secondItem="Jho-Yk-WXk" secondAttribute="centerY" id="Hxd-xI-ZP6"/>
+                                            <constraint firstAttribute="trailing" secondItem="t2U-cE-2EK" secondAttribute="trailing" constant="25" id="ejB-vF-ebe"/>
+                                            <constraint firstAttribute="height" constant="129" id="gFW-yQ-CAb"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Gzt-1H-jTL" firstAttribute="top" secondItem="Jho-Yk-WXk" secondAttribute="top" constant="10" id="AMU-Rx-iCA"/>
-                                    <constraint firstAttribute="height" constant="106" id="Kgt-H4-7Lj"/>
-                                    <constraint firstAttribute="trailing" secondItem="Gzt-1H-jTL" secondAttribute="trailing" constant="20" id="KvI-dx-q5u"/>
-                                    <constraint firstItem="Gzt-1H-jTL" firstAttribute="leading" secondItem="Jho-Yk-WXk" secondAttribute="leading" constant="20" id="PpQ-lO-dIp"/>
-                                    <constraint firstAttribute="bottom" secondItem="Gzt-1H-jTL" secondAttribute="bottom" constant="10" id="dYX-gb-kuh"/>
+                                    <constraint firstItem="Jho-Yk-WXk" firstAttribute="leading" secondItem="n5x-vH-WGC" secondAttribute="leadingMargin" constant="-28" id="WmU-Od-MAe"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Jho-Yk-WXk" secondAttribute="trailing" constant="-21" id="cVe-OB-bAy"/>
+                                    <constraint firstAttribute="height" constant="172" id="pD4-th-QfO"/>
+                                    <constraint firstItem="Jho-Yk-WXk" firstAttribute="centerX" secondItem="n5x-vH-WGC" secondAttribute="centerX" constant="-3.5" id="q7U-4Y-TFi"/>
+                                    <constraint firstItem="Jho-Yk-WXk" firstAttribute="centerY" secondItem="n5x-vH-WGC" secondAttribute="centerY" id="rbV-q7-7qa"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CbW-Tt-AGG" customClass="MaterialView" customModule="Fart_Club" customModuleProvider="target">
-                                <rect key="frame" x="20" y="197" width="560" height="383"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Login / Signup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgn-SW-0NO">
-                                        <rect key="frame" x="20" y="10" width="193" height="48"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="2hC-7m-Skw"/>
-                                            <constraint firstAttribute="width" constant="193" id="qz1-pr-SB9"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KFK-W3-iEe" customClass="MaterialTextField" customModule="Fart_Club" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="66" width="520" height="40"/>
-                                        <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="ggZ-Cc-puB"/>
-                                        </constraints>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VSn-x4-w41" customClass="MaterialTextField" customModule="Fart_Club" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="126" width="520" height="40"/>
-                                        <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="ShS-3K-ryt"/>
-                                        </constraints>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAL-UI-wP6" customClass="MaterialButton" customModule="Fart_Club" customModuleProvider="target">
-                                        <rect key="frame" x="185" y="186" width="191" height="32"/>
-                                        <color key="backgroundColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="191" id="yfz-qn-tf0"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
-                                        <state key="normal" title="Login / Signup">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="attemptLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="609-tX-Qu0"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="EAL-UI-wP6" firstAttribute="top" secondItem="VSn-x4-w41" secondAttribute="bottom" constant="20" id="8mv-Vs-tZM"/>
-                                    <constraint firstItem="jgn-SW-0NO" firstAttribute="top" secondItem="CbW-Tt-AGG" secondAttribute="top" constant="10" id="AOs-v6-HNr"/>
-                                    <constraint firstAttribute="height" constant="106" id="NM4-3X-Vds"/>
-                                    <constraint firstItem="KFK-W3-iEe" firstAttribute="top" secondItem="jgn-SW-0NO" secondAttribute="bottom" constant="8" id="W0T-xu-Vsf"/>
-                                    <constraint firstAttribute="trailing" secondItem="VSn-x4-w41" secondAttribute="trailing" constant="20" id="cJ8-yd-ygl"/>
-                                    <constraint firstItem="VSn-x4-w41" firstAttribute="leading" secondItem="CbW-Tt-AGG" secondAttribute="leading" constant="20" id="dpc-cm-nf5"/>
-                                    <constraint firstItem="jgn-SW-0NO" firstAttribute="leading" secondItem="CbW-Tt-AGG" secondAttribute="leading" constant="20" id="hbN-Sw-ZqI"/>
-                                    <constraint firstAttribute="trailing" secondItem="KFK-W3-iEe" secondAttribute="trailing" constant="20" id="jwg-A7-P9D"/>
-                                    <constraint firstItem="EAL-UI-wP6" firstAttribute="centerX" secondItem="CbW-Tt-AGG" secondAttribute="centerX" id="k3a-nY-Ryt"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="106" id="kVT-L8-dyZ"/>
-                                    <constraint firstItem="VSn-x4-w41" firstAttribute="top" secondItem="KFK-W3-iEe" secondAttribute="bottom" constant="20" id="ozi-Gb-gIY"/>
-                                    <constraint firstItem="jgn-SW-0NO" firstAttribute="top" secondItem="CbW-Tt-AGG" secondAttribute="top" constant="20" id="uvp-Oy-VrE"/>
-                                    <constraint firstItem="KFK-W3-iEe" firstAttribute="leading" secondItem="CbW-Tt-AGG" secondAttribute="leading" constant="20" id="vL6-N8-A95"/>
-                                    <constraint firstItem="VSn-x4-w41" firstAttribute="leading" secondItem="KFK-W3-iEe" secondAttribute="leading" id="wA9-Qx-z9x"/>
-                                    <constraint firstItem="VSn-x4-w41" firstAttribute="trailing" secondItem="KFK-W3-iEe" secondAttribute="trailing" id="zeS-OO-xBJ"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="NM4-3X-Vds"/>
-                                        <exclude reference="kVT-L8-dyZ"/>
-                                        <exclude reference="uvp-Oy-VrE"/>
-                                    </mask>
-                                </variation>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="RpB-gA-h6w" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7CT-MI-DqU"/>
-                            <constraint firstItem="CbW-Tt-AGG" firstAttribute="top" secondItem="Jho-Yk-WXk" secondAttribute="bottom" constant="20" id="8hW-ul-Dyr"/>
-                            <constraint firstItem="RpB-gA-h6w" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="GG3-Ax-v7a"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="CbW-Tt-AGG" secondAttribute="bottom" constant="20" id="O3b-A6-oYP"/>
-                            <constraint firstItem="CbW-Tt-AGG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ReF-vv-Uz2"/>
-                            <constraint firstAttribute="trailing" secondItem="RpB-gA-h6w" secondAttribute="trailing" id="SW4-me-AaF"/>
-                            <constraint firstItem="Jho-Yk-WXk" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Uf2-nb-RMh"/>
-                            <constraint firstItem="CbW-Tt-AGG" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Ufm-tg-ur3"/>
-                            <constraint firstItem="Jho-Yk-WXk" firstAttribute="top" secondItem="7MG-s4-oNy" secondAttribute="bottom" constant="3" id="Vey-OA-gJU"/>
-                            <constraint firstItem="Jho-Yk-WXk" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="51" id="awG-TS-MQf"/>
-                            <constraint firstItem="Jho-Yk-WXk" firstAttribute="top" secondItem="ZB8-dr-5y1" secondAttribute="bottom" constant="11" id="tMm-qf-fdQ"/>
-                            <constraint firstItem="Jho-Yk-WXk" firstAttribute="top" secondItem="ZB8-dr-5y1" secondAttribute="bottom" constant="11" id="yfY-yD-dkp"/>
-                            <constraint firstItem="Jho-Yk-WXk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="zkM-HS-UFC"/>
+                            <constraint firstItem="n5x-vH-WGC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="3uc-7u-ckn"/>
+                            <constraint firstAttribute="trailing" secondItem="n5x-vH-WGC" secondAttribute="trailing" id="NnJ-EZ-3ir"/>
+                            <constraint firstItem="n5x-vH-WGC" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="OMT-TH-o1b"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="emailField" destination="KFK-W3-iEe" id="SHy-TY-HqB"/>
-                        <outlet property="passwordField" destination="VSn-x4-w41" id="XTT-kD-CXm"/>
+                        <outlet property="facebookLoginButton" destination="Tg7-Dm-DUf" id="sbd-Bu-VoO"/>
                         <segue destination="ArX-Yy-GJ7" kind="show" identifier="loggedIn" id="20j-QR-Kjv"/>
                     </connections>
                 </viewController>
@@ -259,11 +191,198 @@
                 <viewControllerPlaceholder storyboardIdentifier="PagingVC" storyboardName="Main" referencedIdentifier="PagingVC" id="ArX-Yy-GJ7" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iwL-ZW-XGr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1184" y="71"/>
+            <point key="canvasLocation" x="938.5" y="97"/>
+        </scene>
+        <!--LoginVC-->
+        <scene sceneID="O9s-WS-egV">
+            <objects>
+                <viewController id="pjz-o8-emK" customClass="LoginVC" customModule="Fart_Club" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ohs-AO-ltL"/>
+                        <viewControllerLayoutGuide type="bottom" id="C6m-ce-CEx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="f0R-E6-z45">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2X8-LS-DeJ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="code-icon-logo" translatesAutoresizingMaskIntoConstraints="NO" id="3Rh-Lf-ENC">
+                                        <rect key="frame" x="533" y="20" width="46" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="46" id="Iic-MC-7WN"/>
+                                            <constraint firstAttribute="height" constant="40" id="VuG-HX-B6y"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in / Sign up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yV0-uW-PAU">
+                                        <rect key="frame" x="195" y="20" width="210" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="ZjK-4v-c6Z"/>
+                                            <constraint firstAttribute="width" constant="210" id="oSF-Pu-xB3"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="FightThis" family="FightThis" pointSize="33"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="yV0-uW-PAU" firstAttribute="top" secondItem="2X8-LS-DeJ" secondAttribute="top" constant="20" id="6Ts-Iz-Ucw"/>
+                                    <constraint firstItem="3Rh-Lf-ENC" firstAttribute="top" secondItem="2X8-LS-DeJ" secondAttribute="top" constant="20" id="BFo-yA-1o8"/>
+                                    <constraint firstAttribute="trailing" secondItem="3Rh-Lf-ENC" secondAttribute="trailing" constant="21" id="Hk9-sh-sEE"/>
+                                    <constraint firstItem="yV0-uW-PAU" firstAttribute="centerX" secondItem="2X8-LS-DeJ" secondAttribute="centerX" id="kQI-du-2f5"/>
+                                    <constraint firstAttribute="height" constant="110" id="u2P-XS-FeL"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7zL-KA-sq0" customClass="MaterialView" customModule="Fart_Club" customModuleProvider="target">
+                                <rect key="frame" x="20" y="71" width="560" height="106"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="W23-rH-m4i">
+                                        <rect key="frame" x="20" y="10" width="520" height="86"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fb-icon" translatesAutoresizingMaskIntoConstraints="NO" id="ihJ-Ug-xKh">
+                                                <rect key="frame" x="0.0" y="9" width="70" height="69"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="69" id="Vyf-gH-oVR"/>
+                                                    <constraint firstAttribute="width" constant="70" id="bWQ-uf-dbR"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MyT-kq-kqx" customClass="MaterialButton" customModule="Fart_Club" customModuleProvider="target">
+                                                <rect key="frame" x="110" y="27" width="410" height="33"/>
+                                                <color key="backgroundColor" red="0.1176470588" green="0.53333333329999999" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="33" id="Pnn-mZ-Upp"/>
+                                                    <constraint firstAttribute="width" constant="410" id="Rpb-a2-0uo"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
+                                                <state key="normal" title="FACEBOOK LOGIN">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="FbBtnPressed:" destination="pjz-o8-emK" eventType="touchUpInside" id="03D-ec-Lym"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="106" id="9r9-yd-OJd"/>
+                                    <constraint firstAttribute="bottom" secondItem="W23-rH-m4i" secondAttribute="bottom" constant="10" id="MZb-ke-KfO"/>
+                                    <constraint firstItem="W23-rH-m4i" firstAttribute="leading" secondItem="7zL-KA-sq0" secondAttribute="leading" constant="20" id="WaP-6F-Tep"/>
+                                    <constraint firstAttribute="trailing" secondItem="W23-rH-m4i" secondAttribute="trailing" constant="20" id="hfM-g9-w3u"/>
+                                    <constraint firstItem="W23-rH-m4i" firstAttribute="top" secondItem="7zL-KA-sq0" secondAttribute="top" constant="10" id="xR8-Iw-3Xi"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHa-6u-nE7" customClass="MaterialView" customModule="Fart_Club" customModuleProvider="target">
+                                <rect key="frame" x="20" y="197" width="560" height="383"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Login / Signup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTs-o4-LxP">
+                                        <rect key="frame" x="20" y="10" width="193" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="193" id="cUj-Mb-xcF"/>
+                                            <constraint firstAttribute="height" constant="48" id="dzG-bC-g5m"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q8b-WH-NxQ" customClass="MaterialTextField" customModule="Fart_Club" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="66" width="520" height="40"/>
+                                        <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Tuh-XV-HJF"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NLq-ua-mCW" customClass="MaterialTextField" customModule="Fart_Club" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="126" width="520" height="40"/>
+                                        <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="gZa-1u-O19"/>
+                                        </constraints>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naQ-QV-Su2" customClass="MaterialButton" customModule="Fart_Club" customModuleProvider="target">
+                                        <rect key="frame" x="185" y="186" width="191" height="32"/>
+                                        <color key="backgroundColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="191" id="VP8-rX-Ho8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
+                                        <state key="normal" title="Login / Signup">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="attemptLogin:" destination="pjz-o8-emK" eventType="touchUpInside" id="G2w-jb-10n"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="NLq-ua-mCW" firstAttribute="trailing" secondItem="q8b-WH-NxQ" secondAttribute="trailing" id="04f-5u-Wai"/>
+                                    <constraint firstAttribute="trailing" secondItem="NLq-ua-mCW" secondAttribute="trailing" constant="20" id="0mH-Hz-zGF"/>
+                                    <constraint firstItem="NLq-ua-mCW" firstAttribute="leading" secondItem="dHa-6u-nE7" secondAttribute="leading" constant="20" id="7ca-WQ-Lbv"/>
+                                    <constraint firstItem="XTs-o4-LxP" firstAttribute="leading" secondItem="dHa-6u-nE7" secondAttribute="leading" constant="20" id="8wC-6p-QiM"/>
+                                    <constraint firstItem="NLq-ua-mCW" firstAttribute="leading" secondItem="q8b-WH-NxQ" secondAttribute="leading" id="NUx-h9-dp4"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="106" id="UQM-Wt-IE8"/>
+                                    <constraint firstItem="XTs-o4-LxP" firstAttribute="top" secondItem="dHa-6u-nE7" secondAttribute="top" constant="20" id="UoX-MK-GuY"/>
+                                    <constraint firstItem="naQ-QV-Su2" firstAttribute="centerX" secondItem="dHa-6u-nE7" secondAttribute="centerX" id="UxO-Ly-CmI"/>
+                                    <constraint firstItem="XTs-o4-LxP" firstAttribute="top" secondItem="dHa-6u-nE7" secondAttribute="top" constant="10" id="aYN-Qt-lLB"/>
+                                    <constraint firstItem="naQ-QV-Su2" firstAttribute="top" secondItem="NLq-ua-mCW" secondAttribute="bottom" constant="20" id="bQp-0O-MKQ"/>
+                                    <constraint firstItem="q8b-WH-NxQ" firstAttribute="top" secondItem="XTs-o4-LxP" secondAttribute="bottom" constant="8" id="djU-HD-DQN"/>
+                                    <constraint firstAttribute="height" constant="106" id="e82-eD-Xxf"/>
+                                    <constraint firstAttribute="trailing" secondItem="q8b-WH-NxQ" secondAttribute="trailing" constant="20" id="eu1-kV-LJV"/>
+                                    <constraint firstItem="NLq-ua-mCW" firstAttribute="top" secondItem="q8b-WH-NxQ" secondAttribute="bottom" constant="20" id="gYj-Oc-0VD"/>
+                                    <constraint firstItem="q8b-WH-NxQ" firstAttribute="leading" secondItem="dHa-6u-nE7" secondAttribute="leading" constant="20" id="isn-fk-xf5"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="UQM-Wt-IE8"/>
+                                        <exclude reference="e82-eD-Xxf"/>
+                                        <exclude reference="UoX-MK-GuY"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="2X8-LS-DeJ" secondAttribute="trailing" id="4ij-Y9-2R4"/>
+                            <constraint firstItem="dHa-6u-nE7" firstAttribute="top" secondItem="7zL-KA-sq0" secondAttribute="bottom" constant="20" id="9Zh-V2-KnP"/>
+                            <constraint firstItem="2X8-LS-DeJ" firstAttribute="top" secondItem="f0R-E6-z45" secondAttribute="top" id="HDj-Mr-HGQ"/>
+                            <constraint firstItem="2X8-LS-DeJ" firstAttribute="leading" secondItem="f0R-E6-z45" secondAttribute="leading" id="IlW-1O-AOk"/>
+                            <constraint firstItem="dHa-6u-nE7" firstAttribute="trailing" secondItem="f0R-E6-z45" secondAttribute="trailingMargin" id="O60-gK-Pd3"/>
+                            <constraint firstItem="7zL-KA-sq0" firstAttribute="top" secondItem="ohs-AO-ltL" secondAttribute="bottom" constant="51" id="XYN-gZ-Z7L"/>
+                            <constraint firstItem="7zL-KA-sq0" firstAttribute="trailing" secondItem="f0R-E6-z45" secondAttribute="trailingMargin" id="XwG-u3-yRY"/>
+                            <constraint firstItem="dHa-6u-nE7" firstAttribute="leading" secondItem="f0R-E6-z45" secondAttribute="leadingMargin" id="akc-XC-L9f"/>
+                            <constraint firstItem="C6m-ce-CEx" firstAttribute="top" secondItem="dHa-6u-nE7" secondAttribute="bottom" constant="20" id="j4z-gl-RSY"/>
+                            <constraint firstItem="7zL-KA-sq0" firstAttribute="top" secondItem="3Rh-Lf-ENC" secondAttribute="bottom" constant="11" id="qeG-T2-eXA"/>
+                            <constraint firstItem="7zL-KA-sq0" firstAttribute="top" secondItem="yV0-uW-PAU" secondAttribute="bottom" constant="3" id="rje-FP-ZCp"/>
+                            <constraint firstItem="7zL-KA-sq0" firstAttribute="top" secondItem="3Rh-Lf-ENC" secondAttribute="bottom" constant="11" id="rtd-Kg-GRv"/>
+                            <constraint firstItem="7zL-KA-sq0" firstAttribute="leading" secondItem="f0R-E6-z45" secondAttribute="leadingMargin" id="yvA-R9-lcz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emailField" destination="q8b-WH-NxQ" id="71T-zH-xec"/>
+                        <outlet property="passwordField" destination="NLq-ua-mCW" id="qnI-se-ZWH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xrg-4U-2xa" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="480" y="763"/>
         </scene>
     </scenes>
     <resources>
         <image name="code-icon-logo" width="318" height="281"/>
+        <image name="facebookIcon" width="768" height="768"/>
         <image name="fb-icon" width="65" height="65"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="7tS-R6-LHN"/>
+    </inferredMetricsTieBreakers>
 </document>

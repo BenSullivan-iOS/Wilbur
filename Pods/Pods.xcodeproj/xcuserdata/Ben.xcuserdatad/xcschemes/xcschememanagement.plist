@@ -8,41 +8,66 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
+		</dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKCoreKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FBSDKLoginKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>FDWaveformView-FDWaveformView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>FDWaveformView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
-		<key>Pods-DevslopesFirebaseShowcase.xcscheme</key>
+		<key>Pods-FartClub.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>Spring.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0EB19C1377A747F81110D44E2D5FCF78</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1C525271B1835DC7DBA9103131FD61B9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>43B3DCFC1782D3C4D90EB7C04C6158C0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>52D82BFDD1E808D9CB257431922C1EE4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6EDC37F3FA92533C6AC3562458AA91F1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +82,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C9E54A035DED6EC307DAB0166EC65A1F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D7135C15E79AAB0AB83BB9E6BAF2DDEB</key>
+		<key>CFB988111DCDD91D1FC6EDDA0FBACF15</key>
 		<dict>
 			<key>primary</key>
 			<true/>

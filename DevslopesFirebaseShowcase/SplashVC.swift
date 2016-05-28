@@ -23,15 +23,15 @@ class SplashVC: UIViewController {
     super.viewDidLoad()
 
     let quotes = [
-    Quote(saidBy: "Confucious", quote: "He who smelt it, dealt it"),
+    Quote(saidBy: "Confucious",         quote: "He who smelt it, dealt it"),
     Quote(saidBy: "Queen Elisabeth II", quote: "There is nothing funnier than a fart"),
-    Quote(saidBy: "Mr Spock", quote: "Only a Klingon would fart in an airlock"),
-    Quote(saidBy: "Mother Teresa", quote: "You are only ever one fart away from an early shower"),
-    Quote(saidBy: "Evel Knievel", quote: "To fart in one's sleep, now that's dangerous"),
-    Quote(saidBy: "Emily Bronte", quote: "Love is not having to hold your farts in anymore"),
-    Quote(saidBy: "Socrates", quote: "A fart not smelled is a fart wasted"),
-    Quote(saidBy: "Nelson Mandela", quote: "Children are like farts, people only like their own"),
-    Quote(saidBy: "Margaret Thatcher", quote: "Flatulence isn't funny, it's hilarious")
+    Quote(saidBy: "Mr Spock",           quote: "Only a Klingon would fart in an airlock"),
+    Quote(saidBy: "Mother Teresa",      quote: "You are only ever one fart away from an early shower"),
+    Quote(saidBy: "Evel Knievel",       quote: "To fart in one's sleep, now that's dangerous"),
+    Quote(saidBy: "Emily Bronte",       quote: "Love is not having to hold your farts in anymore"),
+    Quote(saidBy: "Socrates",           quote: "A fart not smelled is a fart wasted"),
+    Quote(saidBy: "Nelson Mandela",     quote: "Children are like farts, people only like their own"),
+    Quote(saidBy: "Margaret Thatcher",  quote: "Flatulence isn't funny, it's hilarious")
     ]
     
     let randomNumber = Int(arc4random_uniform(UInt32(quotes.count)))
@@ -40,7 +40,22 @@ class SplashVC: UIViewController {
     
     quote.text = quotes[randomNumber].quote
     saidBy.text = quotes[randomNumber].saidBy
+    //FIXME: - Put back to 3 seconds
+    NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(SplashVC.checkForUserLoggedIn), userInfo: nil, repeats: false)
   
+  }
+  
+  func checkForUserLoggedIn() {
+    
+    print("Check for user logged in")
+    if NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) != nil {
+      
+      print("perform login segue")
+      self.performSegueWithIdentifier(Constants.sharedSegues.loggedInFromSplash, sender: self)
+    } else {
+      self.performSegueWithIdentifier(Constants.sharedSegues.signUp, sender: self)
+    }
+
   }
   
   
