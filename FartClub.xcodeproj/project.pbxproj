@@ -40,6 +40,9 @@
 		B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */; };
 		B5D85BF11CF8B44100E62148 /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5967D541CEE5414006CB7BB /* Spring.framework */; };
 		B5D85BF31CF8B48C00E62148 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D85BF21CF8B48C00E62148 /* Alamofire.framework */; };
+		B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF41CFA12B800E62148 /* WaveformView.swift */; };
+		B5D85BF81CFA134C00E62148 /* ProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */; };
+		B5D85BFA1CFA197500E62148 /* CreatePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF91CFA197500E62148 /* CreatePost.swift */; };
 		B5DEA6381CF39E7D00AE38A1 /* RecordAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +86,9 @@
 		B5D3F9981CEB498500EEB78F /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		B5D85BF21CF8B48C00E62148 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
+		B5D85BF41CFA12B800E62148 /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
+		B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableVC.swift; sourceTree = "<group>"; };
+		B5D85BF91CFA197500E62148 /* CreatePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePost.swift; sourceTree = "<group>"; };
 		B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordAudio.swift; sourceTree = "<group>"; };
 		C05FA781DCB3890015580319 /* Pods-FartClub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FartClub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FartClub/Pods-FartClub.debug.xcconfig"; sourceTree = "<group>"; };
 		CEDC6C5B0D355C547B558914 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.release.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.release.xcconfig"; sourceTree = "<group>"; };
@@ -174,6 +180,7 @@
 				B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */,
 				B5967D501CEE0407006CB7BB /* CreatePostVC.swift */,
 				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
+				B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -181,14 +188,12 @@
 		B548A4431CE902FB0084215C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B5D85BF61CFA130600E62148 /* Custom controls */,
 				B5C62FBB1CF641C800E73BFF /* Cells */,
 				B548A4341CE8FFC40084215C /* Main.storyboard */,
 				B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */,
 				B51CBCD21CF45DB000112B51 /* Feed.storyboard */,
 				B548A4391CE8FFC40084215C /* LaunchScreen.storyboard */,
-				B548A44E1CE905950084215C /* RoundedViews.swift */,
-				B548A4531CE90A5E0084215C /* MaterialButton.swift */,
-				B548A4551CE90F630084215C /* MaterialTextField.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -198,6 +203,7 @@
 			children = (
 				B566CB461CE9E15500415A3E /* Post.swift */,
 				B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */,
+				B5D85BF91CFA197500E62148 /* CreatePost.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -247,6 +253,17 @@
 				B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		B5D85BF61CFA130600E62148 /* Custom controls */ = {
+			isa = PBXGroup;
+			children = (
+				B548A44E1CE905950084215C /* RoundedViews.swift */,
+				B548A4531CE90A5E0084215C /* MaterialButton.swift */,
+				B548A4551CE90F630084215C /* MaterialTextField.swift */,
+				B5D85BF41CFA12B800E62148 /* WaveformView.swift */,
+			);
+			name = "Custom controls";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -381,7 +398,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D85BFA1CFA197500E62148 /* CreatePost.swift in Sources */,
 				B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */,
+				B5D85BF81CFA134C00E62148 /* ProfileTableVC.swift in Sources */,
 				B548A4561CE90F630084215C /* MaterialTextField.swift in Sources */,
 				B59520F51CF3599E008987A0 /* TopTrumpsVC.swift in Sources */,
 				B5068C3D1CEF18F400AA8C86 /* PagingVC.swift in Sources */,
@@ -396,6 +415,7 @@
 				B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */,
 				B5B063361CF35BE4001DDFDD /* TopTrumpsCell.swift in Sources */,
 				B548A4521CE906A80084215C /* Constants.swift in Sources */,
+				B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */,
 				B548A4541CE90A5E0084215C /* MaterialButton.swift in Sources */,
 				B566CB471CE9E15500415A3E /* Post.swift in Sources */,
 				B55808371CF713CE00FEC41D /* SplashVC.swift in Sources */,

@@ -1,6 +1,6 @@
 //
 //  CreatePostVC.swift
-//  DevslopesFirebaseShowcase
+//  Fart Club
 //
 //  Created by Ben Sullivan on 19/05/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -11,14 +11,6 @@ import Spring
 import AVFoundation
 import FDWaveformView
 import FirebaseStorage
-
-extension FDWaveformView {
-  
-  public override func awakeFromNib() {
-    
-    wavesColor = .orangeColor()
-  }
-}
 
 class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
@@ -42,12 +34,15 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   //MARK: - VC Lifecycle
   
   override func viewDidLoad() {
-    record()
+    
+    setupRecording()
     
     imagePicker.delegate = self
     
     playButton.alpha = 0
     pauseButton.alpha = 0
+    
+    controlsBackground.backgroundColor = UIColor(colorLiteralRed: 105/255, green: 184/255, blue: 252/255, alpha: 1.0)
     
     playButton.imageView?.contentMode = .ScaleAspectFit
     pauseButton.imageView?.contentMode = .ScaleAspectFit
@@ -60,59 +55,16 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     play(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "recording.m4a"))
   }
   
+  @IBAction func pauseButtonPressed(sender: AnyObject) {
+    pause()
+  }
   
   @IBAction func recordButtonPressed(sender: UIButton) {
     
     recordTapped()
     animateRecordControls()
   }
-  
-  func saveAudio(localFile: NSURL) {
     
-    let storage = FIRStorage.storage()
-    let storageRef = storage.reference()
-    
-    let riversRef = storageRef.child("testAudio/recording.m4a")
-    
-    let uploadTask = riversRef.putFile(localFile, metadata: nil) { metadata, error in
-      if error != nil {
-        print("error", error)
-      } else {
-        
-        let downloadURL = metadata!.downloadURL
-        
-        self.downloadAudio(localFile)
-        print("success", downloadURL)
-        
-      }
-    }
-    
-  }
-  
-  @IBAction func takePhotoButtonPressed(sender: AnyObject) {
-    
-    presentViewController(imagePicker, animated: true, completion: nil)
-    
-  }
-  
-  func downloadAudio(localURL: NSURL) {
-    
-    let storageRef = FIRStorage.storage().reference()
-    
-    let pathReference = storageRef.child("testAudio/recording.m4a")
-    
-    let downloadTask = pathReference.writeToFile(localURL) { (URL, error) -> Void in
-      if (error != nil) {
-        
-        print("ERROR - ", error.debugDescription)
-      } else {
-        print("SUCCESS - ", URL)
-        self.play(localURL)
-        
-      }
-    }
-  }
-  
   func showWaveForm(fileURL: NSURL) {
     
     self.waveFormView.audioURL = fileURL
@@ -124,11 +76,12 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     self.waveFormView.alpha = 1.0
   }
   
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-    print("did finish picking")
-    dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func takePhotoButtonPressed(sender: AnyObject) {
     
-    //perhaps put image behind the view and use blue on it?
+    presentViewController(imagePicker, animated: true, completion: nil)
+  }
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+    dismissViewControllerAnimated(true, completion: nil)    
   }
   
   

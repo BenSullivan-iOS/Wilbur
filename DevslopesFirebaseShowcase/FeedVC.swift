@@ -1,6 +1,6 @@
 //
 //  FeedVC.swift
-//  DevslopesFirebaseShowcase
+//  Fart Club
 //
 //  Created by Ben Sullivan on 16/05/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -11,62 +11,27 @@ import Firebase
 import Alamofire
 import AVFoundation
 
-//class NavController: UIViewController {
-//  
-//  override func viewDidLoad() {
-//    
-//    self.navigationController?.navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "FightThis", size: 40)!,  NSForegroundColorAttributeName: UIColor.whiteColor()]
-//
-//  }
-//}
-
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-  @IBOutlet weak var tableView: UITableView!
-  @IBOutlet weak var imageSelectorImage: UIImageView!
-
-  @IBOutlet weak var postField: MaterialTextField!
-  @IBAction func selectImage(sender: UITapGestureRecognizer) {
-    
-    presentViewController(imagePicker, animated: true, completion: nil)
-  }
-  
-  var imagePicker = UIImagePickerController()
-  var posts = [Post]()
+  private var posts = [Post]()
   
   static var imageCache = NSCache()
   
   @IBOutlet weak var profileButton: UIButton!
   @IBOutlet weak var navBar: UINavigationBar!
+  @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    //FIXME: - Add this back
-//    record()
-    
-    ////////////
-//    
-//    let leftButton: UIButton = UIButton(type: .Custom)
-//    leftButton.setImage(UIImage(named: "micIcon"), forState: .Normal)
-//    leftButton.addTarget(self, action: #selector(FeedVC.recordTapped), forControlEvents: .TouchUpInside)
-
-//    leftButton.frame = CGRectMake(0, 0, 30, 30)
-//    leftButton.contentMode = .ScaleAspectFill
-//    
-//    let leftBarButton = UIBarButtonItem(customView: leftButton)
-//    self.navigationItem.leftBarButtonItem = leftBarButton
-    
-    ////////////
-    
+    activityIndicator.color = UIColor(colorLiteralRed: 244/255, green: 81/255, blue: 30/255, alpha: 1)
     
     tableView.delegate = self
     tableView.dataSource = self
     
     tableView.estimatedRowHeight = 414
     
-    imagePicker.delegate = self
-        
     DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
       
       print(snapshot.value)
@@ -79,23 +44,24 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
           if let postDict = snap.value as? [String: AnyObject] {
             
             let key = snap.key
-            
             let post = Post(postKey: key, dictionary: postDict)
-            
             self.posts.append(post)
             
           }
           print("SNAP: ", snap)
         }
         
+        if self.activityIndicator.alpha == 1 {
+          self.activityIndicator.alpha = 0
+        }
+        
         self.tableView.reloadData()
-
       }
-      
     })
   }
+  
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    print("Selected")
+    //Add functionality to play audio again
   }
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
@@ -131,98 +97,93 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     return self.view.bounds.height - navBar.bounds.height - 20
   }
-  
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-    
-    imagePicker.dismissViewControllerAnimated(true, completion: nil)
-    imageSelectorImage.image = image
-  }
+
   
   
-  @IBAction func makePost(sender: AnyObject) {
-    
-    if let txt = postField.text where txt != "" {
-      
-      if let img = imageSelectorImage.image where imageSelectorImage.image != UIImage(named: "camera") {
-        let urlStr = "https://post.imageshack.us/upload_api.php"
-        let url = NSURL(string: urlStr)!
-        
-        let imageData = UIImageJPEGRepresentation(img, 0.2)!
-        
-        //Multi part form request
-        
-        let keyData = "23GLNQRU1a3692bd083188c27d289f6cf2e5382c".dataUsingEncoding(NSUTF8StringEncoding)!
-        
-        let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)!
-        
-        Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
-          
-          multipartFormData.appendBodyPart(data: imageData, name: "fileupload", fileName: "image", mimeType: "image/jpeg")
-          
-          multipartFormData.appendBodyPart(data: keyData, name: "key")
-          multipartFormData.appendBodyPart(data: keyJSON, name: "format")
-          
-        }) { encodingResult in
-          
-          switch encodingResult {
-            
-          case .Success(let upload, _, _):
-            
-            upload.responseJSON { response in
-              
-              if let info = response.result.value as? [String : AnyObject] {
-                
-                if let links = info["links"] as? [String : AnyObject] {
-                  
-                  if let imgLink = links["image_link"] as? String {
-                    
-                    print("LINK: \(imgLink)")
-                    
-                    self.postToFirebase(imgLink)
-                    
-                  }
-                  
-                }
-                
-              }
-              
-            }
-            
-          case .Failure(let error):
-            print(error)
-            
-          }
-          
-        }
-        
-      } else {
-        
-        print("no image")
-        
-        self.postToFirebase(nil)
-      }
-    }
-  }
+//  @IBAction func makePost(sender: AnyObject) {
+//    
+//    if let txt = postField.text where txt != "" {
+//      
+//      if let img = imageSelectorImage.image where imageSelectorImage.image != UIImage(named: "camera") {
+//        let urlStr = "https://post.imageshack.us/upload_api.php"
+//        let url = NSURL(string: urlStr)!
+//        
+//        let imageData = UIImageJPEGRepresentation(img, 0.2)!
+//        
+//        //Multi part form request
+//        
+//        let keyData = "23GLNQRU1a3692bd083188c27d289f6cf2e5382c".dataUsingEncoding(NSUTF8StringEncoding)!
+//        
+//        let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)!
+//        
+//        Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
+//          
+//          multipartFormData.appendBodyPart(data: imageData, name: "fileupload", fileName: "image", mimeType: "image/jpeg")
+//          
+//          multipartFormData.appendBodyPart(data: keyData, name: "key")
+//          multipartFormData.appendBodyPart(data: keyJSON, name: "format")
+//          
+//        }) { encodingResult in
+//          
+//          switch encodingResult {
+//            
+//          case .Success(let upload, _, _):
+//            
+//            upload.responseJSON { response in
+//              
+//              if let info = response.result.value as? [String : AnyObject] {
+//                
+//                if let links = info["links"] as? [String : AnyObject] {
+//                  
+//                  if let imgLink = links["image_link"] as? String {
+//                    
+//                    print("LINK: \(imgLink)")
+//                    
+//                    self.postToFirebase(imgLink)
+//                    
+//                  }
+//                  
+//                }
+//                
+//              }
+//              
+//            }
+//            
+//          case .Failure(let error):
+//            print(error)
+//            
+//          }
+//          
+//        }
+//        
+//      } else {
+//        
+//        print("no image")
+//        
+//        self.postToFirebase(nil)
+//      }
+//    }
+//  }
   
-  func postToFirebase(imageUrl: String?) {
-    
-    var post: [String: AnyObject] = [ "description" : postField.text!, "likes": 0 ]
-    
-    
-    if imageUrl != nil {
-      post["imageUrl"] = imageUrl!
-    }
-    
-    //generates new ID for URL
-    let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
-    
-    //save to database
-    firebasePost.setValue(post)
-    
-    postField.text = ""
-    imageSelectorImage.image = UIImage(named: "camera")
-    tableView.reloadData()
-  }
+//  func postToFirebase(imageUrl: String?) {
+//    
+//    var post: [String: AnyObject] = [ "description" : postField.text!, "likes": 0 ]
+//    
+//    
+//    if imageUrl != nil {
+//      post["imageUrl"] = imageUrl!
+//    }
+//    
+//    //generates new ID for URL
+//    let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
+//    
+//    //save to database
+//    firebasePost.setValue(post)
+//    
+//    postField.text = ""
+//    imageSelectorImage.image = UIImage(named: "camera")
+//    tableView.reloadData()
+//  }
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     print("preferred status bar")
@@ -232,8 +193,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
   @IBAction func profileButtonPressed(sender: UIButton) {
     performSegueWithIdentifier(Constants.sharedSegues.showProfile, sender: self)
   }
-    
-//  weak var VC2: AudioControlsVC
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
@@ -242,33 +201,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     backItem.title = "Back"
     navigationItem.backBarButtonItem = backItem
     }
-    
-//    if segue.identifier == "audioControls" {
-//      
-//      let dest = segue.destinationViewController as? AudioControlsVC
-//      playingState()
-//      
-//      self.VC2 = dest
-//      
-//      let vc = segue.destinationViewController as! AudioControlsVC
-//      vc.delegate = self
-//    }
   }
 
-//    VC2.delegate = self
   }
-
-//class AudioControlsVC: UIViewController {
-//  
-//  var delegate: PlayingAudioDelegate?
-//  
-//  override func viewDidAppear(animated: Bool) {
-//    
-//    
-//    
-//  }
-//  
-//  //setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions:AVAudioSessionCategoryOptions.DefaultToSpeaker, error: nil)
-//
-//}
-

@@ -1,6 +1,6 @@
 //
 //  RecordAudio.swift
-//  DevslopesFirebaseShowcase
+//  Fart Club
 //
 //  Created by Ben Sullivan on 23/05/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -9,7 +9,7 @@ import AVFoundation
 
 extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
   
-  func record() {
+  func setupRecording() {
     
     recordingSession = AVAudioSession.sharedInstance()
     
@@ -17,23 +17,29 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
       
       try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: .DefaultToSpeaker)
       try recordingSession.setActive(true)
-      recordingSession.requestRecordPermission() { [unowned self] (allowed: Bool) -> Void in
+      recordingSession.requestRecordPermission() { (allowed: Bool) -> Void in
         dispatch_async(dispatch_get_main_queue()) {
           if allowed {
             print("recording allowed")
-            //load recording ui?
           } else {
             print("recording not allowed")
-            // failed to recovar
           }
         }
       }
     } catch let error as NSError {
       
       print("failed to setup", error.debugDescription)
-      // failed to record!
     }
     
+  }
+  
+  func recordTapped() {
+    
+    if audioRecorder == nil {
+      startRecording()
+    } else {
+      finishRecording(success: true)
+    }
   }
   
   func startRecording() {
@@ -78,38 +84,13 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
       print("Recording successful")
       recordingSuccess = false
 
-      saveAudio(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "recording.m4a"))
-//      play()
+      CreatePost.shared.saveAudio(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "recording.m4a"))
     } else {
       // recording failed :(
     }
         
       }
     }
-  }
-  
-  func recordTapped() {
-        
-    if audioRecorder == nil {
-      startRecording()
-    } else {
-      finishRecording(success: true)
-    }
-  }
-  
-  func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
-    if !flag {
-      finishRecording(success: false)
-    }
-  }
-  
-  func getDocumentsDirectory() -> NSURL {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
-    
-    let url = NSURL(string: documentsDirectory)!
-    
-    return url
   }
   
   func play(fileURL: NSURL) {
@@ -127,5 +108,25 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
       print("error playing file", error)
     }
   }
-
+  
+  func pause() {
+    
+    player.pause()
+  }
+  
+  func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
+    if !flag {
+      finishRecording(success: false)
+    }
+  }
+  
+  func getDocumentsDirectory() -> NSURL {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let documentsDirectory = paths[0]
+    
+    let url = NSURL(string: documentsDirectory)!
+    
+    return url
+  }
+  
 }

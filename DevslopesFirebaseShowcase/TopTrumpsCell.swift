@@ -1,6 +1,6 @@
 //
 //  TopTrumpsCell.swift
-//  DevslopesFirebaseShowcase
+//  Fart Club
 //
 //  Created by Ben Sullivan on 23/05/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -12,22 +12,16 @@ import Firebase
 
 class TopTrumpsCell: UITableViewCell {
   
-  @IBOutlet weak var profileImg: UIImageView!
-//  @IBOutlet weak var showcaseImg: UIImageView!
-//  @IBOutlet weak var descriptionText: UITextView!
-  @IBOutlet weak var likesLabel: UILabel!
-//  @IBOutlet weak var likeImage: UIImageView!
-  @IBOutlet weak var cellBackground: MaterialView!
-
-  var likeRef: FIRDatabaseReference!
-  
-  var request: Request?
-  
   private var _post: Post?
-  
+  var likeRef: FIRDatabaseReference!
+  var request: Request?
   var post: Post? {
     return _post
   }
+  
+  @IBOutlet weak var profileImg: UIImageView!
+  @IBOutlet weak var likesLabel: UILabel!
+  @IBOutlet weak var cellBackground: MaterialView!
   
   override func awakeFromNib() {
     
@@ -35,8 +29,6 @@ class TopTrumpsCell: UITableViewCell {
     
     tap.numberOfTapsRequired = 1
     
-//    likeImage.addGestureRecognizer(tap)
-//    likeImage.userInteractionEnabled = true
   }
   
   override func drawRect(rect: CGRect) {
@@ -44,7 +36,7 @@ class TopTrumpsCell: UITableViewCell {
     profileImg.layer.cornerRadius = profileImg.frame.size.width / 2
     profileImg.clipsToBounds = true
     
-//    showcaseImg.clipsToBounds = true
+    //    showcaseImg.clipsToBounds = true
   }
   
   func configureCell(post: Post, img: UIImage?) {
@@ -59,14 +51,14 @@ class TopTrumpsCell: UITableViewCell {
     
     
     self._post = post
-//    self.descriptionText.text = post.postDescription
+    //    self.descriptionText.text = post.postDescription
     self.likesLabel.text = "\(post.likes)"
     print("image url:", post.imageUrl)
     if post.imageUrl != nil {
       print("here")
       if img != nil {
         print("then here")
-//        self.showcaseImg.image = img
+        //        self.showcaseImg.image = img
         
       } else {
         
@@ -76,16 +68,16 @@ class TopTrumpsCell: UITableViewCell {
           if err == nil {
             print("Image downloaded")
             let img = UIImage(data: data!)!
-//            self.showcaseImg.image = img
+            //            self.showcaseImg.image = img
             FeedVC.imageCache.setObject(img, forKey: self.post!.imageUrl!)
           }
         })
       }
-//      showcaseImg.hidden = false
+      //      showcaseImg.hidden = false
       
     } else {
       print("hidden the image")
-//      showcaseImg.hidden = true
+      //      showcaseImg.hidden = true
     }
     
     //    let likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
@@ -97,12 +89,12 @@ class TopTrumpsCell: UITableViewCell {
       if let _ = snapshot.value as? NSNull {
         //we have not liked this specific post
         
-//        self.likeImage.image = UIImage(named: "heart-empty")
+        //        self.likeImage.image = UIImage(named: "heart-empty")
         
         
       } else {
         
-//        self.likeImage.image = UIImage(named: "heart-full")
+        //        self.likeImage.image = UIImage(named: "heart-full")
       }
       
       
@@ -117,13 +109,13 @@ class TopTrumpsCell: UITableViewCell {
       if let _ = snapshot.value as? NSNull {
         //we have not liked this specific post
         
-//        self.likeImage.image = UIImage(named: "popImageUnpopped")
+        //        self.likeImage.image = UIImage(named: "popImageUnpopped")
         self.post?.adjustLikes(true)
         self.likeRef.setValue(true)
         
       } else {
         
-//        self.likeImage.image = UIImage(named: "heart-empty")
+        //        self.likeImage.image = UIImage(named: "heart-empty")
         self.post?.adjustLikes(false)
         self.likeRef.removeValue()
         

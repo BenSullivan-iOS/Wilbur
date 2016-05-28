@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Quote {
+private struct Quote {
   
   let saidBy: String!
   let quote: String!
@@ -41,16 +41,12 @@ class SplashVC: UIViewController {
     quote.text = quotes[randomNumber].quote
     saidBy.text = quotes[randomNumber].saidBy
     //FIXME: - Put back to 3 seconds
-    NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(SplashVC.checkForUserLoggedIn), userInfo: nil, repeats: false)
-  
+    NSTimer.scheduledTimerWithTimeInterval(0, target: self, selector: #selector(SplashVC.checkForUserLoggedIn), userInfo: nil, repeats: false)
   }
   
   func checkForUserLoggedIn() {
     
-    print("Check for user logged in")
     if NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) != nil {
-      
-      print("perform login segue")
       self.performSegueWithIdentifier(Constants.sharedSegues.loggedInFromSplash, sender: self)
     } else {
       self.performSegueWithIdentifier(Constants.sharedSegues.signUp, sender: self)

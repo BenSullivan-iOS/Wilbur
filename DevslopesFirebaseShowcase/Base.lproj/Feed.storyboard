@@ -206,6 +206,9 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="N6n-JV-uDq">
+                                <rect key="frame" x="282" y="281" width="37" height="37"/>
+                            </activityIndicatorView>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hjp-Ze-2r3">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <color key="barTintColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
@@ -238,6 +241,7 @@
                         <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Hjp-Ze-2r3" firstAttribute="top" secondItem="CLN-hN-kZb" secondAttribute="bottom" id="3jU-E5-7Vi"/>
+                            <constraint firstItem="N6n-JV-uDq" firstAttribute="centerX" secondItem="7lZ-wz-ZPf" secondAttribute="centerX" id="49m-XY-ZZ1"/>
                             <constraint firstItem="bno-t9-Y2X" firstAttribute="top" secondItem="VP2-CQ-S3j" secondAttribute="bottom" constant="4" id="6gm-vk-gF7"/>
                             <constraint firstItem="SxY-OZ-DcR" firstAttribute="trailing" secondItem="7lZ-wz-ZPf" secondAttribute="trailingMargin" id="7fq-5Z-J2a"/>
                             <constraint firstItem="SxY-OZ-DcR" firstAttribute="leading" secondItem="7lZ-wz-ZPf" secondAttribute="leadingMargin" id="AUY-81-0mD"/>
@@ -245,6 +249,7 @@
                             <constraint firstItem="Hjp-Ze-2r3" firstAttribute="leading" secondItem="7lZ-wz-ZPf" secondAttribute="leading" id="KYn-lT-SeL"/>
                             <constraint firstAttribute="trailing" secondItem="Hjp-Ze-2r3" secondAttribute="trailing" id="M83-pE-CGG"/>
                             <constraint firstAttribute="trailing" secondItem="VP2-CQ-S3j" secondAttribute="trailing" id="Ok2-vF-wjl"/>
+                            <constraint firstItem="N6n-JV-uDq" firstAttribute="centerY" secondItem="7lZ-wz-ZPf" secondAttribute="centerY" id="PRJ-wH-uiw"/>
                             <constraint firstItem="bno-t9-Y2X" firstAttribute="leading" secondItem="Hjp-Ze-2r3" secondAttribute="trailing" constant="-50" id="Qbk-9d-7Ez"/>
                             <constraint firstItem="66D-vW-rC9" firstAttribute="centerX" secondItem="7lZ-wz-ZPf" secondAttribute="centerX" id="Uhb-lU-Olu"/>
                             <constraint firstItem="Hjp-Ze-2r3" firstAttribute="centerX" secondItem="7lZ-wz-ZPf" secondAttribute="centerX" id="VmL-AP-IDK"/>
@@ -256,15 +261,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="aix-Jw-smn"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="N6n-JV-uDq" id="ibC-Xy-yMa"/>
                         <outlet property="navBar" destination="Hjp-Ze-2r3" id="sn2-IE-ZM0"/>
                         <outlet property="profileButton" destination="bno-t9-Y2X" id="Bwx-PD-kr2"/>
                         <outlet property="tableView" destination="SxY-OZ-DcR" id="x97-OR-Qg9"/>
-                        <segue destination="wob-Ne-gI8" kind="presentation" identifier="showProfile" id="GLP-ce-q0e"/>
+                        <segue destination="wob-Ne-gI8" kind="show" identifier="showProfile" id="I18-yX-ssx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y6P-yZ-gch" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2823" y="384"/>
+            <point key="canvasLocation" x="2827" y="384"/>
         </scene>
         <!--ProfileVC-->
         <scene sceneID="vWo-1n-3Wj">
