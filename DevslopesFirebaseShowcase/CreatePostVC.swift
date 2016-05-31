@@ -30,16 +30,16 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   private let imagePicker = UIImagePickerController()
   
   var pressed = false
-  var recordingSuccess = Bool()
-  var recordingSession: AVAudioSession!
-  var audioRecorder: AVAudioRecorder!
-  var player = AVAudioPlayer()
+//  var recordingSuccess = Bool()
+//  var recordingSession: AVAudioSession!
+//  var audioRecorder: AVAudioRecorder!
+//  var player = AVAudioPlayer()
   
   //MARK: - VC Lifecycle
   
   override func viewDidLoad() {
     
-    setupRecording()
+    AudioControls.shared.setupRecording()
     
     imagePicker.delegate = self
     
@@ -56,16 +56,16 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   //MARK: - Audio controls
   
   @IBAction func playButtonPressed(sender: SpringButton!) {
-    play(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a"))
+    AudioControls.shared.play(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a"))
   }
   
   @IBAction func pauseButtonPressed(sender: AnyObject) {
-    pause()
+    AudioControls.shared.pause()
   }
   
   @IBAction func recordButtonPressed(sender: UIButton) {
     
-    recordTapped()
+    AudioControls.shared.recordTapped()
     animateRecordControls()
   }
   
@@ -188,7 +188,14 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   
   
-
+  func getDocumentsDirectory() -> NSURL {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let documentsDirectory = paths[0]
+    
+    let url = NSURL(string: documentsDirectory)!
+    
+    return url
+  }
   
   
   

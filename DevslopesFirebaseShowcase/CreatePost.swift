@@ -16,16 +16,21 @@ class CreatePost {
   
   private init() {}
   
-  func downloadAudio(localURL: NSURL) {
+  func downloadAudio(localURL: NSURL, postKey: String) {
     print("download audio")
     let storageRef = FIRStorage.storage().reference()
-    let pathReference = storageRef.child("audio/recording.m4a")
+    let pathReference = storageRef.child("audio/\(postKey).m4a")
+    
+    print("Local URL = ", localURL)
+    print("postKey = ", postKey)
     
     pathReference.writeToFile(localURL) { (URL, error) -> Void in
       
       guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
       
       print("SUCCESS - ", URL)
+      
+      AudioControls.shared.play(URL)
       
       //won't need to play here because it'll play locally while downloading for the post
 //      self.play(localURL)

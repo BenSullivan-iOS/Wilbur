@@ -16,7 +16,11 @@ class Post {
   private var _username: String!
   private var _postKey: String!
   private var _postRef: FIRDatabaseReference!
+  private var _audioURL: String!
   
+  var audioURL: String {
+    return _audioURL
+  }
   var postDescription: String {
     return _postDescription
   }
@@ -41,16 +45,30 @@ class Post {
     _postRef.child("likes").setValue(_likes)
   }
   
-  init(description: String, imageUrl: String?, username: String) {
+  init(description: String, imageUrl: String?, username: String, audioURL: String) {
     
     self._postDescription = description
     self._imageUrl = imageUrl
     self._username = username
+    self._audioURL = audioURL
   }
   
   init(postKey: String, dictionary: [String: AnyObject]) {
     
     self._postKey = postKey
+    print("postInit")
+    if let audio = dictionary["audio"] as? String {
+      print("Post if let audio")
+      
+      self._audioURL = audio
+      
+//      let path = AudioControls.shared.getDocumentsDirectory()
+//      let stringPath = String(path) + "/" + audio
+//      let finalPath = NSURL(fileURLWithPath: stringPath)
+//      CreatePost.shared.downloadAudio(finalPath, postKey: _postKey)
+      
+//      AudioControls.shared.play(finalPath!)
+    }
     
     if let likes = dictionary["likes"] as? Int {
       self._likes = likes

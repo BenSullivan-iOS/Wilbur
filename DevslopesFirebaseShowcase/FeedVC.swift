@@ -25,6 +25,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    AudioControls.shared.setupRecording()
+    
     activityIndicator.color = UIColor(colorLiteralRed: 244/255, green: 81/255, blue: 30/255, alpha: 1)
     
     tableView.delegate = self

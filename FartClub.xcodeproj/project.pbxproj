@@ -13,6 +13,7 @@
 		B51CBCD91CF4797E00112B51 /* audio_test.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD81CF4788500112B51 /* audio_test.m4a */; };
 		B51CBCF91CF4DA4900112B51 /* FDWaveformView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */; };
 		B51CBCFC1CF4EBBE00112B51 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */; };
+		B52DBDF11CFDA24F00CB7486 /* AudioControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */; };
 		B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4301CE8FFC40084215C /* AppDelegate.swift */; };
 		B548A4331CE8FFC40084215C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4321CE8FFC40084215C /* LoginVC.swift */; };
 		B548A4361CE8FFC40084215C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B548A4341CE8FFC40084215C /* Main.storyboard */; };
@@ -56,6 +57,7 @@
 		B51CBCD81CF4788500112B51 /* audio_test.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = audio_test.m4a; path = ../../../../../Downloads/audio_test.m4a; sourceTree = "<group>"; };
 		B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FDWaveformView.framework; path = "../../../../Library/Developer/Xcode/DerivedData/DevslopesFirebaseShowcase-aebdmajtydenumdhaiuprfwxpxmv/Build/Products/Debug-iphonesimulator/FDWaveformView/FDWaveformView.framework"; sourceTree = "<group>"; };
 		B51CBCFB1CF4EBBE00112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
+		B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioControls.swift; sourceTree = "<group>"; };
 		B548A42D1CE8FFC40084215C /* Fart Club.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fart Club.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B548A4301CE8FFC40084215C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B548A4321CE8FFC40084215C /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				B566CB461CE9E15500415A3E /* Post.swift */,
 				B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */,
 				B5D85BF91CFA197500E62148 /* CreatePost.swift */,
+				B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				B566CB411CE920A500415A3E /* DataService.swift in Sources */,
 				B548A44F1CE905950084215C /* RoundedViews.swift in Sources */,
 				B5DEA6381CF39E7D00AE38A1 /* RecordAudio.swift in Sources */,
+				B52DBDF11CFDA24F00CB7486 /* AudioControls.swift in Sources */,
 				B5D3F9991CEB498500EEB78F /* extensions.swift in Sources */,
 				B548A4331CE8FFC40084215C /* LoginVC.swift in Sources */,
 				B566CB431CE9C6A500415A3E /* FeedVC.swift in Sources */,

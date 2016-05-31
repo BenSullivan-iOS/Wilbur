@@ -94,6 +94,11 @@ class PostCell: UITableViewCell {
     self.descriptionText.text = post.postDescription
     self.likesLabel.text = "\(post.likes)"
     
+    let path = AudioControls.shared.getDocumentsDirectory()
+    let stringPath = String(path) + "/" + post.audioURL
+    let finalPath = NSURL(fileURLWithPath: stringPath)
+    CreatePost.shared.downloadAudio(finalPath, postKey: post.postKey)
+    
     //if an image has been passed in then it is cached so use it, otherwise download and cache
     
     if let imageUrl = post.imageUrl {
