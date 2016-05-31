@@ -25,7 +25,6 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   @IBOutlet weak var descriptionTextField: MaterialTextField!
   @IBOutlet weak var controlsBackground: MaterialView!
-  @IBOutlet weak var timerViewCover: UIView!
   @IBOutlet weak var waveFormView: FDWaveformView!
   
   @IBOutlet weak var selectedImage: UIImageView!
@@ -268,42 +267,71 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       recordButton.animateToNext {
         self.recordButton.duration = 1
         self.recordButton.animation = "pop"
-        //if button pressed, return from function to stop animation etc...
+        if self.playButton.alpha == 1 {
+          return
+        }
         self.recordButton.animateToNext {
           self.recordButton.duration = 1
           self.recordButton.animation = "pop"
+          if self.playButton.alpha == 1 {
+            return
+          }
           
           self.recordButton.animateToNext {
             self.recordButton.duration = 1
             self.recordButton.animation = "pop"
+            if self.playButton.alpha == 1 {
+              return
+            }
             
             self.recordButton.animateToNext {
               self.recordButton.duration = 1
               self.recordButton.animation = "pop"
+              if self.playButton.alpha == 1 {
+                return
+              }
               
               self.recordButton.animateToNext {
                 self.recordButton.duration = 1
                 self.recordButton.animation = "pop"
+                if self.playButton.alpha == 1 {
+                  return
+                }
                 
                 self.recordButton.animateToNext {
                   self.recordButton.duration = 1
                   self.recordButton.animation = "pop"
+                  if self.playButton.alpha == 1 {
+                    return
+                  }
                   
                   self.recordButton.animateToNext {
                     self.recordButton.duration = 1
                     self.recordButton.animation = "pop"
+                    if self.playButton.alpha == 1 {
+                      return
+                    }
                     
                     self.recordButton.animateToNext {
                       self.recordButton.duration = 1
                       self.recordButton.animation = "pop"
+                      if self.playButton.alpha == 1 {
+                        return
+                      }
                       
                       self.recordButton.animateToNext {
                         self.recordButton.duration = 1
                         self.recordButton.animation = "pop"
+                        if self.playButton.alpha == 1 {
+                          return
+                        }
                         
                         self.recordButton.animateToNext {
                           self.recordButton.duration = 1
                           self.recordButton.animation = "pop"
+                          if self.playButton.alpha == 1 {
+                            return
+                          }
                           
                         }
                       }
@@ -317,8 +345,17 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       }
       pressed = true
       
-    } else {
+      playButton.damping = 0.8
+      playButton.x = 0
+      playButton.animateTo()
+      playButton.alpha = 0
       
+      pauseButton.damping = 0.8
+      pauseButton.x = 0
+      pauseButton.animateTo()
+      pauseButton.alpha = 0
+      
+    } else {
       
       pauseButton.alpha = 1
       
@@ -337,5 +374,29 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       pressed = false
     }
     
+  }
+}
+
+class Pootorial: UIViewController {
+  
+  @IBOutlet weak var materialView: MaterialView!
+  
+  @IBOutlet weak var recordButton: SpringButton!
+  
+  @IBAction func dismissButtonPressed(sender: AnyObject) {
+    
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  override func viewDidLoad() {
+    
+    recordButton.imageView?.contentMode = .ScaleAspectFit
+    
+//    materialView.backgroundColor = UIColor(colorLiteralRed: 105/255, green: 184/255, blue: 252/255, alpha: 1.0)
+  }
+  
+  
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
   }
 }
