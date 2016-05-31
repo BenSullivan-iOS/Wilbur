@@ -17,9 +17,9 @@ class CreatePost {
   private init() {}
   
   func downloadAudio(localURL: NSURL) {
-    
+    print("download audio")
     let storageRef = FIRStorage.storage().reference()
-    let pathReference = storageRef.child("testAudio/recording.m4a")
+    let pathReference = storageRef.child("audio/recording.m4a")
     
     pathReference.writeToFile(localURL) { (URL, error) -> Void in
       
@@ -32,10 +32,11 @@ class CreatePost {
     }
   }
   
-  func saveAudio(localFile: NSURL) {
+  func uploadAudio(localFile: NSURL, firebaseReference: String) {
+    print("upload audio")
     
     let storageRef = FIRStorage.storage().reference()
-    let riversRef = storageRef.child("testAudio/recording.m4a")
+    let riversRef = storageRef.child("audio/\(firebaseReference).m4a")
     
     riversRef.putFile(localFile, metadata: nil) { metadata, error in
       

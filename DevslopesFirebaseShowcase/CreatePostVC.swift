@@ -23,6 +23,10 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   @IBOutlet weak var timerViewCover: UIView!
   @IBOutlet weak var waveFormView: FDWaveformView!
   
+  @IBOutlet weak var selectedImage: UIImageView!
+  
+  var selectedImagePath = NSURL?()
+  
   private let imagePicker = UIImagePickerController()
   
   var pressed = false
@@ -52,7 +56,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   //MARK: - Audio controls
   
   @IBAction func playButtonPressed(sender: SpringButton!) {
-    play(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "recording.m4a"))
+    play(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a"))
   }
   
   @IBAction func pauseButtonPressed(sender: AnyObject) {
@@ -64,25 +68,133 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     recordTapped()
     animateRecordControls()
   }
-    
+  
   func showWaveForm(fileURL: NSURL) {
     
     self.waveFormView.audioURL = fileURL
     self.waveFormView.doesAllowScrubbing = false
-    self.waveFormView.alpha = 1.0
+    self.waveFormView.alpha = 1
   }
   
   func waveformViewDidRender(waveformView: FDWaveformView) {
-    self.waveFormView.alpha = 1.0
+    self.waveFormView.alpha = 1
   }
   
   @IBAction func takePhotoButtonPressed(sender: AnyObject) {
     
     presentViewController(imagePicker, animated: true, completion: nil)
   }
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-    dismissViewControllerAnimated(true, completion: nil)    
+  
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    
+    let i = info[UIImagePickerControllerReferenceURL] as? NSURL
+    
+    selectedImagePath = i!
+    dismissViewControllerAnimated(true, completion: nil)
+    
+    let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    selectedImage.image = image
+    
+    let saveDirectory = String(getDocumentsDirectory()) + "/images/tempImage.jpg"
+    
+    let tempImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+    
+    saveImage(tempImage, path: saveDirectory)
+    
+    print("Did finish picking image - ", saveDirectory)
   }
+  
+  func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+    
+    let scale = newWidth / image.size.width
+    let newHeight = image.size.height * scale
+    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+    image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return newImage
+  }
+  
+  func saveImage (image: UIImage, path: String) -> Bool {
+    
+    let compressedImage = resizeImage(image, newWidth: 1536)
+    let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0)
+    let result = jpgImageData!.writeToFile(String(path), atomically: true)
+    
+    selectedImagePath = NSURL(fileURLWithPath: path)
+    
+    return result
+  }
+  
+  
+  
+  
+  @IBAction func postBarButtonPressed(sender: AnyObject) {
+    
+    postToFirebase()
+  }
+  
+  func postToFirebase() {
+    
+    print("Posting to firebase")
+    //generates new ID for URL
+    let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
+    
+    let audioPath = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a")
+    
+    CreatePost.shared.uploadAudio(audioPath, firebaseReference: firebasePost.key)
+    
+    var post: [String: AnyObject] = [
+      "description" : descriptionTextField.text!,
+      "likes": 0,
+      "audio": "audio/\(firebasePost.key).m4a" ]
+    
+    if let imagePath = selectedImagePath {
+      
+      uploadImage(imagePath, firebaseReference: firebasePost.key)
+      
+      post["imageUrl"] = "images/\(firebasePost.key).jpg"
+    }
+    
+    //save to database
+    firebasePost.setValue(post)
+    
+    descriptionTextField.text = ""
+    selectedImage.image = UIImage(named: "camera")
+    print("Done")
+  }
+
+  
+  func uploadImage(localFile: NSURL, firebaseReference: String) {
+    print("uploadImage", localFile)
+    let storageRef = FIRStorage.storage().reference()
+    let riversRef = storageRef.child("images/\(firebaseReference).jpg")
+    
+    riversRef.putFile(localFile, metadata: nil) { metadata, error in
+      print("putFile")
+      guard let metadata = metadata where error == nil else { print("error", error); return }
+      
+      let downloadURL = metadata.downloadURL
+      
+      print("success", downloadURL)
+      
+      
+      //      CreatePost.shared.downloadAudio(localFile)
+    }
+  }
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
   
   
   //MARK: - Animations etc...
@@ -181,5 +293,4 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     }
     
   }
-  
 }

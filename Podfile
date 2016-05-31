@@ -11,6 +11,7 @@ pod 'Firebase/Auth'
 pod 'Firebase/Storage'
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
+pod 'Firebase/Crash'
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 

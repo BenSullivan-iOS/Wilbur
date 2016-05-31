@@ -44,9 +44,9 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
   
   func startRecording() {
     
-    print("preparing to record")
+    print("Start recording - preparing to record")
     
-    let audioURL = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "recording.m4a")
+    let audioURL = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a")
 
     let settings = [
       AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -72,6 +72,7 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     print("Finished recording")
     if recordingSuccess {
+      
       if audioRecorder != nil {
         
         print("stopping recording")
@@ -81,10 +82,15 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     if success || recordingSuccess {
       
-      print("Recording successful")
       recordingSuccess = false
+      
+      let audioURL = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a")
 
-      CreatePost.shared.saveAudio(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "recording.m4a"))
+//      CreatePost.shared.uploadAudio(audioURL)
+      
+      play(audioURL)
+      
+//      CreatePost.shared.uploadAudio(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a"))
     } else {
       // recording failed :(
     }
@@ -92,6 +98,8 @@ extension CreatePostVC: AVAudioRecorderDelegate, AVAudioPlayerDelegate {
       }
     }
   }
+  
+  
   
   func play(fileURL: NSURL) {
     

@@ -6,7 +6,6 @@
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
 //
 
-import Foundation
 import Firebase
 
 class Post {
@@ -39,7 +38,7 @@ class Post {
     
     _likes = addLike ? _likes + 1 : _likes - 1
     
-    _postRef.childByAppendingPath("likes").setValue(_likes)
+    _postRef.child("likes").setValue(_likes)
   }
   
   init(description: String, imageUrl: String?, username: String) {
@@ -66,6 +65,6 @@ class Post {
       self._postDescription = desc
     }
     
-    self._postRef = DataService.ds.REF_POSTS.childByAppendingPath(self._postKey)
+    self._postRef = DataService.ds.REF_POSTS.child(self._postKey)
   }
 }

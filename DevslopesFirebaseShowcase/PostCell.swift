@@ -11,7 +11,7 @@ import Alamofire
 import Firebase
 
 class PostCell: UITableViewCell {
-
+  
   @IBOutlet weak var profileImg: UIImageView!
   @IBOutlet weak var showcaseImg: UIImageView!
   @IBOutlet weak var descriptionText: UITextView!
@@ -21,7 +21,7 @@ class PostCell: UITableViewCell {
   var likeRef: FIRDatabaseReference!
   
   var request: Request?
-
+  
   private var _post: Post?
   
   var post: Post? {
@@ -45,50 +45,77 @@ class PostCell: UITableViewCell {
     
     showcaseImg.clipsToBounds = true
   }
-
+  
+  func getDocumentsDirectory() -> NSURL {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let documentsDirectory = paths[0]
+    
+    let url = NSURL(string: documentsDirectory)!
+    
+    return url
+  }
+  
+  func downloadImage(imageLocation: String) {
+    
+    print("Download Image")
+    let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
+    
+    let storageRef = FIRStorage.storage().reference()
+    let pathReference = storageRef.child(imageLocation)
+    
+    pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+      print("Write to file")
+      guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+      
+      print("SUCCESS - ")
+      print(URL)
+      print(saveLocation)
+      
+      let image = UIImage(data: NSData(contentsOfURL: URL)!)!
+      
+      self.showcaseImg.image = image
+      
+      FeedVC.imageCache.setObject(image, forKey: self.post!.imageUrl!)
+    }
+  }
+  
+  var downloadedImage = UIImage()
+  
   func configureCell(post: Post, img: UIImage?) {
     
     if let like = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey) as? FIRDatabaseReference? {
-    likeRef = like
-  }
-  
-//    likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
+      likeRef = like
+    }
     
-        
+    //    likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
+    
+    
     self._post = post
     self.descriptionText.text = post.postDescription
     self.likesLabel.text = "\(post.likes)"
-    print("image url:", post.imageUrl)
-    if post.imageUrl != nil {
-      print("here")
-      if img != nil {
-        print("then here")
+    
+    //if an image has been passed in then it is cached so use it, otherwise download and cache
+    
+    if let imageUrl = post.imageUrl {
+      
+      if let img = img {
+        
         self.showcaseImg.image = img
         
       } else {
         
-        print("ended up here")
-        request = Alamofire.request(.GET, post.imageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
-          
-          if err == nil {
-            print("Image downloaded")
-            let img = UIImage(data: data!)!
-            self.showcaseImg.image = img
-            FeedVC.imageCache.setObject(img, forKey: self.post!.imageUrl!)
-          }
-        })
+        self.downloadImage(imageUrl)
       }
-      showcaseImg.hidden = false
-
     } else {
-      print("hidden the image")
+      
       showcaseImg.image = UIImage(named: "placeholder")
     }
     
-//    let likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
+    
+    //    let likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
     //look for like once then toggle heart
     likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-    
+      
       
       //in firebase if there's no data in .value you will receive an NSNull not nil
       if let _ = snapshot.value as? NSNull {
@@ -101,8 +128,8 @@ class PostCell: UITableViewCell {
         
         self.likeImage.image = UIImage(named: "popImageUnpopped2")
       }
-    
-    
+      
+      
     })
   }
   //change image displaying, then add one like or remove one like
@@ -117,9 +144,9 @@ class PostCell: UITableViewCell {
         self.likeImage.image = UIImage(named: "popImageUnpopped2")
         self.post?.adjustLikes(true)
         self.likeRef.setValue(true)
-
+        
       } else {
-
+        
         self.likeImage.image = UIImage(named: "heart-empty")
         self.post?.adjustLikes(false)
         self.likeRef.removeValue()
@@ -128,9 +155,9 @@ class PostCell: UITableViewCell {
       
       
     })
-
+    
   }
   
   
-  }
+}
 

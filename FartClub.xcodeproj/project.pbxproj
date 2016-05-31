@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5239B344FF1B2FF0370A0029 /* Pods_FartClub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B154599EBB037EB410F81CD5 /* Pods_FartClub.framework */; };
 		B5068C3D1CEF18F400AA8C86 /* PagingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */; };
 		B51CBCD41CF45DB000112B51 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD21CF45DB000112B51 /* Feed.storyboard */; };
 		B51CBCD91CF4797E00112B51 /* audio_test.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD81CF4788500112B51 /* audio_test.m4a */; };
@@ -104,6 +105,7 @@
 				B5D85BF11CF8B44100E62148 /* Spring.framework in Frameworks */,
 				B51CBCF91CF4DA4900112B51 /* FDWaveformView.framework in Frameworks */,
 				B548A45B1CE913910084215C /* FBSDKLoginKit.framework in Frameworks */,
+				5239B344FF1B2FF0370A0029 /* Pods_FartClub.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

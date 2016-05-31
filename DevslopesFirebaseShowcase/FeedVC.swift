@@ -99,92 +99,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
   }
 
   
-  
-//  @IBAction func makePost(sender: AnyObject) {
-//    
-//    if let txt = postField.text where txt != "" {
-//      
-//      if let img = imageSelectorImage.image where imageSelectorImage.image != UIImage(named: "camera") {
-//        let urlStr = "https://post.imageshack.us/upload_api.php"
-//        let url = NSURL(string: urlStr)!
-//        
-//        let imageData = UIImageJPEGRepresentation(img, 0.2)!
-//        
-//        //Multi part form request
-//        
-//        let keyData = "23GLNQRU1a3692bd083188c27d289f6cf2e5382c".dataUsingEncoding(NSUTF8StringEncoding)!
-//        
-//        let keyJSON = "json".dataUsingEncoding(NSUTF8StringEncoding)!
-//        
-//        Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
-//          
-//          multipartFormData.appendBodyPart(data: imageData, name: "fileupload", fileName: "image", mimeType: "image/jpeg")
-//          
-//          multipartFormData.appendBodyPart(data: keyData, name: "key")
-//          multipartFormData.appendBodyPart(data: keyJSON, name: "format")
-//          
-//        }) { encodingResult in
-//          
-//          switch encodingResult {
-//            
-//          case .Success(let upload, _, _):
-//            
-//            upload.responseJSON { response in
-//              
-//              if let info = response.result.value as? [String : AnyObject] {
-//                
-//                if let links = info["links"] as? [String : AnyObject] {
-//                  
-//                  if let imgLink = links["image_link"] as? String {
-//                    
-//                    print("LINK: \(imgLink)")
-//                    
-//                    self.postToFirebase(imgLink)
-//                    
-//                  }
-//                  
-//                }
-//                
-//              }
-//              
-//            }
-//            
-//          case .Failure(let error):
-//            print(error)
-//            
-//          }
-//          
-//        }
-//        
-//      } else {
-//        
-//        print("no image")
-//        
-//        self.postToFirebase(nil)
-//      }
-//    }
-//  }
-  
-//  func postToFirebase(imageUrl: String?) {
-//    
-//    var post: [String: AnyObject] = [ "description" : postField.text!, "likes": 0 ]
-//    
-//    
-//    if imageUrl != nil {
-//      post["imageUrl"] = imageUrl!
-//    }
-//    
-//    //generates new ID for URL
-//    let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
-//    
-//    //save to database
-//    firebasePost.setValue(post)
-//    
-//    postField.text = ""
-//    imageSelectorImage.image = UIImage(named: "camera")
-//    tableView.reloadData()
-//  }
-  
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     print("preferred status bar")
     return .LightContent
@@ -202,5 +116,5 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     navigationItem.backBarButtonItem = backItem
     }
   }
-
-  }
+  
+}
