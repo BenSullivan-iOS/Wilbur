@@ -39,6 +39,11 @@ class TopTrumpsVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
           print("SNAP: ", snap)
         }
         
+        self.posts.sortInPlace({ (first, second) -> Bool in
+          
+          return first.likes > second.likes
+        })
+        
         self.tableView.reloadData()
         
       }

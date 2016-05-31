@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import Alamofire
 import Firebase
+import FDWaveformView
 
 class PostCell: UITableViewCell {
   
@@ -17,11 +17,11 @@ class PostCell: UITableViewCell {
   @IBOutlet weak var descriptionText: UITextView!
   @IBOutlet weak var likesLabel: UILabel!
   @IBOutlet weak var likeImage: UIImageView!
+  @IBOutlet weak var username: UILabel!
+  
   
   var likeRef: FIRDatabaseReference!
-  
-  var request: Request?
-  
+    
   private var _post: Post?
   
   var post: Post? {
@@ -81,7 +81,23 @@ class PostCell: UITableViewCell {
   
   var downloadedImage = UIImage()
   
+//  var waveFormView: FDWaveformView!
+//  
+//  func showWaveForm(path: NSURL) {
+//    
+//    self.waveFormView.audioURL = path
+//    self.waveFormView.doesAllowScrubbing = false
+//    self.waveFormView.alpha = 1
+//    self.waveFormView.bounds = (self.imageView?.bounds)!
+//  }
+//  
+//  func waveformViewDidRender(waveformView: FDWaveformView) {
+//    self.waveFormView.alpha = 1
+//  }
+  
   func configureCell(post: Post, img: UIImage?) {
+    
+    showcaseImg.image = UIImage(named: "placeholder")
     
     if let like = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey) as? FIRDatabaseReference? {
       likeRef = like
@@ -93,6 +109,7 @@ class PostCell: UITableViewCell {
     self._post = post
     self.descriptionText.text = post.postDescription
     self.likesLabel.text = "\(post.likes)"
+    self.username.text = post.username
     
     let path = AudioControls.shared.getDocumentsDirectory()
     let stringPath = String(path) + "/" + post.audioURL
@@ -103,6 +120,7 @@ class PostCell: UITableViewCell {
     
     if let imageUrl = post.imageUrl {
       
+      
       if let img = img {
         
         self.showcaseImg.image = img
@@ -110,12 +128,12 @@ class PostCell: UITableViewCell {
       } else {
         
         self.downloadImage(imageUrl)
+        
       }
     } else {
       
       showcaseImg.image = UIImage(named: "placeholder")
     }
-    
     
     //    let likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
     //look for like once then toggle heart

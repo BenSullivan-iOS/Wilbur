@@ -22,6 +22,7 @@ class TopTrumpsCell: UITableViewCell {
   @IBOutlet weak var profileImg: UIImageView!
   @IBOutlet weak var likesLabel: UILabel!
   @IBOutlet weak var cellBackground: MaterialView!
+  @IBOutlet weak var username: UILabel!
   
   override func awakeFromNib() {
     
@@ -53,6 +54,7 @@ class TopTrumpsCell: UITableViewCell {
     self._post = post
     //    self.descriptionText.text = post.postDescription
     self.likesLabel.text = "\(post.likes)"
+    self.username.text = post.username
     print("image url:", post.imageUrl)
     if post.imageUrl != nil {
       print("here")

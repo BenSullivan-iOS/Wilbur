@@ -17,7 +17,11 @@ class Post {
   private var _postKey: String!
   private var _postRef: FIRDatabaseReference!
   private var _audioURL: String!
+  private var _date: String!
   
+  var date: String {
+    return _date
+  }
   var audioURL: String {
     return _audioURL
   }
@@ -45,12 +49,13 @@ class Post {
     _postRef.child("likes").setValue(_likes)
   }
   
-  init(description: String, imageUrl: String?, username: String, audioURL: String) {
+  init(description: String, imageUrl: String?, username: String, audioURL: String, date: String) {
     
     self._postDescription = description
     self._imageUrl = imageUrl
     self._username = username
     self._audioURL = audioURL
+    self._date = date
   }
   
   init(postKey: String, dictionary: [String: AnyObject]) {
@@ -69,6 +74,11 @@ class Post {
       
 //      AudioControls.shared.play(finalPath!)
     }
+    
+    self._date = dictionary["date"] as? String
+    
+    self._username = dictionary["user"] as? String
+    
     
     if let likes = dictionary["likes"] as? Int {
       self._likes = likes

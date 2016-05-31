@@ -31,11 +31,11 @@ class LoginVC: UIViewController {
     facebookLoginButton.clipsToBounds = true
     
   }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
     styleButton()
-    
   }
     
   func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
@@ -72,11 +72,14 @@ class LoginVC: UIViewController {
         print("got here", user)
         
         let provider = ["provider" : user.providerID]
+        
+        print(user.uid)
 
         DataService.ds.createFirebaseUser(user.uid, user: provider)
         
-        NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.shared.KEY_UID)
+        NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
         
+        NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.shared.KEY_UID)
 
         self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)
 

@@ -12,7 +12,12 @@ import AVFoundation
 import FDWaveformView
 import FirebaseStorage
 
-class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+protocol AudioPlayerDelegate {
+  
+  func audioRecorded()
+}
+
+class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AudioPlayerDelegate {
   
   @IBOutlet weak var recordButton: SpringButton!
   @IBOutlet weak var playButton: SpringButton!
@@ -38,6 +43,8 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   //MARK: - VC Lifecycle
   
   override func viewDidLoad() {
+    
+    AudioControls.shared.delegate = self
     
     AudioControls.shared.setupRecording()
     
@@ -69,6 +76,11 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     animateRecordControls()
   }
   
+  func audioRecorded() {
+    
+    showWaveForm(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a"))
+  }
+  
   func showWaveForm(fileURL: NSURL) {
     
     self.waveFormView.audioURL = fileURL
@@ -82,14 +94,11 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   @IBAction func takePhotoButtonPressed(sender: AnyObject) {
     
-    presentViewController(imagePicker, animated: true, completion: nil)
+    imagePickerAlert()
   }
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     
-    let i = info[UIImagePickerControllerReferenceURL] as? NSURL
-    
-    selectedImagePath = i!
     dismissViewControllerAnimated(true, completion: nil)
     
     let image = info[UIImagePickerControllerOriginalImage] as? UIImage
@@ -145,10 +154,15 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     CreatePost.shared.uploadAudio(audioPath, firebaseReference: firebasePost.key)
     
+    guard let username = NSUserDefaults.standardUserDefaults().valueForKey("username") else { print("no username"); return }
+    
     var post: [String: AnyObject] = [
       "description" : descriptionTextField.text!,
       "likes": 0,
-      "audio": "audio/\(firebasePost.key).m4a" ]
+      "audio": "audio/\(firebasePost.key).m4a",
+      "user": username,
+      "date": String(NSDate())
+    ]
     
     if let imagePath = selectedImagePath {
       
@@ -200,7 +214,31 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   
   
-  
+  func imagePickerAlert() {
+    
+    let alert = UIAlertController(title: "Share your fartistic side", message: "", preferredStyle: .ActionSheet)
+    
+    alert.addAction(UIAlertAction(title: "Fartograph", style: .Default, handler: { action in
+      
+      print("camera")
+      self.imagePicker.sourceType = .Camera
+      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Farto Library", style: .Default, handler: { action in
+      
+      print("photo library")
+      
+      self.imagePicker.sourceType = .PhotoLibrary
+      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Blow Off", style: .Cancel, handler: nil))
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
 
   
   

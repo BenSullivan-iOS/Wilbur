@@ -18,6 +18,14 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
   var audioRecorder: AVAudioRecorder!
   var player = AVAudioPlayer()
   
+  var delegate: AudioPlayerDelegate? = nil {
+    
+    didSet {
+      
+      print("delegate was set")
+    }
+  }
+  
   func setupRecording() {
     
     recordingSession = AVAudioSession.sharedInstance()
@@ -96,7 +104,7 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
           let audioURL = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a")
           
           //      CreatePost.shared.uploadAudio(audioURL)
-          
+          delegate?.audioRecorded()
           play(audioURL)
           
         } else {

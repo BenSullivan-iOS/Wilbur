@@ -70,7 +70,7 @@
                                                                                         <constraint firstAttribute="width" constant="70" id="QWT-G9-6HU"/>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ben Sullivan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o9p-Ga-mr3">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o9p-Ga-mr3">
                                                                                     <rect key="frame" x="75" y="0.0" width="425" height="70"/>
                                                                                     <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="18"/>
                                                                                     <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
@@ -201,6 +201,7 @@
                                             <outlet property="likesLabel" destination="1Qs-fT-ZT9" id="lVW-Sq-E9a"/>
                                             <outlet property="profileImg" destination="eM3-A1-6pJ" id="xLJ-0r-X2A"/>
                                             <outlet property="showcaseImg" destination="HtS-J7-BWm" id="enO-qc-cN6"/>
+                                            <outlet property="username" destination="o9p-Ga-mr3" id="Tq7-zC-ryX"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

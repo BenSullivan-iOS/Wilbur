@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import Alamofire
+import FDWaveformView
 import AVFoundation
 
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -57,11 +58,36 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
           self.activityIndicator.alpha = 0
         }
         
+        
+        
+        self.posts.sortInPlace({ (first, second) -> Bool in
+          
+          let df = NSDateFormatter()
+          df.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
+          
+          return self.isAfterDate(df.dateFromString(first.date)!, endDate: df.dateFromString(second.date)!)
+        })
+        
         self.tableView.reloadData()
       }
     })
   }
   
+  func isAfterDate(startDate: NSDate, endDate: NSDate) -> Bool {
+    
+    let calendar = NSCalendar.currentCalendar()
+    
+    let components = calendar.components([.Second],
+                                         fromDate: startDate,
+                                         toDate: endDate.dateByAddingTimeInterval(86400),
+                                         options: [])
+    
+    if components.day > 0 {
+      return true
+    } else {
+      return false
+    }
+  }
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     //Add functionality to play audio again
   }
@@ -74,7 +100,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
     
-      cell.request?.cancel()
+//      cell.request?.cancel()
 
       let post = posts[indexPath.row]
 
