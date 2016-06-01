@@ -12,7 +12,16 @@ import Alamofire
 import FDWaveformView
 import AVFoundation
 
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol PostCellDelegate {
+  func showDeletePostAlert(key: String)
+}
+
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
+  
+  func showDeletePostAlert(key: String) {
+    print("showDeletePostAlert")
+    displayDeleteAlert(key)
+  }
     
   private var posts = [Post]()
   
@@ -22,6 +31,32 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
   @IBOutlet weak var navBar: UINavigationBar!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+  
+  private var currentRow = Int()
+  
+  func displayDeleteAlert(key: String) {
+    
+    let alert = UIAlertController(title: "Delete post?!", message: "", preferredStyle: .Alert)
+    
+    alert.addAction(UIAlertAction(title: "Yes please!", style: .Default, handler: { (action) in
+      
+      print("Delete post")
+      
+      let userPostRef = DataService.ds.REF_USER_CURRENT.child("posts").child(key) as FIRDatabaseReference!
+      
+      userPostRef.removeValue()
+      
+      let postRef = DataService.ds.REF_POSTS.child(key)
+      
+      postRef.removeValue()
+      
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Actually, no thanks!", style: .Default, handler: nil))
+    
+    self.presentViewController(alert, animated: true, completion: nil)
+
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -89,6 +124,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
   }
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    print("did select", indexPath.row)
     //Add functionality to play audio again
   }
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -97,7 +133,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
+    currentRow = indexPath.row
     if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
     
 //      cell.request?.cancel()
@@ -110,7 +146,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         print("in the cache init")
         img = FeedVC.imageCache.objectForKey(url) as? UIImage
       }
-      
+      cell.delegate = self
       cell.configureCell(post, img: img)
 
       return cell

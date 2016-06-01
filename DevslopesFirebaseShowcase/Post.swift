@@ -18,6 +18,7 @@ class Post {
   private var _postRef: FIRDatabaseReference!
   private var _audioURL: String!
   private var _date: String!
+  private var _fakeCount: Int!
   
   var date: String {
     return _date
@@ -34,6 +35,9 @@ class Post {
   var likes: Int {
     return _likes
   }
+  var fakeCount: Int {
+    return _fakeCount
+  }
   var username: String {
     return _username
   }
@@ -47,6 +51,13 @@ class Post {
     _likes = addLike ? _likes + 1 : _likes - 1
     
     _postRef.child("likes").setValue(_likes)
+  }
+  
+  func adjustFakeCount(addFakeCount: Bool) {
+    
+    _fakeCount = addFakeCount ? _fakeCount + 1 : _fakeCount - 1
+    
+    _postRef.child("fakeCount").setValue(_fakeCount)
   }
   
   init(description: String, imageUrl: String?, username: String, audioURL: String, date: String) {
@@ -83,6 +94,11 @@ class Post {
     if let likes = dictionary["likes"] as? Int {
       self._likes = likes
     }
+    
+    if let fakeCount = dictionary["fakeCount"] as? Int {
+      self._fakeCount = fakeCount
+    }
+
     
     if let imageUrl = dictionary["imageUrl"] as? String {
       self._imageUrl = imageUrl

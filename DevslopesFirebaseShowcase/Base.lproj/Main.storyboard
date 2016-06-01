@@ -810,56 +810,15 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NYk-wv-PdS" customClass="FDWaveformView">
                                         <rect key="frame" x="8" y="8" width="584" height="210"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efg-Qy-P2S">
-                                                <rect key="frame" x="39" y="100" width="175" height="61"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recordBubble" translatesAutoresizingMaskIntoConstraints="NO" id="8nC-KY-ydV">
+                                                <rect key="frame" x="162" y="54" width="91" height="101"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="175" id="jvT-b0-TN1"/>
+                                                    <constraint firstAttribute="width" constant="91" id="LBd-6z-E1B"/>
+                                                    <constraint firstAttribute="height" constant="101" id="tq3-g6-OXt"/>
                                                 </constraints>
-                                                <string key="text">RECORD
-You have 10 seconds!</string>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUBMIT POST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bav-S1-4og">
-                                                <rect key="frame" x="434" y="8" width="150" height="47"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="47" id="MPm-UW-VyL"/>
-                                                    <constraint firstAttribute="width" constant="150" id="Y0b-1X-rEA"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAKE PHOTO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WE6-yE-zLb">
-                                                <rect key="frame" x="426" y="136" width="150" height="47"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="150" id="1PQ-7D-5SB"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wdk-E0-W61">
-                                                <rect key="frame" x="-9" y="-72" width="602" height="600"/>
-                                                <state key="normal" title="Button"/>
-                                            </button>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="WE6-yE-zLb" secondAttribute="bottom" constant="27" id="47G-0Z-FUN"/>
-                                            <constraint firstItem="WE6-yE-zLb" firstAttribute="top" secondItem="bav-S1-4og" secondAttribute="bottom" constant="81" id="5PA-YW-7T6"/>
-                                            <constraint firstItem="WE6-yE-zLb" firstAttribute="trailing" secondItem="NYk-wv-PdS" secondAttribute="trailingMargin" id="F9a-cw-FaG"/>
-                                            <constraint firstItem="bav-S1-4og" firstAttribute="top" secondItem="NYk-wv-PdS" secondAttribute="topMargin" id="K3P-28-2JG"/>
-                                            <constraint firstItem="efg-Qy-P2S" firstAttribute="leading" secondItem="NYk-wv-PdS" secondAttribute="leading" constant="39" id="Ncf-nE-lag"/>
-                                            <constraint firstAttribute="trailing" secondItem="bav-S1-4og" secondAttribute="trailing" id="aqO-Wn-TWn"/>
-                                            <constraint firstAttribute="bottom" secondItem="efg-Qy-P2S" secondAttribute="bottom" constant="49" id="fFU-u7-xCd"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="Ncf-nE-lag"/>
-                                            </mask>
-                                        </variation>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dD-QD-EGz" customClass="SpringButton" customModule="Spring">
                                         <rect key="frame" x="248" y="58" width="105" height="128"/>
@@ -870,17 +829,18 @@ You have 10 seconds!</string>
                                         <state key="normal" image="microphoneCropped"/>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="9dD-QD-EGz" firstAttribute="leading" secondItem="efg-Qy-P2S" secondAttribute="trailing" constant="26" id="06X-gF-9pk"/>
                                     <constraint firstAttribute="trailing" secondItem="NYk-wv-PdS" secondAttribute="trailing" constant="8" id="3bv-fU-Sso"/>
                                     <constraint firstAttribute="bottom" secondItem="NYk-wv-PdS" secondAttribute="bottom" constant="25" id="Cmh-DB-HSY"/>
                                     <constraint firstItem="9dD-QD-EGz" firstAttribute="centerX" secondItem="cd2-5J-sNj" secondAttribute="centerX" id="PNM-nh-bsN"/>
                                     <constraint firstAttribute="height" constant="243" id="TUR-89-mbE"/>
                                     <constraint firstItem="NYk-wv-PdS" firstAttribute="top" secondItem="cd2-5J-sNj" secondAttribute="topMargin" id="W6f-Tk-GGc"/>
                                     <constraint firstItem="9dD-QD-EGz" firstAttribute="centerY" secondItem="cd2-5J-sNj" secondAttribute="centerY" id="c6f-gp-3Om"/>
+                                    <constraint firstItem="9dD-QD-EGz" firstAttribute="leading" secondItem="8nC-KY-ydV" secondAttribute="trailing" constant="-13" id="ci3-tk-F7U"/>
                                     <constraint firstItem="9dD-QD-EGz" firstAttribute="top" secondItem="cd2-5J-sNj" secondAttribute="top" constant="58" id="inx-5K-vXX"/>
                                     <constraint firstItem="NYk-wv-PdS" firstAttribute="leading" secondItem="cd2-5J-sNj" secondAttribute="leadingMargin" id="oxn-uJ-thi"/>
+                                    <constraint firstItem="9dD-QD-EGz" firstAttribute="top" secondItem="8nC-KY-ydV" secondAttribute="bottom" constant="-105" id="rLW-hl-Zne"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -910,15 +870,6 @@ You have 10 seconds!</string>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tell us what you're doing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLr-3b-laT">
-                                        <rect key="frame" x="91" y="78" width="189" height="36"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="u3R-oY-x3U"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -927,12 +878,10 @@ You have 10 seconds!</string>
                                     <constraint firstItem="iNH-Y5-Xs7" firstAttribute="trailing" secondItem="tXQ-Cp-HcZ" secondAttribute="trailing" id="3bV-ru-kZm"/>
                                     <constraint firstItem="tXQ-Cp-HcZ" firstAttribute="trailing" secondItem="3W4-1l-RO6" secondAttribute="trailing" id="9S4-wi-Me0"/>
                                     <constraint firstItem="tXQ-Cp-HcZ" firstAttribute="bottom" secondItem="5QZ-Zs-lVC" secondAttribute="bottomMargin" id="CcD-YZ-hKE"/>
-                                    <constraint firstItem="aLr-3b-laT" firstAttribute="top" secondItem="3W4-1l-RO6" secondAttribute="bottom" constant="20" id="KKz-Qs-Pe6"/>
                                     <constraint firstAttribute="trailing" secondItem="3W4-1l-RO6" secondAttribute="trailing" constant="8" id="VvI-er-daK"/>
                                     <constraint firstItem="3W4-1l-RO6" firstAttribute="leading" secondItem="5QZ-Zs-lVC" secondAttribute="leading" constant="8" id="YZo-yP-6S9"/>
                                     <constraint firstItem="iNH-Y5-Xs7" firstAttribute="leading" secondItem="tXQ-Cp-HcZ" secondAttribute="leading" id="qJo-YG-Xt5"/>
                                     <constraint firstItem="iNH-Y5-Xs7" firstAttribute="top" secondItem="tXQ-Cp-HcZ" secondAttribute="top" id="uYq-Mc-k9e"/>
-                                    <constraint firstItem="aLr-3b-laT" firstAttribute="leading" secondItem="5QZ-Zs-lVC" secondAttribute="leading" constant="91" id="wwc-yS-Fso"/>
                                     <constraint firstItem="iNH-Y5-Xs7" firstAttribute="bottom" secondItem="tXQ-Cp-HcZ" secondAttribute="bottom" id="wyp-fr-5fr"/>
                                     <constraint firstItem="tXQ-Cp-HcZ" firstAttribute="top" secondItem="3W4-1l-RO6" secondAttribute="bottom" constant="8" symbolic="YES" id="xP5-HD-Gup"/>
                                 </constraints>
@@ -985,15 +934,30 @@ You have 10 seconds!</string>
                                     <constraint firstAttribute="height" constant="20" id="ryG-0q-A2S"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9SP-qQ-yue">
-                                <rect key="frame" x="0.0" y="1" width="600" height="599"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9SP-qQ-yue">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
                                     <action selector="dismissButtonPressed:" destination="Nwb-9T-DXB" eventType="touchUpInside" id="Kax-Yd-JmF"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="submitPostBubble" translatesAutoresizingMaskIntoConstraints="NO" id="v2S-wS-cqD">
+                                <rect key="frame" x="494" y="52" width="101" height="91"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="91" id="Nvx-Mk-m2l"/>
+                                    <constraint firstAttribute="width" constant="101" id="kLo-0q-EV6"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="capturePhotoBubble" translatesAutoresizingMaskIntoConstraints="NO" id="Pij-dp-wHb">
+                                <rect key="frame" x="465" y="172" width="101" height="91"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="101" id="fdr-YD-8sh"/>
+                                    <constraint firstAttribute="height" constant="91" id="gOl-Q0-dth"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="9SP-qQ-yue" firstAttribute="top" secondItem="w7W-cj-I0O" secondAttribute="top" id="4Oc-yt-Vha"/>
                             <constraint firstAttribute="trailing" secondItem="LQt-m6-nSN" secondAttribute="trailing" id="5x4-ao-15h"/>
                             <constraint firstItem="cd2-5J-sNj" firstAttribute="top" secondItem="VOX-QT-oeZ" secondAttribute="bottom" constant="44" id="7W0-AG-QKa"/>
                             <constraint firstItem="emM-vC-IY0" firstAttribute="leading" secondItem="w7W-cj-I0O" secondAttribute="leading" id="7cZ-NZ-8nC"/>
@@ -1001,18 +965,25 @@ You have 10 seconds!</string>
                             <constraint firstItem="LQt-m6-nSN" firstAttribute="leading" secondItem="w7W-cj-I0O" secondAttribute="leading" id="BeI-kn-C9e"/>
                             <constraint firstAttribute="leadingMargin" secondItem="5QZ-Zs-lVC" secondAttribute="leading" id="CSv-IO-OPM"/>
                             <constraint firstItem="5QZ-Zs-lVC" firstAttribute="top" secondItem="VOX-QT-oeZ" secondAttribute="bottom" constant="270" id="FqQ-bw-UG1"/>
+                            <constraint firstItem="4t3-RY-7PI" firstAttribute="leading" secondItem="v2S-wS-cqD" secondAttribute="trailing" constant="-70" id="GCJ-J5-aee"/>
                             <constraint firstItem="emM-vC-IY0" firstAttribute="top" secondItem="VOX-QT-oeZ" secondAttribute="bottom" id="I8L-Co-j2w"/>
+                            <constraint firstItem="QPz-FG-LsZ" firstAttribute="leading" secondItem="Pij-dp-wHb" secondAttribute="trailing" constant="-70" id="LDw-w7-dnT"/>
                             <constraint firstItem="nBJ-Sh-CNn" firstAttribute="top" secondItem="5QZ-Zs-lVC" secondAttribute="bottom" constant="8" id="LFA-Zg-lj1"/>
                             <constraint firstItem="QPz-FG-LsZ" firstAttribute="top" secondItem="VOX-QT-oeZ" secondAttribute="bottom" constant="241" id="Lvc-I9-c7R"/>
                             <constraint firstItem="7YF-Ew-RMW" firstAttribute="top" secondItem="VOX-QT-oeZ" secondAttribute="bottom" constant="-5" id="LxR-K9-yPM"/>
                             <constraint firstItem="cd2-5J-sNj" firstAttribute="leading" secondItem="w7W-cj-I0O" secondAttribute="leading" id="MPY-QC-fej"/>
+                            <constraint firstItem="9SP-qQ-yue" firstAttribute="leading" secondItem="w7W-cj-I0O" secondAttribute="leading" id="P9v-nC-w3H"/>
                             <constraint firstItem="emM-vC-IY0" firstAttribute="centerX" secondItem="w7W-cj-I0O" secondAttribute="centerX" id="ZV2-Oo-RTu"/>
                             <constraint firstItem="4t3-RY-7PI" firstAttribute="top" secondItem="VOX-QT-oeZ" secondAttribute="bottom" constant="6" id="bHI-mT-RNT"/>
                             <constraint firstItem="4t3-RY-7PI" firstAttribute="trailing" secondItem="w7W-cj-I0O" secondAttribute="trailingMargin" id="bq1-on-7BS"/>
+                            <constraint firstItem="nBJ-Sh-CNn" firstAttribute="top" secondItem="9SP-qQ-yue" secondAttribute="bottom" id="cHl-ti-MmD"/>
+                            <constraint firstItem="v2S-wS-cqD" firstAttribute="top" secondItem="4t3-RY-7PI" secondAttribute="bottom" constant="-5" id="gSv-cL-7fQ"/>
                             <constraint firstItem="LQt-m6-nSN" firstAttribute="top" secondItem="w7W-cj-I0O" secondAttribute="top" id="gd2-8f-mJS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QPz-FG-LsZ" secondAttribute="trailing" constant="23" id="iQR-Ka-z0H"/>
+                            <constraint firstAttribute="trailing" secondItem="9SP-qQ-yue" secondAttribute="trailing" id="k2w-zY-pgC"/>
                             <constraint firstItem="7YF-Ew-RMW" firstAttribute="centerX" secondItem="w7W-cj-I0O" secondAttribute="centerX" id="ki2-gS-6Oq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5QZ-Zs-lVC" secondAttribute="trailing" id="ldb-tg-Q4A"/>
+                            <constraint firstItem="Pij-dp-wHb" firstAttribute="top" secondItem="QPz-FG-LsZ" secondAttribute="bottom" constant="-150" id="vTS-eX-bPc"/>
                             <constraint firstAttribute="trailing" secondItem="cd2-5J-sNj" secondAttribute="trailing" id="x8o-bu-mCY"/>
                         </constraints>
                     </view>
@@ -1028,9 +999,12 @@ You have 10 seconds!</string>
     </scenes>
     <resources>
         <image name="cameraIcon" width="512" height="512"/>
+        <image name="capturePhotoBubble" width="948" height="853"/>
         <image name="me" width="587" height="587"/>
         <image name="microphoneCropped" width="170" height="256"/>
         <image name="playButtonWhite" width="321" height="321"/>
+        <image name="recordBubble" width="853" height="948"/>
         <image name="stopButtonWhite" width="321" height="321"/>
+        <image name="submitPostBubble" width="948" height="853"/>
     </resources>
 </document>

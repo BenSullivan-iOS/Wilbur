@@ -176,6 +176,16 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     descriptionTextField.text = ""
     selectedImage.image = UIImage(named: "camera")
     print("Done")
+    
+    savePostToUser(firebasePost.key)
+  }
+  
+  func savePostToUser(postKey: String) {
+    
+    let firebasePost = DataService.ds.REF_USER_CURRENT.child("posts").child(postKey)
+    
+    firebasePost.setValue(postKey)
+
   }
 
   

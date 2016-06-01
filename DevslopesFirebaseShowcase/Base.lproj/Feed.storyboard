@@ -125,47 +125,102 @@
                                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                                         </textView>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="HtS-J7-BWm">
-                                                                            <rect key="frame" x="0.0" y="50" width="544" height="298"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="242" id="QDP-SI-K70"/>
-                                                                            </constraints>
-                                                                        </imageView>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="BND-sI-aEy">
-                                                                            <rect key="frame" x="0.0" y="348" width="544" height="40"/>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0oy-6F-Hqd">
+                                                                            <rect key="frame" x="0.0" y="50" width="544" height="338"/>
                                                                             <subviews>
-                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="popImageUnpopped2" translatesAutoresizingMaskIntoConstraints="NO" id="p3c-7D-P6V">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
+                                                                                <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="HtS-J7-BWm">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="544" height="290"/>
+                                                                                    <gestureRecognizers/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="width" constant="30" id="OY7-Ib-7vD"/>
-                                                                                        <constraint firstAttribute="height" constant="40" id="eCW-JN-FV0"/>
+                                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="242" id="QDP-SI-K70"/>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRS-Ah-iRS">
-                                                                                    <rect key="frame" x="30" y="0.0" width="242" height="40"/>
-                                                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="16"/>
-                                                                                    <state key="normal" title="POP!">
-                                                                                        <color key="titleColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                    </state>
-                                                                                </button>
-                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phoneyFart" translatesAutoresizingMaskIntoConstraints="NO" id="qOB-1L-4s2">
-                                                                                    <rect key="frame" x="272" y="0.0" width="30" height="40"/>
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="BND-sI-aEy">
+                                                                                    <rect key="frame" x="0.0" y="298" width="544" height="40"/>
+                                                                                    <subviews>
+                                                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ofs-1Q-OU9">
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="109" height="40"/>
+                                                                                            <subviews>
+                                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p3c-7D-P6V">
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="15" height="40"/>
+                                                                                                    <constraints>
+                                                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="8G5-3y-wIn"/>
+                                                                                                        <constraint firstAttribute="width" constant="15" id="OY7-Ib-7vD"/>
+                                                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="b0N-Hd-iH6"/>
+                                                                                                        <constraint firstAttribute="height" constant="40" id="eCW-JN-FV0"/>
+                                                                                                    </constraints>
+                                                                                                    <variation key="default">
+                                                                                                        <mask key="constraints">
+                                                                                                            <exclude reference="8G5-3y-wIn"/>
+                                                                                                            <exclude reference="b0N-Hd-iH6"/>
+                                                                                                        </mask>
+                                                                                                    </variation>
+                                                                                                </imageView>
+                                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="popImageUnpopped2" translatesAutoresizingMaskIntoConstraints="NO" id="6qe-zg-3Cn">
+                                                                                                    <rect key="frame" x="20" y="0.0" width="40" height="40"/>
+                                                                                                    <constraints>
+                                                                                                        <constraint firstAttribute="height" constant="40" id="73H-sF-337"/>
+                                                                                                        <constraint firstAttribute="width" constant="40" id="vRt-Ho-ugT"/>
+                                                                                                    </constraints>
+                                                                                                </imageView>
+                                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRS-Ah-iRS">
+                                                                                                    <rect key="frame" x="65" y="0.0" width="44" height="40"/>
+                                                                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="16"/>
+                                                                                                    <state key="normal" title="POP!">
+                                                                                                        <color key="titleColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                    </state>
+                                                                                                </button>
+                                                                                            </subviews>
+                                                                                        </stackView>
+                                                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VdQ-8C-N08">
+                                                                                            <rect key="frame" x="440" y="0.0" width="104" height="40"/>
+                                                                                            <subviews>
+                                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phoneyFart" translatesAutoresizingMaskIntoConstraints="NO" id="qOB-1L-4s2">
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                                                                    <constraints>
+                                                                                                        <constraint firstAttribute="height" constant="40" id="NoP-I4-Nd9"/>
+                                                                                                        <constraint firstAttribute="width" constant="40" id="s4b-9T-y1O"/>
+                                                                                                    </constraints>
+                                                                                                </imageView>
+                                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="gc1-pE-bqY">
+                                                                                                    <rect key="frame" x="40" y="0.0" width="44" height="40"/>
+                                                                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="16"/>
+                                                                                                    <state key="normal" title="FAKE!">
+                                                                                                        <color key="titleColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                                    </state>
+                                                                                                    <connections>
+                                                                                                        <action selector="fakeOrRemoveButtonPressed:" destination="eeD-eg-fg8" eventType="touchUpInside" id="a7k-Fi-AFp"/>
+                                                                                                    </connections>
+                                                                                                </button>
+                                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Ya-CH-SEI">
+                                                                                                    <rect key="frame" x="84" y="0.0" width="20" height="40"/>
+                                                                                                    <constraints>
+                                                                                                        <constraint firstAttribute="height" constant="40" id="coe-XW-maE"/>
+                                                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="lyy-lr-YXo"/>
+                                                                                                        <constraint firstAttribute="width" constant="20" id="o1w-Mf-zBQ"/>
+                                                                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="rht-wa-poa"/>
+                                                                                                    </constraints>
+                                                                                                    <variation key="default">
+                                                                                                        <mask key="constraints">
+                                                                                                            <exclude reference="lyy-lr-YXo"/>
+                                                                                                            <exclude reference="rht-wa-poa"/>
+                                                                                                        </mask>
+                                                                                                    </variation>
+                                                                                                </imageView>
+                                                                                            </subviews>
+                                                                                        </stackView>
+                                                                                    </subviews>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="height" constant="40" id="NoP-I4-Nd9"/>
-                                                                                        <constraint firstAttribute="width" constant="30" id="s4b-9T-y1O"/>
+                                                                                        <constraint firstItem="KRS-Ah-iRS" firstAttribute="width" secondItem="gc1-pE-bqY" secondAttribute="width" id="U7O-tL-6HA"/>
+                                                                                        <constraint firstItem="KRS-Ah-iRS" firstAttribute="width" secondItem="gc1-pE-bqY" secondAttribute="width" id="jFG-xP-8hW"/>
                                                                                     </constraints>
-                                                                                </imageView>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gc1-pE-bqY">
-                                                                                    <rect key="frame" x="302" y="0.0" width="242" height="40"/>
-                                                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="16"/>
-                                                                                    <state key="normal" title="FAKE!">
-                                                                                        <color key="titleColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                    </state>
-                                                                                </button>
+                                                                                    <variation key="default">
+                                                                                        <mask key="constraints">
+                                                                                            <exclude reference="jFG-xP-8hW"/>
+                                                                                        </mask>
+                                                                                    </variation>
+                                                                                </stackView>
                                                                             </subviews>
-                                                                            <constraints>
-                                                                                <constraint firstItem="gc1-pE-bqY" firstAttribute="width" secondItem="KRS-Ah-iRS" secondAttribute="width" id="a9S-mC-n5K"/>
-                                                                            </constraints>
                                                                         </stackView>
                                                                     </subviews>
                                                                 </stackView>
@@ -195,9 +250,12 @@
                                                 <constraint firstItem="lQe-s4-wnj" firstAttribute="top" secondItem="E7o-ea-rRu" secondAttribute="topMargin" id="sNh-BI-cQd"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                         <connections>
                                             <outlet property="descriptionText" destination="5hh-Zj-qJI" id="afp-xy-3hD"/>
-                                            <outlet property="likeImage" destination="p3c-7D-P6V" id="Csn-4j-FWm"/>
+                                            <outlet property="fakeButton" destination="qOB-1L-4s2" id="zzH-21-RK3"/>
+                                            <outlet property="fakeLabel" destination="gc1-pE-bqY" id="4fS-iq-dTC"/>
+                                            <outlet property="likeImage" destination="6qe-zg-3Cn" id="RNN-Cg-w8q"/>
                                             <outlet property="likesLabel" destination="1Qs-fT-ZT9" id="lVW-Sq-E9a"/>
                                             <outlet property="profileImg" destination="eM3-A1-6pJ" id="xLJ-0r-X2A"/>
                                             <outlet property="showcaseImg" destination="HtS-J7-BWm" id="enO-qc-cN6"/>
@@ -240,6 +298,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Hjp-Ze-2r3" firstAttribute="top" secondItem="CLN-hN-kZb" secondAttribute="bottom" id="3jU-E5-7Vi"/>
                             <constraint firstItem="N6n-JV-uDq" firstAttribute="centerX" secondItem="7lZ-wz-ZPf" secondAttribute="centerX" id="49m-XY-ZZ1"/>

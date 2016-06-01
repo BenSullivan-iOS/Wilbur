@@ -19,9 +19,28 @@ class PostCell: UITableViewCell {
   @IBOutlet weak var likeImage: UIImageView!
   @IBOutlet weak var username: UILabel!
   
+  @IBOutlet weak var fakeButton: UIImageView!
+  @IBOutlet weak var fakeLabel: UIButton!
+  
+  @IBAction func fakeOrRemoveButtonPressed(sender: UIButton) {
+    
+    if fakeLabel.titleLabel!.text == "REMOVE" {
+    
+      delegate?.showDeletePostAlert((post?.postKey)!)
+    } else {
+      markFartAsFake((post?.postKey)!)
+      print("code to report fake fart here")
+    }
+    
+  }
+  
+  
+  var delegate: PostCellDelegate? = nil
   
   var likeRef: FIRDatabaseReference!
-    
+  
+  var postRef: FIRDatabaseReference!
+
   private var _post: Post?
   
   var post: Post? {
@@ -36,6 +55,8 @@ class PostCell: UITableViewCell {
     
     likeImage.addGestureRecognizer(tap)
     likeImage.userInteractionEnabled = true
+    
+    
   }
   
   override func drawRect(rect: CGRect) {
@@ -98,13 +119,12 @@ class PostCell: UITableViewCell {
   func configureCell(post: Post, img: UIImage?) {
     
     showcaseImg.image = UIImage(named: "placeholder")
+    fakeButton.image = nil
+    fakeLabel.setTitle("", forState: .Normal)
     
-    if let like = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey) as? FIRDatabaseReference? {
-      likeRef = like
-    }
-    
-    //    likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
-    
+    likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
+    postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
+
     
     self._post = post
     self.descriptionText.text = post.postDescription
@@ -135,17 +155,26 @@ class PostCell: UITableViewCell {
       showcaseImg.image = UIImage(named: "placeholder")
     }
     
-    //    let likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
-    //look for like once then toggle heart
+    postRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+      
+      if let _ = snapshot.value as? NSNull {
+        
+        self.fakeLabel.setTitle("FAKE!", forState: .Normal)
+        self.fakeButton.image = UIImage(named: "phoneyFart")
+        
+      } else {
+        
+        self.fakeButton.image = UIImage(named: "trashIcon")
+        self.fakeLabel.setTitle("REMOVE", forState: .Normal)
+      }
+      
+    })
+
     likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
       
-      
-      //in firebase if there's no data in .value you will receive an NSNull not nil
       if let _ = snapshot.value as? NSNull {
-        //we have not liked this specific post
         
         self.likeImage.image = UIImage(named: "heart-empty")
-        
         
       } else {
         
@@ -155,6 +184,7 @@ class PostCell: UITableViewCell {
       
     })
   }
+  
   //change image displaying, then add one like or remove one like
   func likeTapped() {
     
@@ -173,6 +203,38 @@ class PostCell: UITableViewCell {
         self.likeImage.image = UIImage(named: "heart-empty")
         self.post?.adjustLikes(false)
         self.likeRef.removeValue()
+        
+      }
+      
+      
+    })
+    
+  }
+  
+
+  
+  func markFartAsFake(key: String) {
+    
+    let fakeRef = DataService.ds.REF_POSTS.child(key).child("fakeCount") as FIRDatabaseReference
+    let deletePostRef = DataService.ds.REF_POSTS.child(key) as FIRDatabaseReference
+    
+    fakeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+      print("value = ", snapshot.value)
+      //in firebase if there's no data in .value you will receive an NSNull not nil
+      if let _ = snapshot.value as? NSNull {
+        //we have not liked this specific post
+        
+        fakeRef.setValue(1)
+        print("set fakeRef to 1")
+      } else {
+        
+        if snapshot.value as! Int > 4 {
+          deletePostRef.removeValue()
+          self.postRef.removeValue()
+        } else {
+          self.post?.adjustFakeCount(true)
+        }
+        
         
       }
       

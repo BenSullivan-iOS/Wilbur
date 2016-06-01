@@ -19,7 +19,7 @@ class DataService {
   
   private var _REF_BASE = URL_BASE
   private var _REF_POSTS = URL_BASE.child("posts")
-  private var _REF_USERS = URL_BASE.child("Users")
+  private var _REF_USERS = URL_BASE.child("users")
 
   var REF_BASE: FIRDatabaseReference {
     return _REF_BASE
@@ -37,7 +37,7 @@ class DataService {
     
     let uid = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
     
-    let user = URL_BASE.child("Users")
+    let user = URL_BASE.child("users").child(uid)
     
     return user
   }
