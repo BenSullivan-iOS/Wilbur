@@ -19,6 +19,7 @@ class PostCell: UITableViewCell {
   @IBOutlet weak var likeImage: UIImageView!
   @IBOutlet weak var username: UILabel!
   @IBOutlet weak var pop: UILabel!
+  @IBOutlet weak var popText: UIButton!
   
   @IBOutlet weak var fakeButton: UIImageView!
   @IBOutlet weak var fakeLabel: UIButton!
@@ -56,6 +57,20 @@ class PostCell: UITableViewCell {
     
     likeImage.addGestureRecognizer(tap)
     likeImage.userInteractionEnabled = true
+    
+    let likeTextTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.likeTapped))
+    
+    likeTextTap.numberOfTapsRequired = 1
+    
+    popText.addGestureRecognizer(likeTextTap)
+    popText.userInteractionEnabled = true
+    
+    let trashIconTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.fakeOrRemoveButtonPressed(_:)))
+    
+    trashIconTap.numberOfTapsRequired = 1
+    
+    fakeButton.addGestureRecognizer(trashIconTap)
+    fakeButton.userInteractionEnabled = true
     
     
   }
@@ -127,8 +142,8 @@ class PostCell: UITableViewCell {
     }
     
     showcaseImg.image = UIImage(named: "placeholder")
-    fakeButton.image = nil
-    fakeLabel.setTitle("", forState: .Normal)
+//    fakeButton.image = nil
+//    fakeLabel.setTitle("", forState: .Normal)
     
     likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
     postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
@@ -182,11 +197,13 @@ class PostCell: UITableViewCell {
       
       if let _ = snapshot.value as? NSNull {
         
-        self.likeImage.image = UIImage(named: "heart-empty")
+        self.likeImage.image = UIImage(named: "likeIconGrey")
+        self.popText.setTitleColor(UIColor(colorLiteralRed: 169/255, green: 194/255, blue: 194/255, alpha: 1), forState: .Normal)
         
       } else {
         
-        self.likeImage.image = UIImage(named: "popImageUnpopped2")
+        self.likeImage.image = UIImage(named: "likeIcon")
+        self.popText.setTitleColor(UIColor(colorLiteralRed: 244/255, green: 81/255, blue: 30/255, alpha: 1), forState: .Normal)
       }
       
       
@@ -196,19 +213,24 @@ class PostCell: UITableViewCell {
   //change image displaying, then add one like or remove one like
   func likeTapped() {
     
+    print("Like tapped")
+    
     likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
       
       //in firebase if there's no data in .value you will receive an NSNull not nil
       if let _ = snapshot.value as? NSNull {
         //we have not liked this specific post
         
-        self.likeImage.image = UIImage(named: "popImageUnpopped2")
+        self.likeImage.image = UIImage(named: "likeIcon")
+        self.popText.setTitleColor(UIColor(colorLiteralRed: 244/255, green: 81/255, blue: 30/255, alpha: 1), forState: .Normal)
         self.post?.adjustLikes(true)
         self.likeRef.setValue(true)
         
       } else {
         
-        self.likeImage.image = UIImage(named: "heart-empty")
+        self.likeImage.image = UIImage(named: "likeIconGrey")
+        self.popText.setTitleColor(UIColor(colorLiteralRed: 169/255, green: 194/255, blue: 194/255, alpha: 1), forState: .Normal)
+
         self.post?.adjustLikes(false)
         self.likeRef.removeValue()
         

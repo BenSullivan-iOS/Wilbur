@@ -43,7 +43,7 @@
                 <pageViewController storyboardIdentifier="PagingVC" autoresizesArchivedViewToFullSize="NO" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="7AT-TA-p4M" customClass="PagingVC" customModule="Fart_Club" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KW5-NP-Jck" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1520" y="375"/>
+            <point key="canvasLocation" x="1558" y="465"/>
         </scene>
         <!--  PROFILE  -->
         <scene sceneID="dGF-XF-Zne">
@@ -61,14 +61,14 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="243"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="me" translatesAutoresizingMaskIntoConstraints="NO" id="UMu-H4-rW9">
-                                        <rect key="frame" x="230" y="8" width="140" height="140"/>
+                                        <rect key="frame" x="230" y="21" width="140" height="140"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="140" id="GVp-Ek-prZ"/>
                                             <constraint firstAttribute="height" constant="140" id="Lcb-YU-ELG"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BEN SULLIVAN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o7H-YP-2ap">
-                                        <rect key="frame" x="22" y="156" width="550" height="42"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o7H-YP-2ap">
+                                        <rect key="frame" x="22" y="169" width="550" height="42"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="Aoh-ZN-Yvj"/>
                                         </constraints>
@@ -81,7 +81,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="o7H-YP-2ap" secondAttribute="trailing" constant="28" id="4Lx-Hd-Naz"/>
                                     <constraint firstItem="o7H-YP-2ap" firstAttribute="leading" secondItem="IuW-qA-nEE" secondAttribute="leading" constant="22" id="81T-db-yzS"/>
-                                    <constraint firstItem="UMu-H4-rW9" firstAttribute="top" secondItem="IuW-qA-nEE" secondAttribute="top" constant="8" id="URK-8B-o4T"/>
+                                    <constraint firstItem="UMu-H4-rW9" firstAttribute="top" secondItem="IuW-qA-nEE" secondAttribute="top" constant="21" id="URK-8B-o4T"/>
                                     <constraint firstItem="o7H-YP-2ap" firstAttribute="top" secondItem="UMu-H4-rW9" secondAttribute="bottom" constant="8" id="UZQ-eP-yWv"/>
                                     <constraint firstItem="UMu-H4-rW9" firstAttribute="centerX" secondItem="IuW-qA-nEE" secondAttribute="centerX" id="Ze6-SV-0ZO"/>
                                     <constraint firstAttribute="height" constant="243" id="fQe-4Y-fjY"/>
@@ -249,6 +249,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="profileImage" destination="UMu-H4-rW9" id="7Fg-iZ-Qax"/>
+                        <outlet property="username" destination="o7H-YP-2ap" id="I9f-Rl-tQJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bek-vn-Vxf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -844,7 +845,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gve-Ee-Zrf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1609" y="988"/>
+            <point key="canvasLocation" x="1586" y="999"/>
         </scene>
         <!--Pootorial-->
         <scene sceneID="kUy-nl-c3M">
@@ -991,9 +992,14 @@
                                     <constraint firstAttribute="height" constant="91" id="gOl-Q0-dth"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="- Tutorial text will go here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Jvf-tR-b9a">
-                                <rect key="frame" x="28" y="354" width="545" height="226"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jvf-tR-b9a">
+                                <rect key="frame" x="28" y="354" width="544" height="226"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Tap the microphone to start recording, pop one off then tap again to complete.
+
+Leave a little note about your particular brew. Let everyone know how such an amazing brew was achieved.
+
+Pop in a proud photo of yourself, the culprit or your cat, hit submit and welcome to Fart Club!</string>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Baskerville" family="Baskerville" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1007,6 +1013,7 @@
                             <constraint firstItem="emM-vC-IY0" firstAttribute="leading" secondItem="w7W-cj-I0O" secondAttribute="leading" id="7cZ-NZ-8nC"/>
                             <constraint firstAttribute="trailing" secondItem="emM-vC-IY0" secondAttribute="trailing" id="B3j-8x-Ngs"/>
                             <constraint firstItem="LQt-m6-nSN" firstAttribute="leading" secondItem="w7W-cj-I0O" secondAttribute="leading" id="BeI-kn-C9e"/>
+                            <constraint firstItem="nBJ-Sh-CNn" firstAttribute="top" secondItem="Jvf-tR-b9a" secondAttribute="bottom" constant="20" id="Bv0-Zx-en9"/>
                             <constraint firstAttribute="leadingMargin" secondItem="5QZ-Zs-lVC" secondAttribute="leading" id="CSv-IO-OPM"/>
                             <constraint firstItem="5QZ-Zs-lVC" firstAttribute="top" secondItem="VOX-QT-oeZ" secondAttribute="bottom" constant="270" id="FqQ-bw-UG1"/>
                             <constraint firstItem="4t3-RY-7PI" firstAttribute="leading" secondItem="v2S-wS-cqD" secondAttribute="trailing" constant="-70" id="GCJ-J5-aee"/>
@@ -1021,13 +1028,16 @@
                             <constraint firstItem="4t3-RY-7PI" firstAttribute="top" secondItem="VOX-QT-oeZ" secondAttribute="bottom" constant="6" id="bHI-mT-RNT"/>
                             <constraint firstItem="4t3-RY-7PI" firstAttribute="trailing" secondItem="w7W-cj-I0O" secondAttribute="trailingMargin" id="bq1-on-7BS"/>
                             <constraint firstItem="nBJ-Sh-CNn" firstAttribute="top" secondItem="9SP-qQ-yue" secondAttribute="bottom" id="cHl-ti-MmD"/>
+                            <constraint firstItem="Jvf-tR-b9a" firstAttribute="leading" secondItem="w7W-cj-I0O" secondAttribute="leadingMargin" constant="8" id="fTJ-Os-nVf"/>
                             <constraint firstItem="v2S-wS-cqD" firstAttribute="top" secondItem="4t3-RY-7PI" secondAttribute="bottom" constant="-5" id="gSv-cL-7fQ"/>
                             <constraint firstItem="LQt-m6-nSN" firstAttribute="top" secondItem="w7W-cj-I0O" secondAttribute="top" id="gd2-8f-mJS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QPz-FG-LsZ" secondAttribute="trailing" constant="23" id="iQR-Ka-z0H"/>
                             <constraint firstAttribute="trailing" secondItem="9SP-qQ-yue" secondAttribute="trailing" id="k2w-zY-pgC"/>
                             <constraint firstItem="7YF-Ew-RMW" firstAttribute="centerX" secondItem="w7W-cj-I0O" secondAttribute="centerX" id="ki2-gS-6Oq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5QZ-Zs-lVC" secondAttribute="trailing" id="ldb-tg-Q4A"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jvf-tR-b9a" secondAttribute="trailing" constant="8" id="sbB-nU-M8w"/>
                             <constraint firstItem="Pij-dp-wHb" firstAttribute="top" secondItem="QPz-FG-LsZ" secondAttribute="bottom" constant="-150" id="vTS-eX-bPc"/>
+                            <constraint firstItem="Jvf-tR-b9a" firstAttribute="top" secondItem="QPz-FG-LsZ" secondAttribute="bottom" constant="32" id="wJF-87-eYt"/>
                             <constraint firstAttribute="trailing" secondItem="cd2-5J-sNj" secondAttribute="trailing" id="x8o-bu-mCY"/>
                         </constraints>
                     </view>

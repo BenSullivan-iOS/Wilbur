@@ -25,10 +25,13 @@ class ProfileVC: UIViewController, ProfileTableDelegate {
   
   @IBOutlet weak var profileImage: UIImageView!
   
+  
   @IBAction func popOffButtonPressed(sender: UIButton) {
     
     dismissViewControllerAnimated(true, completion: nil)
   }
+  
+  @IBOutlet weak var username: UILabel!
   
   func rowSelected(rowTitle: SelectedRow) {
     
@@ -60,6 +63,13 @@ class ProfileVC: UIViewController, ProfileTableDelegate {
     
     profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
     profileImage.clipsToBounds = true
+    
+    if let currentUsername = NSUserDefaults.standardUserDefaults().valueForKey("username") as? String {
+      
+      username.text = currentUsername
+      
+      
+    }
   }
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
