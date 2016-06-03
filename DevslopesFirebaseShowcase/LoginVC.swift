@@ -15,8 +15,6 @@ import Spring
 
 class LoginVC: UIViewController {
   
-  @IBOutlet weak var emailField: UITextField!
-  @IBOutlet weak var passwordField: UITextField!
   @IBOutlet weak var facebookLoginButton: SpringButton!
 
   func styleButton() {
@@ -74,11 +72,30 @@ class LoginVC: UIViewController {
         let provider = ["provider" : user.providerID]
         
         print(user.uid)
-
-        DataService.ds.createFirebaseUser(user.uid, user: provider)
+        //only do this for new users...
+        
+        let reference = DataService.ds.REF_USERS
+        
+        reference.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+          
+          if snapshot.value?.uid == user.uid {
+            
+            print(snapshot)
+            
+            if let savedUID = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String {
+              
+              if savedUID != user.uid {
+                
+                DataService.ds.createFirebaseUser(user.uid, user: provider)
+                
+              }
+            }
+            
+          }
+          
+        })
         
         NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
-        
         NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.shared.KEY_UID)
 
         self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)

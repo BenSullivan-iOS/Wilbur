@@ -23,6 +23,8 @@ class TopTrumpsCell: UITableViewCell {
   @IBOutlet weak var likesLabel: UILabel!
   @IBOutlet weak var cellBackground: MaterialView!
   @IBOutlet weak var username: UILabel!
+  @IBOutlet weak var descriptionTextView: UITextView!
+  @IBOutlet weak var pops: UILabel!
   
   override func awakeFromNib() {
     
@@ -42,6 +44,11 @@ class TopTrumpsCell: UITableViewCell {
   
   func configureCell(post: Post, img: UIImage?) {
     
+    if post.likes == 1 {
+      
+      pops.text = "pop"
+    }
+    
     print("configure cell")
     
     if let like = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey) as? FIRDatabaseReference? {
@@ -52,9 +59,9 @@ class TopTrumpsCell: UITableViewCell {
     
     
     self._post = post
-    //    self.descriptionText.text = post.postDescription
     self.likesLabel.text = "\(post.likes)"
     self.username.text = post.username
+    self.descriptionTextView.text = post.postDescription
     print("image url:", post.imageUrl)
     if post.imageUrl != nil {
       print("here")

@@ -18,6 +18,7 @@ class PostCell: UITableViewCell {
   @IBOutlet weak var likesLabel: UILabel!
   @IBOutlet weak var likeImage: UIImageView!
   @IBOutlet weak var username: UILabel!
+  @IBOutlet weak var pop: UILabel!
   
   @IBOutlet weak var fakeButton: UIImageView!
   @IBOutlet weak var fakeLabel: UIButton!
@@ -117,6 +118,13 @@ class PostCell: UITableViewCell {
 //  }
   
   func configureCell(post: Post, img: UIImage?) {
+    
+    if post.likes == 1 {
+      
+      pop.text = "pop"
+    } else {
+      pop.text = "pops"
+    }
     
     showcaseImg.image = UIImage(named: "placeholder")
     fakeButton.image = nil

@@ -44,6 +44,15 @@ class SplashVC: UIViewController {
     NSTimer.scheduledTimerWithTimeInterval(0, target: self, selector: #selector(SplashVC.checkForUserLoggedIn), userInfo: nil, repeats: false)
   }
   
+  override func viewDidAppear(animated: Bool) {
+    
+    if viewAppearedFromFeed {
+      performSegueWithIdentifier(Constants.sharedSegues.signUp, sender: self)
+    }
+  }
+  
+  var viewAppearedFromFeed = Bool()
+  
   func checkForUserLoggedIn() {
     
     if NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) != nil {
@@ -51,6 +60,8 @@ class SplashVC: UIViewController {
     } else {
       self.performSegueWithIdentifier(Constants.sharedSegues.signUp, sender: self)
     }
+    
+    viewAppearedFromFeed = true
 
   }
   

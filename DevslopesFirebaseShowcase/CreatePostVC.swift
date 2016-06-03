@@ -93,7 +93,11 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   @IBAction func takePhotoButtonPressed(sender: AnyObject) {
     
-    imagePickerAlert()
+    if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+      imagePickerAlert()
+    } else {
+      presentViewController(imagePicker, animated: true, completion: nil)
+    }
   }
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
@@ -226,6 +230,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   func imagePickerAlert() {
     
     let alert = UIAlertController(title: "Share your fartistic side", message: "", preferredStyle: .ActionSheet)
+    alert.popoverPresentationController?.sourceView = self.view
     
     alert.addAction(UIAlertAction(title: "Fartograph", style: .Default, handler: { action in
       
@@ -234,6 +239,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       self.presentViewController(self.imagePicker, animated: true, completion: nil)
       
     }))
+    
     
     alert.addAction(UIAlertAction(title: "Farto Library", style: .Default, handler: { action in
       
@@ -355,6 +361,8 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       }
       pressed = true
       
+      if playButton.alpha == 1 {
+      
       playButton.damping = 0.8
       playButton.x = 0
       playButton.animateTo()
@@ -364,6 +372,8 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       pauseButton.x = 0
       pauseButton.animateTo()
       pauseButton.alpha = 0
+        
+      }
       
     } else {
       

@@ -61,7 +61,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    AudioControls.shared.setupRecording()
+//    AudioControls.shared.setupRecording()
     
     activityIndicator.color = UIColor(colorLiteralRed: 244/255, green: 81/255, blue: 30/255, alpha: 1)
     
@@ -69,10 +69,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.dataSource = self
     
     tableView.estimatedRowHeight = 414
-    
+    print("Feed vc view did load")
     DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
       
-      print(snapshot.value)
+      print("snapshot", snapshot.value)
       self.posts = []
 
       if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
@@ -93,8 +93,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
           self.activityIndicator.alpha = 0
         }
         
-        
-        
         self.posts.sortInPlace({ (first, second) -> Bool in
           
           let df = NSDateFormatter()
@@ -106,6 +104,18 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         self.tableView.reloadData()
       }
     })
+    
+    NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+    print("end of view did load")
+  }
+  
+  func checkLoggedIn() {
+    
+    if posts.isEmpty {
+      NSUserDefaults.standardUserDefaults().setValue(nil, forKey: Constants.shared.KEY_UID)
+      dismissViewControllerAnimated(true, completion: nil)
+    }
+    
   }
   
   func isAfterDate(startDate: NSDate, endDate: NSDate) -> Bool {

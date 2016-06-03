@@ -55,13 +55,19 @@ class TopTrumpsVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     let cell = tableView.cellForRowAtIndexPath(indexPath) as! TopTrumpsCell
     
+    let path = AudioControls.shared.getDocumentsDirectory()
+    let stringPath = String(path) + "/" + posts[indexPath.row].audioURL
+    let finalPath = NSURL(fileURLWithPath: stringPath)
+    CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)
+
+    
     if cell.cellBackground.backgroundColor == .whiteColor() {
       
-      cell.cellBackground.backgroundColor = UIColor(colorLiteralRed: 240/255, green: 250/255, blue: 255/255, alpha: 1)
+//      cell.cellBackground.backgroundColor = UIColor(colorLiteralRed: 240/255, green: 250/255, blue: 255/255, alpha: 1)
       
     } else {
       
-      cell.cellBackground.backgroundColor = .whiteColor()
+//      cell.cellBackground.backgroundColor = .whiteColor()
     }
     
   }
