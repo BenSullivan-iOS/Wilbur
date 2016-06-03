@@ -156,6 +156,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         print("in the cache init")
         img = FeedVC.imageCache.objectForKey(url) as? UIImage
       }
+      
       cell.delegate = self
       cell.configureCell(post, img: img)
 

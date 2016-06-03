@@ -63,7 +63,7 @@
                                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bzf-fF-7YK">
                                                                             <rect key="frame" x="0.0" y="0.0" width="500" height="70"/>
                                                                             <subviews>
-                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" image="me" translatesAutoresizingMaskIntoConstraints="NO" id="eM3-A1-6pJ">
+                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="eM3-A1-6pJ">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="70" id="NON-iA-3z7"/>
@@ -306,8 +306,8 @@
     </scenes>
     <resources>
         <image name="likeIconGrey" width="300" height="382"/>
-        <image name="me" width="587" height="587"/>
         <image name="placeholder" width="666" height="720"/>
+        <image name="profile-placeholder" width="600" height="600"/>
         <image name="profileImage" width="128" height="128"/>
         <image name="trashIcon" width="128" height="128"/>
     </resources>

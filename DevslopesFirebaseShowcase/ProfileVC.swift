@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseStorage
+import Firebase
 
 protocol ProfileTableDelegate {
   
@@ -21,10 +23,134 @@ enum SelectedRow {
   case FeatureRequest
 }
 
-class ProfileVC: UIViewController, ProfileTableDelegate {
+private class TempProfileImageStorage {
+  
+  static let shared = TempProfileImageStorage()
+  
+  var profileImage: UIImage? = nil
+  
+}
+
+class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ProfileTableDelegate {
   
   @IBOutlet weak var profileImage: UIImageView!
   
+  let imagePicker = UIImagePickerController()
+  
+  @IBAction func setProfileImagePressed(sender: AnyObject) {
+    
+    if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+      imagePickerAlert()
+    } else {
+      presentViewController(imagePicker, animated: true, completion: nil)
+    }
+  }
+  func imagePickerAlert() {
+    
+    let alert = UIAlertController(title: "Where from??", message: "", preferredStyle: .ActionSheet)
+    alert.popoverPresentationController?.sourceView = self.view
+    
+    alert.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { action in
+      
+      print("camera")
+      self.imagePicker.sourceType = .Camera
+      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      
+    }))
+    
+    
+    alert.addAction(UIAlertAction(title: "Photo Library", style: .Default, handler: { action in
+      
+      print("photo library")
+      
+      self.imagePicker.sourceType = .PhotoLibrary
+      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Blow Off", style: .Cancel, handler: nil))
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    
+    print("did finish")
+    let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    profileImage.image = image
+    
+    let saveDirectory = String(getDocumentsDirectory()) + "/images/tempImage.jpg"
+    
+    let tempImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+    
+    saveImage(tempImage, path: saveDirectory)
+    
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  
+  func saveImage (image: UIImage, path: String) -> Bool {
+    
+    let compressedImage = resizeImage(image, newWidth: 1536)
+    let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0)
+    let result = jpgImageData!.writeToFile(String(path), atomically: true)
+    
+    selectedImagePath = NSURL(fileURLWithPath: path)
+    
+    saveProfileImageToFirebaseStorageWithURL(String(selectedImagePath))
+    
+    return result
+  }
+  
+  var selectedImagePath = NSURL?()
+
+  func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+    
+    let scale = newWidth / image.size.width
+    let newHeight = image.size.height * scale
+    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+    image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return newImage
+  }
+  
+  func saveProfileImageToFirebaseStorageWithURL(imagePath: String) {
+    
+    print("save profile image", imagePath)
+    
+    let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
+    
+    let firebaseRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
+
+    if let imagePath = selectedImagePath {
+      
+      uploadImage(imagePath, firebaseReference: firebaseRef.key)
+    }
+    
+    firebaseRef.setValue(firebaseRef.key)
+  }
+  
+  func uploadImage(localFile: NSURL, firebaseReference: String) {
+    print("uploadImage", localFile)
+    let storageRef = FIRStorage.storage().reference()
+    let riversRef = storageRef.child("profileImages/\(firebaseReference).jpg")
+    
+    riversRef.putFile(localFile, metadata: nil) { metadata, error in
+      print("putFile")
+      guard let metadata = metadata where error == nil else { print("error", error); return }
+      
+      let downloadURL = metadata.downloadURL
+      
+      print("success", downloadURL)
+      
+      
+      
+      
+      //      CreatePost.shared.downloadAudio(localFile)
+    }
+  }
   
   @IBAction func popOffButtonPressed(sender: UIButton) {
     
@@ -32,6 +158,16 @@ class ProfileVC: UIViewController, ProfileTableDelegate {
   }
   
   @IBOutlet weak var username: UILabel!
+  
+  
+  func getDocumentsDirectory() -> NSURL {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let documentsDirectory = paths[0]
+    
+    let url = NSURL(string: documentsDirectory)!
+    
+    return url
+  }
   
   func rowSelected(rowTitle: SelectedRow) {
     
@@ -59,7 +195,18 @@ class ProfileVC: UIViewController, ProfileTableDelegate {
     }
   }
   
+  var profileImageRef: FIRDatabaseReference!
+  
   override func viewDidLoad() {
+    
+    if TempProfileImageStorage.shared.profileImage == nil {
+      getProfileImageReferenceThenDownload()
+    } else {
+      profileImage.image = TempProfileImageStorage.shared.profileImage
+    }
+    
+    
+    imagePicker.delegate = self
     
     profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
     profileImage.clipsToBounds = true
@@ -71,6 +218,55 @@ class ProfileVC: UIViewController, ProfileTableDelegate {
       
     }
   }
+  
+  func getProfileImageReferenceThenDownload() {
+  
+  let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
+  profileImageRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
+  
+  profileImageRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+  
+  if let _ = snapshot.value as? NSNull {
+  
+  //        self.profileImg.image =
+  //        self.fakeButton.image = UIImage(named: "phoneyFart")
+  
+  
+  
+  } else {
+  
+  self.downloadProfileImage(snapshot.value as! String)
+  
+  }
+  
+  })
+  }
+
+  
+  func downloadProfileImage(imageLocation: String) {
+    
+    print("Download Image")
+    let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
+    
+    let storageRef = FIRStorage.storage().reference()
+    let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
+    print("profile image path reference", pathReference)
+    pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+      print("Write to file")
+      guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+      
+      print("SUCCESS - ")
+      print(URL)
+      print(saveLocation)
+      
+      let image = UIImage(data: NSData(contentsOfURL: URL)!)!
+      
+      self.profileImage.image = image
+      TempProfileImageStorage.shared.profileImage = image
+      //      FeedVC.imageCache.setObject(image, forKey: self.post!.imageUrl!)
+    }
+  }
+
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent

@@ -19,10 +19,14 @@ class Post {
   private var _audioURL: String!
   private var _date: String!
   private var _fakeCount: Int!
+//  private var _profileImage: UIImage?
   
   var date: String {
     return _date
   }
+//  var profileImage: UIImage? {
+//    return _profileImage
+//  }
   var audioURL: String {
     return _audioURL
   }
@@ -86,6 +90,10 @@ class Post {
 //      AudioControls.shared.play(finalPath!)
     }
     
+//    if let profileImage = dictionary["profileImage"] as? String {
+//      downloadImage(profileImage)
+//    }
+    
     self._date = dictionary["date"] as? String
     
     self._username = dictionary["user"] as? String
@@ -111,4 +119,5 @@ class Post {
     
     self._postRef = DataService.ds.REF_POSTS.child(self._postKey)
   }
+  
 }
