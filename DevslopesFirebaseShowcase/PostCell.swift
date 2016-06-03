@@ -40,9 +40,7 @@ class PostCell: UITableViewCell {
   var delegate: PostCellDelegate? = nil
   
   var likeRef: FIRDatabaseReference!
-  
   var postRef: FIRDatabaseReference!
-  
   var profileImage: FIRDatabaseReference!
 
 
@@ -190,11 +188,11 @@ class PostCell: UITableViewCell {
       if let _ = snapshot.value as? NSNull {
         
         self.fakeLabel.setTitle("FAKE!", forState: .Normal)
-        self.fakeButton.image = UIImage(named: "phoneyFart")
+        self.fakeButton.image = UIImage(named: "fakeFartIcon")
         
       } else {
         
-        self.fakeButton.image = UIImage(named: "trashIcon")
+        self.fakeButton.image = UIImage(named: "fakeFartIcon")
         self.fakeLabel.setTitle("REMOVE", forState: .Normal)
       }
       

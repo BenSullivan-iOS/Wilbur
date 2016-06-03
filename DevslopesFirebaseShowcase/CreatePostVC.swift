@@ -43,6 +43,9 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   override func viewDidLoad() {
     
+    postedButton.alpha = 0
+    postingButton.alpha = 0
+    
     AudioControls.shared.delegate = self
     
     AudioControls.shared.setupRecording()
@@ -139,11 +142,18 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     return result
   }
   
-  
-  
+  @IBOutlet weak var postingButton: SpringLabel!
+  @IBOutlet weak var postedButton: SpringLabel!
   
   @IBAction func postBarButtonPressed(sender: AnyObject) {
     
+    recordButton.alpha = 0
+    playButton.alpha = 0
+    pauseButton.alpha = 0
+    postingButton.autohide = false
+    postingButton.animation = "squeezeRight"
+    postingButton.damping = 1
+    postingButton.animate()
     postToFirebase()
   }
   
@@ -182,6 +192,24 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     print("Done")
     
     savePostToUser(firebasePost.key)
+    
+    self.postingButton.x = 300
+    self.postingButton.animateTo()
+    
+    self.postedButton.autohide = false
+    self.postedButton.animation = "squeezeRight"
+    self.postedButton.damping = 1
+    self.postedButton.animateNext({
+      
+      self.postedButton.delay = 2
+      self.postedButton.animation = "squeezeLeft"
+      self.postedButton.animateTo()
+      self.recordButton.autohide = true
+      self.recordButton.delay = 2.5
+      self.recordButton.animation = "fadeIn"
+      self.recordButton.animate()
+    })
+
   }
   
   func savePostToUser(postKey: String) {
@@ -206,6 +234,8 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       
       print("success", downloadURL)
       
+      
+
       
       //      CreatePost.shared.downloadAudio(localFile)
     }
@@ -409,6 +439,8 @@ class Pootorial: UIViewController {
   }
   
   override func viewDidLoad() {
+    
+    
     
     recordButton.imageView?.contentMode = .ScaleAspectFit
     

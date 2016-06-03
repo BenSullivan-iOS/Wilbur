@@ -14,6 +14,8 @@ class TopTrumpsCell: UITableViewCell {
   
   private var _post: Post?
   var likeRef: FIRDatabaseReference!
+  var profileImage: FIRDatabaseReference!
+
   var request: Request?
   var post: Post? {
     return _post
@@ -91,6 +93,28 @@ class TopTrumpsCell: UITableViewCell {
     
     //    let likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
     //look for like once then toggle heart
+    
+    
+    let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
+    profileImage = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
+    
+    profileImage.observeSingleEventOfType(.Value, withBlock: { snapshot in
+      
+      if let _ = snapshot.value as? NSNull {
+        
+        //        self.profileImg.image =
+        //        self.fakeButton.image = UIImage(named: "phoneyFart")
+        
+        
+        
+      } else {
+        
+        self.downloadProfileImage(snapshot.value as! String)
+        
+      }
+      
+    })
+    
     likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
       
       
@@ -108,6 +132,39 @@ class TopTrumpsCell: UITableViewCell {
       
       
     })
+  }
+  
+  func getDocumentsDirectory() -> NSURL {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let documentsDirectory = paths[0]
+    
+    let url = NSURL(string: documentsDirectory)!
+    
+    return url
+  }
+  
+  func downloadProfileImage(imageLocation: String) {
+    
+    print("Download Image")
+    let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
+    
+    let storageRef = FIRStorage.storage().reference()
+    let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
+    print("profile image path reference", pathReference)
+    pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+      print("Write to file")
+      guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+      
+      print("SUCCESS - ")
+      print(URL)
+      print(saveLocation)
+      
+      let image = UIImage(data: NSData(contentsOfURL: URL)!)!
+      
+      self.profileImg.image = image
+      
+      //      FeedVC.imageCache.setObject(image, forKey: self.post!.imageUrl!)
+    }
   }
   //change image displaying, then add one like or remove one like
   func likeTapped() {

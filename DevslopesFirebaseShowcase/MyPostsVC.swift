@@ -12,22 +12,20 @@ import Alamofire
 import FDWaveformView
 import AVFoundation
 
-protocol PostCellDelegate {
-  func showDeletePostAlert(key: String)
-}
-
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
+class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
   
   func showDeletePostAlert(key: String) {
     print("showDeletePostAlert")
     displayDeleteAlert(key)
   }
-    
+  @IBAction func backButtonPressed(sender: AnyObject) {
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
   private var posts = [Post]()
   
   static var imageCache = NSCache()
   
-  @IBOutlet weak var profileButton: UIButton!
   @IBOutlet weak var navBar: UINavigationBar!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -55,7 +53,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     alert.addAction(UIAlertAction(title: "Actually, no thanks!", style: .Default, handler: nil))
     
     self.presentViewController(alert, animated: true, completion: nil)
-
+    
   }
   
   override func viewDidLoad() {
@@ -70,11 +68,14 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     tableView.estimatedRowHeight = 414
     print("Feed vc view did load")
+    
+    let userRef = DataService.ds.REF_USER_CURRENT.child("posts")
+    
     DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
       
       print("snapshot", snapshot.value)
       self.posts = []
-
+      
       if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
         
         for snap in snapshots {
@@ -83,7 +84,35 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
             
             let key = snap.key
             let post = Post(postKey: key, dictionary: postDict)
-            self.posts.append(post)
+            
+            
+            userRef.observeSingleEventOfType(.Value, withBlock: { (userSnapshot) in
+              
+              print("post image url - ", post.imageUrl)
+              print("user snapshot", userSnapshot.value)
+              
+              if var newString = post.imageUrl {
+              
+              newString = newString.stringByReplacingOccurrencesOfString(".jpg", withString: "")
+              newString = newString.stringByReplacingOccurrencesOfString("images/", withString: "")
+              
+              if let userSnapshots = userSnapshot.children.allObjects as? [FIRDataSnapshot] {
+                
+                for posts in userSnapshots {
+                  
+                  print("posts key", posts.key)
+                  print("string", newString)
+                  
+                  if posts.key == newString {
+                    print("append")
+                    self.posts.append(post)
+                    self.tableView.reloadData()
+                  }
+                }
+                
+              }
+              }
+            })
             
           }
           print("SNAP: ", snap)
@@ -105,7 +134,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       }
     })
     
-    NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+//    NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
     print("end of view did load")
   }
   
@@ -140,8 +169,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     let stringPath = String(path) + "/" + posts[indexPath.row].audioURL
     let finalPath = NSURL(fileURLWithPath: stringPath)
     CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)
-  
+    
   }
+  
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
     return posts.count
@@ -150,11 +180,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     currentRow = indexPath.row
     if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
-    
-//      cell.request?.cancel()
-
+      
+      //      cell.request?.cancel()
+      
       let post = posts[indexPath.row]
-
+      
       var img: UIImage?
       
       if let url = post.imageUrl {
@@ -164,9 +194,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       
       cell.delegate = self
       cell.configureCell(post, img: img)
-
+      
       return cell
-  }
+    }
     
     let cell = tableView.dequeueReusableCellWithIdentifier("uploadCell")!
     
@@ -177,7 +207,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     return self.view.bounds.height - navBar.bounds.height - 20
   }
-
+  
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     print("preferred status bar")
@@ -191,9 +221,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
     if segue.identifier == Constants.sharedSegues.showProfile {
-    let backItem = UIBarButtonItem()
-    backItem.title = "Back"
-    navigationItem.backBarButtonItem = backItem
+      let backItem = UIBarButtonItem()
+      backItem.title = "Back"
+      navigationItem.backBarButtonItem = backItem
     }
   }
   

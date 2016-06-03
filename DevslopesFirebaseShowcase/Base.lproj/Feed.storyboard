@@ -63,14 +63,14 @@
                                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bzf-fF-7YK">
                                                                             <rect key="frame" x="0.0" y="0.0" width="500" height="70"/>
                                                                             <subviews>
-                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="eM3-A1-6pJ">
+                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="eM3-A1-6pJ">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="70" id="NON-iA-3z7"/>
                                                                                         <constraint firstAttribute="width" constant="70" id="QWT-G9-6HU"/>
                                                                                     </constraints>
                                                                                 </imageView>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o9p-Ga-mr3">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o9p-Ga-mr3">
                                                                                     <rect key="frame" x="75" y="0.0" width="425" height="70"/>
                                                                                     <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="18"/>
                                                                                     <color key="textColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
@@ -125,7 +125,7 @@
                                                                                 <constraint firstAttribute="height" constant="50" id="uAy-DW-nWh"/>
                                                                             </constraints>
                                                                             <string key="text">Lorem ipsum dolor sit er elit lamet Lorem ipsum dolor sit er elit lametLorem ipsum dolor sit er elit l elit lametLorem ipsum dolor sit efdai</string>
-                                                                            <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
+                                                                            <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="15"/>
                                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                                         </textView>
                                                                         <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="HtS-J7-BWm">
@@ -146,7 +146,7 @@
                                                             </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="7wP-6G-l6U">
-                                                            <rect key="frame" x="169" y="431" width="220" height="40"/>
+                                                            <rect key="frame" x="169" y="431" width="222" height="40"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QdK-Nw-X1k">
                                                                     <rect key="frame" x="0.0" y="0.0" width="69" height="40"/>
@@ -167,18 +167,18 @@
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0wU-bk-MXB">
-                                                                    <rect key="frame" x="129" y="0.0" width="91" height="40"/>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="0wU-bk-MXB">
+                                                                    <rect key="frame" x="129" y="0.0" width="93" height="40"/>
                                                                     <subviews>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="trashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="qOB-1L-4s2">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="28" height="40"/>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="fakeFartIcon" translatesAutoresizingMaskIntoConstraints="NO" id="qOB-1L-4s2">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="25" height="40"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" constant="28" id="W4g-eB-ucT"/>
+                                                                                <constraint firstAttribute="width" constant="25" id="W4g-eB-ucT"/>
                                                                                 <constraint firstAttribute="height" constant="40" id="qzP-q8-ee9"/>
                                                                             </constraints>
                                                                         </imageView>
                                                                         <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="gc1-pE-bqY">
-                                                                            <rect key="frame" x="28" y="0.0" width="63" height="40"/>
+                                                                            <rect key="frame" x="30" y="0.0" width="63" height="40"/>
                                                                             <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
                                                                             <state key="normal" title="REMOVE">
                                                                                 <color key="titleColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
@@ -238,16 +238,6 @@
                                     <navigationItem id="nWY-J9-ehk"/>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  FART GALLERY  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="66D-vW-rC9">
-                                <rect key="frame" x="197" y="15" width="181" height="49"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="181" id="GPP-Hx-eWp"/>
-                                    <constraint firstAttribute="height" constant="49" id="hfi-lp-6ze"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="FightThis" family="FightThis" pointSize="38"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bno-t9-Y2X">
                                 <rect key="frame" x="550" y="29" width="25" height="30"/>
                                 <constraints>
@@ -259,6 +249,16 @@
                                     <action selector="profileButtonPressed:" destination="9N8-X4-dnI" eventType="touchUpInside" id="Dq3-HV-3mF"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="  FART GALLERY  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="66D-vW-rC9">
+                                <rect key="frame" x="210" y="15" width="180" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="181" id="GPP-Hx-eWp"/>
+                                    <constraint firstAttribute="height" constant="49" id="hfi-lp-6ze"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="FightThis" family="FightThis" pointSize="38"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
@@ -303,12 +303,20 @@
             </objects>
             <point key="canvasLocation" x="3260.5" y="384"/>
         </scene>
+        <!--MyPosts-->
+        <scene sceneID="R0V-Oh-Efz">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="MyPosts" storyboardName="MyPosts" referencedIdentifier="MyPosts" id="icP-vi-35z" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9qv-kf-4aD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3245" y="504"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="fakeFartIcon" width="573" height="600"/>
         <image name="likeIconGrey" width="300" height="382"/>
         <image name="placeholder" width="666" height="720"/>
         <image name="profile-placeholder" width="600" height="600"/>
         <image name="profileImage" width="128" height="128"/>
-        <image name="trashIcon" width="128" height="128"/>
     </resources>
 </document>
