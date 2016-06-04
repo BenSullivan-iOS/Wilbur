@@ -26,14 +26,15 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   @IBOutlet weak var descriptionTextField: MaterialTextField!
   @IBOutlet weak var controlsBackground: MaterialView!
   @IBOutlet weak var waveFormView: FDWaveformView!
-  var checkAudioRecorded = Bool()
   @IBOutlet weak var selectedImage: UIImageView!
   
-  var selectedImagePath = NSURL?()
+  @IBOutlet weak var postingButton: SpringLabel!
+  @IBOutlet weak var postedButton: SpringLabel!
   
+  private var selectedImagePath = NSURL?()
+  private var checkAudioRecorded = Bool()
   private let imagePicker = UIImagePickerController()
-  
-  var pressed = false
+  private var pressed = false
   //  var recordingSuccess = Bool()
   //  var recordingSession: AVAudioSession!
   //  var audioRecorder: AVAudioRecorder!
@@ -47,7 +48,6 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     postingButton.alpha = 0
     
     AudioControls.shared.delegate = self
-    
     AudioControls.shared.setupRecording()
     
     imagePicker.delegate = self
@@ -62,10 +62,15 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     recordButton.imageView?.contentMode = .ScaleAspectFit
   }
   
+  override func viewDidAppear(animated: Bool) {
+    
+    AppState.shared.currentState = .CreatingPost
+  }
+  
   //MARK: - Audio controls
   
   @IBAction func playButtonPressed(sender: SpringButton!) {
-    AudioControls.shared.play(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a"))
+    AudioControls.shared.play(NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a"))
   }
   
   @IBAction func pauseButtonPressed(sender: AnyObject) {
@@ -73,31 +78,8 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   }
   
   @IBAction func recordButtonPressed(sender: UIButton) {
-    
     AudioControls.shared.recordTapped()
     animateRecordControls()
-  }
-  
-  func audioRecorded() {
-    showWaveForm(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a"))
-  }
-  
-  func showWaveForm(fileURL: NSURL) {
-    
-    self.waveFormView.audioURL = fileURL
-    self.waveFormView.doesAllowScrubbing = false
-    self.waveFormView.alpha = 1
-    checkAudioRecorded = true
-
-  }
-  
-  func waveformViewDidRender(waveformView: FDWaveformView) {
-    self.waveFormView.alpha = 1
-  }
-  
-  override func viewDidAppear(animated: Bool) {
-    
-    AppState.shared.currentState = .CreatingPost
   }
   
   @IBAction func takePhotoButtonPressed(sender: AnyObject) {
@@ -108,6 +90,24 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       presentViewController(imagePicker, animated: true, completion: nil)
     }
   }
+
+  
+  func audioRecorded() {
+    showWaveForm(NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a"))
+  }
+  
+  func showWaveForm(fileURL: NSURL) {
+    
+    self.waveFormView.audioURL = fileURL
+    self.waveFormView.doesAllowScrubbing = false
+    self.waveFormView.alpha = 1
+    checkAudioRecorded = true
+    
+  }
+  
+  func waveformViewDidRender(waveformView: FDWaveformView) {
+    self.waveFormView.alpha = 1
+  }
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     
@@ -116,7 +116,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     let image = info[UIImagePickerControllerOriginalImage] as? UIImage
     selectedImage.image = image
     
-    let saveDirectory = String(getDocumentsDirectory()) + "/images/tempImage.jpg"
+    let saveDirectory = String(HelperFunctions.getDocumentsDirectory()) + "/images/tempImage.jpg"
     
     let tempImage = info[UIImagePickerControllerOriginalImage] as! UIImage
     
@@ -148,13 +148,10 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     return result
   }
   
-  @IBOutlet weak var postingButton: SpringLabel!
-  @IBOutlet weak var postedButton: SpringLabel!
-  
   @IBAction func postBarButtonPressed(sender: AnyObject) {
-
+    
     if checkAudioRecorded == true {
-
+      
       recordButton.alpha = 0
       playButton.alpha = 0
       pauseButton.alpha = 0
@@ -171,11 +168,9 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   func postToFirebase() {
     
-    print("Posting to firebase")
-    //generates new ID for URL
     let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
     
-    let audioPath = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a")
+    let audioPath = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a")
     
     CreatePost.shared.uploadAudio(audioPath, firebaseReference: firebasePost.key)
     
@@ -184,12 +179,12 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     guard let userKey = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String else { print("no username key"); return }
     
     var post: [String: AnyObject] = [
-      "description" : descriptionTextField.text!,
-      "likes": 0,
-      "audio": "audio/\(firebasePost.key).m4a",
-      "user": username,
-      "date": String(NSDate()),
-      "userKey": userKey
+"description" : descriptionTextField.text!,
+       "likes": 0,
+       "audio": "audio/\(firebasePost.key).m4a",
+        "user": username,
+        "date": String(NSDate()),
+     "userKey": userKey
     ]
     
     if let imagePath = selectedImagePath {
@@ -227,50 +222,34 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         self.pauseButton.x = 0
         self.pauseButton.animateTo()
         self.pauseButton.alpha = 0
-
+        
       })
       
       self.checkAudioRecorded = false
     }
     
-    //save to database
     firebasePost.setValue(post)
     
     descriptionTextField.text = ""
     selectedImage.image = UIImage(named: "camera")
-    print("Done")
     
     savePostToUser(firebasePost.key)
-    
-    
-    
   }
   
   func savePostToUser(postKey: String) {
     
     let firebasePost = DataService.ds.REF_USER_CURRENT.child("posts").child(postKey)
-    
     firebasePost.setValue(postKey)
-    
   }
   
   
   func uploadImage(localFile: NSURL, firebaseReference: String) {
     
-    
-    
-    print("uploadImage", localFile)
     let storageRef = FIRStorage.storage().reference()
     let riversRef = storageRef.child("images/\(firebaseReference).jpg")
     
     riversRef.putFile(localFile, metadata: nil) { metadata, error in
-      print("putFile")
       guard let metadata = metadata where error == nil else { print("error", error); return }
-      
-      let downloadURL = metadata.downloadURL
-      
-      print("success", downloadURL)
-      
       
       self.postingButton.x = 300
       self.postingButton.animateTo()
@@ -300,23 +279,10 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         self.recordButton.animate()
       })
       
-      //      CreatePost.shared.downloadAudio(localFile)
     }
   }
   
-  
-  
-  
-  
-  func getDocumentsDirectory() -> NSURL {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
-    
-    let url = NSURL(string: documentsDirectory)!
-    
-    return url
-  }
-  
+  //MARK: - ALERTS
   
   func missingAudioAlert() {
     
@@ -357,7 +323,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   
   
-  //MARK: - Animations etc...
+  //MARK: - ANIMATIONS
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     
@@ -376,13 +342,6 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   func animateRecordControls() {
     
     if !pressed {
-      //      timerViewCover.alpha = 1
-      
-      //      timerMic.y = 100
-      //      timerMic.duration = 10
-      //      timerMic.animateTo()
-      
-      //      recordButton.setImage(UIImage(named: "micIconRecording"), forState: .Normal)
       
       controlsBackground.backgroundColor = UIColor(colorLiteralRed: 252/255, green: 71/255, blue: 103/255, alpha: 1.0)
       
@@ -483,31 +442,5 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       pressed = false
     }
     
-  }
-}
-
-class Pootorial: UIViewController {
-  
-  @IBOutlet weak var materialView: MaterialView!
-  
-  @IBOutlet weak var recordButton: SpringButton!
-  
-  @IBAction func dismissButtonPressed(sender: AnyObject) {
-    
-    dismissViewControllerAnimated(true, completion: nil)
-  }
-  
-  override func viewDidLoad() {
-    
-    
-    
-    recordButton.imageView?.contentMode = .ScaleAspectFit
-    
-    //    materialView.backgroundColor = UIColor(colorLiteralRed: 105/255, green: 184/255, blue: 252/255, alpha: 1.0)
-  }
-  
-  
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
   }
 }

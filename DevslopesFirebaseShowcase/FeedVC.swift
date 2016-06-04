@@ -148,7 +148,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     print("did select", indexPath.row)
     
-    let path = AudioControls.shared.getDocumentsDirectory()
+    let path = HelperFunctions.getDocumentsDirectory()
     let stringPath = String(path) + "/" + posts[indexPath.row].audioURL
     let finalPath = NSURL(fileURLWithPath: stringPath)
     CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)

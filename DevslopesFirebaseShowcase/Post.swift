@@ -20,15 +20,10 @@ class Post {
   private var _date: String!
   private var _fakeCount: Int!
   private var _userKey: String!
-//  private var _profileImage: UIImage?
   
   var date: String {
     return _date
   }
-//  var profileImage: UIImage? {
-//    return _profileImage
-//  }
-  
   var userKey: String {
     return _userKey
   }
@@ -50,7 +45,6 @@ class Post {
   var username: String {
     return _username
   }
-  
   var postKey: String {
     return _postKey
   }
@@ -81,28 +75,15 @@ class Post {
   init(postKey: String, dictionary: [String: AnyObject]) {
     
     self._postKey = postKey
-    print("postInit")
+
     if let audio = dictionary["audio"] as? String {
-      print("Post if let audio")
       
       self._audioURL = audio
-      
-//      let path = AudioControls.shared.getDocumentsDirectory()
-//      let stringPath = String(path) + "/" + audio
-//      let finalPath = NSURL(fileURLWithPath: stringPath)
-//      CreatePost.shared.downloadAudio(finalPath, postKey: _postKey)
-      
-//      AudioControls.shared.play(finalPath!)
     }
-    
-//    if let profileImage = dictionary["profileImage"] as? String {
-//      downloadImage(profileImage)
-//    }
     
     self._date = dictionary["date"] as? String
     
     self._username = dictionary["user"] as? String
-    
     
     if let likes = dictionary["likes"] as? Int {
       self._likes = likes

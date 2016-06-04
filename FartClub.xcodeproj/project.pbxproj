@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5239B344FF1B2FF0370A0029 /* Pods_FartClub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B154599EBB037EB410F81CD5 /* Pods_FartClub.framework */; };
+		B501DBB91D0301D7001320C7 /* PootorialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501DBB81D0301D7001320C7 /* PootorialVC.swift */; };
+		B501DBBB1D0305CE001320C7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501DBBA1D0305CE001320C7 /* AppState.swift */; };
+		B501DBBD1D0305E9001320C7 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501DBBC1D0305E9001320C7 /* Cache.swift */; };
 		B5068C3D1CEF18F400AA8C86 /* PagingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */; };
 		B51CBCD41CF45DB000112B51 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD21CF45DB000112B51 /* Feed.storyboard */; };
 		B51CBCD91CF4797E00112B51 /* audio_test.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD81CF4788500112B51 /* audio_test.m4a */; };
@@ -49,13 +52,16 @@
 		B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF41CFA12B800E62148 /* WaveformView.swift */; };
 		B5D85BF81CFA134C00E62148 /* ProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */; };
 		B5D85BFA1CFA197500E62148 /* CreatePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF91CFA197500E62148 /* CreatePost.swift */; };
-		B5DEA6381CF39E7D00AE38A1 /* RecordAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */; };
+		B5E484F01D02F83C0099A060 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8EEC5473B9D2FC2DECB789CA /* Pods-FartClub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FartClub.release.xcconfig"; path = "Pods/Target Support Files/Pods-FartClub/Pods-FartClub.release.xcconfig"; sourceTree = "<group>"; };
 		A10FD833B2524E7A8D4BCE1C /* Pods-DevslopesFirebaseShowcase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.debug.xcconfig"; sourceTree = "<group>"; };
 		B154599EBB037EB410F81CD5 /* Pods_FartClub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FartClub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B501DBB81D0301D7001320C7 /* PootorialVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PootorialVC.swift; sourceTree = "<group>"; };
+		B501DBBA1D0305CE001320C7 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		B501DBBC1D0305E9001320C7 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingVC.swift; sourceTree = "<group>"; };
 		B51CBCD31CF45DB000112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feed.storyboard; sourceTree = "<group>"; };
 		B51CBCD81CF4788500112B51 /* audio_test.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = audio_test.m4a; path = ../../../../../Downloads/audio_test.m4a; sourceTree = "<group>"; };
@@ -100,7 +106,7 @@
 		B5D85BF41CFA12B800E62148 /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableVC.swift; sourceTree = "<group>"; };
 		B5D85BF91CFA197500E62148 /* CreatePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePost.swift; sourceTree = "<group>"; };
-		B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordAudio.swift; sourceTree = "<group>"; };
+		B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		C05FA781DCB3890015580319 /* Pods-FartClub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FartClub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FartClub/Pods-FartClub.debug.xcconfig"; sourceTree = "<group>"; };
 		CEDC6C5B0D355C547B558914 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.release.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.release.xcconfig"; sourceTree = "<group>"; };
 		FA5F4A36BE45184243C76295 /* Pods_DevslopesFirebaseShowcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DevslopesFirebaseShowcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,13 +194,13 @@
 				B55808361CF713CE00FEC41D /* SplashVC.swift */,
 				B548A4321CE8FFC40084215C /* LoginVC.swift */,
 				B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */,
-				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
 				B5777B811D01CE1B0062683C /* MyPostsVC.swift */,
 				B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */,
 				B5967D501CEE0407006CB7BB /* CreatePostVC.swift */,
 				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
 				B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */,
 				B5A7F9E71D002DF50065F996 /* FartFactsTVC.swift */,
+				B501DBB81D0301D7001320C7 /* PootorialVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -204,10 +210,10 @@
 			children = (
 				B5D85BF61CFA130600E62148 /* Custom controls */,
 				B5C62FBB1CF641C800E73BFF /* Cells */,
-				B548A4341CE8FFC40084215C /* Main.storyboard */,
-				B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */,
-				B51CBCD21CF45DB000112B51 /* Feed.storyboard */,
 				B5777B7E1D01CDDE0062683C /* MyPosts.storyboard */,
+				B548A4341CE8FFC40084215C /* Main.storyboard */,
+				B51CBCD21CF45DB000112B51 /* Feed.storyboard */,
+				B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */,
 				B548A4391CE8FFC40084215C /* LaunchScreen.storyboard */,
 			);
 			name = View;
@@ -217,10 +223,12 @@
 			isa = PBXGroup;
 			children = (
 				B566CB461CE9E15500415A3E /* Post.swift */,
-				B5DEA6371CF39E7D00AE38A1 /* RecordAudio.swift */,
 				B5D85BF91CFA197500E62148 /* CreatePost.swift */,
 				B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */,
 				B5A7F9E51D0027C10065F996 /* FartFacts.swift */,
+				B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */,
+				B501DBBA1D0305CE001320C7 /* AppState.swift */,
+				B501DBBC1D0305E9001320C7 /* Cache.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -266,6 +274,7 @@
 		B5C62FBB1CF641C800E73BFF /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
 				B566CB441CE9C72500415A3E /* PostCell.swift */,
 				B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */,
 			);
@@ -416,18 +425,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B501DBB91D0301D7001320C7 /* PootorialVC.swift in Sources */,
 				B5D85BFA1CFA197500E62148 /* CreatePost.swift in Sources */,
 				B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */,
+				B501DBBB1D0305CE001320C7 /* AppState.swift in Sources */,
 				B5D85BF81CFA134C00E62148 /* ProfileTableVC.swift in Sources */,
 				B548A4561CE90F630084215C /* MaterialTextField.swift in Sources */,
 				B59520F51CF3599E008987A0 /* TopTrumpsVC.swift in Sources */,
 				B5068C3D1CEF18F400AA8C86 /* PagingVC.swift in Sources */,
 				B5967D511CEE0407006CB7BB /* CreatePostVC.swift in Sources */,
+				B5E484F01D02F83C0099A060 /* HelperFunctions.swift in Sources */,
 				B566CB411CE920A500415A3E /* DataService.swift in Sources */,
 				B5A7F9E81D002DF50065F996 /* FartFactsTVC.swift in Sources */,
 				B5A7F9E61D0027C10065F996 /* FartFacts.swift in Sources */,
 				B548A44F1CE905950084215C /* RoundedViews.swift in Sources */,
-				B5DEA6381CF39E7D00AE38A1 /* RecordAudio.swift in Sources */,
+				B501DBBD1D0305E9001320C7 /* Cache.swift in Sources */,
 				B52DBDF11CFDA24F00CB7486 /* AudioControls.swift in Sources */,
 				B5D3F9991CEB498500EEB78F /* extensions.swift in Sources */,
 				B548A4331CE8FFC40084215C /* LoginVC.swift in Sources */,

@@ -17,37 +17,10 @@ class LoginVC: UIViewController {
   
   @IBOutlet weak var facebookLoginButton: SpringButton!
   
-  func styleButton() {
-    
-    let color = Constants.shared.shadowColor
-    
-    facebookLoginButton.layer.shadowColor = UIColor(red: color, green: color, blue: color, alpha: 0.5).CGColor
-    facebookLoginButton.layer.shadowOpacity = 0.8
-    facebookLoginButton.layer.shadowRadius = 5.0
-    facebookLoginButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
-    facebookLoginButton.layer.cornerRadius = 2.0
-    facebookLoginButton.clipsToBounds = true
-    
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     styleButton()
-  }
-  
-  func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-    
-    if let error = error {
-      print(error.localizedDescription)
-      return
-    }
-  }
-  
-  var count = 0
-  override func viewDidAppear(animated: Bool) {
-    count += 1
-    print("did appear", count)
   }
   
   @IBAction func FbBtnPressed(sender: UIButton) {
@@ -62,31 +35,22 @@ class LoginVC: UIViewController {
       if facebookResult.isCancelled == false {
         
         let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
-        print("Successfully logged in ", facebookResult, accessToken)
-        //Custom syntax, might not work
-        //Save a user to firebase
         
-        let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+        let credential = FIRFacebookAuthProvider.credentialWithAccessToken(accessToken)
         
         FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
           
           guard let user = user where error == nil else { print("Login failed"); return }
           
           user.uid
-          print("got here", user)
           
           let provider = ["provider" : user.providerID]
-          
-          print(user.uid)
-          //only do this for new users...
           
           let reference = DataService.ds.REF_USERS
           
           reference.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             
             if snapshot.value?.uid == user.uid {
-              
-              print(snapshot)
               
               if let savedUID = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String {
                 
@@ -96,9 +60,7 @@ class LoginVC: UIViewController {
                   
                 }
               }
-              
             }
-            
           })
           
           NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
@@ -110,84 +72,30 @@ class LoginVC: UIViewController {
         }
       }
     }
-    //      DataService.ds.REF_BASE.authWithOAuthProvider("facebook", token: accessToken) { error, authData in
-    ////
-    //        guard let authData = authData where error == nil else { print("Login failed"); return }
-    //
-    //        print("Logged in to firebase, ", authData)
-    //
-    //        let provider = ["provider" : authData.provider!]
-    //
-    //
-    //        NSUserDefaults.standardUserDefaults().setValue(authData.uid, forKey: Constants.shared.KEY_UID)
-    //
-    //        self.performSegueWithIdentifier("loggedIn", sender: self)
-    //
-    //
-    //
-    //      }
-    //    }
-    print("set to log in")
+    
     self.facebookLoginButton.setTitle("Logging in...", forState: .Normal)
     
   }
   
+  func styleButton() {
+    
+    let color = Constants.shared.shadowColor
+    
+    facebookLoginButton.layer.shadowColor = UIColor(red: color, green: color, blue: color, alpha: 0.5).CGColor
+    facebookLoginButton.layer.shadowOpacity = 0.8
+    facebookLoginButton.layer.shadowRadius = 5.0
+    facebookLoginButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+    facebookLoginButton.layer.cornerRadius = 2.0
+    facebookLoginButton.clipsToBounds = true
+  }
   
-  //  @IBAction func attemptLogin(sender: UIButton!) {
-  
-  //    if let email = emailField.text where email != "", let pwd = passwordField.text where pwd != "" {
-  //
-  //      DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { error, authData in
-  //
-  //        guard let authData = authData where error == nil else {
-  //
-  //          print(error)
-  //
-  //          if error.code == Constants.sharedStatusCodes.STATUS_ACCOUNT_NONEXIST {
-  //
-  //            DataService.ds.REF_BASE.createUser(email, password: pwd, withValueCompletionBlock: { error, result in
-  //
-  //              guard let result = result where error == nil else { self.showErrorAlert("buggar", error: "couldn't create account")
-  //
-  //               print(error)
-  //
-  //                self.showErrorAlert("buggar", error: "Didn't exist and couldn't create user")
-  //
-  //                return
-  //              }
-  //
-  //              NSUserDefaults.standardUserDefaults().setValue(result[Constants.shared.KEY_UID], forKey: Constants.shared.KEY_UID)
-  //
-  //              DataService.ds.REF_BASE.authUser(email, password: pwd, withCompletionBlock: { err, authData in
-  //
-  //                guard let authData = authData where err == nil else { print("buggar!"); return }
-  //
-  //                let user = ["provider" : authData.provider!, "username": email, "password": pwd]
-  //
-  //                DataService.ds.createFirebaseUser(authData.uid, user: user)
-  //
-  //                print("success", authData)
-  //                self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)
-  //
-  //              })
-  //            })
-  //          }
-  //
-  //
-  //          return }
-  //
-  //        print(authData)
-  //        print("got here")
-  //        self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)
-  //
-  //      })
-  //
-  //    } else {
-  //
-  //      showErrorAlert("Fields incomplete", error: "Enter an email and password")
-  //    }
-  
-  //  }
+  func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+    
+    if let error = error {
+      print(error.localizedDescription)
+      return
+    }
+  }
   
   func showErrorAlert(title: String, error: String) {
     
@@ -195,16 +103,10 @@ class LoginVC: UIViewController {
     
     alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
       
-      print("Error OK'd")
-      
     }))
     
     presentViewController(alert, animated: true, completion: nil)
   }
-  
-  //  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-  //    return .LightContent
-  //  }
-  
+
 }
 

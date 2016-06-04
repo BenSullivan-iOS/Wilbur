@@ -16,9 +16,11 @@ private struct Quote {
 
 class SplashVC: UIViewController {
   
+  private var viewAppearedFromFeed = Bool()
+  
   @IBOutlet weak var quote: UILabel!
   @IBOutlet weak var saidBy: UILabel!
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -36,11 +38,9 @@ class SplashVC: UIViewController {
     
     let randomNumber = Int(arc4random_uniform(UInt32(quotes.count)))
     
-    print(randomNumber, quotes[randomNumber])
-    
     quote.text = quotes[randomNumber].quote
     saidBy.text = quotes[randomNumber].saidBy
-    //FIXME: - Put back to 3 seconds
+
     NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(SplashVC.checkForUserLoggedIn), userInfo: nil, repeats: false)
   }
   
@@ -51,8 +51,6 @@ class SplashVC: UIViewController {
     }
   }
   
-  var viewAppearedFromFeed = Bool()
-  
   func checkForUserLoggedIn() {
     
     if NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) != nil {
@@ -62,8 +60,5 @@ class SplashVC: UIViewController {
     }
     
     viewAppearedFromFeed = true
-
   }
-  
-  
 }

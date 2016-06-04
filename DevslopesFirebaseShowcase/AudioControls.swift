@@ -63,7 +63,7 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     print("Start recording - preparing to record")
     
-    let audioURL = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a")
+    let audioURL = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a")
     
     let settings = [
       AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -101,7 +101,7 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
           
           recordingSuccess = false
           
-          let audioURL = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a")
+          let audioURL = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a")
           
           //      CreatePost.shared.uploadAudio(audioURL)
           delegate?.audioRecorded()
@@ -143,14 +143,4 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
       finishRecording(success: false)
     }
   }
-  
-  func getDocumentsDirectory() -> NSURL {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
-    
-    let url = NSURL(string: documentsDirectory)!
-    
-    return url
-  }
-  
 }

@@ -10,30 +10,6 @@ import UIKit
 import Firebase
 import FDWaveformView
 
-class AppState {
-  
-  static let shared = AppState()
-  
-  var currentState = State.None
-  
-  enum State {
-    case CreatingPost
-    case Feed
-    case TopTrumps
-    case None
-  }
-}
-
-class Cache {
-  
-  class FeedVC {
-    static let imageCache = NSCache()
-    static let profileImageCache = NSCache()
-  }
-
-
-}
-
 class PostCell: UITableViewCell {
   
   @IBOutlet weak var profileImg: UIImageView!
@@ -48,26 +24,10 @@ class PostCell: UITableViewCell {
   @IBOutlet weak var fakeButton: UIImageView!
   @IBOutlet weak var fakeLabel: UIButton!
   
-  @IBAction func fakeOrRemoveButtonPressed(sender: UIButton) {
-    
-    if fakeLabel.titleLabel!.text == "REMOVE" {
-    
-      delegate?.showDeletePostAlert((post?.postKey)!)
-    } else {
-      markFartAsFake((post?.postKey)!)
-      print("code to report fake fart here")
-    }
-    
-  }
-  
-  
   var delegate: PostCellDelegate? = nil
-  
-  var likeRef: FIRDatabaseReference!
-  var postRef: FIRDatabaseReference!
-  var profileImage: FIRDatabaseReference!
-
-
+  private var likeRef: FIRDatabaseReference!
+  private var postRef: FIRDatabaseReference!
+  private var profileImage: FIRDatabaseReference!
   private var _post: Post?
   
   var post: Post? {
@@ -96,7 +56,18 @@ class PostCell: UITableViewCell {
     
     fakeButton.addGestureRecognizer(trashIconTap)
     fakeButton.userInteractionEnabled = true
+  }
+
+  
+  @IBAction func fakeOrRemoveButtonPressed(sender: UIButton) {
     
+    if fakeLabel.titleLabel!.text == "REMOVE" {
+    
+      delegate?.showDeletePostAlert((post?.postKey)!)
+    } else {
+      markFartAsFake((post?.postKey)!)
+      print("code to report fake fart here")
+    }
     
   }
   
@@ -108,30 +79,16 @@ class PostCell: UITableViewCell {
     showcaseImg.clipsToBounds = true
   }
   
-  func getDocumentsDirectory() -> NSURL {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
-    
-    let url = NSURL(string: documentsDirectory)!
-    
-    return url
-  }
-  
   func downloadImage(imageLocation: String) {
     
-    print("Download Image")
-    let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
+    let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
     
     let storageRef = FIRStorage.storage().reference()
     let pathReference = storageRef.child(imageLocation)
     
     pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
-      print("Write to file")
+
       guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
-      
-      print("SUCCESS - ")
-      print(URL)
-      print(saveLocation)
       
       let image = UIImage(data: NSData(contentsOfURL: URL)!)!
       
@@ -170,35 +127,28 @@ class PostCell: UITableViewCell {
     likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
     postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
     
-//    let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
-//    profileImage = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
-
     self._post = post
     self.descriptionText.text = post.postDescription
     self.likesLabel.text = "\(post.likes)"
     self.username.text = post.username
     
-    let path = AudioControls.shared.getDocumentsDirectory()
+    let path = HelperFunctions.getDocumentsDirectory()
     let stringPath = String(path) + "/" + post.audioURL
     let finalPath = NSURL(fileURLWithPath: stringPath)
     CreatePost.shared.downloadAudio(finalPath, postKey: post.postKey)
     
-    print("main img set to placeholder 1")
     showcaseImg.image = UIImage(named: "placeholder")
 
     if let imageUrl = post.imageUrl {
       
       if let img = img {
-        print("mainimg set to img")
         self.showcaseImg.image = img
         
       } else {
-        print("downloading main img")
         self.downloadImage(imageUrl)
         
       }
     } else {
-      print("mainimg set to placeholder")
       showcaseImg.image = UIImage(named: "placeholder")
     }
     
@@ -263,19 +213,14 @@ class PostCell: UITableViewCell {
   
   func downloadProfileImage(imageLocation: String) {
     
-    print("Download Image")
-    let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
+    let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
     
     let storageRef = FIRStorage.storage().reference()
     let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
-    print("profile image path reference", pathReference)
+
     pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
-      print("Write to file")
+
       guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
-      
-      print("SUCCESS - ")
-      print(URL)
-      print(saveLocation)
       
       let image = UIImage(data: NSData(contentsOfURL: URL)!)!
       
@@ -285,17 +230,11 @@ class PostCell: UITableViewCell {
     }
   }
   
-  
-  //change image displaying, then add one like or remove one like
   func likeTapped() {
-    
-    print("Like tapped")
     
     likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
       
-      //in firebase if there's no data in .value you will receive an NSNull not nil
       if let _ = snapshot.value as? NSNull {
-        //we have not liked this specific post
         
         self.likeImage.image = UIImage(named: "likeIcon")
         self.popText.setTitleColor(UIColor(colorLiteralRed: 244/255, green: 81/255, blue: 30/255, alpha: 1), forState: .Normal)
@@ -319,13 +258,11 @@ class PostCell: UITableViewCell {
     let deletePostRef = DataService.ds.REF_POSTS.child(key) as FIRDatabaseReference
     
     fakeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-      print("value = ", snapshot.value)
-      //in firebase if there's no data in .value you will receive an NSNull not nil
+
       if let _ = snapshot.value as? NSNull {
-        //we have not liked this specific post
         
         fakeRef.setValue(1)
-        print("set fakeRef to 1")
+
       } else {
         
         if snapshot.value as! Int > 4 {

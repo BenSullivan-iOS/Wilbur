@@ -13,9 +13,7 @@ class ProfileTable: UITableViewController {
   var delegate: ProfileTableDelegate? = nil
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    
-    print("did select row")
-    
+        
     switch indexPath.row {
       
     case 0 where indexPath.section == 0:
