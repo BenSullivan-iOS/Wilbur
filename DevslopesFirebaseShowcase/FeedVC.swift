@@ -19,13 +19,10 @@ protocol PostCellDelegate {
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
   
   func showDeletePostAlert(key: String) {
-    print("showDeletePostAlert")
     displayDeleteAlert(key)
   }
     
   private var posts = [Post]()
-  
-  static var imageCache = NSCache()
   
   @IBOutlet weak var profileButton: UIButton!
   @IBOutlet weak var navBar: UINavigationBar!
@@ -58,8 +55,18 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
 
   }
   
+  override func viewWillAppear(animated: Bool) {
+    AppState.shared.currentState = .Feed
+
+    tableView.reloadData()
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    self.tableView.scrollsToTop = false
+    
+    AppState.shared.currentState = .Feed
     
     AudioControls.shared.setupRecording()
     
@@ -98,14 +105,19 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
           let df = NSDateFormatter()
           df.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
           
-          return self.isAfterDate(df.dateFromString(first.date)!, endDate: df.dateFromString(second.date)!)
+          if let firstDate = df.dateFromString(first.date), secondDate = df.dateFromString(second.date) {
+            
+            return self.isAfterDate(firstDate, endDate: secondDate)
+          }
+          
+          return true
         })
         
         self.tableView.reloadData()
       }
     })
     
-    NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+    NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
     print("end of view did load")
   }
   
@@ -148,29 +160,40 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+    if AppState.shared.currentState == .Feed {
     currentRow = indexPath.row
+    
     if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
     
-//      cell.request?.cancel()
 
       let post = posts[indexPath.row]
 
       var img: UIImage?
+      var profileImg: UIImage?
+
       
       if let url = post.imageUrl {
         print("in the cache init")
-        img = FeedVC.imageCache.objectForKey(url) as? UIImage
+        img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
       }
       
+      if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
+        print("profile image in the cache init", profileImage)
+        profileImg = profileImage
+      }
+
       cell.delegate = self
-      cell.configureCell(post, img: img)
+      cell.configureCell(post, img: img, profileImg: profileImg)
 
       return cell
   }
     
     let cell = tableView.dequeueReusableCellWithIdentifier("uploadCell")!
-    
-    return cell
+      return cell
+    } else {
+      return UITableViewCell()
+    }
   }
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

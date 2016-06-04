@@ -145,7 +145,7 @@
                                                                 <constraint firstItem="4aV-b7-TBL" firstAttribute="top" secondItem="THB-Ez-jjP" secondAttribute="top" id="mAf-Hb-dC3"/>
                                                             </constraints>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="7wP-6G-l6U">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="7wP-6G-l6U">
                                                             <rect key="frame" x="169" y="431" width="222" height="40"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QdK-Nw-X1k">
@@ -313,7 +313,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="fakeFartIcon" width="573" height="600"/>
+        <image name="fakeFartIcon" width="300" height="382"/>
         <image name="likeIconGrey" width="300" height="382"/>
         <image name="placeholder" width="666" height="720"/>
         <image name="profile-placeholder" width="600" height="600"/>

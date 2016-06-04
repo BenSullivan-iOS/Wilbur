@@ -26,7 +26,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   @IBOutlet weak var descriptionTextField: MaterialTextField!
   @IBOutlet weak var controlsBackground: MaterialView!
   @IBOutlet weak var waveFormView: FDWaveformView!
-  
+  var checkAudioRecorded = Bool()
   @IBOutlet weak var selectedImage: UIImageView!
   
   var selectedImagePath = NSURL?()
@@ -34,10 +34,10 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   private let imagePicker = UIImagePickerController()
   
   var pressed = false
-//  var recordingSuccess = Bool()
-//  var recordingSession: AVAudioSession!
-//  var audioRecorder: AVAudioRecorder!
-//  var player = AVAudioPlayer()
+  //  var recordingSuccess = Bool()
+  //  var recordingSession: AVAudioSession!
+  //  var audioRecorder: AVAudioRecorder!
+  //  var player = AVAudioPlayer()
   
   //MARK: - VC Lifecycle
   
@@ -79,7 +79,6 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   }
   
   func audioRecorded() {
-    
     showWaveForm(NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/recording.m4a"))
   }
   
@@ -88,10 +87,17 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     self.waveFormView.audioURL = fileURL
     self.waveFormView.doesAllowScrubbing = false
     self.waveFormView.alpha = 1
+    checkAudioRecorded = true
+
   }
   
   func waveformViewDidRender(waveformView: FDWaveformView) {
     self.waveFormView.alpha = 1
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    
+    AppState.shared.currentState = .CreatingPost
   }
   
   @IBAction func takePhotoButtonPressed(sender: AnyObject) {
@@ -146,15 +152,21 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   @IBOutlet weak var postedButton: SpringLabel!
   
   @IBAction func postBarButtonPressed(sender: AnyObject) {
-    
-    recordButton.alpha = 0
-    playButton.alpha = 0
-    pauseButton.alpha = 0
-    postingButton.autohide = false
-    postingButton.animation = "squeezeRight"
-    postingButton.damping = 1
-    postingButton.animate()
-    postToFirebase()
+
+    if checkAudioRecorded == true {
+
+      recordButton.alpha = 0
+      playButton.alpha = 0
+      pauseButton.alpha = 0
+      postingButton.autohide = false
+      postingButton.animation = "squeezeRight"
+      postingButton.damping = 1
+      postingButton.animate()
+      postToFirebase()
+      
+    } else {
+      missingAudioAlert()
+    }
   }
   
   func postToFirebase() {
@@ -169,12 +181,15 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     guard let username = NSUserDefaults.standardUserDefaults().valueForKey("username") else { print("no username"); return }
     
+    guard let userKey = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String else { print("no username key"); return }
+    
     var post: [String: AnyObject] = [
       "description" : descriptionTextField.text!,
       "likes": 0,
       "audio": "audio/\(firebasePost.key).m4a",
       "user": username,
-      "date": String(NSDate())
+      "date": String(NSDate()),
+      "userKey": userKey
     ]
     
     if let imagePath = selectedImagePath {
@@ -182,6 +197,40 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       uploadImage(imagePath, firebaseReference: firebasePost.key)
       
       post["imageUrl"] = "images/\(firebasePost.key).jpg"
+      
+    } else {
+      
+      self.postingButton.x = 300
+      self.postingButton.animateTo()
+      
+      self.postedButton.autohide = false
+      self.postedButton.animation = "squeezeRight"
+      self.postedButton.damping = 1
+      self.postedButton.animateNext({
+        
+        self.postedButton.delay = 2
+        self.postedButton.animation = "squeezeLeft"
+        self.postedButton.animateTo()
+        self.recordButton.autohide = true
+        self.recordButton.delay = 2.5
+        self.recordButton.animation = "fadeIn"
+        self.recordButton.animate()
+        
+        self.playButton.autohide = true
+        self.playButton.damping = 0.8
+        self.playButton.x = 0
+        self.playButton.animateTo()
+        self.playButton.alpha = 0
+        
+        self.pauseButton.autohide = true
+        self.pauseButton.damping = 0.8
+        self.pauseButton.x = 0
+        self.pauseButton.animateTo()
+        self.pauseButton.alpha = 0
+
+      })
+      
+      self.checkAudioRecorded = false
     }
     
     //save to database
@@ -193,23 +242,8 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     savePostToUser(firebasePost.key)
     
-    self.postingButton.x = 300
-    self.postingButton.animateTo()
     
-    self.postedButton.autohide = false
-    self.postedButton.animation = "squeezeRight"
-    self.postedButton.damping = 1
-    self.postedButton.animateNext({
-      
-      self.postedButton.delay = 2
-      self.postedButton.animation = "squeezeLeft"
-      self.postedButton.animateTo()
-      self.recordButton.autohide = true
-      self.recordButton.delay = 2.5
-      self.recordButton.animation = "fadeIn"
-      self.recordButton.animate()
-    })
-
+    
   }
   
   func savePostToUser(postKey: String) {
@@ -217,11 +251,14 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     let firebasePost = DataService.ds.REF_USER_CURRENT.child("posts").child(postKey)
     
     firebasePost.setValue(postKey)
-
+    
   }
-
+  
   
   func uploadImage(localFile: NSURL, firebaseReference: String) {
+    
+    
+    
     print("uploadImage", localFile)
     let storageRef = FIRStorage.storage().reference()
     let riversRef = storageRef.child("images/\(firebaseReference).jpg")
@@ -235,12 +272,38 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       print("success", downloadURL)
       
       
-
+      self.postingButton.x = 300
+      self.postingButton.animateTo()
+      
+      self.postedButton.autohide = false
+      self.postedButton.animation = "squeezeRight"
+      self.postedButton.damping = 1
+      self.postedButton.animateNext({
+        
+        self.postedButton.delay = 2
+        self.postedButton.animation = "squeezeLeft"
+        self.postedButton.animateTo()
+        self.recordButton.autohide = true
+        self.recordButton.delay = 2.5
+        
+        self.playButton.damping = 0.8
+        self.playButton.x = 0
+        self.playButton.animateTo()
+        self.playButton.alpha = 0
+        
+        self.pauseButton.damping = 0.8
+        self.pauseButton.x = 0
+        self.pauseButton.animateTo()
+        self.pauseButton.alpha = 0
+        
+        self.recordButton.animation = "fadeIn"
+        self.recordButton.animate()
+      })
       
       //      CreatePost.shared.downloadAudio(localFile)
     }
   }
-
+  
   
   
   
@@ -255,7 +318,14 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   }
   
   
-  
+  func missingAudioAlert() {
+    
+    let alert = UIAlertController(title: "No recording found", message: "Tap the microphone to start recording", preferredStyle: .Alert)
+    
+    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
   
   func imagePickerAlert() {
     
@@ -284,7 +354,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     presentViewController(alert, animated: true, completion: nil)
   }
-
+  
   
   
   //MARK: - Animations etc...
@@ -292,6 +362,15 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     
     self.view.endEditing(true)
+  }
+  
+  func animateRecordButton() -> Bool {
+    self.recordButton.duration = 1
+    self.recordButton.animation = "pop"
+    if self.playButton.alpha == 1 {
+      return true
+    }
+    return false
   }
   
   func animateRecordControls() {
@@ -311,71 +390,50 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       recordButton.animation = "pop"
       
       recordButton.animateToNext {
-        self.recordButton.duration = 1
-        self.recordButton.animation = "pop"
-        if self.playButton.alpha == 1 {
-          return
-        }
+        self.animateRecordButton()
+        
         self.recordButton.animateToNext {
-          self.recordButton.duration = 1
-          self.recordButton.animation = "pop"
-          if self.playButton.alpha == 1 {
+          if self.animateRecordButton() {
             return
           }
           
           self.recordButton.animateToNext {
-            self.recordButton.duration = 1
-            self.recordButton.animation = "pop"
-            if self.playButton.alpha == 1 {
+            if self.animateRecordButton() {
               return
             }
             
             self.recordButton.animateToNext {
-              self.recordButton.duration = 1
-              self.recordButton.animation = "pop"
-              if self.playButton.alpha == 1 {
+              if self.animateRecordButton() {
                 return
               }
               
               self.recordButton.animateToNext {
-                self.recordButton.duration = 1
-                self.recordButton.animation = "pop"
-                if self.playButton.alpha == 1 {
+                if self.animateRecordButton() {
                   return
                 }
                 
                 self.recordButton.animateToNext {
-                  self.recordButton.duration = 1
-                  self.recordButton.animation = "pop"
-                  if self.playButton.alpha == 1 {
+                  if self.animateRecordButton() {
                     return
                   }
                   
                   self.recordButton.animateToNext {
-                    self.recordButton.duration = 1
-                    self.recordButton.animation = "pop"
-                    if self.playButton.alpha == 1 {
+                    if self.animateRecordButton() {
                       return
                     }
                     
                     self.recordButton.animateToNext {
-                      self.recordButton.duration = 1
-                      self.recordButton.animation = "pop"
-                      if self.playButton.alpha == 1 {
+                      if self.animateRecordButton() {
                         return
                       }
                       
                       self.recordButton.animateToNext {
-                        self.recordButton.duration = 1
-                        self.recordButton.animation = "pop"
-                        if self.playButton.alpha == 1 {
+                        if self.animateRecordButton() {
                           return
                         }
                         
                         self.recordButton.animateToNext {
-                          self.recordButton.duration = 1
-                          self.recordButton.animation = "pop"
-                          if self.playButton.alpha == 1 {
+                          if self.animateRecordButton() {
                             return
                           }
                           
@@ -389,19 +447,20 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
           }
         }
       }
+      
       pressed = true
       
       if playButton.alpha == 1 {
-      
-      playButton.damping = 0.8
-      playButton.x = 0
-      playButton.animateTo()
-      playButton.alpha = 0
-      
-      pauseButton.damping = 0.8
-      pauseButton.x = 0
-      pauseButton.animateTo()
-      pauseButton.alpha = 0
+        
+        playButton.damping = 0.8
+        playButton.x = 0
+        playButton.animateTo()
+        playButton.alpha = 0
+        
+        pauseButton.damping = 0.8
+        pauseButton.x = 0
+        pauseButton.animateTo()
+        pauseButton.alpha = 0
         
       }
       
@@ -444,7 +503,7 @@ class Pootorial: UIViewController {
     
     recordButton.imageView?.contentMode = .ScaleAspectFit
     
-//    materialView.backgroundColor = UIColor(colorLiteralRed: 105/255, green: 184/255, blue: 252/255, alpha: 1.0)
+    //    materialView.backgroundColor = UIColor(colorLiteralRed: 105/255, green: 184/255, blue: 252/255, alpha: 1.0)
   }
   
   

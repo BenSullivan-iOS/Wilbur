@@ -31,7 +31,7 @@ class SplashVC: UIViewController {
     Quote(saidBy: "Emily Bronte",       quote: "Love is not having to hold your farts in anymore"),
     Quote(saidBy: "Socrates",           quote: "A fart not smelled is a fart wasted"),
     Quote(saidBy: "Nelson Mandela",     quote: "Children are like farts, people only like their own"),
-    Quote(saidBy: "Margaret Thatcher",  quote: "Flatulence isn't funny, it's hilarious")
+    Quote(saidBy: "George Washington",  quote: "Flatulence isn't funny, it's hilarious")
     ]
     
     let randomNumber = Int(arc4random_uniform(UInt32(quotes.count)))
@@ -41,7 +41,7 @@ class SplashVC: UIViewController {
     quote.text = quotes[randomNumber].quote
     saidBy.text = quotes[randomNumber].saidBy
     //FIXME: - Put back to 3 seconds
-    NSTimer.scheduledTimerWithTimeInterval(0, target: self, selector: #selector(SplashVC.checkForUserLoggedIn), userInfo: nil, repeats: false)
+    NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(SplashVC.checkForUserLoggedIn), userInfo: nil, repeats: false)
   }
   
   override func viewDidAppear(animated: Bool) {

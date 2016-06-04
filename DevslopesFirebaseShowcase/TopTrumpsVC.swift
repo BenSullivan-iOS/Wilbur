@@ -18,6 +18,8 @@ class TopTrumpsVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    self.tableView.scrollsToTop = false
+    
     DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
       
       print(snapshot.value)
@@ -51,6 +53,11 @@ class TopTrumpsVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     })
   }
   
+  override func viewDidAppear(animated: Bool) {
+    
+    AppState.shared.currentState = .TopTrumps
+  }
+  
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
     let cell = tableView.cellForRowAtIndexPath(indexPath) as! TopTrumpsCell
@@ -59,15 +66,15 @@ class TopTrumpsVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     let stringPath = String(path) + "/" + posts[indexPath.row].audioURL
     let finalPath = NSURL(fileURLWithPath: stringPath)
     CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)
-
+    
     
     if cell.cellBackground.backgroundColor == .whiteColor() {
       
-//      cell.cellBackground.backgroundColor = UIColor(colorLiteralRed: 240/255, green: 250/255, blue: 255/255, alpha: 1)
+      //      cell.cellBackground.backgroundColor = UIColor(colorLiteralRed: 240/255, green: 250/255, blue: 255/255, alpha: 1)
       
     } else {
       
-//      cell.cellBackground.backgroundColor = .whiteColor()
+      //      cell.cellBackground.backgroundColor = .whiteColor()
     }
     
   }
@@ -81,18 +88,22 @@ class TopTrumpsVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     if let cell = tableView.dequeueReusableCellWithIdentifier("topTrumpsCell") as? TopTrumpsCell {
       
-      cell.request?.cancel()
-      
       let post = posts[indexPath.row]
       
       var img: UIImage?
+      var profileImg: UIImage?
       
       if let url = post.imageUrl {
         print("in the cache init")
-        img = FeedVC.imageCache.objectForKey(url) as? UIImage
+        img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
       }
       
-      cell.configureCell(post, img: img)
+      if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
+        print("profile image in the cache init", profileImage)
+        profileImg = profileImage
+      }
+      
+      cell.configureCell(post, img: img, profileImg: profileImg)
       
       return cell
     }

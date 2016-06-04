@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import Firebase
 
 class TopTrumpsCell: UITableViewCell {
@@ -15,8 +14,7 @@ class TopTrumpsCell: UITableViewCell {
   private var _post: Post?
   var likeRef: FIRDatabaseReference!
   var profileImage: FIRDatabaseReference!
-
-  var request: Request?
+  
   var post: Post? {
     return _post
   }
@@ -44,7 +42,7 @@ class TopTrumpsCell: UITableViewCell {
     //    showcaseImg.clipsToBounds = true
   }
   
-  func configureCell(post: Post, img: UIImage?) {
+  func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
     
     if post.likes == 1 {
       
@@ -64,56 +62,17 @@ class TopTrumpsCell: UITableViewCell {
     self.likesLabel.text = "\(post.likes)"
     self.username.text = post.username
     self.descriptionTextView.text = post.postDescription
-    print("image url:", post.imageUrl)
-    if post.imageUrl != nil {
-      print("here")
-      if img != nil {
-        print("then here")
-        //        self.showcaseImg.image = img
-        
-      } else {
-        
-        print("ended up here")
-        request = Alamofire.request(.GET, post.imageUrl!).validate(contentType: ["image/*"]).response(completionHandler: { request, response, data, err in
-          
-          if err == nil {
-            print("Image downloaded")
-            let img = UIImage(data: data!)!
-            //            self.showcaseImg.image = img
-            FeedVC.imageCache.setObject(img, forKey: self.post!.imageUrl!)
-          }
-        })
-      }
-      //      showcaseImg.hidden = false
+    
+    self.profileImg.image = UIImage(named: "profile-placeholder")
+    
+    if let profileImg = profileImg {
+      print("Setting image from cache")
+      self.profileImg.image = profileImg
       
     } else {
-      print("hidden the image")
-      //      showcaseImg.hidden = true
+      print("downloading profile image")
+      downloadProfileImage(post.userKey)
     }
-    
-    //    let likeRef = DataService.ds.REF_USER_CURRENT.childByAppendingPath("likes").childByAppendingPath(post.postKey)
-    //look for like once then toggle heart
-    
-    
-    let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
-    profileImage = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
-    
-    profileImage.observeSingleEventOfType(.Value, withBlock: { snapshot in
-      
-      if let _ = snapshot.value as? NSNull {
-        
-        //        self.profileImg.image =
-        //        self.fakeButton.image = UIImage(named: "phoneyFart")
-        
-        
-        
-      } else {
-        
-        self.downloadProfileImage(snapshot.value as! String)
-        
-      }
-      
-    })
     
     likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
       
@@ -163,7 +122,7 @@ class TopTrumpsCell: UITableViewCell {
       
       self.profileImg.image = image
       
-      //      FeedVC.imageCache.setObject(image, forKey: self.post!.imageUrl!)
+      Cache.FeedVC.profileImageCache.setObject(image, forKey: (self.post?.userKey)!)
     }
   }
   //change image displaying, then add one like or remove one like

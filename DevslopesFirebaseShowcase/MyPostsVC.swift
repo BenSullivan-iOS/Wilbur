@@ -24,8 +24,6 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
   
   private var posts = [Post]()
   
-  static var imageCache = NSCache()
-  
   @IBOutlet weak var navBar: UINavigationBar!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -180,20 +178,24 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     currentRow = indexPath.row
     if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
-      
-      //      cell.request?.cancel()
-      
+            
       let post = posts[indexPath.row]
       
       var img: UIImage?
+      var profileImg: UIImage?
       
       if let url = post.imageUrl {
         print("in the cache init")
-        img = FeedVC.imageCache.objectForKey(url) as? UIImage
+        img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
+      }
+      
+      if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
+        print("profile image in the cache init", profileImage)
+        profileImg = profileImage
       }
       
       cell.delegate = self
-      cell.configureCell(post, img: img)
+      cell.configureCell(post, img: img, profileImg: profileImg)
       
       return cell
     }

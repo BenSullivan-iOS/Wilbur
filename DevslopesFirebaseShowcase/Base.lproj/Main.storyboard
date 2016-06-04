@@ -185,14 +185,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ge3-E4-Pm6">
-                                <rect key="frame" x="20" y="25" width="46" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ge3-E4-Pm6">
+                                <rect key="frame" x="20" y="25" width="63" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="M2K-lh-gHx"/>
-                                    <constraint firstAttribute="width" constant="46" id="Wkd-kl-9RW"/>
+                                    <constraint firstAttribute="width" constant="63" id="Wkd-kl-9RW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="16"/>
-                                <state key="normal" title="BACK">
+                                <state key="normal" title="DONE">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -245,7 +245,7 @@
                 <viewControllerPlaceholder storyboardName="MyPosts" referencedIdentifier="MyPosts" id="kNz-GE-Oh3" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pk8-So-Did" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3959.5" y="-260"/>
+            <point key="canvasLocation" x="3981" y="-302"/>
         </scene>
         <!--Create PostVC-->
         <scene sceneID="G06-Op-4ju">

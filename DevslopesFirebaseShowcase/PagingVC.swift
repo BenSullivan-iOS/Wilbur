@@ -16,7 +16,7 @@ class PagingVC: UIPageViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     dataSource = self
     
     let secondVC: UIViewController? = orderedViewControllers[1]

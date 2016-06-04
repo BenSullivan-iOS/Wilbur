@@ -19,6 +19,7 @@ class Post {
   private var _audioURL: String!
   private var _date: String!
   private var _fakeCount: Int!
+  private var _userKey: String!
 //  private var _profileImage: UIImage?
   
   var date: String {
@@ -27,6 +28,10 @@ class Post {
 //  var profileImage: UIImage? {
 //    return _profileImage
 //  }
+  
+  var userKey: String {
+    return _userKey
+  }
   var audioURL: String {
     return _audioURL
   }
@@ -101,6 +106,10 @@ class Post {
     
     if let likes = dictionary["likes"] as? Int {
       self._likes = likes
+    }
+    
+    if let userKey = dictionary["userKey"] as? String {
+      self._userKey = userKey
     }
     
     if let fakeCount = dictionary["fakeCount"] as? Int {

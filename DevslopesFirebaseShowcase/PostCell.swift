@@ -10,6 +10,30 @@ import UIKit
 import Firebase
 import FDWaveformView
 
+class AppState {
+  
+  static let shared = AppState()
+  
+  var currentState = State.None
+  
+  enum State {
+    case CreatingPost
+    case Feed
+    case TopTrumps
+    case None
+  }
+}
+
+class Cache {
+  
+  class FeedVC {
+    static let imageCache = NSCache()
+    static let profileImageCache = NSCache()
+  }
+
+
+}
+
 class PostCell: UITableViewCell {
   
   @IBOutlet weak var profileImg: UIImageView!
@@ -113,7 +137,7 @@ class PostCell: UITableViewCell {
       
       self.showcaseImg.image = image
       
-      FeedVC.imageCache.setObject(image, forKey: self.post!.imageUrl!)
+      Cache.FeedVC.imageCache.setObject(image, forKey: self.post!.imageUrl!)
     }
   }
   
@@ -133,7 +157,7 @@ class PostCell: UITableViewCell {
 //    self.waveFormView.alpha = 1
 //  }
   
-  func configureCell(post: Post, img: UIImage?) {
+  func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
     
     if post.likes == 1 {
       
@@ -142,18 +166,13 @@ class PostCell: UITableViewCell {
       pop.text = "pops"
     }
     
-    showcaseImg.image = UIImage(named: "placeholder")
-//    fakeButton.image = nil
-//    fakeLabel.setTitle("", forState: .Normal)
     
     likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
     postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
     
-    let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
-    profileImage = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
+//    let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
+//    profileImage = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
 
-//    self.profileImg.image = post.profileImage
-//    print("profile image =", post.profileImage)
     self._post = post
     self.descriptionText.text = post.postDescription
     self.likesLabel.text = "\(post.likes)"
@@ -164,22 +183,22 @@ class PostCell: UITableViewCell {
     let finalPath = NSURL(fileURLWithPath: stringPath)
     CreatePost.shared.downloadAudio(finalPath, postKey: post.postKey)
     
-    //if an image has been passed in then it is cached so use it, otherwise download and cache
-    
+    print("main img set to placeholder 1")
+    showcaseImg.image = UIImage(named: "placeholder")
+
     if let imageUrl = post.imageUrl {
       
-      
       if let img = img {
-        
+        print("mainimg set to img")
         self.showcaseImg.image = img
         
       } else {
-        
+        print("downloading main img")
         self.downloadImage(imageUrl)
         
       }
     } else {
-      
+      print("mainimg set to placeholder")
       showcaseImg.image = UIImage(named: "placeholder")
     }
     
@@ -192,29 +211,39 @@ class PostCell: UITableViewCell {
         
       } else {
         
+        self.fakeButton.image = UIImage(named: "trashIcon")
+        self.fakeLabel.setTitle("REMOVE", forState: .Normal)
+      }
+      
+    })
+    self.profileImg.image = UIImage(named: "profile-placeholder")
+
+    if let profileImg = profileImg {
+        print("Setting image from cache")
+        self.profileImg.image = profileImg
+        
+      } else {
+        print("downloading profile image")
+        downloadProfileImage(post.userKey)
+    }
+    
+    postRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+      
+      if let _ = snapshot.value as? NSNull {
+        
+        self.fakeLabel.setTitle("FAKE!", forState: .Normal)
         self.fakeButton.image = UIImage(named: "fakeFartIcon")
+        
+      } else {
+        
+        self.fakeButton.image = UIImage(named: "trashIcon")
         self.fakeLabel.setTitle("REMOVE", forState: .Normal)
       }
       
     })
     
-    profileImage.observeSingleEventOfType(.Value, withBlock: { snapshot in
-      
-      if let _ = snapshot.value as? NSNull {
-        
-//        self.profileImg.image =
-//        self.fakeButton.image = UIImage(named: "phoneyFart")
-        
-        
-        
-      } else {
-        
-        self.downloadProfileImage(snapshot.value as! String)
-
-      }
-      
-    })
-
+    
+    
     likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
       
       if let _ = snapshot.value as? NSNull {
@@ -252,7 +281,7 @@ class PostCell: UITableViewCell {
       
       self.profileImg.image = image
       
-      //      FeedVC.imageCache.setObject(image, forKey: self.post!.imageUrl!)
+      Cache.FeedVC.profileImageCache.setObject(image, forKey: (self.post?.userKey)!)
     }
   }
   
@@ -280,15 +309,9 @@ class PostCell: UITableViewCell {
 
         self.post?.adjustLikes(false)
         self.likeRef.removeValue()
-        
       }
-      
-      
     })
-    
   }
-  
-
   
   func markFartAsFake(key: String) {
     
@@ -311,15 +334,8 @@ class PostCell: UITableViewCell {
         } else {
           self.post?.adjustFakeCount(true)
         }
-        
-        
       }
-      
-      
     })
-    
   }
-  
-  
 }
 

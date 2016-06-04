@@ -231,7 +231,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   //        self.profileImg.image =
   //        self.fakeButton.image = UIImage(named: "phoneyFart")
   
-  
+    print("profile vc = null found")
   
   } else {
   
