@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Spring
+//import Spring
 import AVFoundation
 import FDWaveformView
 import FirebaseStorage
@@ -19,17 +19,17 @@ protocol AudioPlayerDelegate {
 
 class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AudioPlayerDelegate {
   
-  @IBOutlet weak var recordButton: SpringButton!
-  @IBOutlet weak var playButton: SpringButton!
-  @IBOutlet weak var pauseButton: SpringButton!
+  @IBOutlet weak var recordButton: UIButton!
+  @IBOutlet weak var playButton: UIButton!
+  @IBOutlet weak var pauseButton: UIButton!
   
   @IBOutlet weak var descriptionTextField: MaterialTextField!
   @IBOutlet weak var controlsBackground: MaterialView!
   @IBOutlet weak var waveFormView: FDWaveformView!
   @IBOutlet weak var selectedImage: UIImageView!
   
-  @IBOutlet weak var postingButton: SpringLabel!
-  @IBOutlet weak var postedButton: SpringLabel!
+  @IBOutlet weak var postingButton: UILabel!
+  @IBOutlet weak var postedButton: UILabel!
   
   private var selectedImagePath = NSURL?()
   private var checkAudioRecorded = Bool()
@@ -69,7 +69,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   //MARK: - Audio controls
   
-  @IBAction func playButtonPressed(sender: SpringButton!) {
+  @IBAction func playButtonPressed(sender: UIButton!) {
     AudioControls.shared.play(NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a"))
   }
   
@@ -155,10 +155,10 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       recordButton.alpha = 0
       playButton.alpha = 0
       pauseButton.alpha = 0
-      postingButton.autohide = false
-      postingButton.animation = "squeezeRight"
-      postingButton.damping = 1
-      postingButton.animate()
+//      postingButton.autohide = false
+//      postingButton.animation = "squeezeRight"
+//      postingButton.damping = 1
+//      postingButton.animate()
       postToFirebase()
       
     } else {
@@ -194,36 +194,36 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       post["imageUrl"] = "images/\(firebasePost.key).jpg"
       
     } else {
-      
-      self.postingButton.x = 300
-      self.postingButton.animateTo()
-      
-      self.postedButton.autohide = false
-      self.postedButton.animation = "squeezeRight"
-      self.postedButton.damping = 1
-      self.postedButton.animateNext({
-        
-        self.postedButton.delay = 2
-        self.postedButton.animation = "squeezeLeft"
-        self.postedButton.animateTo()
-        self.recordButton.autohide = true
-        self.recordButton.delay = 2.5
-        self.recordButton.animation = "fadeIn"
-        self.recordButton.animate()
-        
-        self.playButton.autohide = true
-        self.playButton.damping = 0.8
-        self.playButton.x = 0
-        self.playButton.animateTo()
-        self.playButton.alpha = 0
-        
-        self.pauseButton.autohide = true
-        self.pauseButton.damping = 0.8
-        self.pauseButton.x = 0
-        self.pauseButton.animateTo()
-        self.pauseButton.alpha = 0
-        
-      })
+//      
+//      self.postingButton.x = 300
+//      self.postingButton.animateTo()
+//      
+//      self.postedButton.autohide = false
+//      self.postedButton.animation = "squeezeRight"
+//      self.postedButton.damping = 1
+//      self.postedButton.animateNext({
+//        
+//        self.postedButton.delay = 2
+//        self.postedButton.animation = "squeezeLeft"
+//        self.postedButton.animateTo()
+//        self.recordButton.autohide = true
+//        self.recordButton.delay = 2.5
+//        self.recordButton.animation = "fadeIn"
+//        self.recordButton.animate()
+//        
+//        self.playButton.autohide = true
+//        self.playButton.damping = 0.8
+//        self.playButton.x = 0
+//        self.playButton.animateTo()
+//        self.playButton.alpha = 0
+//        
+//        self.pauseButton.autohide = true
+//        self.pauseButton.damping = 0.8
+//        self.pauseButton.x = 0
+//        self.pauseButton.animateTo()
+//        self.pauseButton.alpha = 0
+//        
+//      })
       
       self.checkAudioRecorded = false
     }
@@ -235,7 +235,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     savePostToUser(firebasePost.key)
   }
-  
+
   func savePostToUser(postKey: String) {
     
     let firebasePost = DataService.ds.REF_USER_CURRENT.child("posts").child(postKey)
@@ -251,33 +251,33 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     riversRef.putFile(localFile, metadata: nil) { metadata, error in
       guard let metadata = metadata where error == nil else { print("error", error); return }
       
-      self.postingButton.x = 300
-      self.postingButton.animateTo()
-      
-      self.postedButton.autohide = false
-      self.postedButton.animation = "squeezeRight"
-      self.postedButton.damping = 1
-      self.postedButton.animateNext({
-        
-        self.postedButton.delay = 2
-        self.postedButton.animation = "squeezeLeft"
-        self.postedButton.animateTo()
-        self.recordButton.autohide = true
-        self.recordButton.delay = 2.5
-        
-        self.playButton.damping = 0.8
-        self.playButton.x = 0
-        self.playButton.animateTo()
-        self.playButton.alpha = 0
-        
-        self.pauseButton.damping = 0.8
-        self.pauseButton.x = 0
-        self.pauseButton.animateTo()
-        self.pauseButton.alpha = 0
-        
-        self.recordButton.animation = "fadeIn"
-        self.recordButton.animate()
-      })
+//      self.postingButton.x = 300
+//      self.postingButton.animateTo()
+//      
+//      self.postedButton.autohide = false
+//      self.postedButton.animation = "squeezeRight"
+//      self.postedButton.damping = 1
+//      self.postedButton.animateNext({
+//        
+//        self.postedButton.delay = 2
+//        self.postedButton.animation = "squeezeLeft"
+//        self.postedButton.animateTo()
+//        self.recordButton.autohide = true
+//        self.recordButton.delay = 2.5
+//        
+//        self.playButton.damping = 0.8
+//        self.playButton.x = 0
+//        self.playButton.animateTo()
+//        self.playButton.alpha = 0
+//        
+//        self.pauseButton.damping = 0.8
+//        self.pauseButton.x = 0
+//        self.pauseButton.animateTo()
+//        self.pauseButton.alpha = 0
+//        
+//        self.recordButton.animation = "fadeIn"
+//        self.recordButton.animate()
+//      })
       
     }
   }
@@ -331,8 +331,8 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   }
   
   func animateRecordButton() -> Bool {
-    self.recordButton.duration = 1
-    self.recordButton.animation = "pop"
+//    self.recordButton.duration = 1
+//    self.recordButton.animation = "pop"
     if self.playButton.alpha == 1 {
       return true
     }
@@ -341,106 +341,107 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   func animateRecordControls() {
     
-    if !pressed {
-      
-      controlsBackground.backgroundColor = UIColor(colorLiteralRed: 252/255, green: 71/255, blue: 103/255, alpha: 1.0)
-      
-      recordButton.duration = 1
-      recordButton.animation = "pop"
-      
-      recordButton.animateToNext {
-        self.animateRecordButton()
-        
-        self.recordButton.animateToNext {
-          if self.animateRecordButton() {
-            return
-          }
-          
-          self.recordButton.animateToNext {
-            if self.animateRecordButton() {
-              return
-            }
-            
-            self.recordButton.animateToNext {
-              if self.animateRecordButton() {
-                return
-              }
-              
-              self.recordButton.animateToNext {
-                if self.animateRecordButton() {
-                  return
-                }
-                
-                self.recordButton.animateToNext {
-                  if self.animateRecordButton() {
-                    return
-                  }
-                  
-                  self.recordButton.animateToNext {
-                    if self.animateRecordButton() {
-                      return
-                    }
-                    
-                    self.recordButton.animateToNext {
-                      if self.animateRecordButton() {
-                        return
-                      }
-                      
-                      self.recordButton.animateToNext {
-                        if self.animateRecordButton() {
-                          return
-                        }
-                        
-                        self.recordButton.animateToNext {
-                          if self.animateRecordButton() {
-                            return
-                          }
-                          
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      
-      pressed = true
-      
-      if playButton.alpha == 1 {
-        
-        playButton.damping = 0.8
-        playButton.x = 0
-        playButton.animateTo()
-        playButton.alpha = 0
-        
-        pauseButton.damping = 0.8
-        pauseButton.x = 0
-        pauseButton.animateTo()
-        pauseButton.alpha = 0
-        
-      }
-      
-    } else {
-      
-      pauseButton.alpha = 1
-      
-      playButton.damping = 0.8
-      playButton.x = -self.view.bounds.width / 3.5
-      playButton.animateTo()
-      
-      pauseButton.alpha = 1
-      
-      pauseButton.damping = 0.8
-      pauseButton.x = self.view.bounds.width / 3.5
-      pauseButton.animateTo()
-      
-      controlsBackground.backgroundColor = UIColor(colorLiteralRed: 105/255, green: 184/255, blue: 252/255, alpha: 1.0)
-      
-      pressed = false
-    }
-    
+//    if !pressed {
+//      
+//      controlsBackground.backgroundColor = UIColor(colorLiteralRed: 252/255, green: 71/255, blue: 103/255, alpha: 1.0)
+//      
+//      recordButton.duration = 1
+//      recordButton.animation = "pop"
+//      
+//      recordButton.animateToNext {
+//        self.animateRecordButton()
+//        
+//        self.recordButton.animateToNext {
+//          if self.animateRecordButton() {
+//            return
+//          }
+//          
+//          self.recordButton.animateToNext {
+//            if self.animateRecordButton() {
+//              return
+//            }
+//            
+//            self.recordButton.animateToNext {
+//              if self.animateRecordButton() {
+//                return
+//              }
+//              
+//              self.recordButton.animateToNext {
+//                if self.animateRecordButton() {
+//                  return
+//                }
+//                
+//                self.recordButton.animateToNext {
+//                  if self.animateRecordButton() {
+//                    return
+//                  }
+//                  
+//                  self.recordButton.animateToNext {
+//                    if self.animateRecordButton() {
+//                      return
+//                    }
+//                    
+//                    self.recordButton.animateToNext {
+//                      if self.animateRecordButton() {
+//                        return
+//                      }
+//                      
+//                      self.recordButton.animateToNext {
+//                        if self.animateRecordButton() {
+//                          return
+//                        }
+//                        
+//                        self.recordButton.animateToNext {
+//                          if self.animateRecordButton() {
+//                            return
+//                          }
+//                          
+//                        }
+//                      }
+//                    }
+//                  }
+//                }
+//              }
+//            }
+//          }
+//        }
+//      }
+//      
+//      pressed = true
+//      
+//      if playButton.alpha == 1 {
+//        
+//        playButton.damping = 0.8
+//        playButton.x = 0
+//        playButton.animateTo()
+//        playButton.alpha = 0
+//        
+//        pauseButton.damping = 0.8
+//        pauseButton.x = 0
+//        pauseButton.animateTo()
+//        pauseButton.alpha = 0
+//        
+//      }
+//      
+//    } else {
+//      
+//      pauseButton.alpha = 1
+//      
+//      playButton.damping = 0.8
+//      playButton.x = -self.view.bounds.width / 3.5
+//      playButton.animateTo()
+//      
+//      pauseButton.alpha = 1
+//      
+//      pauseButton.damping = 0.8
+//      pauseButton.x = self.view.bounds.width / 3.5
+//      pauseButton.animateTo()
+//      
+//      controlsBackground.backgroundColor = UIColor(colorLiteralRed: 105/255, green: 184/255, blue: 252/255, alpha: 1.0)
+//      
+//      pressed = false
+//    }
+//    
+//  }
   }
 }

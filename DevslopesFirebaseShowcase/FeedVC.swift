@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import Alamofire
 import FDWaveformView
 import AVFoundation
 
@@ -18,48 +17,13 @@ protocol PostCellDelegate {
 
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
   
-  func showDeletePostAlert(key: String) {
-    displayDeleteAlert(key)
-  }
-    
   private var posts = [Post]()
+  private var currentRow = Int()
   
   @IBOutlet weak var profileButton: UIButton!
   @IBOutlet weak var navBar: UINavigationBar!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-  
-  private var currentRow = Int()
-  
-  func displayDeleteAlert(key: String) {
-    
-    let alert = UIAlertController(title: "Delete post?!", message: "", preferredStyle: .Alert)
-    
-    alert.addAction(UIAlertAction(title: "Yes please!", style: .Default, handler: { (action) in
-      
-      print("Delete post")
-      
-      let userPostRef = DataService.ds.REF_USER_CURRENT.child("posts").child(key) as FIRDatabaseReference!
-      
-      userPostRef.removeValue()
-      
-      let postRef = DataService.ds.REF_POSTS.child(key)
-      
-      postRef.removeValue()
-      
-    }))
-    
-    alert.addAction(UIAlertAction(title: "Actually, no thanks!", style: .Default, handler: nil))
-    
-    self.presentViewController(alert, animated: true, completion: nil)
-
-  }
-  
-  override func viewWillAppear(animated: Bool) {
-    AppState.shared.currentState = .Feed
-
-    tableView.reloadData()
-  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -76,12 +40,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.dataSource = self
     
     tableView.estimatedRowHeight = 414
-    print("Feed vc view did load")
+    
     DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
       
-      print("snapshot", snapshot.value)
       self.posts = []
-
+      
       if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
         
         for snap in snapshots {
@@ -93,7 +56,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
             self.posts.append(post)
             
           }
-          print("SNAP: ", snap)
         }
         
         if self.activityIndicator.alpha == 1 {
@@ -118,8 +80,123 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     })
     
     NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
-    print("end of view did load")
   }
+  
+  override func viewWillAppear(animated: Bool) {
+    AppState.shared.currentState = .Feed
+    
+    tableView.reloadData()
+  }
+  
+  
+  //MARK: - TABLE VIEW
+  
+  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    
+    return self.view.bounds.height - 20
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+    let path = HelperFunctions.getDocumentsDirectory()
+    let stringPath = String(path) + "/" + posts[indexPath.row].audioURL
+    let finalPath = NSURL(fileURLWithPath: stringPath)
+    CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)
+    
+  }
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    return posts.count
+  }
+  
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+    if AppState.shared.currentState == .Feed {
+      
+      currentRow = indexPath.row
+      
+      if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
+        
+        let post = posts[indexPath.row]
+        
+        var img: UIImage?
+        var profileImg: UIImage?
+        
+        if let url = post.imageUrl {
+          
+          img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
+        }
+        
+        if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
+          
+          profileImg = profileImage
+        }
+        
+        cell.delegate = self
+        cell.configureCell(post, img: img, profileImg: profileImg)
+        
+        return cell
+      }
+      
+      let cell = tableView.dequeueReusableCellWithIdentifier("uploadCell")!
+      return cell
+      
+    } else {
+      return UITableViewCell()
+    }
+  }
+  
+  
+  //MARK: - ALERTS
+  
+  func showDeletePostAlert(key: String) {
+    displayDeleteAlert(key)
+  }
+  
+  func displayDeleteAlert(key: String) {
+    
+    let alert = UIAlertController(title: "Delete post?!", message: "", preferredStyle: .Alert)
+    
+    alert.addAction(UIAlertAction(title: "Yes please!", style: .Default, handler: { (action) in
+      
+      let userPostRef = DataService.ds.REF_USER_CURRENT.child("posts").child(key) as FIRDatabaseReference!
+      
+      userPostRef.removeValue()
+      
+      let postRef = DataService.ds.REF_POSTS.child(key)
+      
+      postRef.removeValue()
+      
+      let storageAudioRef = FIRStorage.storage().reference()
+      
+      storageAudioRef.child("audio/"+key+".m4a")//.child(key + ".jpg")
+      
+      print("storage audio ref: ", storageAudioRef.fullPath)
+      
+      storageAudioRef.deleteWithCompletion({ (error) in
+        guard error == nil else { print(error.debugDescription) ; return }
+        print("storage audio removed")
+      })
+      
+//      let storageImageRef = FIRStorage.storage()
+//      
+//      storageImageRef.child("images/"+key+".jpg")//.child(key + ".m4a")
+//      print("storage image ref: ", storageImageRef.fullPath)
+//
+//      storageImageRef.deleteWithCompletion({ (error) in
+//        guard error == nil else { print(error.debugDescription) ; return }
+//        print("storage image removed")
+//      })
+      
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Actually, no thanks!", style: .Default, handler: nil))
+    
+    self.presentViewController(alert, animated: true, completion: nil)
+    
+  }
+  
+  //MARK: - OTHER FUNCTIONS
   
   func checkLoggedIn() {
     
@@ -127,7 +204,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       NSUserDefaults.standardUserDefaults().setValue(nil, forKey: Constants.shared.KEY_UID)
       dismissViewControllerAnimated(true, completion: nil)
     }
-    
   }
   
   func isAfterDate(startDate: NSDate, endDate: NSDate) -> Bool {
@@ -145,67 +221,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       return false
     }
   }
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    print("did select", indexPath.row)
-    
-    let path = HelperFunctions.getDocumentsDirectory()
-    let stringPath = String(path) + "/" + posts[indexPath.row].audioURL
-    let finalPath = NSURL(fileURLWithPath: stringPath)
-    CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)
-  
-  }
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
-    return posts.count
-  }
-  
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
-    if AppState.shared.currentState == .Feed {
-    currentRow = indexPath.row
-    
-    if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
-    
-
-      let post = posts[indexPath.row]
-
-      var img: UIImage?
-      var profileImg: UIImage?
-
-      
-      if let url = post.imageUrl {
-        print("in the cache init")
-        img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
-      }
-      
-      if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
-        print("profile image in the cache init", profileImage)
-        profileImg = profileImage
-      }
-
-      cell.delegate = self
-      cell.configureCell(post, img: img, profileImg: profileImg)
-
-      return cell
-  }
-    
-    let cell = tableView.dequeueReusableCellWithIdentifier("uploadCell")!
-      return cell
-    } else {
-      return UITableViewCell()
-    }
-  }
-  
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    
-    return self.view.bounds.height - navBar.bounds.height - 20
-  }
-
-  
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    print("preferred status bar")
-    return .LightContent
-  }
   
   @IBAction func profileButtonPressed(sender: UIButton) {
     performSegueWithIdentifier(Constants.sharedSegues.showProfile, sender: self)
@@ -214,10 +229,14 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
     if segue.identifier == Constants.sharedSegues.showProfile {
-    let backItem = UIBarButtonItem()
-    backItem.title = "Back"
-    navigationItem.backBarButtonItem = backItem
+      let backItem = UIBarButtonItem()
+      backItem.title = "Back"
+      navigationItem.backBarButtonItem = backItem
     }
+  }
+  
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
   }
   
 }

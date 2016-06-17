@@ -11,11 +11,11 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
 import FirebaseAuth
-import Spring
+//import Spring
 
 class LoginVC: UIViewController {
   
-  @IBOutlet weak var facebookLoginButton: SpringButton!
+  @IBOutlet weak var facebookLoginButton: UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()

@@ -64,6 +64,8 @@ class PostCell: UITableViewCell {
     if fakeLabel.titleLabel!.text == "REMOVE" {
     
       delegate?.showDeletePostAlert((post?.postKey)!)
+      
+      fakeButton.image = UIImage(named: "thumbsDownGrey")
     } else {
       markFartAsFake((post?.postKey)!)
       print("code to report fake fart here")
@@ -94,7 +96,12 @@ class PostCell: UITableViewCell {
       
       self.showcaseImg.image = image
       
-      Cache.FeedVC.imageCache.setObject(image, forKey: self.post!.imageUrl!)
+      print(self.post!.imageUrl)
+      
+      
+//      Cache.FeedVC.imageCache.setObject(image, forKey: self.post!.imageUrl!)
+      Cache.FeedVC.imageCache.setObject(image, forKey: imageLocation)
+
     }
   }
   
@@ -122,7 +129,6 @@ class PostCell: UITableViewCell {
     } else {
       pop.text = "pops"
     }
-    
     
     likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
     postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
@@ -157,7 +163,7 @@ class PostCell: UITableViewCell {
       if let _ = snapshot.value as? NSNull {
         
         self.fakeLabel.setTitle("FAKE!", forState: .Normal)
-        self.fakeButton.image = UIImage(named: "fakeFartIcon")
+        self.fakeButton.image = UIImage(named: "thumbsDownGrey")
         
       } else {
         
@@ -182,7 +188,7 @@ class PostCell: UITableViewCell {
       if let _ = snapshot.value as? NSNull {
         
         self.fakeLabel.setTitle("FAKE!", forState: .Normal)
-        self.fakeButton.image = UIImage(named: "fakeFartIcon")
+        self.fakeButton.image = UIImage(named: "thumbsDownGrey")
         
       } else {
         

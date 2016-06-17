@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5239B344FF1B2FF0370A0029 /* Pods_FartClub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B154599EBB037EB410F81CD5 /* Pods_FartClub.framework */; };
+		6CEC7B60788B82C182261ECD /* Pods_Wildlife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C30123EA9644A4B56C8EBD /* Pods_Wildlife.framework */; };
 		B501DBB91D0301D7001320C7 /* PootorialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501DBB81D0301D7001320C7 /* PootorialVC.swift */; };
 		B501DBBB1D0305CE001320C7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501DBBA1D0305CE001320C7 /* AppState.swift */; };
 		B501DBBD1D0305E9001320C7 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501DBBC1D0305E9001320C7 /* Cache.swift */; };
@@ -47,18 +47,17 @@
 		B5D3F9971CEB41BD00EEB78F /* FIGHTT3_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */; };
 		B5D3F9991CEB498500EEB78F /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F9981CEB498500EEB78F /* extensions.swift */; };
 		B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */; };
-		B5D85BF11CF8B44100E62148 /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5967D541CEE5414006CB7BB /* Spring.framework */; };
-		B5D85BF31CF8B48C00E62148 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D85BF21CF8B48C00E62148 /* Alamofire.framework */; };
 		B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF41CFA12B800E62148 /* WaveformView.swift */; };
 		B5D85BF81CFA134C00E62148 /* ProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */; };
 		B5D85BFA1CFA197500E62148 /* CreatePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF91CFA197500E62148 /* CreatePost.swift */; };
 		B5E484F01D02F83C0099A060 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */; };
+		B5E553121D144EE100982E60 /* PageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E553111D144EE100982E60 /* PageContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8EEC5473B9D2FC2DECB789CA /* Pods-FartClub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FartClub.release.xcconfig"; path = "Pods/Target Support Files/Pods-FartClub/Pods-FartClub.release.xcconfig"; sourceTree = "<group>"; };
-		A10FD833B2524E7A8D4BCE1C /* Pods-DevslopesFirebaseShowcase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.debug.xcconfig"; sourceTree = "<group>"; };
-		B154599EBB037EB410F81CD5 /* Pods_FartClub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FartClub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		09C30123EA9644A4B56C8EBD /* Pods_Wildlife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wildlife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		26AAC8E599183F4EF442741D /* Pods-Wildlife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wildlife.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wildlife/Pods-Wildlife.release.xcconfig"; sourceTree = "<group>"; };
+		9025CDEE26ACA91AABC390FC /* Pods-Wildlife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wildlife.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wildlife/Pods-Wildlife.debug.xcconfig"; sourceTree = "<group>"; };
 		B501DBB81D0301D7001320C7 /* PootorialVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PootorialVC.swift; sourceTree = "<group>"; };
 		B501DBBA1D0305CE001320C7 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B501DBBC1D0305E9001320C7 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
@@ -94,7 +93,6 @@
 		B5777B811D01CE1B0062683C /* MyPostsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPostsVC.swift; sourceTree = "<group>"; };
 		B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopTrumpsVC.swift; sourceTree = "<group>"; };
 		B5967D501CEE0407006CB7BB /* CreatePostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostVC.swift; sourceTree = "<group>"; };
-		B5967D541CEE5414006CB7BB /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = "../../../../Library/Developer/Xcode/DerivedData/DevslopesFirebaseShowcase-aebdmajtydenumdhaiuprfwxpxmv/Build/Products/Debug-iphonesimulator/Spring/Spring.framework"; sourceTree = "<group>"; };
 		B5A7F9E51D0027C10065F996 /* FartFacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FartFacts.swift; sourceTree = "<group>"; };
 		B5A7F9E71D002DF50065F996 /* FartFactsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FartFactsTVC.swift; sourceTree = "<group>"; };
 		B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopTrumpsCell.swift; sourceTree = "<group>"; };
@@ -102,14 +100,11 @@
 		B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FIGHTT3_.ttf; sourceTree = "<group>"; };
 		B5D3F9981CEB498500EEB78F /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		B5D85BF21CF8B48C00E62148 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		B5D85BF41CFA12B800E62148 /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableVC.swift; sourceTree = "<group>"; };
 		B5D85BF91CFA197500E62148 /* CreatePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePost.swift; sourceTree = "<group>"; };
 		B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
-		C05FA781DCB3890015580319 /* Pods-FartClub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FartClub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FartClub/Pods-FartClub.debug.xcconfig"; sourceTree = "<group>"; };
-		CEDC6C5B0D355C547B558914 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DevslopesFirebaseShowcase.release.xcconfig"; path = "Pods/Target Support Files/Pods-DevslopesFirebaseShowcase/Pods-DevslopesFirebaseShowcase.release.xcconfig"; sourceTree = "<group>"; };
-		FA5F4A36BE45184243C76295 /* Pods_DevslopesFirebaseShowcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DevslopesFirebaseShowcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5E553111D144EE100982E60 /* PageContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,11 +112,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5D85BF31CF8B48C00E62148 /* Alamofire.framework in Frameworks */,
-				B5D85BF11CF8B44100E62148 /* Spring.framework in Frameworks */,
 				B51CBCF91CF4DA4900112B51 /* FDWaveformView.framework in Frameworks */,
 				B548A45B1CE913910084215C /* FBSDKLoginKit.framework in Frameworks */,
-				5239B344FF1B2FF0370A0029 /* Pods_FartClub.framework in Frameworks */,
+				6CEC7B60788B82C182261ECD /* Pods_Wildlife.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,22 +124,17 @@
 		06BB2FE03B25609296D5A959 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B5D85BF21CF8B48C00E62148 /* Alamofire.framework */,
 				B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */,
-				B5967D541CEE5414006CB7BB /* Spring.framework */,
-				FA5F4A36BE45184243C76295 /* Pods_DevslopesFirebaseShowcase.framework */,
-				B154599EBB037EB410F81CD5 /* Pods_FartClub.framework */,
+				09C30123EA9644A4B56C8EBD /* Pods_Wildlife.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		65E7906807E291E668160AE5 /* Pods */ = {
+		68BCF2413C14038E50061776 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A10FD833B2524E7A8D4BCE1C /* Pods-DevslopesFirebaseShowcase.debug.xcconfig */,
-				CEDC6C5B0D355C547B558914 /* Pods-DevslopesFirebaseShowcase.release.xcconfig */,
-				C05FA781DCB3890015580319 /* Pods-FartClub.debug.xcconfig */,
-				8EEC5473B9D2FC2DECB789CA /* Pods-FartClub.release.xcconfig */,
+				9025CDEE26ACA91AABC390FC /* Pods-Wildlife.debug.xcconfig */,
+				26AAC8E599183F4EF442741D /* Pods-Wildlife.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -154,10 +142,10 @@
 		B548A4241CE8FFC40084215C = {
 			isa = PBXGroup;
 			children = (
-				B548A42F1CE8FFC40084215C /* DevslopesFirebaseShowcase */,
+				B548A42F1CE8FFC40084215C /* Wildlife */,
 				B548A42E1CE8FFC40084215C /* Products */,
-				65E7906807E291E668160AE5 /* Pods */,
 				06BB2FE03B25609296D5A959 /* Frameworks */,
+				68BCF2413C14038E50061776 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -169,7 +157,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B548A42F1CE8FFC40084215C /* DevslopesFirebaseShowcase */ = {
+		B548A42F1CE8FFC40084215C /* Wildlife */ = {
 			isa = PBXGroup;
 			children = (
 				B566CB3F1CE9209100415A3E /* Services */,
@@ -185,6 +173,7 @@
 				B5C62FBC1CF6EADC00E73BFF /* GoogleService-Info.plist */,
 				B51CBCD81CF4788500112B51 /* audio_test.m4a */,
 			);
+			name = Wildlife;
 			path = DevslopesFirebaseShowcase;
 			sourceTree = "<group>";
 		};
@@ -193,10 +182,12 @@
 			children = (
 				B55808361CF713CE00FEC41D /* SplashVC.swift */,
 				B548A4321CE8FFC40084215C /* LoginVC.swift */,
+				B5E553111D144EE100982E60 /* PageContainer.swift */,
 				B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */,
 				B5777B811D01CE1B0062683C /* MyPostsVC.swift */,
 				B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */,
 				B5967D501CEE0407006CB7BB /* CreatePostVC.swift */,
+				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
 				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
 				B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */,
 				B5A7F9E71D002DF50065F996 /* FartFactsTVC.swift */,
@@ -274,7 +265,6 @@
 		B5C62FBB1CF641C800E73BFF /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
 				B566CB441CE9C72500415A3E /* PostCell.swift */,
 				B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */,
 			);
@@ -295,22 +285,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B548A42C1CE8FFC40084215C /* FartClub */ = {
+		B548A42C1CE8FFC40084215C /* Wildlife */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B548A43F1CE8FFC40084215C /* Build configuration list for PBXNativeTarget "FartClub" */;
+			buildConfigurationList = B548A43F1CE8FFC40084215C /* Build configuration list for PBXNativeTarget "Wildlife" */;
 			buildPhases = (
-				C8A3361D6B1B09E4E6FDF4BA /* 📦 Check Pods Manifest.lock */,
+				DD06AEE87F4A33C6DDF85556 /* 📦 Check Pods Manifest.lock */,
 				B548A4291CE8FFC40084215C /* Sources */,
 				B548A42A1CE8FFC40084215C /* Frameworks */,
 				B548A42B1CE8FFC40084215C /* Resources */,
-				E32D7975312407959B23EDDD /* 📦 Embed Pods Frameworks */,
-				98551812294AC0067C927000 /* 📦 Copy Pods Resources */,
+				14551F08D15EE881BFBAB953 /* 📦 Embed Pods Frameworks */,
+				329E7D30B83D860CA1F80830 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = FartClub;
+			name = Wildlife;
 			productName = DevslopesFirebaseShowcase;
 			productReference = B548A42D1CE8FFC40084215C /* Fart Club.app */;
 			productType = "com.apple.product-type.application";
@@ -331,7 +321,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B548A4281CE8FFC40084215C /* Build configuration list for PBXProject "FartClub" */;
+			buildConfigurationList = B548A4281CE8FFC40084215C /* Build configuration list for PBXProject "Wildlife" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -344,7 +334,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B548A42C1CE8FFC40084215C /* FartClub */,
+				B548A42C1CE8FFC40084215C /* Wildlife */,
 			);
 		};
 /* End PBXProject section */
@@ -373,7 +363,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		98551812294AC0067C927000 /* 📦 Copy Pods Resources */ = {
+		14551F08D15EE881BFBAB953 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wildlife/Pods-Wildlife-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		329E7D30B83D860CA1F80830 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -385,10 +390,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FartClub/Pods-FartClub-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wildlife/Pods-Wildlife-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C8A3361D6B1B09E4E6FDF4BA /* 📦 Check Pods Manifest.lock */ = {
+		DD06AEE87F4A33C6DDF85556 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -401,21 +406,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		E32D7975312407959B23EDDD /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FartClub/Pods-FartClub-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -447,6 +437,7 @@
 				B566CB451CE9C72500415A3E /* PostCell.swift in Sources */,
 				B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */,
 				B5B063361CF35BE4001DDFDD /* TopTrumpsCell.swift in Sources */,
+				B5E553121D144EE100982E60 /* PageContainer.swift in Sources */,
 				B548A4521CE906A80084215C /* Constants.swift in Sources */,
 				B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */,
 				B548A4541CE90A5E0084215C /* MaterialButton.swift in Sources */,
@@ -597,7 +588,7 @@
 		};
 		B548A4401CE8FFC40084215C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C05FA781DCB3890015580319 /* Pods-FartClub.debug.xcconfig */;
+			baseConfigurationReference = 9025CDEE26ACA91AABC390FC /* Pods-Wildlife.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -608,8 +599,9 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Alamofire",
 				);
 				INFOPLIST_FILE = DevslopesFirebaseShowcase/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.FartClub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.Wildlife;
 				PRODUCT_NAME = "Fart Club";
 				PROVISIONING_PROFILE = "";
 			};
@@ -617,7 +609,7 @@
 		};
 		B548A4411CE8FFC40084215C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8EEC5473B9D2FC2DECB789CA /* Pods-FartClub.release.xcconfig */;
+			baseConfigurationReference = 26AAC8E599183F4EF442741D /* Pods-Wildlife.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -628,8 +620,9 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Alamofire",
 				);
 				INFOPLIST_FILE = DevslopesFirebaseShowcase/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.FartClub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.Wildlife;
 				PRODUCT_NAME = "Fart Club";
 				PROVISIONING_PROFILE = "";
 			};
@@ -638,7 +631,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B548A4281CE8FFC40084215C /* Build configuration list for PBXProject "FartClub" */ = {
+		B548A4281CE8FFC40084215C /* Build configuration list for PBXProject "Wildlife" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B548A43D1CE8FFC40084215C /* Debug */,
@@ -647,7 +640,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B548A43F1CE8FFC40084215C /* Build configuration list for PBXNativeTarget "FartClub" */ = {
+		B548A43F1CE8FFC40084215C /* Build configuration list for PBXNativeTarget "Wildlife" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B548A4401CE8FFC40084215C /* Debug */,

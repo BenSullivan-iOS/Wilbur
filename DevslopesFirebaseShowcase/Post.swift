@@ -77,13 +77,16 @@ class Post {
     self._postKey = postKey
 
     if let audio = dictionary["audio"] as? String {
-      
       self._audioURL = audio
     }
     
-    self._date = dictionary["date"] as? String
+    if let date = dictionary["date"] as? String {
+      self._date = date
+    }
     
-    self._username = dictionary["user"] as? String
+    if let username = dictionary["user"] as? String {
+    self._username = username
+    }
     
     if let likes = dictionary["likes"] as? Int {
       self._likes = likes
@@ -97,10 +100,8 @@ class Post {
       self._fakeCount = fakeCount
     }
 
-    
     if let imageUrl = dictionary["imageUrl"] as? String {
       self._imageUrl = imageUrl
-      
     }
     
     if let desc = dictionary["description"] as? String {

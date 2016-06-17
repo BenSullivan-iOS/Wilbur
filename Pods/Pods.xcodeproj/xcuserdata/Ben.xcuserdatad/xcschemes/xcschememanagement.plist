@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Alamofire.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Bolts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -34,12 +29,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-FartClub.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Spring.xcscheme</key>
+		<key>Pods-Wildlife.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -52,7 +42,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1C525271B1835DC7DBA9103131FD61B9</key>
+		<key>26A7C9D8756C5A1280AB3B9029F13E32</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,17 +62,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8E87ADD4AB9D85900D80FEB8122CD688</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CFB988111DCDD91D1FC6EDDA0FBACF15</key>
 		<dict>
 			<key>primary</key>
 			<true/>

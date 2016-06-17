@@ -18,13 +18,7 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
   var audioRecorder: AVAudioRecorder!
   var player = AVAudioPlayer()
   
-  var delegate: AudioPlayerDelegate? = nil {
-    
-    didSet {
-      
-      print("delegate was set")
-    }
-  }
+  var delegate: AudioPlayerDelegate? = nil
   
   func setupRecording() {
     
@@ -52,6 +46,8 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
   
   func recordTapped() {
     
+    player.stop()
+    
     if audioRecorder == nil {
       startRecording()
     } else {
@@ -60,8 +56,6 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
   }
   
   func startRecording() {
-    
-    print("Start recording - preparing to record")
     
     let audioURL = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a")
     
@@ -78,15 +72,18 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
       audioRecorder.delegate = self
       audioRecorder.record()
       recordingSuccess = true
-      NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(self.finishRecording(success: )), userInfo: nil, repeats: false)
+      timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(self.finishRecording(success: )), userInfo: nil, repeats: false)
       
     } catch {
       finishRecording(success: false)
     }
   }
   
+  var timer = NSTimer()
+
+  
   @objc func finishRecording(success success: Bool) {
-    
+    timer.invalidate()
     print("Finished recording")
     if recordingSuccess {
       
@@ -96,14 +93,12 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         audioRecorder.stop()
         audioRecorder = nil
         
-        
         if success || recordingSuccess {
           
           recordingSuccess = false
           
           let audioURL = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a")
           
-          //      CreatePost.shared.uploadAudio(audioURL)
           delegate?.audioRecorded()
           play(audioURL)
           
@@ -115,8 +110,6 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     }
   }
   
-  
-  
   func play(fileURL: NSURL) {
     
     do {
@@ -124,7 +117,7 @@ class AudioControls: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
       player = try AVAudioPlayer(contentsOfURL: fileURL)
       player.prepareToPlay()
       player.delegate = self
-      player.play()
+//      player.play()
       //FIXME: - Add this back
 //      showWaveForm(fileURL)
       

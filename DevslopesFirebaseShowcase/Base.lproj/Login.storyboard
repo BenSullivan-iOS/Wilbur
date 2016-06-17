@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iQF-2E-jv4">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -65,12 +64,12 @@
                         <outlet property="quote" destination="Rpi-NJ-gRU" id="b7N-Ou-Llj"/>
                         <outlet property="saidBy" destination="Iqi-hp-2DN" id="797-qz-HsQ"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="signUp" animates="NO" id="Ngg-sA-JzT"/>
-                        <segue destination="ArX-Yy-GJ7" kind="show" identifier="loggedInFromSplash" id="7tS-R6-LHN"/>
+                        <segue destination="ArX-Yy-GJ7" kind="show" identifier="loggedInFromSplash" id="ek6-dd-9w1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gbl-1s-ZaJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-249" y="125"/>
+            <point key="canvasLocation" x="523" y="283"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
@@ -113,7 +112,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-Dm-DUf" customClass="SpringButton" customModule="Spring">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-Dm-DUf">
                                                         <rect key="frame" x="75" y="19" width="508" height="33"/>
                                                         <color key="backgroundColor" red="0.27058823529411763" green="0.35294117647058826" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -183,12 +182,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="480" y="71"/>
+            <point key="canvasLocation" x="364" y="67"/>
         </scene>
-        <!--PagingVC-->
+        <!--Container-->
         <scene sceneID="aSK-0G-Dy2">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="PagingVC" storyboardName="Main" referencedIdentifier="PagingVC" id="ArX-Yy-GJ7" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="PagingVC" storyboardName="Main" referencedIdentifier="Container" id="ArX-Yy-GJ7" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iwL-ZW-XGr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="938.5" y="97"/>
@@ -383,6 +382,6 @@
         <image name="fb-icon" width="65" height="65"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7tS-R6-LHN"/>
+        <segue reference="ek6-dd-9w1"/>
     </inferredMetricsTieBreakers>
 </document>
