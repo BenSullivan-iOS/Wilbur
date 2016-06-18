@@ -88,6 +88,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.reloadData()
   }
   
+  override func viewDidAppear(animated: Bool) {
+
+  }
   
   //MARK: - TABLE VIEW
   

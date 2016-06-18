@@ -23,7 +23,7 @@
         <!--SplashVC-->
         <scene sceneID="0U5-Hv-abO">
             <objects>
-                <viewController id="iQF-2E-jv4" customClass="SplashVC" customModule="Fart_Club" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iQF-2E-jv4" customClass="SplashVC" customModule="Wilbur" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4Rk-dH-vc5"/>
                         <viewControllerLayoutGuide type="bottom" id="Cwr-3R-vtB"/>
@@ -32,49 +32,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rpi-NJ-gRU">
-                                <rect key="frame" x="20" y="273" width="560" height="55"/>
-                                <string key="text">"He who smelt it, dealt it""He who smelt it, dealt it""He who smelt it, dealt it""He who smelt it, dealt it""He who smelt it, dealt it"</string>
-                                <fontDescription key="fontDescription" name="Baskerville-Italic" family="Baskerville" pointSize="24"/>
-                                <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Confucius" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Iqi-hp-2DN">
-                                <rect key="frame" x="350" y="336" width="230" height="26"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="13250446_988781857903116_1711681653_n" translatesAutoresizingMaskIntoConstraints="NO" id="trZ-OO-k1A">
+                                <rect key="frame" x="169" y="168" width="263" height="263"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="26" id="ft6-7E-QzT"/>
-                                    <constraint firstAttribute="width" constant="230" id="hta-QX-EJc"/>
+                                    <constraint firstAttribute="height" constant="263" id="Wsu-oL-TJd"/>
+                                    <constraint firstAttribute="width" constant="263" id="bO6-fM-X4o"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Baskerville-Italic" family="Baskerville" pointSize="20"/>
-                                <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Iqi-hp-2DN" secondAttribute="trailing" id="Pr5-hg-wzr"/>
-                            <constraint firstItem="Rpi-NJ-gRU" firstAttribute="centerX" secondItem="qvw-xu-fcW" secondAttribute="centerX" id="pAi-bC-jtd"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Rpi-NJ-gRU" secondAttribute="trailing" id="rLF-Gi-se3"/>
-                            <constraint firstItem="Rpi-NJ-gRU" firstAttribute="leading" secondItem="qvw-xu-fcW" secondAttribute="leadingMargin" id="stN-lO-apS"/>
-                            <constraint firstItem="Iqi-hp-2DN" firstAttribute="top" secondItem="Rpi-NJ-gRU" secondAttribute="bottom" constant="8" id="y4u-tk-ga6"/>
-                            <constraint firstItem="Rpi-NJ-gRU" firstAttribute="centerY" secondItem="qvw-xu-fcW" secondAttribute="centerY" id="yBP-5Q-KLt"/>
+                            <constraint firstItem="trZ-OO-k1A" firstAttribute="centerY" secondItem="qvw-xu-fcW" secondAttribute="centerY" id="P7M-fM-I7z"/>
+                            <constraint firstItem="trZ-OO-k1A" firstAttribute="centerX" secondItem="qvw-xu-fcW" secondAttribute="centerX" id="YYo-RA-P6U"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="quote" destination="Rpi-NJ-gRU" id="b7N-Ou-Llj"/>
-                        <outlet property="saidBy" destination="Iqi-hp-2DN" id="797-qz-HsQ"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="signUp" animates="NO" id="Ngg-sA-JzT"/>
                         <segue destination="ArX-Yy-GJ7" kind="show" identifier="loggedInFromSplash" id="ek6-dd-9w1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gbl-1s-ZaJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="523" y="283"/>
+            <point key="canvasLocation" x="354" y="211"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginVC" customModule="Fart_Club" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginVC" customModule="Wilbur" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -86,7 +70,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5x-vH-WGC" customClass="SpringView" customModule="Spring">
                                 <rect key="frame" x="0.0" y="214" width="600" height="172"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jho-Yk-WXk" customClass="MaterialView" customModule="Fart_Club" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jho-Yk-WXk" customClass="MaterialView" customModule="Wilbur" customModuleProvider="target">
                                         <rect key="frame" x="-20" y="22" width="633" height="129"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="t2U-cE-2EK">
@@ -182,7 +166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="364" y="67"/>
+            <point key="canvasLocation" x="-309" y="211"/>
         </scene>
         <!--Container-->
         <scene sceneID="aSK-0G-Dy2">
@@ -195,7 +179,7 @@
         <!--LoginVC-->
         <scene sceneID="O9s-WS-egV">
             <objects>
-                <viewController id="pjz-o8-emK" customClass="LoginVC" customModule="Fart_Club" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pjz-o8-emK" customClass="LoginVC" customModule="Wilbur" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ohs-AO-ltL"/>
                         <viewControllerLayoutGuide type="bottom" id="C6m-ce-CEx"/>
@@ -234,7 +218,7 @@
                                     <constraint firstAttribute="height" constant="110" id="u2P-XS-FeL"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7zL-KA-sq0" customClass="MaterialView" customModule="Fart_Club" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7zL-KA-sq0" customClass="MaterialView" customModule="Wilbur" customModuleProvider="target">
                                 <rect key="frame" x="20" y="71" width="560" height="106"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="W23-rH-m4i">
@@ -247,7 +231,7 @@
                                                     <constraint firstAttribute="width" constant="70" id="bWQ-uf-dbR"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MyT-kq-kqx" customClass="MaterialButton" customModule="Fart_Club" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MyT-kq-kqx" customClass="MaterialButton" customModule="Wilbur" customModuleProvider="target">
                                                 <rect key="frame" x="110" y="27" width="410" height="33"/>
                                                 <color key="backgroundColor" red="0.1176470588" green="0.53333333329999999" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -274,7 +258,7 @@
                                     <constraint firstItem="W23-rH-m4i" firstAttribute="top" secondItem="7zL-KA-sq0" secondAttribute="top" constant="10" id="xR8-Iw-3Xi"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHa-6u-nE7" customClass="MaterialView" customModule="Fart_Club" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHa-6u-nE7" customClass="MaterialView" customModule="Wilbur" customModuleProvider="target">
                                 <rect key="frame" x="20" y="197" width="560" height="383"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Login / Signup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTs-o4-LxP">
@@ -287,7 +271,7 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q8b-WH-NxQ" customClass="MaterialTextField" customModule="Fart_Club" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q8b-WH-NxQ" customClass="MaterialTextField" customModule="Wilbur" customModuleProvider="target">
                                         <rect key="frame" x="20" y="66" width="520" height="40"/>
                                         <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -297,7 +281,7 @@
                                         <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NLq-ua-mCW" customClass="MaterialTextField" customModule="Fart_Club" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NLq-ua-mCW" customClass="MaterialTextField" customModule="Wilbur" customModuleProvider="target">
                                         <rect key="frame" x="20" y="126" width="520" height="40"/>
                                         <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -307,7 +291,7 @@
                                         <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naQ-QV-Su2" customClass="MaterialButton" customModule="Fart_Club" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naQ-QV-Su2" customClass="MaterialButton" customModule="Wilbur" customModuleProvider="target">
                                         <rect key="frame" x="185" y="186" width="191" height="32"/>
                                         <color key="backgroundColor" red="0.95686274510000002" green="0.31764705879999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -373,10 +357,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xrg-4U-2xa" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="480" y="763"/>
+            <point key="canvasLocation" x="456" y="941"/>
         </scene>
     </scenes>
     <resources>
+        <image name="13250446_988781857903116_1711681653_n" width="400" height="400"/>
         <image name="code-icon-logo" width="318" height="281"/>
         <image name="facebookIcon" width="768" height="768"/>
         <image name="fb-icon" width="65" height="65"/>

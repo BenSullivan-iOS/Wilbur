@@ -67,7 +67,7 @@
 		B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FDWaveformView.framework; path = "../../../../Library/Developer/Xcode/DerivedData/DevslopesFirebaseShowcase-aebdmajtydenumdhaiuprfwxpxmv/Build/Products/Debug-iphonesimulator/FDWaveformView/FDWaveformView.framework"; sourceTree = "<group>"; };
 		B51CBCFB1CF4EBBE00112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioControls.swift; sourceTree = "<group>"; };
-		B548A42D1CE8FFC40084215C /* Fart Club.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fart Club.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B548A42D1CE8FFC40084215C /* Wilbur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wilbur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B548A4301CE8FFC40084215C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B548A4321CE8FFC40084215C /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		B548A4351CE8FFC40084215C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 		B548A42E1CE8FFC40084215C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B548A42D1CE8FFC40084215C /* Fart Club.app */,
+				B548A42D1CE8FFC40084215C /* Wilbur.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -302,7 +302,7 @@
 			);
 			name = Wildlife;
 			productName = DevslopesFirebaseShowcase;
-			productReference = B548A42D1CE8FFC40084215C /* Fart Club.app */;
+			productReference = B548A42D1CE8FFC40084215C /* Wilbur.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -602,7 +602,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.Wildlife;
-				PRODUCT_NAME = "Fart Club";
+				PRODUCT_NAME = Wilbur;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -623,7 +623,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.Wildlife;
-				PRODUCT_NAME = "Fart Club";
+				PRODUCT_NAME = Wilbur;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
