@@ -40,8 +40,6 @@
 		B5777B821D01CE1B0062683C /* MyPostsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5777B811D01CE1B0062683C /* MyPostsVC.swift */; };
 		B59520F51CF3599E008987A0 /* TopTrumpsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */; };
 		B5967D511CEE0407006CB7BB /* CreatePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5967D501CEE0407006CB7BB /* CreatePostVC.swift */; };
-		B5A7F9E61D0027C10065F996 /* FartFacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A7F9E51D0027C10065F996 /* FartFacts.swift */; };
-		B5A7F9E81D002DF50065F996 /* FartFactsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A7F9E71D002DF50065F996 /* FartFactsTVC.swift */; };
 		B5B063361CF35BE4001DDFDD /* TopTrumpsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */; };
 		B5C62FBD1CF6EADC00E73BFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5C62FBC1CF6EADC00E73BFF /* GoogleService-Info.plist */; };
 		B5D3F9971CEB41BD00EEB78F /* FIGHTT3_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */; };
@@ -93,8 +91,6 @@
 		B5777B811D01CE1B0062683C /* MyPostsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPostsVC.swift; sourceTree = "<group>"; };
 		B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopTrumpsVC.swift; sourceTree = "<group>"; };
 		B5967D501CEE0407006CB7BB /* CreatePostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostVC.swift; sourceTree = "<group>"; };
-		B5A7F9E51D0027C10065F996 /* FartFacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FartFacts.swift; sourceTree = "<group>"; };
-		B5A7F9E71D002DF50065F996 /* FartFactsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FartFactsTVC.swift; sourceTree = "<group>"; };
 		B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopTrumpsCell.swift; sourceTree = "<group>"; };
 		B5C62FBC1CF6EADC00E73BFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FIGHTT3_.ttf; sourceTree = "<group>"; };
@@ -190,7 +186,6 @@
 				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
 				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
 				B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */,
-				B5A7F9E71D002DF50065F996 /* FartFactsTVC.swift */,
 				B501DBB81D0301D7001320C7 /* PootorialVC.swift */,
 			);
 			name = Controller;
@@ -216,7 +211,6 @@
 				B566CB461CE9E15500415A3E /* Post.swift */,
 				B5D85BF91CFA197500E62148 /* CreatePost.swift */,
 				B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */,
-				B5A7F9E51D0027C10065F996 /* FartFacts.swift */,
 				B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */,
 				B501DBBA1D0305CE001320C7 /* AppState.swift */,
 				B501DBBC1D0305E9001320C7 /* Cache.swift */,
@@ -427,8 +421,6 @@
 				B5967D511CEE0407006CB7BB /* CreatePostVC.swift in Sources */,
 				B5E484F01D02F83C0099A060 /* HelperFunctions.swift in Sources */,
 				B566CB411CE920A500415A3E /* DataService.swift in Sources */,
-				B5A7F9E81D002DF50065F996 /* FartFactsTVC.swift in Sources */,
-				B5A7F9E61D0027C10065F996 /* FartFacts.swift in Sources */,
 				B548A44F1CE905950084215C /* RoundedViews.swift in Sources */,
 				B501DBBD1D0305E9001320C7 /* Cache.swift in Sources */,
 				B52DBDF11CFDA24F00CB7486 /* AudioControls.swift in Sources */,

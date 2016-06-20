@@ -1,6 +1,6 @@
 //
 //  FeedVC.swift
-//  Fart Club
+//  Wilbur
 //
 //  Created by Ben Sullivan on 16/05/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -19,6 +19,13 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
   @IBOutlet weak var navBar: UINavigationBar!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+  
+  func reloadTable() {
+  }
+  
+  func tableHeight(height: CGFloat) {
+    
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -120,7 +127,9 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
   
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
     currentRow = indexPath.row
+    
     if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
       
       let post = posts[indexPath.row]
@@ -136,7 +145,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
         profileImg = profileImage
       }
       
-      PostCell.delegate = self
+      cell.delegate = self
       cell.configureCell(post, img: img, profileImg: profileImg)
       
       return cell

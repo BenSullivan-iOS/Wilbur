@@ -1,6 +1,6 @@
 //
 //  FeedVC.swift
-//  Fart Club
+//  Wilbur
 //
 //  Created by Ben Sullivan on 16/05/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -13,6 +13,8 @@ import AVFoundation
 
 protocol PostCellDelegate {
   func showDeletePostAlert(key: String)
+  func reloadTable()
+  func tableHeight(height: CGFloat)
 }
 
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
@@ -21,9 +23,21 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   private var currentRow = Int()
   
   @IBOutlet weak var profileButton: UIButton!
-  @IBOutlet weak var navBar: UINavigationBar!
   @IBOutlet weak var tableView: UITableView!
-  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+  
+  func reloadTable() {
+    tableView.reloadData()
+  }
+  
+  func tableHeight(height: CGFloat) {
+    self.tableView.estimatedRowHeight = tableView.rowHeight
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    
+    self.tableView.estimatedRowHeight = tableView.rowHeight
+    self.tableView.rowHeight = UITableViewAutomaticDimension
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,8 +47,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     AppState.shared.currentState = .Feed
     
     AudioControls.shared.setupRecording()
-    
-    activityIndicator.color = UIColor(colorLiteralRed: 244/255, green: 81/255, blue: 30/255, alpha: 1)
     
     tableView.delegate = self
     tableView.dataSource = self
@@ -56,10 +68,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
             self.posts.append(post)
             
           }
-        }
-        
-        if self.activityIndicator.alpha == 1 {
-          self.activityIndicator.alpha = 0
         }
         
         self.posts.sortInPlace({ (first, second) -> Bool in
@@ -89,11 +97,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   }
   
   //MARK: - TABLE VIEW
-  
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    
-    return self.view.bounds.height - 20
-  }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
@@ -132,7 +135,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
           profileImg = profileImage
         }
         
-        PostCell.delegate = self
+        cell.delegate = self
         cell.configureCell(post, img: img, profileImg: profileImg)
         
         return cell

@@ -9,7 +9,16 @@
 import UIKit
 import Firebase
 
-class PostCell: UITableViewCell {
+class PostCell: UITableViewCell, UITextViewDelegate {
+  
+  func textViewHeightForAttributedText(text: NSAttributedString, andWidth width: CGFloat) -> CGFloat {
+//    let calculationView = UITextView()
+//    calculationView.attributedText = text
+    let size = descriptionText.sizeThatFits(CGSize(width: width, height: CGFloat.max))
+    return size.height
+  }
+  
+  
   
   @IBOutlet weak var profileImg: UIImageView!
   @IBOutlet weak var showcaseImg: UIImageView!
@@ -19,8 +28,9 @@ class PostCell: UITableViewCell {
   @IBOutlet weak var username: UILabel!
   @IBOutlet weak var pop: UILabel!
   @IBOutlet weak var popText: UIButton!
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
-  static var delegate: PostCellDelegate? = nil
+  var delegate: PostCellDelegate? = nil
   var downloadedImage = UIImage()
   private var likeRef: FIRDatabaseReference!
   private var postRef: FIRDatabaseReference!
@@ -33,6 +43,8 @@ class PostCell: UITableViewCell {
   
   override func awakeFromNib() {
     setupGestureRecognisers()
+    descriptionText.delegate = self
+    
   }
   
   override func drawRect(rect: CGRect) {
@@ -47,6 +59,30 @@ class PostCell: UITableViewCell {
     
     likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
     postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
+    
+    activityIndicator.startAnimating()
+    
+    if post.postDescription == "" {
+      
+      self.descriptionText.hidden = true
+      
+    } else {
+      
+      self.descriptionText.hidden = false
+      self.descriptionText.text = post.postDescription
+      let fixedWidth = descriptionText.frame.size.width
+      descriptionText.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+      let newSize = descriptionText.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+      var newFrame = descriptionText.frame
+      newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+      descriptionText.frame = newFrame
+      
+//      delegate?.tableHeight(newFrame.height)
+    }
+    self._post = post
+
+    self.likesLabel.text = "\(post.likes)"
+    self.username.text = post.username
     
     configureLikeButton()
     configureLikesText(post)
@@ -82,24 +118,25 @@ class PostCell: UITableViewCell {
   func configureImage(post: Post, img: UIImage?) {
     
     if let imageUrl = post.imageUrl {
-      
+      showcaseImg.hidden = false
+
       if let img = img {
         
         self.showcaseImg.image = img
+        self.activityIndicator.stopAnimating()
         
       } else {
         
         self.downloadImage(imageUrl)
       }
+    } else {
+      showcaseImg.hidden = true
+      activityIndicator.stopAnimating()
+
     }
   }
   
   func downloadAudio(post: Post) {
-    
-    self._post = post
-    self.descriptionText.text = post.postDescription
-    self.likesLabel.text = "\(post.likes)"
-    self.username.text = post.username
     
     let path = HelperFunctions.getDocumentsDirectory()
     let stringPath = String(path) + "/" + post.audioURL
@@ -211,6 +248,8 @@ class PostCell: UITableViewCell {
       //      Cache.FeedVC.imageCache.setObject(image, forKey: self.post!.imageUrl!)
       Cache.FeedVC.imageCache.setObject(image, forKey: imageLocation)
       
+      self.delegate?.reloadTable()
+      self.activityIndicator.stopAnimating()
     }
   }
   

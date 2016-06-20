@@ -1,6 +1,6 @@
 //
 //  Post.swift
-//  Fart Club
+//  Wilbur
 //
 //  Created by Ben Sullivan on 16/05/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
