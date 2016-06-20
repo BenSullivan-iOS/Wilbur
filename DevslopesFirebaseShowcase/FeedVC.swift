@@ -14,7 +14,6 @@ import AVFoundation
 protocol PostCellDelegate {
   func showDeletePostAlert(key: String)
   func reloadTable()
-  func tableHeight(height: CGFloat)
 }
 
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
@@ -27,10 +26,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   func reloadTable() {
     tableView.reloadData()
-  }
-  
-  func tableHeight(height: CGFloat) {
-    self.tableView.estimatedRowHeight = tableView.rowHeight
   }
   
   override func viewDidAppear(animated: Bool) {

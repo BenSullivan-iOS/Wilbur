@@ -77,7 +77,6 @@ class PostCell: UITableViewCell, UITextViewDelegate {
       newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
       descriptionText.frame = newFrame
       
-//      delegate?.tableHeight(newFrame.height)
     }
     self._post = post
 
