@@ -112,7 +112,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
-    return newImage
+    return newImage!
   }
   
   func saveProfileImageToFirebaseStorageWithURL(imagePath: String) {

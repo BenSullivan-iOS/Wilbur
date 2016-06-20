@@ -88,10 +88,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.reloadData()
   }
   
-  override func viewDidAppear(animated: Bool) {
-
-  }
-  
   //MARK: - TABLE VIEW
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -107,6 +103,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)
     
   }
+  
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
     return posts.count
@@ -135,7 +132,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
           profileImg = profileImage
         }
         
-        cell.delegate = self
+        PostCell.delegate = self
         cell.configureCell(post, img: img, profileImg: profileImg)
         
         return cell

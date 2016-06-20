@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import Spring
 import AVFoundation
 import FDWaveformView
 import FirebaseStorage
@@ -134,7 +133,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
-    return newImage
+    return newImage!
   }
   
   func saveImage (image: UIImage, path: String) -> Bool {

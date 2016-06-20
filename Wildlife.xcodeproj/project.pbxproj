@@ -318,6 +318,7 @@
 					B548A42C1CE8FFC40084215C = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 2KVYSWMVXX;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -604,6 +605,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.Wildlife;
 				PRODUCT_NAME = Wilbur;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -625,6 +627,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.Wildlife;
 				PRODUCT_NAME = Wilbur;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

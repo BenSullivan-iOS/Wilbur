@@ -11,7 +11,6 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
 import FirebaseAuth
-//import Spring
 
 class LoginVC: UIViewController {
   
@@ -79,9 +78,9 @@ class LoginVC: UIViewController {
   
   func styleButton() {
     
-    let color = Constants.shared.shadowColor
+    let shadow = Constants.shared.shadowColor
     
-    facebookLoginButton.layer.shadowColor = UIColor(red: color, green: color, blue: color, alpha: 0.5).CGColor
+    facebookLoginButton.layer.shadowColor = UIColor(red: shadow, green: shadow, blue: shadow, alpha: 0.5).CGColor
     facebookLoginButton.layer.shadowOpacity = 0.8
     facebookLoginButton.layer.shadowRadius = 5.0
     facebookLoginButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)

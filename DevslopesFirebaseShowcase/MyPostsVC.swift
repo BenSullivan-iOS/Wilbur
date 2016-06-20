@@ -47,7 +47,6 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
             let key = snap.key
             let post = Post(postKey: key, dictionary: postDict)
             
-            
             userRef.observeSingleEventOfType(.Value, withBlock: { (userSnapshot) in
               
               if var newString = post.imageUrl {
@@ -137,7 +136,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
         profileImg = profileImage
       }
       
-      cell.delegate = self
+      PostCell.delegate = self
       cell.configureCell(post, img: img, profileImg: profileImg)
       
       return cell
