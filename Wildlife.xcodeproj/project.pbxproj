@@ -32,6 +32,7 @@
 		B548A4561CE90F630084215C /* MaterialTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4551CE90F630084215C /* MaterialTextField.swift */; };
 		B548A45B1CE913910084215C /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B548A4591CE913910084215C /* FBSDKLoginKit.framework */; };
 		B55808371CF713CE00FEC41D /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55808361CF713CE00FEC41D /* SplashVC.swift */; };
+		B55E6DBC1D192E7600A128E7 /* CreatePostTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55E6DBB1D192E7600A128E7 /* CreatePostTest.swift */; };
 		B566CB411CE920A500415A3E /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB401CE920A500415A3E /* DataService.swift */; };
 		B566CB431CE9C6A500415A3E /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB421CE9C6A500415A3E /* FeedVC.swift */; };
 		B566CB451CE9C72500415A3E /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B566CB441CE9C72500415A3E /* PostCell.swift */; };
@@ -83,6 +84,7 @@
 		B548A4581CE913910084215C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		B548A4591CE913910084215C /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		B55808361CF713CE00FEC41D /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
+		B55E6DBB1D192E7600A128E7 /* CreatePostTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostTest.swift; sourceTree = "<group>"; };
 		B566CB401CE920A500415A3E /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		B566CB421CE9C6A500415A3E /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		B566CB441CE9C72500415A3E /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
 				B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */,
 				B501DBB81D0301D7001320C7 /* PootorialVC.swift */,
+				B55E6DBB1D192E7600A128E7 /* CreatePostTest.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */,
 				B548A4541CE90A5E0084215C /* MaterialButton.swift in Sources */,
 				B5777B821D01CE1B0062683C /* MyPostsVC.swift in Sources */,
+				B55E6DBC1D192E7600A128E7 /* CreatePostTest.swift in Sources */,
 				B566CB471CE9E15500415A3E /* Post.swift in Sources */,
 				B55808371CF713CE00FEC41D /* SplashVC.swift in Sources */,
 			);

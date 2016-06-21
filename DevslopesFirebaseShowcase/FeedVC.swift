@@ -39,6 +39,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     self.tableView.scrollsToTop = false
     
+    downloadTableContent()
+    
     AppState.shared.currentState = .Feed
     
     AudioControls.shared.setupRecording()
@@ -46,7 +48,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.delegate = self
     tableView.dataSource = self
     
-    tableView.estimatedRowHeight = 414
+    NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+  }
+  
+  func downloadTableContent() {
     
     DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
       
@@ -81,14 +86,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         self.tableView.reloadData()
       }
     })
-    
-    NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
   }
   
   override func viewWillAppear(animated: Bool) {
     AppState.shared.currentState = .Feed
     
-    tableView.reloadData()
+//    tableView.reloadData()
   }
   
   //MARK: - TABLE VIEW

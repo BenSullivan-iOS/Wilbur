@@ -73,7 +73,7 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationCo
   
   private lazy var orderedViewControllers: [UIViewController] = {
     
-    return [self.newViewController("Record"),
+    return [self.newViewController("RecordTest"),
             self.newViewController("Feed"),
             self.newViewController("TopTrumpsVC")]
   }()

@@ -79,24 +79,13 @@ class PostCell: UITableViewCell, UITextViewDelegate {
       
     }
     self._post = post
-
     self.likesLabel.text = "\(post.likes)"
     self.username.text = post.username
     
     configureLikeButton()
-    configureLikesText(post)
     configureImage(post, img: img)
     configureProfileImage(post, profileImg: profileImg)
     downloadAudio(post)
-  }
-  
-  func configureLikesText(post: Post) {
-    
-//    if post.likes == 1 {
-//      pop.text = "reply"
-//    } else {
-//      pop.text = "replies"
-//    }
   }
   
   func configureProfileImage(post: Post, profileImg: UIImage?) {
