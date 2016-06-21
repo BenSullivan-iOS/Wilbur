@@ -30,7 +30,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    AudioControls.shared.setupRecording()
+//    AudioControls.shared.setupRecording()
     
     activityIndicator.color = UIColor(colorLiteralRed: 244/255, green: 81/255, blue: 30/255, alpha: 1)
     

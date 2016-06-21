@@ -12,13 +12,10 @@ import Firebase
 class PostCell: UITableViewCell, UITextViewDelegate {
   
   func textViewHeightForAttributedText(text: NSAttributedString, andWidth width: CGFloat) -> CGFloat {
-//    let calculationView = UITextView()
-//    calculationView.attributedText = text
+
     let size = descriptionText.sizeThatFits(CGSize(width: width, height: CGFloat.max))
     return size.height
   }
-  
-  
   
   @IBOutlet weak var profileImg: UIImageView!
   @IBOutlet weak var showcaseImg: UIImageView!
@@ -93,7 +90,7 @@ class PostCell: UITableViewCell, UITextViewDelegate {
     self.profileImg.image = UIImage(named: "profile-placeholder")
     
     if let profileImg = profileImg {
-      print("Setting image from cache")
+      print("Setting profile image from cache")
       self.profileImg.image = profileImg
       
     } else {
@@ -146,8 +143,6 @@ class PostCell: UITableViewCell, UITextViewDelegate {
         self.likeImage.image = UIImage(named: "commentCounter")
         self.popText.setTitleColor(UIColor(colorLiteralRed: 42/255, green: 140/255, blue: 166/255, alpha: 1), forState: .Normal)
       }
-      
-      
     })
     
   }
@@ -178,7 +173,6 @@ class PostCell: UITableViewCell, UITextViewDelegate {
       if let _ = snapshot.value as? NSNull {
         
         self.likeImage.image = UIImage(named: "likeIcon")
-        self.popText.setTitleColor(UIColor(colorLiteralRed: 244/255, green: 81/255, blue: 30/255, alpha: 1), forState: .Normal)
         self.post?.adjustLikes(true)
         self.likeRef.setValue(true)
         

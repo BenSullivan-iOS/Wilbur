@@ -18,35 +18,35 @@ class TopTrumpsVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
   override func viewDidLoad() {
     super.viewDidLoad()
         
-    DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
-      
-      self.posts = []
-      
-      if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
-        
-        for snap in snapshots {
-          
-          if let postDict = snap.value as? [String: AnyObject] {
-            
-            let key = snap.key
-            
-            let post = Post(postKey: key, dictionary: postDict)
-            
-            self.posts.append(post)
-            
-          }
-        }
-        
-        self.posts.sortInPlace({ (first, second) -> Bool in
-          
-          return first.likes > second.likes
-        })
-        
-        self.tableView.reloadData()
-        
-      }
-      
-    })
+//    DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
+//      
+//      self.posts = []
+//      
+//      if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
+//        
+//        for snap in snapshots {
+//          
+//          if let postDict = snap.value as? [String: AnyObject] {
+//            
+//            let key = snap.key
+//            
+//            let post = Post(postKey: key, dictionary: postDict)
+//            
+//            self.posts.append(post)
+//            
+//          }
+//        }
+//        
+//        self.posts.sortInPlace({ (first, second) -> Bool in
+//          
+//          return first.likes > second.likes
+//        })
+//        
+//        self.tableView.reloadData()
+//        
+//      }
+//      
+//    })
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -79,15 +79,15 @@ class TopTrumpsVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
       var img: UIImage?
       var profileImg: UIImage?
       
-      if let url = post.imageUrl {
-        img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
-      }
+//      if let url = post.imageUrl {
+//        img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
+//      }
+//      
+//      if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
+//        profileImg = profileImage
+//      }
       
-      if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
-        profileImg = profileImage
-      }
-      
-      cell.configureCell(post, img: img, profileImg: profileImg)
+//      cell.configureCell(post, img: img, profileImg: profileImg)
       
       return cell
     }

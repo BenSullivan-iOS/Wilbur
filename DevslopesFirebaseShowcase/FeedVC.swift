@@ -43,7 +43,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     AppState.shared.currentState = .Feed
     
-    AudioControls.shared.setupRecording()
+//    AudioControls.shared.setupRecording()
     
     tableView.delegate = self
     tableView.dataSource = self

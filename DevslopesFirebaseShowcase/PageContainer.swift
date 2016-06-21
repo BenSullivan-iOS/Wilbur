@@ -22,15 +22,16 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate {
   @IBOutlet weak var createPostButton: UIButton!
   @IBOutlet weak var feedButton: UIButton!
   @IBOutlet weak var completeButton: UIButton!
+  @IBOutlet weak var postButton: UIButton!
+  
+  
   
   let highlighted = UIColor(colorLiteralRed: 223/255, green: 223/255, blue: 230/255, alpha: 1)
   let standard = UIColor(colorLiteralRed: 239/255, green: 239/255, blue: 244/255, alpha: 1)
   
   static var delegate: NavigationControllerDelegate? = nil
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
-  }
+
   
   func updateNavButtons() {
     
@@ -38,13 +39,19 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate {
       
     case .CreatingPost:
       updateColours(0)
-      
+      UIView.animateWithDuration(0.5, animations: {
+        self.postButton.alpha = 1
+      })
     case .Feed:
       updateColours(1)
-
+      UIView.animateWithDuration(0.2, animations: {
+        self.postButton.alpha = 0
+      })
     case .TopTrumps:
       updateColours(2)
-      
+      UIView.animateWithDuration(0.2, animations: {
+        self.postButton.alpha = 0
+      })
     default:
       print("default bro")
     }
@@ -54,6 +61,8 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate {
   override func viewDidLoad() {
     
     PagingVC.delegate = self
+    
+    postButton.alpha = 0
   }
   
   func updateColours(segment: Int) {
@@ -76,7 +85,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate {
       completeButton.backgroundColor = highlighted
       
     default:
-      print("default bro")
+      print("Page Container, update colours, default case")
     }
   }
 
@@ -101,5 +110,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate {
 
   }
   
-  
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
+  }
 }

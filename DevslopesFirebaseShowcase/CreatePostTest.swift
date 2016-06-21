@@ -28,6 +28,18 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   private let imagePicker = UIImagePickerController()
   private var selectedImagePath = NSURL?()
   
+  let tap = UITapGestureRecognizer()
+  
+  override func viewWillAppear(animated: Bool) {
+    AppState.shared.currentState = .CreatingPost
+//    tap.enabled = true
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    tap.enabled = false
+  }
+  
+  
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("imageCell") as! ImageTable
   
@@ -52,8 +64,15 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     }
   }
   
+  struct DescriptionText {
+    static let defaultText = "Enter description, include as much detail as possible"
+  }
+  
   func textViewDidBeginEditing(textView: UITextView) {
+    
+    if descriptionText.text == DescriptionText.defaultText {
     descriptionText.text = ""
+    }
     descriptionText.textColor = .grayColor()
   }
   
@@ -71,9 +90,9 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   
   func tapGestureRecogniser() {
     
-    let tap = UITapGestureRecognizer(target: self, action: #selector(self.tapReceived))
+    tap.addTarget(self, action: #selector(self.tapReceived))
     tap.numberOfTapsRequired = 1
-    tap.enabled = true
+    tap.enabled = false
 
     self.view.addGestureRecognizer(tap)
     
