@@ -115,7 +115,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     descriptionText.delegate = self
     descriptionText.layer.cornerRadius = 3.0
     descriptionText.layer.borderWidth = 1.0
-    descriptionText.layer.borderColor = UIColor(colorLiteralRed: 170/255, green: 170/255, blue: 170/255, alpha: 0.2).CGColor
+    descriptionText.layer.borderColor = UIColor(colorLiteralRed: 170/255, green: 170/255, blue: 170/255, alpha: 0.5).CGColor
   }
   
   //MARK: - CAMERA FUNCTIONS

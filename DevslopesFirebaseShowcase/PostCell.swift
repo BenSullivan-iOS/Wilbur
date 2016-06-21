@@ -9,6 +9,12 @@
 import UIKit
 import Firebase
 
+class ProfileImageTracker {
+  
+  static var imageLocations: Set = Set<String>()
+
+}
+
 class PostCell: UITableViewCell, UITextViewDelegate {
   
   func textViewHeightForAttributedText(text: NSAttributedString, andWidth width: CGFloat) -> CGFloat {
@@ -81,17 +87,21 @@ class PostCell: UITableViewCell, UITextViewDelegate {
     
     configureLikeButton()
     configureImage(post, img: img)
+    if profileImg == nil {
     configureProfileImage(post, profileImg: profileImg)
+    }
     downloadAudio(post)
   }
   
   func configureProfileImage(post: Post, profileImg: UIImage?) {
-    
+    print(post.userKey)
+
     self.profileImg.image = UIImage(named: "profile-placeholder")
     
     if let profileImg = profileImg {
       print("Setting profile image from cache")
       self.profileImg.image = profileImg
+//profileImg
       
     } else {
       print("downloading profile image")
@@ -147,23 +157,35 @@ class PostCell: UITableViewCell, UITextViewDelegate {
     
   }
   
+  
   func downloadProfileImage(imageLocation: String) {
     
-    let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
+    print("PROFILE IMAGE LOCATION", imageLocation)
+    print(ProfileImageTracker.imageLocations)
     
-    let storageRef = FIRStorage.storage().reference()
-    let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
-    
-    pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+    if !ProfileImageTracker.imageLocations.contains(imageLocation) {
+      print("Doesn't contain")
       
-      guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
+      let storageRef = FIRStorage.storage().reference()
+      let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
       
-      let image = UIImage(data: NSData(contentsOfURL: URL)!)!
-      
-      self.profileImg.image = image
-      
-      Cache.FeedVC.profileImageCache.setObject(image, forKey: (self.post?.userKey)!)
+      pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+        print("downloading...")
+        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+        
+        let image = UIImage(data: NSData(contentsOfURL: URL)!)!
+        
+        self.profileImg.image = image
+        
+        Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
+      }
+    } else {
+      print("Post Cell, profile image already chached")
     }
+    
+    ProfileImageTracker.imageLocations.insert(imageLocation)
+    
   }
   
   func likeTapped() {

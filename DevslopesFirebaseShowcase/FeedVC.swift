@@ -128,6 +128,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
           
           profileImg = profileImage
+          cell.profileImg.image = profileImg
         }
         
         cell.delegate = self
@@ -135,14 +136,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         
         return cell
       }
-      
-      let cell = tableView.dequeueReusableCellWithIdentifier("uploadCell")!
-      return cell
-      
-    } else {
-      
-      return UITableViewCell()
     }
+    return UITableViewCell()
   }
   
   
