@@ -32,13 +32,12 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   
   override func viewWillAppear(animated: Bool) {
     AppState.shared.currentState = .CreatingPost
-//    tap.enabled = true
+    tap.enabled = true
   }
   
   override func viewWillDisappear(animated: Bool) {
     tap.enabled = false
   }
-  
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("imageCell") as! ImageTable
@@ -92,7 +91,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     
     tap.addTarget(self, action: #selector(self.tapReceived))
     tap.numberOfTapsRequired = 1
-    tap.enabled = false
+    tap.enabled = true
 
     self.view.addGestureRecognizer(tap)
     
@@ -102,7 +101,6 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     super.viewDidLoad()
     
     tableView.delegate = self
-//    tableView.rowHeight = UITableViewAutomaticDimension
     
     scrollView.scrollEnabled = false
     

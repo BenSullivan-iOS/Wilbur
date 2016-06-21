@@ -28,14 +28,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.reloadData()
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
     self.tableView.estimatedRowHeight = tableView.rowHeight
     self.tableView.rowHeight = UITableViewAutomaticDimension
-  }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
     
     self.tableView.scrollsToTop = false
     
@@ -98,10 +95,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
-    let path = HelperFunctions.getDocumentsDirectory()
-    let stringPath = String(path) + "/" + posts[indexPath.row].audioURL
-    let finalPath = NSURL(fileURLWithPath: stringPath)
-    CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)
+//    let path = HelperFunctions.getDocumentsDirectory()
+//    let stringPath = String(path) + "/" + posts[indexPath.row].audioURL
+//    let finalPath = NSURL(fileURLWithPath: stringPath)
+//    CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)
     
   }
   
@@ -143,6 +140,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       return cell
       
     } else {
+      
       return UITableViewCell()
     }
   }
@@ -161,15 +159,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     alert.addAction(UIAlertAction(title: "Yes please!", style: .Default, handler: { (action) in
       
       let userPostRef = DataService.ds.REF_USER_CURRENT.child("posts").child(key) as FIRDatabaseReference!
-      
       userPostRef.removeValue()
       
       let postRef = DataService.ds.REF_POSTS.child(key)
-      
       postRef.removeValue()
       
       let storageAudioRef = FIRStorage.storage().reference()
-      
       storageAudioRef.child("audio/"+key+".m4a")//.child(key + ".jpg")
       
       print("storage audio ref: ", storageAudioRef.fullPath)
