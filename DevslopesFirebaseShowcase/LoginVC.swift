@@ -64,7 +64,7 @@ class LoginVC: UIViewController {
           
           NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
           NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.shared.KEY_UID)
-          
+
           self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)
           
           self.facebookLoginButton.setTitle("Logging in...", forState: .Normal)

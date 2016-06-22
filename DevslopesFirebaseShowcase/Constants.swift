@@ -12,7 +12,6 @@ struct Constants {
   static let shared = Constants()
   static let sharedSegues = Constants.Segues()
   static let sharedStatusCodes = Constants.StatusCodes()
-
   
   let shadowColor: CGFloat = 157.0 / 255.0
   

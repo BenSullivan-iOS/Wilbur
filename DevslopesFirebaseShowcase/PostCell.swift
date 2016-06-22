@@ -15,12 +15,10 @@ class ProfileImageTracker {
 
 }
 
-class PostCell: UITableViewCell, UITextViewDelegate {
+class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   
-  func textViewHeightForAttributedText(text: NSAttributedString, andWidth width: CGFloat) -> CGFloat {
-
-    let size = descriptionText.sizeThatFits(CGSize(width: width, height: CGFloat.max))
-    return size.height
+  func cache(cache: NSCache, willEvictObject obj: AnyObject) {
+    ProfileImageTracker.imageLocations.removeAll()
   }
   
   @IBOutlet weak var profileImg: UIImageView!
@@ -34,7 +32,7 @@ class PostCell: UITableViewCell, UITextViewDelegate {
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
   var delegate: PostCellDelegate? = nil
-  var downloadedImage = UIImage()
+  private var downloadedImage = UIImage()
   private var likeRef: FIRDatabaseReference!
   private var postRef: FIRDatabaseReference!
   private var profileImage: FIRDatabaseReference!
@@ -45,9 +43,11 @@ class PostCell: UITableViewCell, UITextViewDelegate {
   }
   
   override func awakeFromNib() {
-    setupGestureRecognisers()
-    descriptionText.delegate = self
     
+    setupGestureRecognisers()
+    
+    descriptionText.delegate = self
+    Cache.FeedVC.profileImageCache.delegate = self
   }
   
   override func drawRect(rect: CGRect) {
@@ -93,6 +93,8 @@ class PostCell: UITableViewCell, UITextViewDelegate {
     downloadAudio(post)
   }
   
+  
+  
   func configureProfileImage(post: Post, profileImg: UIImage?) {
     print(post.userKey)
 
@@ -109,6 +111,8 @@ class PostCell: UITableViewCell, UITextViewDelegate {
     }
     
   }
+  
+  
   
   func configureImage(post: Post, img: UIImage?) {
     

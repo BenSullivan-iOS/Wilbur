@@ -23,7 +23,7 @@ enum SelectedRow {
   case FeatureRequest
 }
 
-private class TempProfileImageStorage {
+class TempProfileImageStorage {
   
   static let shared = TempProfileImageStorage()
   
@@ -46,6 +46,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       presentViewController(imagePicker, animated: true, completion: nil)
     }
   }
+  
   func imagePickerAlert() {
     
     let alert = UIAlertController(title: "Where from??", message: "", preferredStyle: .ActionSheet)

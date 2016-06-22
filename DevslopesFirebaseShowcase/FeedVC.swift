@@ -48,42 +48,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
   }
   
-  func downloadTableContent() {
-    
-    DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
-      
-      self.posts = []
-      
-      if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
-        
-        for snap in snapshots {
-          
-          if let postDict = snap.value as? [String: AnyObject] {
-            
-            let key = snap.key
-            let post = Post(postKey: key, dictionary: postDict)
-            self.posts.append(post)
-            
-          }
-        }
-        
-        self.posts.sortInPlace({ (first, second) -> Bool in
-          
-          let df = NSDateFormatter()
-          df.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
-          
-          if let firstDate = df.dateFromString(first.date), secondDate = df.dateFromString(second.date) {
-            
-            return self.isAfterDate(firstDate, endDate: secondDate)
-          }
-          
-          return true
-        })
-        
-        self.tableView.reloadData()
-      }
-    })
-  }
   
   override func viewWillAppear(animated: Bool) {
     AppState.shared.currentState = .Feed
@@ -129,6 +93,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
           
           profileImg = profileImage
           cell.profileImg.image = profileImg
+          
+          if post.username == NSUserDefaults.standardUserDefaults().valueForKey("username") as? String && TempProfileImageStorage.shared.profileImage == nil {
+            print("setting temp profile image")
+            TempProfileImageStorage.shared.profileImage = profileImg
+
+          }
+          
         }
         
         cell.delegate = self
@@ -186,6 +157,46 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     self.presentViewController(alert, animated: true, completion: nil)
     
   }
+  
+  //MARK: - DOWNLOAD CONTENT
+  
+  func downloadTableContent() {
+    
+    DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
+      
+      self.posts = []
+      
+      if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
+        
+        for snap in snapshots {
+          
+          if let postDict = snap.value as? [String: AnyObject] {
+            
+            let key = snap.key
+            let post = Post(postKey: key, dictionary: postDict)
+            self.posts.append(post)
+            
+          }
+        }
+        
+        self.posts.sortInPlace({ (first, second) -> Bool in
+          
+          let df = NSDateFormatter()
+          df.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
+          
+          if let firstDate = df.dateFromString(first.date), secondDate = df.dateFromString(second.date) {
+            
+            return self.isAfterDate(firstDate, endDate: secondDate)
+          }
+          
+          return true
+        })
+        
+        self.tableView.reloadData()
+      }
+    })
+  }
+
   
   //MARK: - OTHER FUNCTIONS
   

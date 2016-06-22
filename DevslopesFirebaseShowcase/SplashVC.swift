@@ -12,13 +12,6 @@ class SplashVC: UIViewController {
   
   private var viewAppearedFromFeed = Bool()
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-//    NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(SplashVC.checkForUserLoggedIn), userInfo: nil, repeats: false)
-  
-  }
-  
   override func viewDidAppear(animated: Bool) {
     
     if viewAppearedFromFeed {

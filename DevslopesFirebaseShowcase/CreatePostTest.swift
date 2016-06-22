@@ -15,7 +15,7 @@ class ImageTable: UITableViewCell {
   
 }
 
-class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate {
+class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate {
   
   @IBOutlet weak var descriptionText: UITextView!
   @IBOutlet weak var image: UIImageView!
@@ -29,6 +29,35 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   private var selectedImagePath = NSURL?()
   
   let tap = UITapGestureRecognizer()
+  
+  func postButtonPressed() {
+    print("Well done! Creating post etc...")
+  }
+  
+  
+  //MARK: - VIEW CONTROLLER LIFESCYCLE
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    tableView.delegate = self
+    
+    scrollView.scrollEnabled = false
+    PageContainer.postButtonPressedDelegate = self
+    
+    tapGestureRecogniser()
+    
+    scrollView.delegate = self
+    cameraIcon.imageView?.contentMode = .ScaleAspectFit
+    micIcon.imageView?.contentMode = .ScaleAspectFit
+    
+    imagePicker.delegate = self
+    
+    descriptionText.delegate = self
+    descriptionText.layer.cornerRadius = 3.0
+    descriptionText.layer.borderWidth = 1.0
+    descriptionText.layer.borderColor = UIColor(colorLiteralRed: 170/255, green: 170/255, blue: 170/255, alpha: 0.5).CGColor
+  }
+
   
   override func viewWillAppear(animated: Bool) {
     AppState.shared.currentState = .CreatingPost
@@ -97,26 +126,6 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    tableView.delegate = self
-    
-    scrollView.scrollEnabled = false
-    
-    tapGestureRecogniser()
-    
-    scrollView.delegate = self
-    cameraIcon.imageView?.contentMode = .ScaleAspectFit
-    micIcon.imageView?.contentMode = .ScaleAspectFit
-
-    imagePicker.delegate = self
-    
-    descriptionText.delegate = self
-    descriptionText.layer.cornerRadius = 3.0
-    descriptionText.layer.borderWidth = 1.0
-    descriptionText.layer.borderColor = UIColor(colorLiteralRed: 170/255, green: 170/255, blue: 170/255, alpha: 0.5).CGColor
-  }
   
   //MARK: - CAMERA FUNCTIONS
   
