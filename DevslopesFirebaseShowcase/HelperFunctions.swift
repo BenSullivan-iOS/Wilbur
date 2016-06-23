@@ -10,12 +10,15 @@ import Foundation
 
 class HelperFunctions {
   
-  static func getDocumentsDirectory() -> NSURL {
+  static func getDocumentsDirectory() -> NSURL? {
     let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
     let documentsDirectory = paths[0]
     
-    let url = NSURL(string: documentsDirectory)!
+    if let url = NSURL(string: documentsDirectory) {
+      return url
+    }
     
-    return url
+    return nil
+    
   }
 }

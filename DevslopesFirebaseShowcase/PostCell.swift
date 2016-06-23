@@ -12,7 +12,7 @@ import Firebase
 class ProfileImageTracker {
   
   static var imageLocations: Set = Set<String>()
-
+  
 }
 
 class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
@@ -88,7 +88,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     configureLikeButton()
     configureImage(post, img: img)
     if profileImg == nil {
-    configureProfileImage(post, profileImg: profileImg)
+      configureProfileImage(post, profileImg: profileImg)
     }
     downloadAudio(post)
   }
@@ -97,13 +97,13 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   
   func configureProfileImage(post: Post, profileImg: UIImage?) {
     print(post.userKey)
-
+    
     self.profileImg.image = UIImage(named: "profile-placeholder")
     
     if let profileImg = profileImg {
       print("Setting profile image from cache")
       self.profileImg.image = profileImg
-//profileImg
+      //profileImg
       
     } else {
       print("downloading profile image")
@@ -118,7 +118,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     
     if let imageUrl = post.imageUrl {
       showcaseImg.hidden = false
-
+      
       if let img = img {
         
         self.showcaseImg.image = img
@@ -131,7 +131,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     } else {
       showcaseImg.hidden = true
       activityIndicator.stopAnimating()
-
+      
     }
   }
   
@@ -178,11 +178,19 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
         print("downloading...")
         guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
         
-        let image = UIImage(data: NSData(contentsOfURL: URL)!)!
+        if let data = NSData(contentsOfURL: URL) {
+          
+          if let image = UIImage(data: data) {
+            
+            self.profileImg.image = image
+            
+            Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
+            
+          }
+          
+        }
         
-        self.profileImg.image = image
         
-        Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
       }
     } else {
       print("Post Cell, profile image already chached")
@@ -247,14 +255,15 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
       
       guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
       
-      let image = UIImage(data: NSData(contentsOfURL: URL)!)!
-      
-      self.showcaseImg.image = image
-      
-      print(self.post!.imageUrl)
-      
-      //      Cache.FeedVC.imageCache.setObject(image, forKey: self.post!.imageUrl!)
-      Cache.FeedVC.imageCache.setObject(image, forKey: imageLocation)
+      if let data = NSData(contentsOfURL: URL) {
+        
+        if let image = UIImage(data: data) {
+          
+          self.showcaseImg.image = image
+          Cache.FeedVC.imageCache.setObject(image, forKey: imageLocation)
+          
+        }
+      }
       
       self.delegate?.reloadTable()
       self.activityIndicator.stopAnimating()
@@ -285,6 +294,6 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     popText.addGestureRecognizer(likeTextTap)
     popText.userInteractionEnabled = true
   }
-
+  
 }
 

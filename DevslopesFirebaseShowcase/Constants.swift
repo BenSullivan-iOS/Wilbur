@@ -23,6 +23,7 @@ struct Constants {
     let showProfile = "showProfile"
     let loggedInFromSplash = "loggedInFromSplash"
     let signUp = "signUp"
+    let embedSegue = "embedSegue"
   }
   
   struct StatusCodes {

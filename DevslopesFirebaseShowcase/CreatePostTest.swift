@@ -163,18 +163,19 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
-    return newImage!
+    return newImage
   }
   
   func saveImage (image: UIImage, path: String) -> Bool {
     
     let compressedImage = resizeImage(image, newWidth: 1536)
-    let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0)
-    let result = jpgImageData!.writeToFile(String(path), atomically: true)
-    
-    selectedImagePath = NSURL(fileURLWithPath: path)
-    
-    return result
+    if let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0) {
+    let result = jpgImageData.writeToFile(String(path), atomically: true)
+      selectedImagePath = NSURL(fileURLWithPath: path)
+
+      return result
+    }
+    return false
   }
   
   func imagePickerAlert() {

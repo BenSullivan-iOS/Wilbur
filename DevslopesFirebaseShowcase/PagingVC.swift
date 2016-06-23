@@ -73,7 +73,7 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
     
     guard completed == true else { return }
     
-    navButtonsDelegate!.updateNavButtons()
+    navButtonsDelegate?.updateNavButtons()
   }
   
   

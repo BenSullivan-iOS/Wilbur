@@ -58,7 +58,7 @@
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" red="0.86062083391469923" green="0.86224645391503973" blue="0.88705319574377683" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <segue destination="7AT-TA-p4M" kind="embed" identifier="embedSegue" id="esq-Fa-AJc"/>
+                                    <segue destination="7AT-TA-p4M" kind="embed" identifier="embedSegue" id="GQI-4t-0eh"/>
                                 </connections>
                             </containerView>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKo-37-HIn">

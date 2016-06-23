@@ -21,7 +21,7 @@ protocol PostButtonPressedDelegate: class {
 }
 
 class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDelegate {
-
+  
   @IBOutlet weak var createPostButton: UIButton!
   @IBOutlet weak var feedButton: UIButton!
   @IBOutlet weak var completeButton: UIButton!
@@ -29,31 +29,29 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   
   weak var createPostDelegate: PostButtonPressedDelegate? = nil
   weak var navigationBarDelegate: NavigationBarDelegate? = nil
-
+  
   private struct Colours {
     static let highlighted = UIColor(colorLiteralRed: 223/255, green: 223/255, blue: 230/255, alpha: 1)
     static let standard = UIColor(colorLiteralRed: 239/255, green: 239/255, blue: 244/255, alpha: 1)
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "embedSegue" {
+    if segue.identifier == Constants.sharedSegues.embedSegue {
       
-      let dest = segue.destinationViewController as? PagingVC
-      
-      dest?.navButtonsDelegate = self
-      dest?.rootController = self
-      navigationBarDelegate = dest
+      if let dest = segue.destinationViewController as? PagingVC {
+        
+        dest.navButtonsDelegate = self
+        dest.rootController = self
+        navigationBarDelegate = dest
+      }
     }
   }
   
   //MARK: - VIEW CONTROLLER LIFECYCLE
   
   override func viewDidLoad() {
-//    PagingVC.delegate = self
-    postButton.alpha = 0
-
-
     
+    postButton.alpha = 0
   }
   
   
@@ -68,9 +66,9 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   //Notifies paging VC to scroll to selected segment
   func didSelectSegment(segment: Int) {
     
-  navigationBarDelegate?.didSelectSegment(segment)
+    navigationBarDelegate?.didSelectSegment(segment)
   }
-
+  
   
   
   //MARK: - BUTTONS
@@ -81,7 +79,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   
   @IBAction func postButtonPressed(sender: AnyObject) {
     postButtonPressed()
-  
+    
   }
   
   @IBAction func feedButton(sender: AnyObject) {
@@ -90,7 +88,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     UIView.animateWithDuration(0.2, animations: {
       self.postButton.alpha = 0
     })
-
+    
   }
   
   @IBAction func createPostButton(sender: AnyObject) {
@@ -99,7 +97,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     UIView.animateWithDuration(0.5, animations: {
       self.postButton.alpha = 1
     })
-
+    
   }
   
   @IBAction func completeButton(sender: AnyObject) {
@@ -108,7 +106,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     UIView.animateWithDuration(0.2, animations: {
       self.postButton.alpha = 0
     })
-
+    
   }
   
   
@@ -135,19 +133,19 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
         self.postButton.alpha = 0
       })
     default:
-      print("default bro")
+      print("PageContainer, updateNavButtons default case")
     }
   }
   
   func updateColours(segment: Int) {
-
+    
     switch segment {
       
     case 0:
       createPostButton.backgroundColor = Colours.highlighted
       feedButton.backgroundColor = Colours.standard
       completeButton.backgroundColor = Colours.standard
-
+      
     case 1:
       createPostButton.backgroundColor = Colours.standard
       feedButton.backgroundColor = Colours.highlighted
@@ -159,7 +157,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
       completeButton.backgroundColor = Colours.highlighted
       
     default:
-      print("Page Container, update colours, default case")
+      print("Page Container, updateColours, default case")
     }
   }
   

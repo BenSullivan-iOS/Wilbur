@@ -85,7 +85,11 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
           let df = NSDateFormatter()
           df.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
           
-          return self.isAfterDate(df.dateFromString(first.date)!, endDate: df.dateFromString(second.date)!)
+          if let lhs = df.dateFromString(first.date), rhs = df.dateFromString(second.date) {
+          
+          return self.isAfterDate(lhs, endDate: rhs)
+          }
+          return false
         })
         
         self.tableView.reloadData()

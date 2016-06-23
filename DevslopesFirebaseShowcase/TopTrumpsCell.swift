@@ -57,7 +57,7 @@ class TopTrumpsCell: UITableViewCell {
       downloadProfileImage(post.userKey)
     }
   }
-
+  
   
   func downloadProfileImage(imageLocation: String) {
     
@@ -65,16 +65,23 @@ class TopTrumpsCell: UITableViewCell {
     
     let storageRef = FIRStorage.storage().reference()
     let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
-
+    
     pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
-
+      
       guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
       
-      let image = UIImage(data: NSData(contentsOfURL: URL)!)!
-      
-      self.profileImg.image = image
-      
-      Cache.FeedVC.profileImageCache.setObject(image, forKey: (self.post?.userKey)!)
+      if let data = NSData(contentsOfURL: URL) {
+        
+        if let image = UIImage(data: data) {
+          
+          self.profileImg.image = image
+          
+          if let userKey = self.post?.userKey {
+            
+            Cache.FeedVC.profileImageCache.setObject(image, forKey: userKey)
+          }
+        }
+      }
     }
   }
   

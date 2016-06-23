@@ -94,14 +94,16 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   func saveImage (image: UIImage, path: String) -> Bool {
     
     let compressedImage = resizeImage(image, newWidth: 1536)
-    let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0)
-    let result = jpgImageData!.writeToFile(String(path), atomically: true)
+    if let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0) {
+      let result = jpgImageData.writeToFile(String(path), atomically: true)
+      
+      selectedImagePath = NSURL(fileURLWithPath: path)
+      saveProfileImageToFirebaseStorageWithURL(String(selectedImagePath))
+      
+      return result
+    }
     
-    selectedImagePath = NSURL(fileURLWithPath: path)
-    
-    saveProfileImageToFirebaseStorageWithURL(String(selectedImagePath))
-    
-    return result
+    return false
   }
   
   func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
@@ -113,7 +115,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
-    return newImage!
+    return newImage
   }
   
   func saveProfileImageToFirebaseStorageWithURL(imagePath: String) {
@@ -121,7 +123,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
     
     let firebaseRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
-
+    
     if let imagePath = selectedImagePath {
       
       uploadImage(imagePath, firebaseReference: firebaseRef.key)
@@ -131,12 +133,12 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   }
   
   func uploadImage(localFile: NSURL, firebaseReference: String) {
-
+    
     let storageRef = FIRStorage.storage().reference()
     let riversRef = storageRef.child("profileImages/\(firebaseReference).jpg")
     
     riversRef.putFile(localFile, metadata: nil) { metadata, error in
-
+      
       guard let metadata = metadata where error == nil else { print("error", error); return }
       
     }
@@ -154,7 +156,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     switch rowTitle {
     case .MyPosts:
       print("my posts")
-    self.navigationController?.pushViewController(TopTrumpsVC(), animated: true) //FIXME: Why isn't this pusing as a nav controller?
+      self.navigationController?.pushViewController(TopTrumpsVC(), animated: true) //FIXME: Why isn't this pusing as a nav controller?
     case .PoppedPosts:
       print("popped posts")
     case .Feedback:
@@ -168,9 +170,10 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     if segue.identifier == "embeddedTable" {
       print("embedded segue")
       
-      let profileTable = segue.destinationViewController as? ProfileTable
-      
-      profileTable!.delegate = self
+      if let profileTable = segue.destinationViewController as? ProfileTable {
+        
+        profileTable.delegate = self
+      }
       
     }
   }
@@ -216,7 +219,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       
     })
   }
-
+  
   
   func downloadProfileImage(imageLocation: String) {
     
@@ -234,13 +237,18 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       print(URL)
       print(saveLocation)
       
-      let image = UIImage(data: NSData(contentsOfURL: URL)!)!
+      if let data = NSData(contentsOfURL: URL) {
+        if let image = UIImage(data: data) {
+          
+          self.profileImage.image = image
+          TempProfileImageStorage.shared.profileImage = image
+          
+        }
+      }
       
-      self.profileImage.image = image
-      TempProfileImageStorage.shared.profileImage = image
     }
   }
-
+  
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
