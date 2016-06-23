@@ -180,13 +180,13 @@
 				B548A4321CE8FFC40084215C /* LoginVC.swift */,
 				B5E553111D144EE100982E60 /* PageContainer.swift */,
 				B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */,
+				B55E6DBB1D192E7600A128E7 /* CreatePostTest.swift */,
 				B5777B811D01CE1B0062683C /* MyPostsVC.swift */,
 				B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */,
 				B5967D501CEE0407006CB7BB /* CreatePostVC.swift */,
 				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
 				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
 				B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */,
-				B55E6DBB1D192E7600A128E7 /* CreatePostTest.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

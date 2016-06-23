@@ -9,6 +9,11 @@
 import UIKit
 import AVFoundation
 
+protocol AudioPlayerDelegate {
+
+  func audioRecorded()
+}
+
 class ImageTable: UITableViewCell {
   
   @IBOutlet weak var tableImage: UIImageView!
@@ -24,7 +29,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   @IBOutlet weak var scrollView: UIScrollView!
   @IBOutlet weak var selectedImage: UIImageView!
   @IBOutlet weak var tableView: UITableView!
-  
+    
   private let imagePicker = UIImagePickerController()
   private var selectedImagePath = NSURL?()
   
@@ -34,15 +39,13 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     print("Well done! Creating post etc...")
   }
   
-  
   //MARK: - VIEW CONTROLLER LIFESCYCLE
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     tableView.delegate = self
     
     scrollView.scrollEnabled = false
-    PageContainer.postButtonPressedDelegate = self
     
     tapGestureRecogniser()
     

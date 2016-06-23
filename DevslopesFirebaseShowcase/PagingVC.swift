@@ -8,19 +8,19 @@
 
 import UIKit
 
-class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBarDelegate {
+class PagingVC: UIPageViewController, UIPageViewControllerDelegate {
   
   private var currentPage = Int()
-  static var delegate: UpdateNavButtonsDelegate? = nil
   
+  weak var navButtonsDelegate: UpdateNavButtonsDelegate? = nil
+  
+  var rootController: PageContainer? = nil
   
   
   //MARK: - VIEW CONTROLLER LIFECYCLE
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    PageContainer.delegate = self
     
     delegate = self
     dataSource = self
@@ -73,8 +73,7 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
     
     guard completed == true else { return }
     
-    PagingVC.delegate!.updateNavButtons()
-    
+    navButtonsDelegate!.updateNavButtons()
   }
   
   
@@ -93,13 +92,24 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
   
   private lazy var orderedViewControllers: [UIViewController] = {
     
-    return [self.newViewController("RecordTest"),
+    return [self.newViewController("CreatePostVC"),
             self.newViewController("Feed"),
             self.newViewController("TopTrumpsVC")]
   }()
   
   
   private func newViewController(title: String) -> UIViewController {
+    
+    if title == "CreatePostVC" {
+      
+      let VC = UIStoryboard(name: "Main", bundle: nil) .instantiateViewControllerWithIdentifier(title) as! CreatePostTest
+      
+      rootController?.createPostDelegate = VC
+      
+      return VC
+
+    }
+    
     return UIStoryboard(name: "Main", bundle: nil) .instantiateViewControllerWithIdentifier(title)
   }
   

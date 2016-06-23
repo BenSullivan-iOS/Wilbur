@@ -17,23 +17,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-    //Quite a cool colour, consider this instead of orange?
-//    UINavigationBar.appearance().barTintColor = UIColor(red: 42/255.0, green: 140/255.0, blue: 166/255.0, alpha: 0.5)
+    FIRApp.configure()
     
-    //Back button tint color change
+    self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+
+    var initialViewController: UIViewController?
+    
+    if NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) != nil {
+      
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      initialViewController = storyboard.instantiateViewControllerWithIdentifier("Container")
+
+    } else {
+      
+      let storyboard = UIStoryboard(name: "Login", bundle: nil)
+      initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginVC")
+    }
+        
+    self.window?.rootViewController = initialViewController
+    self.window?.makeKeyAndVisible()
     
     UINavigationBar.appearance().barStyle = .Default
     UINavigationBar.appearance().tintColor = .whiteColor()
-      
-//      UIColor(red: 204/255.0, green: 255/255.0, blue: 204/255.0, alpha: 1)
     
-    //Navigation Menu font tint color change
-    
-//    UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 204/255.0, green: 255/255.0, blue: 204/255.0, alpha: 1), NSFontAttributeName: UIFont(name: "FightThis", size: 25)!]//UIColor(red: 42/255.0, green: 140/255.0, blue: 166/255.0, alpha: 1.0)
-    
-//    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-    FIRApp.configure()
     
     return FBSDKApplicationDelegate.sharedInstance()
       .application(application, didFinishLaunchingWithOptions: launchOptions)

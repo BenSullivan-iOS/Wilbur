@@ -8,41 +8,50 @@
 
 import UIKit
 
-protocol NavigationBarDelegate {
+protocol NavigationBarDelegate: class {
   func didSelectSegment(segment: Int)
 }
 
-protocol UpdateNavButtonsDelegate {
+protocol UpdateNavButtonsDelegate: class {
   func updateNavButtons()
 }
 
-protocol PostButtonPressedDelegate {
+protocol PostButtonPressedDelegate: class {
   func postButtonPressed()
 }
 
-class PageContainer: UIViewController, UpdateNavButtonsDelegate {
+class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDelegate {
 
   @IBOutlet weak var createPostButton: UIButton!
   @IBOutlet weak var feedButton: UIButton!
   @IBOutlet weak var completeButton: UIButton!
   @IBOutlet weak var postButton: UIButton!
   
-  static var postButtonPressedDelegate: PostButtonPressedDelegate? = nil
-  static var delegate: NavigationBarDelegate? = nil
-  
+  weak var createPostDelegate: PostButtonPressedDelegate? = nil
+
   private struct Colours {
     static let highlighted = UIColor(colorLiteralRed: 223/255, green: 223/255, blue: 230/255, alpha: 1)
     static let standard = UIColor(colorLiteralRed: 239/255, green: 239/255, blue: 244/255, alpha: 1)
-
   }
   
-  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "embedSegue" {
+      
+      let dest = segue.destinationViewController as? PagingVC
+      
+      dest?.navButtonsDelegate = self
+      dest?.rootController = self
+    }
+  }
   
   //MARK: - VIEW CONTROLLER LIFECYCLE
   
   override func viewDidLoad() {
-    PagingVC.delegate = self
+//    PagingVC.delegate = self
     postButton.alpha = 0
+
+
+    
   }
   
   
@@ -50,12 +59,15 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate {
   //MARK: - DELEGATES
   
   func postButtonPressed() {
-    PageContainer.postButtonPressedDelegate?.postButtonPressed()
+    
+    createPostDelegate?.postButtonPressed()
   }
   
   //Notifies paging VC to scroll to selected segment
   func didSelectSegment(segment: Int) {
-    PageContainer.delegate!.didSelectSegment(segment)
+    
+
+  
   }
 
   
@@ -68,6 +80,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate {
   
   @IBAction func postButtonPressed(sender: AnyObject) {
     postButtonPressed()
+  
   }
   
   @IBAction func feedButton(sender: AnyObject) {
@@ -76,6 +89,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate {
     UIView.animateWithDuration(0.2, animations: {
       self.postButton.alpha = 0
     })
+
   }
   
   @IBAction func createPostButton(sender: AnyObject) {
@@ -84,6 +98,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate {
     UIView.animateWithDuration(0.5, animations: {
       self.postButton.alpha = 1
     })
+
   }
   
   @IBAction func completeButton(sender: AnyObject) {
@@ -92,6 +107,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate {
     UIView.animateWithDuration(0.2, animations: {
       self.postButton.alpha = 0
     })
+
   }
   
   
