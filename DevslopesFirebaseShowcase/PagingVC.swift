@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PagingVC: UIPageViewController, UIPageViewControllerDelegate {
+class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBarDelegate {
   
   private var currentPage = Int()
   

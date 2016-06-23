@@ -28,6 +28,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   @IBOutlet weak var postButton: UIButton!
   
   weak var createPostDelegate: PostButtonPressedDelegate? = nil
+  weak var navigationBarDelegate: NavigationBarDelegate? = nil
 
   private struct Colours {
     static let highlighted = UIColor(colorLiteralRed: 223/255, green: 223/255, blue: 230/255, alpha: 1)
@@ -41,6 +42,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
       
       dest?.navButtonsDelegate = self
       dest?.rootController = self
+      navigationBarDelegate = dest
     }
   }
   
@@ -66,8 +68,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   //Notifies paging VC to scroll to selected segment
   func didSelectSegment(segment: Int) {
     
-
-  
+  navigationBarDelegate?.didSelectSegment(segment)
   }
 
   
