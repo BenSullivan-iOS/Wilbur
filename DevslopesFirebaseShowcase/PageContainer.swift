@@ -8,8 +8,7 @@
 
 import UIKit
 
-protocol NavigationControllerDelegate {
-  
+protocol NavigationBarDelegate {
   func didSelectSegment(segment: Int)
 }
 
@@ -29,7 +28,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate {
   @IBOutlet weak var postButton: UIButton!
   
   static var postButtonPressedDelegate: PostButtonPressedDelegate? = nil
-  static var delegate: NavigationControllerDelegate? = nil
+  static var delegate: NavigationBarDelegate? = nil
   
   private struct Colours {
     static let highlighted = UIColor(colorLiteralRed: 223/255, green: 223/255, blue: 230/255, alpha: 1)

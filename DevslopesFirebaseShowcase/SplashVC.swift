@@ -10,21 +10,18 @@ import UIKit
 
 class SplashVC: UIViewController {
   
-  private var viewAppearedFromFeed = Bool()
-
+  private var viewInitiallyAppeared = Bool()
+  
   override func viewDidAppear(animated: Bool) {
     
-    if viewAppearedFromFeed {
-      
-      dismissViewControllerAnimated(true, completion: {
-        
-        self.performSegueWithIdentifier(Constants.sharedSegues.signUp, sender: self)
-
-      })
-    }
+    didViewAppearFromFeed()
+    
     checkForUserLoggedIn()
-
+    
   }
+  
+  
+  //Displays signup if not logged in and main app if logged in
   
   func checkForUserLoggedIn() {
     
@@ -36,6 +33,22 @@ class SplashVC: UIViewController {
       self.performSegueWithIdentifier(Constants.sharedSegues.signUp, sender: self)
     }
     
-    viewAppearedFromFeed = true
+    viewInitiallyAppeared = true
   }
+  
+  
+  //View reappears if error in feed, user taken to signup
+  
+  func didViewAppearFromFeed() {
+    
+    if viewInitiallyAppeared {
+      
+      dismissViewControllerAnimated(true, completion: {
+        
+        self.performSegueWithIdentifier(Constants.sharedSegues.signUp, sender: self)
+        
+      })
+    }
+  }
+
 }

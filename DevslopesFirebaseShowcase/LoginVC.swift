@@ -19,7 +19,7 @@ class LoginVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    styleButton()
+    styleFacebookLoginButton()
   }
   
   @IBAction func FbBtnPressed(sender: UIButton) {
@@ -34,14 +34,11 @@ class LoginVC: UIViewController {
       if facebookResult.isCancelled == false {
         
         let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
-        
         let credential = FIRFacebookAuthProvider.credentialWithAccessToken(accessToken)
         
         FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
           
           guard let user = user where error == nil else { print("Login failed"); return }
-          
-          user.uid
           
           let provider = ["provider" : user.providerID]
           
@@ -76,17 +73,7 @@ class LoginVC: UIViewController {
     
   }
   
-  func styleButton() {
-    
-    let shadow = Constants.shared.shadowColor
-    
-    facebookLoginButton.layer.shadowColor = UIColor(red: shadow, green: shadow, blue: shadow, alpha: 0.5).CGColor
-    facebookLoginButton.layer.shadowOpacity = 0.8
-    facebookLoginButton.layer.shadowRadius = 5.0
-    facebookLoginButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
-    facebookLoginButton.layer.cornerRadius = 2.0
-    facebookLoginButton.clipsToBounds = true
-  }
+  
   
   func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
     
@@ -95,6 +82,7 @@ class LoginVC: UIViewController {
       return
     }
   }
+  
   
   func showErrorAlert(title: String, error: String) {
     
@@ -105,6 +93,19 @@ class LoginVC: UIViewController {
     }))
     
     presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  
+  func styleFacebookLoginButton() {
+    
+    let shadow = Constants.shared.shadowColor
+    
+    facebookLoginButton.layer.shadowColor = UIColor(red: shadow, green: shadow, blue: shadow, alpha: 0.5).CGColor
+    facebookLoginButton.layer.shadowOpacity = 0.8
+    facebookLoginButton.layer.shadowRadius = 5.0
+    facebookLoginButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+    facebookLoginButton.layer.cornerRadius = 2.0
+    facebookLoginButton.clipsToBounds = true
   }
 
 }

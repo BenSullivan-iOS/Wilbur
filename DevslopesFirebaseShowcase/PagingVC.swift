@@ -8,12 +8,31 @@
 
 import UIKit
 
-class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationControllerDelegate {
+class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBarDelegate {
   
-  var currentPage = Int()
-  
+  private var currentPage = Int()
   static var delegate: UpdateNavButtonsDelegate? = nil
-
+  
+  
+  
+  //MARK: - VIEW CONTROLLER LIFECYCLE
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    PageContainer.delegate = self
+    
+    delegate = self
+    dataSource = self
+    
+    configureViewControllers()
+  }
+  
+  
+  
+  //MARK: - NAVIGATION BAR DELEGATE
+  //Scrolls to relevant VC when navigation bar is pressed
+  
   func didSelectSegment(segment: Int) {
     
     switch segment {
@@ -23,9 +42,9 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationCo
       if AppState.shared.currentState != .CreatingPost {
         self.setViewControllers([orderedViewControllers[segment]], direction: .Reverse, animated: true, completion: nil)
       }
-
+      
     case 1:
-
+      
       if AppState.shared.currentState == .CreatingPost {
         self.setViewControllers([orderedViewControllers[segment]], direction: .Forward, animated: true, completion: nil)
       }
@@ -39,27 +58,27 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationCo
       if AppState.shared.currentState != .TopTrumps {
         self.setViewControllers([orderedViewControllers[segment]], direction: .Forward, animated: true, completion: nil)
       }
+      
     default:
-      print("boo")
+      print("PagingVC, didSelectSegment default case")
     }
     
   }
+  
+  
+  
+  //MARK: - CONFIGURE PAGE VIEW CONTROLLER
   
   func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     
     guard completed == true else { return }
     
     PagingVC.delegate!.updateNavButtons()
-
+    
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    PageContainer.delegate = self
-    
-    delegate = self
-    dataSource = self
+  
+  func configureViewControllers() {
     
     let secondVC: UIViewController? = orderedViewControllers[1]
     
@@ -71,6 +90,7 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationCo
     }
   }
   
+  
   private lazy var orderedViewControllers: [UIViewController] = {
     
     return [self.newViewController("RecordTest"),
@@ -78,55 +98,16 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationCo
             self.newViewController("TopTrumpsVC")]
   }()
   
+  
   private func newViewController(title: String) -> UIViewController {
     return UIStoryboard(name: "Main", bundle: nil) .instantiateViewControllerWithIdentifier(title)
   }
   
-//  override func viewDidLayoutSubviews() {
-//    super.viewDidLayoutSubviews()
-//    
-//    var scrollView: UIScrollView?
-//    var pageControl: UIPageControl?
-//    
-//    if self.view.subviews.count == 2 {
-//      
-//      for view in self.view.subviews {
-//        
-//        if view.isKindOfClass(UIScrollView) {
-//          let button = UIButton(type: UIButtonType.InfoDark)
-//          
-//          button.frame = CGRectMake(50, 50, 100, 100)
-//          view.addSubview(button)
-//
-//          scrollView = view as? UIScrollView
-//          
-//        } else if view.isKindOfClass(UIPageControl) {
-//          
-//          pageControl = view as? UIPageControl
-//          pageControl!.pageIndicatorTintColor = .whiteColor()
-//          pageControl?.alpha = 0
-//          pageControl!.currentPageIndicatorTintColor = .redColor()
-//          
-//          let button = UIButton(type: .InfoDark)
-//          
-//          button.frame = (pageControl?.frame)!
-//          pageControl!.addSubview(button)
-//        }
-//      }
-//    }
-  
-//    if let scrollView = scrollView {
-//      if let pageControl = pageControl {
-//        scrollView.frame = self.view.bounds
-//        self.view.bringSubviewToFront(pageControl)
-//      }
-//    }
-//    
-////    super.viewDidLayoutSubviews()
-//  }
-  
 }
 
+
+
+//MARK: - PAGE VIEW CONTROLLER DATA SOURCE
 
 extension PagingVC: UIPageViewControllerDataSource {
   
@@ -175,18 +156,4 @@ extension PagingVC: UIPageViewControllerDataSource {
     return .LightContent
   }
   
-//  func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
-//    return orderedViewControllers.count
-//  }
-//  
-//  func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
-//    guard let firstViewController = viewControllers?.first,
-//      firstViewControllerIndex = orderedViewControllers.indexOf(firstViewController) else {
-//        return 0
-//    }
-//    
-//    return firstViewControllerIndex
-//  }
 }
-
-
