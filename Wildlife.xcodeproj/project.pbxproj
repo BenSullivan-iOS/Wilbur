@@ -12,7 +12,6 @@
 		B501DBBD1D0305E9001320C7 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501DBBC1D0305E9001320C7 /* Cache.swift */; };
 		B5068C3D1CEF18F400AA8C86 /* PagingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */; };
 		B51CBCD41CF45DB000112B51 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD21CF45DB000112B51 /* Feed.storyboard */; };
-		B51CBCD91CF4797E00112B51 /* audio_test.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD81CF4788500112B51 /* audio_test.m4a */; };
 		B51CBCF91CF4DA4900112B51 /* FDWaveformView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */; };
 		B51CBCFC1CF4EBBE00112B51 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */; };
 		B52DBDF11CFDA24F00CB7486 /* AudioControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */; };
@@ -60,7 +59,6 @@
 		B501DBBC1D0305E9001320C7 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingVC.swift; sourceTree = "<group>"; };
 		B51CBCD31CF45DB000112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feed.storyboard; sourceTree = "<group>"; };
-		B51CBCD81CF4788500112B51 /* audio_test.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = audio_test.m4a; path = ../../../../../Downloads/audio_test.m4a; sourceTree = "<group>"; };
 		B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FDWaveformView.framework; path = "../../../../Library/Developer/Xcode/DerivedData/DevslopesFirebaseShowcase-aebdmajtydenumdhaiuprfwxpxmv/Build/Products/Debug-iphonesimulator/FDWaveformView/FDWaveformView.framework"; sourceTree = "<group>"; };
 		B51CBCFB1CF4EBBE00112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioControls.swift; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				B548A4371CE8FFC40084215C /* Assets.xcassets */,
 				B548A43C1CE8FFC40084215C /* Info.plist */,
 				B5C62FBC1CF6EADC00E73BFF /* GoogleService-Info.plist */,
-				B51CBCD81CF4788500112B51 /* audio_test.m4a */,
 			);
 			name = Wildlife;
 			path = DevslopesFirebaseShowcase;
@@ -339,7 +336,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B51CBCD91CF4797E00112B51 /* audio_test.m4a in Resources */,
 				B5D3F9971CEB41BD00EEB78F /* FIGHTT3_.ttf in Resources */,
 				B548A44A1CE903690084215C /* NotoSans-Bold.ttf in Resources */,
 				B51CBCD41CF45DB000112B51 /* Feed.storyboard in Resources */,

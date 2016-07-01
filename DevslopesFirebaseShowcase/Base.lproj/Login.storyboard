@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iQF-2E-jv4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -20,41 +20,6 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--SplashVC-->
-        <scene sceneID="0U5-Hv-abO">
-            <objects>
-                <viewController id="iQF-2E-jv4" customClass="SplashVC" customModule="Wilbur" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="4Rk-dH-vc5"/>
-                        <viewControllerLayoutGuide type="bottom" id="Cwr-3R-vtB"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qvw-xu-fcW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="13250446_988781857903116_1711681653_n" translatesAutoresizingMaskIntoConstraints="NO" id="trZ-OO-k1A">
-                                <rect key="frame" x="169" y="168" width="263" height="263"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="263" id="Wsu-oL-TJd"/>
-                                    <constraint firstAttribute="width" constant="263" id="bO6-fM-X4o"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="trZ-OO-k1A" firstAttribute="centerY" secondItem="qvw-xu-fcW" secondAttribute="centerY" id="P7M-fM-I7z"/>
-                            <constraint firstItem="trZ-OO-k1A" firstAttribute="centerX" secondItem="qvw-xu-fcW" secondAttribute="centerX" id="YYo-RA-P6U"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="signUp" animates="NO" id="Ngg-sA-JzT"/>
-                        <segue destination="ArX-Yy-GJ7" kind="show" identifier="loggedInFromSplash" id="ek6-dd-9w1"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Gbl-1s-ZaJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="354" y="211"/>
-        </scene>
         <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -166,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-309" y="211"/>
+            <point key="canvasLocation" x="361" y="97"/>
         </scene>
         <!--Container-->
         <scene sceneID="aSK-0G-Dy2">
@@ -357,16 +322,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xrg-4U-2xa" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="456" y="941"/>
+            <point key="canvasLocation" x="361" y="757"/>
         </scene>
     </scenes>
     <resources>
-        <image name="13250446_988781857903116_1711681653_n" width="400" height="400"/>
         <image name="code-icon-logo" width="318" height="281"/>
         <image name="facebookIcon" width="768" height="768"/>
         <image name="fb-icon" width="65" height="65"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="20j-QR-Kjv"/>
-    </inferredMetricsTieBreakers>
 </document>

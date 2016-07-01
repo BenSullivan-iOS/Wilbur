@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import FirebaseStorage
 
 protocol AudioPlayerDelegate {
 
@@ -20,7 +21,7 @@ class ImageTable: UITableViewCell {
   
 }
 
-class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate {
+class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate, AudioPlayerDelegate {
   
   @IBOutlet weak var descriptionText: UITextView!
   @IBOutlet weak var image: UIImageView!
@@ -29,14 +30,29 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   @IBOutlet weak var scrollView: UIScrollView!
   @IBOutlet weak var selectedImage: UIImageView!
   @IBOutlet weak var tableView: UITableView!
-    
+  
+  private var checkAudioRecorded = Bool()
   private let imagePicker = UIImagePickerController()
   private var selectedImagePath = NSURL?()
+  private let tap = UITapGestureRecognizer()
   
-  let tap = UITapGestureRecognizer()
+  @IBAction func recordButtonPressed(sender: UIButton) {
+    
+    AudioControls.shared.recordTapped()
+
+    
+    
+  }
+  
+  func audioRecorded() {
+  //
+  }
+  
+  
   
   func postButtonPressed() {
     print("Well done! Creating post etc...")
+    postToFirebase()
   }
   
   //MARK: - VIEW CONTROLLER LIFESCYCLE
@@ -202,4 +218,115 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     
     presentViewController(alert, animated: true, completion: nil)
   }
+  
+  
+  
+    func postToFirebase() {
+  
+      let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
+      
+      guard let username = NSUserDefaults.standardUserDefaults().valueForKey("username") else { print("no username"); return }
+  
+      guard let userKey = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String else { print("no username key"); return }
+  
+      var post: [String: AnyObject] = [
+  "description" : descriptionText.text!,
+         "likes": 0,
+          "user": username,
+          "date": String(NSDate()),
+       "userKey": userKey
+      ]
+      
+      
+      //Save audio if available
+      
+      if let audioPath = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a").path {
+        
+        let fileManager = NSFileManager.defaultManager()
+        
+        if fileManager.fileExistsAtPath(audioPath) {
+          print("Audio available")
+          
+          let audioURL = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a")
+          
+          CreatePost.shared.uploadAudio(audioURL, firebaseReference: firebasePost.key)
+          
+          post["audio"] = "audio/\(firebasePost.key).m4a"
+
+        } else {
+          print("Audio unavailable")
+        }
+      }
+      
+      
+      //Save image if available
+  
+      if let imagePath = selectedImagePath {
+  
+        uploadImage(imagePath, firebaseReference: firebasePost.key)
+        post["imageUrl"] = "images/\(firebasePost.key).jpg"
+  
+      } else {
+   
+        self.checkAudioRecorded = false
+      }
+  
+      firebasePost.setValue(post)
+  
+      descriptionText.text = ""
+      selectedImage.image = UIImage(named: "camera")
+  
+      savePostToUser(firebasePost.key)
+    }
+  
+    func savePostToUser(postKey: String) {
+  
+      let firebasePost = DataService.ds.REF_USER_CURRENT.child("posts").child(postKey)
+      firebasePost.setValue(postKey)
+    }
+  
+  
+    func uploadImage(localFile: NSURL, firebaseReference: String) {
+  
+      let storageRef = FIRStorage.storage().reference()
+      let riversRef = storageRef.child("images/\(firebaseReference).jpg")
+  
+      riversRef.putFile(localFile, metadata: nil) { metadata, error in
+        guard let metadata = metadata where error == nil else { print("error", error); return }
+  
+  //      self.postingButton.x = 300
+  //      self.postingButton.animateTo()
+  //
+  //      self.postedButton.autohide = false
+  //      self.postedButton.animation = "squeezeRight"
+  //      self.postedButton.damping = 1
+  //      self.postedButton.animateNext({
+  //
+  //        self.postedButton.delay = 2
+  //        self.postedButton.animation = "squeezeLeft"
+  //        self.postedButton.animateTo()
+  //        self.recordButton.autohide = true
+  //        self.recordButton.delay = 2.5
+  //
+  //        self.playButton.damping = 0.8
+  //        self.playButton.x = 0
+  //        self.playButton.animateTo()
+  //        self.playButton.alpha = 0
+  //
+  //        self.pauseButton.damping = 0.8
+  //        self.pauseButton.x = 0
+  //        self.pauseButton.animateTo()
+  //        self.pauseButton.alpha = 0
+  //        
+  //        self.recordButton.animation = "fadeIn"
+  //        self.recordButton.animate()
+  //      })
+        
+      }
+    }
+
+  
+  
+  
+  
 }

@@ -31,7 +31,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.tableView.estimatedRowHeight = tableView.rowHeight
+    self.tableView.estimatedRowHeight = 50
     self.tableView.rowHeight = UITableViewAutomaticDimension
     
     self.tableView.scrollsToTop = false

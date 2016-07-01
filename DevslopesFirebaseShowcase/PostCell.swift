@@ -48,6 +48,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     
     descriptionText.delegate = self
     Cache.FeedVC.profileImageCache.delegate = self
+    
   }
   
   override func drawRect(rect: CGRect) {

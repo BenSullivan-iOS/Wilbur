@@ -16,25 +16,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="13250446_988781857903116_1711681653_n" translatesAutoresizingMaskIntoConstraints="NO" id="Xeh-0S-1D8">
-                                <rect key="frame" x="169" y="168" width="263" height="263"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sherlock" translatesAutoresizingMaskIntoConstraints="NO" id="CpK-eJ-nKt">
+                                <rect key="frame" x="193" y="136" width="215" height="327"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="263" id="3pt-2r-ld0"/>
-                                    <constraint firstAttribute="width" constant="263" id="5vf-6u-P4t"/>
+                                    <constraint firstAttribute="width" constant="215" id="5Y5-dZ-d99"/>
+                                    <constraint firstAttribute="height" constant="327" id="OWt-ME-Mcp"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Xeh-0S-1D8" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="148" id="5Ye-0b-bvV"/>
-                            <constraint firstItem="Xeh-0S-1D8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Y5Z-Gj-bJq"/>
-                            <constraint firstItem="Xeh-0S-1D8" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="oW8-DY-tiX"/>
+                            <constraint firstItem="CpK-eJ-nKt" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="E3h-ZU-s8U"/>
+                            <constraint firstItem="CpK-eJ-nKt" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="TXS-5J-mOM"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="5Ye-0b-bvV"/>
-                            </mask>
-                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -43,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="13250446_988781857903116_1711681653_n" width="400" height="400"/>
+        <image name="sherlock" width="527" height="800"/>
     </resources>
 </document>
