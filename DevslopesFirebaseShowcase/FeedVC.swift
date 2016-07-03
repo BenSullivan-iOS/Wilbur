@@ -73,19 +73,19 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   //MARK: - TABLE VIEW
   
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    
-      if let image = cellImage {
-        
-        let height = AVMakeRectWithAspectRatioInsideRect(image.size, self.view.frame).height
-        
-        
-        return height
-        
-    }
-      return UITableViewAutomaticDimension
-
-  }
+//  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//    
+//      if let image = cellImage {
+//        
+//        let height = AVMakeRectWithAspectRatioInsideRect(image.size, self.view.frame).height
+//        
+//        
+//        return height
+//        
+//    }
+//      return UITableViewAutomaticDimension
+//
+//  }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     

@@ -27,8 +27,6 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   @IBOutlet weak var completeButton: UIButton!
   @IBOutlet weak var postButton: UIButton!
   
-
-  
   weak var createPostDelegate: PostButtonPressedDelegate? = nil
   weak var navigationBarDelegate: NavigationBarDelegate? = nil
   

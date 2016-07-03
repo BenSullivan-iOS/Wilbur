@@ -396,12 +396,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="Oz8-4f-D4m">
-                                <rect key="frame" x="-2" y="64" width="584" height="335"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="335" id="DpN-1A-ASW"/>
-                                </constraints>
-                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JGu-HQ-yB2">
                                 <rect key="frame" x="0.0" y="64" width="600" height="499"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -491,11 +485,8 @@
                             <constraint firstItem="cpP-WT-tJc" firstAttribute="top" relation="lessThanOrEqual" secondItem="k50-4Y-xnd" secondAttribute="bottom" constant="502" id="4Nq-5H-r8B"/>
                             <constraint firstItem="cpP-WT-tJc" firstAttribute="top" secondItem="JGu-HQ-yB2" secondAttribute="bottom" constant="3" id="5wJ-s4-Ebh"/>
                             <constraint firstAttribute="trailing" secondItem="JGu-HQ-yB2" secondAttribute="trailing" id="9fm-lF-swM"/>
-                            <constraint firstItem="Oz8-4f-D4m" firstAttribute="top" secondItem="JGu-HQ-yB2" secondAttribute="top" id="CzY-EU-HW6"/>
                             <constraint firstItem="JGu-HQ-yB2" firstAttribute="leading" secondItem="4Be-Ma-mxq" secondAttribute="leading" id="HeX-dz-yST"/>
                             <constraint firstItem="cpP-WT-tJc" firstAttribute="leading" secondItem="4Be-Ma-mxq" secondAttribute="leading" id="Uyp-Kb-qhC"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Oz8-4f-D4m" secondAttribute="trailing" constant="-2" id="Wdd-IN-7fn"/>
-                            <constraint firstItem="Oz8-4f-D4m" firstAttribute="leading" secondItem="4Be-Ma-mxq" secondAttribute="leadingMargin" constant="-22" id="geH-rz-UnR"/>
                             <constraint firstAttribute="trailing" secondItem="cpP-WT-tJc" secondAttribute="trailing" id="rOo-O8-p4N"/>
                             <constraint firstItem="JJ0-4p-qRt" firstAttribute="top" secondItem="cpP-WT-tJc" secondAttribute="bottom" id="xkM-4m-Mfz"/>
                         </constraints>
@@ -504,7 +495,6 @@
                         <outlet property="commentTextView" destination="cpP-WT-tJc" id="QgW-4B-cuk"/>
                         <outlet property="keyboardHeightLayoutConstraint" destination="xkM-4m-Mfz" id="mdn-u3-TKz"/>
                         <outlet property="tableView" destination="JGu-HQ-yB2" id="rqR-tu-qZj"/>
-                        <outlet property="testImage" destination="Oz8-4f-D4m" id="qHt-2S-r5M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KuX-7D-84H" userLabel="First Responder" sceneMemberID="firstResponder"/>
