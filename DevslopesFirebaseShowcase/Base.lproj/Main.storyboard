@@ -396,8 +396,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JGu-HQ-yB2">
-                                <rect key="frame" x="0.0" y="64" width="600" height="499"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JGu-HQ-yB2">
+                                <rect key="frame" x="0.0" y="64" width="600" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCellImage" rowHeight="352" id="88a-qe-shF" customClass="CommentImageCell" customModule="Wilbur" customModuleProvider="target">
@@ -422,11 +422,11 @@
                                             <outlet property="postImage" destination="QVN-pZ-9x6" id="gZ3-eZ-n4o"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="114" id="dB0-Yl-Efc" customClass="CommentCell" customModule="Wilbur" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="380" width="600" height="114"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="127" id="dB0-Yl-Efc" customClass="CommentCell" customModule="Wilbur" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="380" width="600" height="127"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dB0-Yl-Efc" id="bb0-6g-8xT">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="113"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="126"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Ngh-sV-WUw">
@@ -437,7 +437,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlR-RB-ntR">
-                                                    <rect key="frame" x="61" y="8" width="531" height="97"/>
+                                                    <rect key="frame" x="61" y="8" width="531" height="110"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="ZTW-xu-82N"/>
@@ -480,10 +480,11 @@
                                 </connections>
                             </textView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="JGu-HQ-yB2" firstAttribute="top" secondItem="k50-4Y-xnd" secondAttribute="bottom" id="2WS-J7-HHq"/>
                             <constraint firstItem="cpP-WT-tJc" firstAttribute="top" relation="lessThanOrEqual" secondItem="k50-4Y-xnd" secondAttribute="bottom" constant="502" id="4Nq-5H-r8B"/>
-                            <constraint firstItem="cpP-WT-tJc" firstAttribute="top" secondItem="JGu-HQ-yB2" secondAttribute="bottom" constant="3" id="5wJ-s4-Ebh"/>
+                            <constraint firstItem="cpP-WT-tJc" firstAttribute="top" secondItem="JGu-HQ-yB2" secondAttribute="bottom" constant="-2" id="5wJ-s4-Ebh"/>
                             <constraint firstAttribute="trailing" secondItem="JGu-HQ-yB2" secondAttribute="trailing" id="9fm-lF-swM"/>
                             <constraint firstItem="JGu-HQ-yB2" firstAttribute="leading" secondItem="4Be-Ma-mxq" secondAttribute="leading" id="HeX-dz-yST"/>
                             <constraint firstItem="cpP-WT-tJc" firstAttribute="leading" secondItem="4Be-Ma-mxq" secondAttribute="leading" id="Uyp-Kb-qhC"/>

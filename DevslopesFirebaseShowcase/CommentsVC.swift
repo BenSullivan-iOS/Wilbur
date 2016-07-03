@@ -25,18 +25,8 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView.estimatedRowHeight = 40
-    tableView.rowHeight = UITableViewAutomaticDimension
-    
+    configureTableView()
     configureTextView()
-    
-    if let post = post {
-      
-      print(post.postDescription)
-      if let postImage = postImage {
-//        selectedImage.image = postImage
-      }
-    }
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardNotification(_:)),name: UIKeyboardWillChangeFrameNotification, object: nil)
     
@@ -80,6 +70,10 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 2
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    self.view.endEditing(true)
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -165,27 +159,61 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
   }
   
+  //MARK: - INITIAL SETUP
+  
+  func configureTableView() {
+    
+    let tap = UITapGestureRecognizer(target: self, action: #selector(CommentsVC.tapped))
+    tap.numberOfTapsRequired = 1
+    
+    tableView.addGestureRecognizer(tap)
+    tableView.estimatedRowHeight = 40
+    tableView.rowHeight = UITableViewAutomaticDimension
+    
+  }
+  
   func configureTextView() {
+    
+    let customGrey = UIColor(colorLiteralRed: 196/255, green: 196/255, blue: 196/255, alpha: 0.5)
     
     commentTextView.becomeFirstResponder()
     commentTextView.delegate = self
     commentTextView.text = DescriptionText.defaultText
     commentTextView.textColor = .lightGrayColor()
+    commentTextView.layer.addBorder(.Top, color: customGrey, thickness: 1)
     
     let start = commentTextView.beginningOfDocument
     commentTextView.selectedTextRange = commentTextView.textRangeFromPosition(start, toPosition: start)
     
   }
   
-  
-  //MARK: - MISC
-  
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+  func tapped() {
     self.view.endEditing(true)
   }
+  
+  
+  //MARK: - MISC
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
   }
   
+}
+
+private extension CALayer {
+  
+  func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+    
+    let border = CALayer()
+    
+    switch edge {
+    case UIRectEdge.Top:
+      border.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), thickness)
+        default: break
+    }
+    
+    border.backgroundColor = color.CGColor;
+    
+    self.addSublayer(border)
+  }
 }

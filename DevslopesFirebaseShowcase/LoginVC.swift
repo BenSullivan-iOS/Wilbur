@@ -62,8 +62,12 @@ class LoginVC: UIViewController {
           NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
           NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.shared.KEY_UID)
 
-          self.performSegueWithIdentifier(Constants.sharedSegues.loggedIn, sender: self)
           
+          let storyboard = UIStoryboard(name: "Main", bundle: nil)
+          let feedVC = storyboard.instantiateViewControllerWithIdentifier("NavigationContainer")
+
+          self.presentViewController(feedVC, animated: true, completion: nil)
+                    
           self.facebookLoginButton.setTitle("Logging in...", forState: .Normal)
         }
       }

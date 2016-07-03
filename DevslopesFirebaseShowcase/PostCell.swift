@@ -17,10 +17,6 @@ class ProfileImageTracker {
 
 class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   
-  func cache(cache: NSCache, willEvictObject obj: AnyObject) {
-    ProfileImageTracker.imageLocations.removeAll()
-  }
-  
   @IBOutlet weak var profileImg: UIImageView!
   @IBOutlet weak var showcaseImg: UIImageView!
   @IBOutlet weak var descriptionText: UITextView!
@@ -217,6 +213,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
         self.popText.setTitleColor(UIColor(colorLiteralRed: 169/255, green: 194/255, blue: 194/255, alpha: 1), forState: .Normal)
         
         self.post?.adjustLikes(false)
+        
         self.likeRef.removeValue()
       }
     })
@@ -233,7 +230,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     
   }
   
-  func markFartAsFake(key: String) {
+  func report(key: String) {
     
     let fakeRef = DataService.ds.REF_POSTS.child(key).child("fakeCount") as FIRDatabaseReference
     let deletePostRef = DataService.ds.REF_POSTS.child(key) as FIRDatabaseReference
@@ -287,6 +284,10 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     
     profileImg.layer.cornerRadius = profileImg.frame.size.width / 2
     profileImg.clipsToBounds = true
+  }
+  
+  func cache(cache: NSCache, willEvictObject obj: AnyObject) {
+    ProfileImageTracker.imageLocations.removeAll()
   }
   
   //MARK: - GESTURE RECOGNISERS

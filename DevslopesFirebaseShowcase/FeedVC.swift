@@ -71,21 +71,32 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     //    tableView.reloadData()
   }
   
+  
+  
   //MARK: - TABLE VIEW
   
-//  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//    
-//      if let image = cellImage {
-//        
-//        let height = AVMakeRectWithAspectRatioInsideRect(image.size, self.view.frame).height
-//        
-//        
-//        return height
-//        
-//    }
-//      return UITableViewAutomaticDimension
-//
-//  }
+  
+  @IBOutlet weak var testImage: UIImageView!
+  
+  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    
+        let post = posts[indexPath.row]
+    
+        if let url = post.imageUrl {
+          
+          if let image = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage {
+          
+            let height = AVMakeRectWithAspectRatioInsideRect(image.size, testImage.frame).height
+            
+            return height
+
+          }
+          
+        }
+    
+        return UITableViewAutomaticDimension
+    
+  }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     

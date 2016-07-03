@@ -20,6 +20,7 @@ class Post {
   private var _date: String!
   private var _fakeCount: Int!
   private var _userKey: String!
+  private var _comments: [String: String] = [:]
   
   var date: String {
     return _date
@@ -48,6 +49,9 @@ class Post {
   var postKey: String {
     return _postKey
   }
+  var comments: [String: String] {
+    return _comments
+  }
   
   func adjustLikes(addLike: Bool) {
     
@@ -72,10 +76,12 @@ class Post {
     self._date = date
   }
   
+  var testString = String()
+  
   init(postKey: String, dictionary: [String: AnyObject]) {
     
     self._postKey = postKey
-
+    
     if let audio = dictionary["audio"] as? String {
       self._audioURL = audio
     }
@@ -85,7 +91,7 @@ class Post {
     }
     
     if let username = dictionary["user"] as? String {
-    self._username = username
+      self._username = username
     }
     
     if let likes = dictionary["likes"] as? Int {
@@ -99,13 +105,40 @@ class Post {
     if let fakeCount = dictionary["fakeCount"] as? Int {
       self._fakeCount = fakeCount
     }
-
+    
     if let imageUrl = dictionary["imageUrl"] as? String {
       self._imageUrl = imageUrl
     }
     
     if let desc = dictionary["description"] as? String {
       self._postDescription = desc
+    }
+    
+    if let comments = dictionary["comments"] as? NSDictionary {
+      //      self.testString = comments
+//      print(comments)
+      
+      for i in comments {
+        
+        if let key = i.key as? String, value = i.value as? String {
+//          
+//          print(key)
+//          print(value)
+          
+          self._comments[key] = value
+          
+        }
+      }
+      
+      for i in _comments {
+        
+        print(i.0)
+        print(i.1)
+      }
+      print("output:")
+      print(self._comments)
+      
+      
     }
     
     self._postRef = DataService.ds.REF_POSTS.child(self._postKey)
