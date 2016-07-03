@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     if NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) != nil {
       
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      initialViewController = storyboard.instantiateViewControllerWithIdentifier("Container")
+      initialViewController = storyboard.instantiateViewControllerWithIdentifier("NavigationContainer")
 
     } else {
       

@@ -11,6 +11,7 @@
 		B501DBBB1D0305CE001320C7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501DBBA1D0305CE001320C7 /* AppState.swift */; };
 		B501DBBD1D0305E9001320C7 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B501DBBC1D0305E9001320C7 /* Cache.swift */; };
 		B5068C3D1CEF18F400AA8C86 /* PagingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */; };
+		B516F19C1D27CEC00022707C /* CommentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B516F19B1D27CEC00022707C /* CommentsVC.swift */; };
 		B51CBCD41CF45DB000112B51 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCD21CF45DB000112B51 /* Feed.storyboard */; };
 		B51CBCF91CF4DA4900112B51 /* FDWaveformView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */; };
 		B51CBCFC1CF4EBBE00112B51 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */; };
@@ -41,6 +42,8 @@
 		B5967D511CEE0407006CB7BB /* CreatePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5967D501CEE0407006CB7BB /* CreatePostVC.swift */; };
 		B5B063361CF35BE4001DDFDD /* TopTrumpsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */; };
 		B5C62FBD1CF6EADC00E73BFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5C62FBC1CF6EADC00E73BFF /* GoogleService-Info.plist */; };
+		B5D14B9C1D2920F500D0FF3E /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D14B9B1D2920F500D0FF3E /* CommentCell.swift */; };
+		B5D14B9E1D2927FD00D0FF3E /* CommentImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D14B9D1D2927FD00D0FF3E /* CommentImageCell.swift */; };
 		B5D3F9971CEB41BD00EEB78F /* FIGHTT3_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */; };
 		B5D3F9991CEB498500EEB78F /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F9981CEB498500EEB78F /* extensions.swift */; };
 		B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */; };
@@ -58,6 +61,7 @@
 		B501DBBA1D0305CE001320C7 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B501DBBC1D0305E9001320C7 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingVC.swift; sourceTree = "<group>"; };
+		B516F19B1D27CEC00022707C /* CommentsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsVC.swift; sourceTree = "<group>"; };
 		B51CBCD31CF45DB000112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feed.storyboard; sourceTree = "<group>"; };
 		B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FDWaveformView.framework; path = "../../../../Library/Developer/Xcode/DerivedData/DevslopesFirebaseShowcase-aebdmajtydenumdhaiuprfwxpxmv/Build/Products/Debug-iphonesimulator/FDWaveformView/FDWaveformView.framework"; sourceTree = "<group>"; };
 		B51CBCFB1CF4EBBE00112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 		B5967D501CEE0407006CB7BB /* CreatePostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostVC.swift; sourceTree = "<group>"; };
 		B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopTrumpsCell.swift; sourceTree = "<group>"; };
 		B5C62FBC1CF6EADC00E73BFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B5D14B9B1D2920F500D0FF3E /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		B5D14B9D1D2927FD00D0FF3E /* CommentImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentImageCell.swift; sourceTree = "<group>"; };
 		B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FIGHTT3_.ttf; sourceTree = "<group>"; };
 		B5D3F9981CEB498500EEB78F /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
@@ -176,6 +182,7 @@
 				B55808361CF713CE00FEC41D /* SplashVC.swift */,
 				B548A4321CE8FFC40084215C /* LoginVC.swift */,
 				B5E553111D144EE100982E60 /* PageContainer.swift */,
+				B516F19B1D27CEC00022707C /* CommentsVC.swift */,
 				B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */,
 				B55E6DBB1D192E7600A128E7 /* CreatePostTest.swift */,
 				B5777B811D01CE1B0062683C /* MyPostsVC.swift */,
@@ -258,6 +265,8 @@
 			children = (
 				B566CB441CE9C72500415A3E /* PostCell.swift */,
 				B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */,
+				B5D14B9B1D2920F500D0FF3E /* CommentCell.swift */,
+				B5D14B9D1D2927FD00D0FF3E /* CommentImageCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -425,9 +434,12 @@
 				B566CB451CE9C72500415A3E /* PostCell.swift in Sources */,
 				B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */,
 				B5B063361CF35BE4001DDFDD /* TopTrumpsCell.swift in Sources */,
+				B516F19C1D27CEC00022707C /* CommentsVC.swift in Sources */,
 				B5E553121D144EE100982E60 /* PageContainer.swift in Sources */,
+				B5D14B9E1D2927FD00D0FF3E /* CommentImageCell.swift in Sources */,
 				B548A4521CE906A80084215C /* Constants.swift in Sources */,
 				B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */,
+				B5D14B9C1D2920F500D0FF3E /* CommentCell.swift in Sources */,
 				B548A4541CE90A5E0084215C /* MaterialButton.swift in Sources */,
 				B5777B821D01CE1B0062683C /* MyPostsVC.swift in Sources */,
 				B55E6DBC1D192E7600A128E7 /* CreatePostTest.swift in Sources */,

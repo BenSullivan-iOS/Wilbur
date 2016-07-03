@@ -14,7 +14,7 @@ class MaterialTextField: UITextField {
     
     let color = Constants.shared.shadowColor
     
-    layer.cornerRadius = 2.0
+//    layer.borderColor = UIColor.lightGrayColor().CGColor
     layer.borderColor = UIColor(red: color, green: color, blue: color, alpha: 0.1).CGColor
     layer.borderWidth = 1.0
   }

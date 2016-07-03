@@ -44,7 +44,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="495" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SxY-OZ-DcR">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="495" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SxY-OZ-DcR">
                                 <rect key="frame" x="20" y="64" width="560" height="536"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
@@ -126,17 +126,16 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="544" height="358"/>
                                                                     <subviews>
                                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hh-Zj-qJI">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="544" height="50"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="544" height="37"/>
                                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="height" constant="50" id="uAy-DW-nWh"/>
+                                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="uAy-DW-nWh"/>
                                                                             </constraints>
-                                                                            <string key="text">Lorem ipsum dolor sit er elit lamet Lorem ipsum dolor sit er elit lametLorem ipsum dolor sit er elit l elit lametLorem ipsum dolor sit efdai</string>
                                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="15"/>
                                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                                         </textView>
-                                                                        <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="HtS-J7-BWm">
-                                                                            <rect key="frame" x="0.0" y="50" width="544" height="308"/>
+                                                                        <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="HtS-J7-BWm">
+                                                                            <rect key="frame" x="0.0" y="37" width="544" height="321"/>
                                                                             <gestureRecognizers/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="400" id="QfY-aX-rsd"/>
@@ -187,7 +186,7 @@
                                                             </constraints>
                                                             <state key="normal" title="Button" image="menuIcon"/>
                                                             <connections>
-                                                                <segue destination="nJt-Fr-3pf" kind="show" id="v1H-Na-b4t"/>
+                                                                <segue destination="nJt-Fr-3pf" kind="show" identifier="showComments" id="v1H-Na-b4t"/>
                                                             </connections>
                                                         </button>
                                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="N6n-JV-uDq">
@@ -296,24 +295,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9qv-kf-4aD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4057" y="504"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="fo2-SD-9B1">
-            <objects>
-                <navigationController storyboardIdentifier="FeedNav" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9cf-My-dqe" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NDz-5J-Vek">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="9N8-X4-dnI" kind="relationship" relationship="rootViewController" id="YB2-Up-aFO"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MmN-ne-BSo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2827" y="384"/>
         </scene>
     </scenes>
     <resources>

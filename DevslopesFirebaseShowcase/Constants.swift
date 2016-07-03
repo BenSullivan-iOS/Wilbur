@@ -24,6 +24,7 @@ struct Constants {
     let loggedInFromSplash = "loggedInFromSplash"
     let signUp = "signUp"
     let embedSegue = "embedSegue"
+    let comments = "comments"
   }
   
   struct StatusCodes {

@@ -11,8 +11,6 @@ import AVFoundation
 import FDWaveformView
 import FirebaseStorage
 
-
-
 class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AudioPlayerDelegate {
   
   @IBOutlet weak var recordButton: UIButton!

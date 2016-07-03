@@ -220,6 +220,17 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
         self.likeRef.removeValue()
       }
     })
+    
+    if let post = post {
+      
+      var postInfo:[String: AnyObject] = ["post": post]
+      
+      postInfo["image"] = showcaseImg.image
+      
+      NSNotificationCenter.defaultCenter().postNotificationName("comment", object: self, userInfo: postInfo)
+      print("POSTING NOTIFICATION")
+    }
+    
   }
   
   func markFartAsFake(key: String) {
@@ -263,10 +274,11 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
           self.showcaseImg.image = image
           Cache.FeedVC.imageCache.setObject(image, forKey: imageLocation)
           
+          self.delegate?.reloadTable(image)
+          
         }
       }
       
-      self.delegate?.reloadTable()
       self.activityIndicator.stopAnimating()
     }
   }

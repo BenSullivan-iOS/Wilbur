@@ -27,6 +27,8 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   @IBOutlet weak var completeButton: UIButton!
   @IBOutlet weak var postButton: UIButton!
   
+
+  
   weak var createPostDelegate: PostButtonPressedDelegate? = nil
   weak var navigationBarDelegate: NavigationBarDelegate? = nil
   
@@ -36,6 +38,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
     if segue.identifier == Constants.sharedSegues.embedSegue {
       
       if let dest = segue.destinationViewController as? PagingVC {
@@ -45,6 +48,43 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
         navigationBarDelegate = dest
       }
     }
+    
+    if segue.identifier == Constants.sharedSegues.comments {
+      
+      if let dest = segue.destinationViewController as? CommentsVC {
+        
+        dest.post = selectedPost
+        dest.postImage = selectedPostImage
+        
+        selectedPost = nil
+        selectedPostImage = nil
+      }
+    }
+    
+  }
+  
+  var selectedPost: Post? = nil
+  
+  var selectedPostImage: UIImage? = nil
+  
+  func customCellCommentButtonPressed(notification: NSNotification) {
+    
+    
+    if let post = notification.userInfo!["post"] as? Post {
+      if let image = notification.userInfo!["image"] as? UIImage {
+        
+        selectedPostImage = image
+        selectedPost = post
+        performSegueWithIdentifier("comments", sender: self)
+
+        
+      } else { //if there is no image
+        selectedPost = post
+        performSegueWithIdentifier("comments", sender: self)
+
+      }
+      
+    }
   }
   
   //MARK: - VIEW CONTROLLER LIFECYCLE
@@ -52,6 +92,14 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   override func viewDidLoad() {
     
     postButton.alpha = 0
+
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PageContainer.customCellCommentButtonPressed(_:)), name: "comment", object: nil)
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    if AppState.shared.currentState != .CreatingPost {
+      postButton.alpha = 0
+    }
   }
   
   

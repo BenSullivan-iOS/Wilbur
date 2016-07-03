@@ -20,11 +20,11 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
-  func reloadTable() {
+  func customCellCommentButtonPressed() {
   }
-  
+  func reloadTable(image: UIImage?) {
+  }
   func tableHeight(height: CGFloat) {
-    
   }
   
   override func viewDidLoad() {

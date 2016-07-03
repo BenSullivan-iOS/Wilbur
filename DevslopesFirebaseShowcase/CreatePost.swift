@@ -25,7 +25,7 @@ class CreatePost {
       
       guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
       
-      AudioControls.shared.play(URL)
+//      AudioControls.shared.play(URL)
       
     }
   }

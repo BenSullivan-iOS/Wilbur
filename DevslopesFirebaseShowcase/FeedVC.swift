@@ -13,7 +13,8 @@ import AVFoundation
 
 protocol PostCellDelegate {
   func showDeletePostAlert(key: String)
-  func reloadTable()
+  func reloadTable(image: UIImage?)
+  func customCellCommentButtonPressed()
 }
 
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
@@ -23,15 +24,30 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   @IBOutlet weak var profileButton: UIButton!
   @IBOutlet weak var tableView: UITableView!
+  private var cellImage: UIImage? = nil
   
-  func reloadTable() {
-    tableView.reloadData()
+  func reloadTable(image: UIImage?) {
+    
+    if let image = image {
+      
+      cellImage = image
+      tableView.reloadData()
+
+    } else {
+      tableView.reloadData()
+    }
   }
+  
+  func customCellCommentButtonPressed() {
+    
+    performSegueWithIdentifier("showComments", sender: self)
+  }
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.tableView.estimatedRowHeight = 50
+    self.tableView.estimatedRowHeight = 250
     self.tableView.rowHeight = UITableViewAutomaticDimension
     
     self.tableView.scrollsToTop = false
@@ -40,7 +56,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     AppState.shared.currentState = .Feed
     
-//    AudioControls.shared.setupRecording()
+    //    AudioControls.shared.setupRecording()
     
     tableView.delegate = self
     tableView.dataSource = self
@@ -52,17 +68,31 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   override func viewWillAppear(animated: Bool) {
     AppState.shared.currentState = .Feed
     
-//    tableView.reloadData()
+    //    tableView.reloadData()
   }
   
   //MARK: - TABLE VIEW
   
+  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    
+      if let image = cellImage {
+        
+        let height = AVMakeRectWithAspectRatioInsideRect(image.size, self.view.frame).height
+        
+        
+        return height
+        
+    }
+      return UITableViewAutomaticDimension
+
+  }
+  
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
-//    let path = HelperFunctions.getDocumentsDirectory()
-//    let stringPath = String(path) + "/" + posts[indexPath.row].audioURL
-//    let finalPath = NSURL(fileURLWithPath: stringPath)
-//    CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)
+    //    let path = HelperFunctions.getDocumentsDirectory()
+    //    let stringPath = String(path) + "/" + posts[indexPath.row].audioURL
+    //    let finalPath = NSURL(fileURLWithPath: stringPath)
+    //    CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)
     
   }
   
@@ -97,13 +127,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
           if post.username == NSUserDefaults.standardUserDefaults().valueForKey("username") as? String && TempProfileImageStorage.shared.profileImage == nil {
             print("setting temp profile image")
             TempProfileImageStorage.shared.profileImage = profileImg
-
+            
           }
           
         }
         
         cell.delegate = self
         cell.configureCell(post, img: img, profileImg: profileImg)
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         return cell
       }
@@ -140,15 +172,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         print("storage audio removed")
       })
       
-//      let storageImageRef = FIRStorage.storage()
-//      
-//      storageImageRef.child("images/"+key+".jpg")//.child(key + ".m4a")
-//      print("storage image ref: ", storageImageRef.fullPath)
-//
-//      storageImageRef.deleteWithCompletion({ (error) in
-//        guard error == nil else { print(error.debugDescription) ; return }
-//        print("storage image removed")
-//      })
+      //      let storageImageRef = FIRStorage.storage()
+      //
+      //      storageImageRef.child("images/"+key+".jpg")//.child(key + ".m4a")
+      //      print("storage image ref: ", storageImageRef.fullPath)
+      //
+      //      storageImageRef.deleteWithCompletion({ (error) in
+      //        guard error == nil else { print(error.debugDescription) ; return }
+      //        print("storage image removed")
+      //      })
       
     }))
     
@@ -196,7 +228,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       }
     })
   }
-
+  
   
   //MARK: - OTHER FUNCTIONS
   
