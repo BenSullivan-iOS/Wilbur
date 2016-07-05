@@ -38,6 +38,27 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   let imagePicker = UIImagePickerController()
   var selectedImagePath = NSURL?()
   
+  override func viewDidLoad() {
+    
+    if TempProfileImageStorage.shared.profileImage == nil {
+      getProfileImageReferenceThenDownload()
+    } else {
+      profileImage.image = TempProfileImageStorage.shared.profileImage
+    }
+    
+    
+    imagePicker.delegate = self
+    
+    profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
+    profileImage.clipsToBounds = true
+    
+    if let currentUsername = NSUserDefaults.standardUserDefaults().valueForKey("username") as? String {
+      
+      username.text = currentUsername
+    }
+  }
+
+  
   @IBAction func setProfileImagePressed(sender: AnyObject) {
     
     if UIImagePickerController.isSourceTypeAvailable(.Camera) {
@@ -47,51 +68,24 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     }
   }
   
-  func imagePickerAlert() {
-    
-    let alert = UIAlertController(title: "Where from??", message: "", preferredStyle: .ActionSheet)
-    alert.popoverPresentationController?.sourceView = self.view
-    
-    alert.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { action in
-      
-      print("camera")
-      self.imagePicker.sourceType = .Camera
-      self.presentViewController(self.imagePicker, animated: true, completion: nil)
-      
-    }))
-    
-    
-    alert.addAction(UIAlertAction(title: "Photo Library", style: .Default, handler: { action in
-      
-      print("photo library")
-      
-      self.imagePicker.sourceType = .PhotoLibrary
-      self.presentViewController(self.imagePicker, animated: true, completion: nil)
-      
-    }))
-    
-    alert.addAction(UIAlertAction(title: "Blow Off", style: .Cancel, handler: nil))
-    
-    presentViewController(alert, animated: true, completion: nil)
-  }
-  
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     
-    print("did finish")
-    let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    let image = info[UIImagePickerControllerOriginalImage] as! UIImage
     profileImage.image = image
+    TempProfileImageStorage.shared.profileImage = image
     
-    let saveDirectory = String(HelperFunctions.getDocumentsDirectory()) + "/images/tempImage.jpg"
+    Cache.FeedVC.profileImageCache.removeAllObjects()
     
-    let tempImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+    let saveDirectory = direct().stringByAppendingPathComponent("/images/tempImage.jpg")
+    print("Did finish save directory = ", saveDirectory)
     
-    saveImage(tempImage, path: saveDirectory)
+    saveImage(image, path: saveDirectory)
     
     dismissViewControllerAnimated(true, completion: nil)
   }
   
   
-  func saveImage (image: UIImage, path: String) -> Bool {
+  func saveImage(image: UIImage, path: String) -> Bool {
     
     let compressedImage = resizeImage(image, newWidth: 1536)
     if let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0) {
@@ -180,25 +174,6 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   
   var profileImageRef: FIRDatabaseReference!
   
-  override func viewDidLoad() {
-    
-    if TempProfileImageStorage.shared.profileImage == nil {
-      getProfileImageReferenceThenDownload()
-    } else {
-      profileImage.image = TempProfileImageStorage.shared.profileImage
-    }
-    
-    
-    imagePicker.delegate = self
-    
-    profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
-    profileImage.clipsToBounds = true
-    
-    if let currentUsername = NSUserDefaults.standardUserDefaults().valueForKey("username") as? String {
-      
-      username.text = currentUsername
-    }
-  }
   
   func getProfileImageReferenceThenDownload() {
     
@@ -220,11 +195,17 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     })
   }
   
-  
+  func direct() -> NSString {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let documentsDirectory = paths[0]
+    return documentsDirectory
+  }
+
   func downloadProfileImage(imageLocation: String) {
     
     print("Download Image")
-    let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
+    let saveLocation = NSURL(fileURLWithPath: direct().stringByAppendingPathComponent("/\(imageLocation)"))
+    print("Save location = ", saveLocation)
     
     let storageRef = FIRStorage.storage().reference()
     let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
@@ -249,6 +230,33 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     }
   }
   
+  func imagePickerAlert() {
+    
+    let alert = UIAlertController(title: "Where from??", message: "", preferredStyle: .ActionSheet)
+    alert.popoverPresentationController?.sourceView = self.view
+    
+    alert.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { action in
+      
+      print("camera")
+      self.imagePicker.sourceType = .Camera
+      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      
+    }))
+    
+    
+    alert.addAction(UIAlertAction(title: "Photo Library", style: .Default, handler: { action in
+      
+      print("photo library")
+      
+      self.imagePicker.sourceType = .PhotoLibrary
+      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Blow Off", style: .Cancel, handler: nil))
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent

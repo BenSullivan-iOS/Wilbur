@@ -27,12 +27,32 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   @IBOutlet weak var completeButton: UIButton!
   @IBOutlet weak var postButton: UIButton!
   
+  var selectedPost: Post? = nil
+  var selectedPostImage: UIImage? = nil
+  
   weak var createPostDelegate: PostButtonPressedDelegate? = nil
   weak var navigationBarDelegate: NavigationBarDelegate? = nil
   
   private struct Colours {
     static let highlighted = UIColor(colorLiteralRed: 223/255, green: 223/255, blue: 230/255, alpha: 1)
     static let standard = UIColor(colorLiteralRed: 239/255, green: 239/255, blue: 244/255, alpha: 1)
+  }
+  
+  //MARK: - VIEW CONTROLLER LIFECYCLE
+  
+  
+  
+  override func viewDidLoad() {
+    
+    postButton.alpha = 0
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PageContainer.customCellCommentButtonPressed(_:)), name: "segueToComments", object: nil)
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    if AppState.shared.currentState != .CreatingPost {
+      postButton.alpha = 0
+    }
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -61,14 +81,10 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     
   }
   
-  var selectedPost: Post? = nil
-  
-  var selectedPostImage: UIImage? = nil
-  
   func customCellCommentButtonPressed(notification: NSNotification) {
     
-    
     if let post = notification.userInfo!["post"] as? Post {
+      
       if let image = notification.userInfo!["image"] as? UIImage {
         
         selectedPostImage = image
@@ -85,20 +101,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     }
   }
   
-  //MARK: - VIEW CONTROLLER LIFECYCLE
-  
-  override func viewDidLoad() {
-    
-    postButton.alpha = 0
 
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PageContainer.customCellCommentButtonPressed(_:)), name: "comment", object: nil)
-  }
-  
-  override func viewWillAppear(animated: Bool) {
-    if AppState.shared.currentState != .CreatingPost {
-      postButton.alpha = 0
-    }
-  }
   
   
   

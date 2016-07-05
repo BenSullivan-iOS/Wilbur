@@ -9,7 +9,7 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
-import Firebase
+//import Firebase
 import FirebaseAuth
 
 class LoginVC: UIViewController {
@@ -38,7 +38,7 @@ class LoginVC: UIViewController {
         
         FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
           
-          guard let user = user where error == nil else { print("Login failed"); return }
+          guard let user = user where error == nil else { print("Login failed", error); return }
           
           let provider = ["provider" : user.providerID]
           
@@ -46,17 +46,17 @@ class LoginVC: UIViewController {
           
           reference.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             
-            if snapshot.value?.uid == user.uid {
-              
+//            if snapshot.value?.uid == user.uid {
+            
               if let savedUID = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String {
                 
-                if savedUID != user.uid {
-                  
+//                if savedUID != user.uid {
+                
                   DataService.ds.createFirebaseUser(user.uid, user: provider)
                   
-                }
+//                }
               }
-            }
+//            }
           })
           
           NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")

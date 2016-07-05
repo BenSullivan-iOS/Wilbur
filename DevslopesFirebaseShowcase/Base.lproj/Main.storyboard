@@ -177,7 +177,7 @@
                         <outlet property="createPostButton" destination="BtQ-1b-VZr" id="Cnk-Vq-rCH"/>
                         <outlet property="feedButton" destination="zaC-ze-h9F" id="B67-z5-wyc"/>
                         <outlet property="postButton" destination="riV-37-Xty" id="44y-0w-cDe"/>
-                        <segue destination="OR7-fw-RBc" kind="show" identifier="comments" id="iD0-Vj-ehv"/>
+                        <segue destination="FQE-Dg-OJl" kind="show" identifier="comments" id="iD0-Vj-ehv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ZG-CB-DiY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -383,124 +383,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pk8-So-Did" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4577" y="414"/>
-        </scene>
-        <!--CommentsVC-->
-        <scene sceneID="8L7-OE-nqy">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="OR7-fw-RBc" customClass="CommentsVC" customModule="Wilbur" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="k50-4Y-xnd"/>
-                        <viewControllerLayoutGuide type="bottom" id="JJ0-4p-qRt"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="4Be-Ma-mxq">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JGu-HQ-yB2">
-                                <rect key="frame" x="0.0" y="64" width="600" height="504"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCellImage" rowHeight="352" id="88a-qe-shF" customClass="CommentImageCell" customModule="Wilbur" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="352"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="88a-qe-shF" id="NlY-qJ-68c">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="351"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" translatesAutoresizingMaskIntoConstraints="NO" id="QVN-pZ-9x6">
-                                                    <rect key="frame" x="8" y="8" width="584" height="335"/>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="QVN-pZ-9x6" firstAttribute="leading" secondItem="NlY-qJ-68c" secondAttribute="leadingMargin" id="1lE-0B-FDW"/>
-                                                <constraint firstItem="QVN-pZ-9x6" firstAttribute="bottom" secondItem="NlY-qJ-68c" secondAttribute="bottomMargin" id="C0I-WU-TsV"/>
-                                                <constraint firstItem="QVN-pZ-9x6" firstAttribute="trailing" secondItem="NlY-qJ-68c" secondAttribute="trailingMargin" id="lwU-fK-SDu"/>
-                                                <constraint firstItem="QVN-pZ-9x6" firstAttribute="top" secondItem="NlY-qJ-68c" secondAttribute="topMargin" id="sLc-x3-iJy"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="postImage" destination="QVN-pZ-9x6" id="gZ3-eZ-n4o"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="127" id="dB0-Yl-Efc" customClass="CommentCell" customModule="Wilbur" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="380" width="600" height="127"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dB0-Yl-Efc" id="bb0-6g-8xT">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="126"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Ngh-sV-WUw">
-                                                    <rect key="frame" x="8" y="8" width="45" height="45"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="45" id="0zk-Pb-nsU"/>
-                                                        <constraint firstAttribute="height" constant="45" id="8o7-A1-8Bc"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlR-RB-ntR">
-                                                    <rect key="frame" x="61" y="8" width="531" height="110"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="ZTW-xu-82N"/>
-                                                    </constraints>
-                                                    <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="PlR-RB-ntR" firstAttribute="leading" secondItem="Ngh-sV-WUw" secondAttribute="trailing" constant="8" id="2Be-vh-U7d"/>
-                                                <constraint firstItem="PlR-RB-ntR" firstAttribute="trailing" secondItem="bb0-6g-8xT" secondAttribute="trailingMargin" id="Bvf-wy-hqx"/>
-                                                <constraint firstItem="PlR-RB-ntR" firstAttribute="top" secondItem="bb0-6g-8xT" secondAttribute="topMargin" id="bi0-FU-a7Y"/>
-                                                <constraint firstItem="Ngh-sV-WUw" firstAttribute="leading" secondItem="bb0-6g-8xT" secondAttribute="leadingMargin" id="dZy-HN-QdX"/>
-                                                <constraint firstItem="PlR-RB-ntR" firstAttribute="bottom" secondItem="bb0-6g-8xT" secondAttribute="bottomMargin" id="hM5-NF-tgp"/>
-                                                <constraint firstItem="Ngh-sV-WUw" firstAttribute="top" secondItem="bb0-6g-8xT" secondAttribute="topMargin" id="qsY-ht-Mzn"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="commentText" destination="PlR-RB-ntR" id="fZe-vW-vv4"/>
-                                            <outlet property="profileImage" destination="Ngh-sV-WUw" id="ASg-b1-xOY"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="OR7-fw-RBc" id="WMn-xb-dfM"/>
-                                    <outlet property="delegate" destination="OR7-fw-RBc" id="wY5-lD-4m8"/>
-                                </connections>
-                            </tableView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cpP-WT-tJc">
-                                <rect key="frame" x="0.0" y="566" width="600" height="34"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="14O-XW-5EH"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <connections>
-                                    <outlet property="delegate" destination="OR7-fw-RBc" id="cz1-lC-IHE"/>
-                                </connections>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="JGu-HQ-yB2" firstAttribute="top" secondItem="k50-4Y-xnd" secondAttribute="bottom" id="2WS-J7-HHq"/>
-                            <constraint firstItem="cpP-WT-tJc" firstAttribute="top" relation="lessThanOrEqual" secondItem="k50-4Y-xnd" secondAttribute="bottom" constant="502" id="4Nq-5H-r8B"/>
-                            <constraint firstItem="cpP-WT-tJc" firstAttribute="top" secondItem="JGu-HQ-yB2" secondAttribute="bottom" constant="-2" id="5wJ-s4-Ebh"/>
-                            <constraint firstAttribute="trailing" secondItem="JGu-HQ-yB2" secondAttribute="trailing" id="9fm-lF-swM"/>
-                            <constraint firstItem="JGu-HQ-yB2" firstAttribute="leading" secondItem="4Be-Ma-mxq" secondAttribute="leading" id="HeX-dz-yST"/>
-                            <constraint firstItem="cpP-WT-tJc" firstAttribute="leading" secondItem="4Be-Ma-mxq" secondAttribute="leading" id="Uyp-Kb-qhC"/>
-                            <constraint firstAttribute="trailing" secondItem="cpP-WT-tJc" secondAttribute="trailing" id="rOo-O8-p4N"/>
-                            <constraint firstItem="JJ0-4p-qRt" firstAttribute="top" secondItem="cpP-WT-tJc" secondAttribute="bottom" id="xkM-4m-Mfz"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="commentTextView" destination="cpP-WT-tJc" id="QgW-4B-cuk"/>
-                        <outlet property="keyboardHeightLayoutConstraint" destination="xkM-4m-Mfz" id="mdn-u3-TKz"/>
-                        <outlet property="tableView" destination="JGu-HQ-yB2" id="rqR-tu-qZj"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KuX-7D-84H" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2660" y="579"/>
         </scene>
         <!--Create Post Test-->
         <scene sceneID="dnm-RH-scs">
@@ -1166,11 +1048,18 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OZG-1v-AH1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1251" y="523"/>
+            <point key="canvasLocation" x="1307" y="579"/>
+        </scene>
+        <!--Comments-->
+        <scene sceneID="r51-4r-JSb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Comments" id="FQE-Dg-OJl" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k9F-pN-v5t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2660" y="579"/>
         </scene>
     </scenes>
     <resources>
-        <image name="camera" width="50" height="50"/>
         <image name="cameraIconGrey" width="626" height="510"/>
         <image name="me" width="587" height="587"/>
         <image name="micIconGrey" width="256" height="256"/>

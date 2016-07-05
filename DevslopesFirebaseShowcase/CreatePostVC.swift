@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import FDWaveformView
 import FirebaseStorage
 
 class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AudioPlayerDelegate {
@@ -19,7 +18,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   @IBOutlet weak var descriptionTextField: MaterialTextField!
   @IBOutlet weak var controlsBackground: MaterialView!
-  @IBOutlet weak var waveFormView: FDWaveformView!
+//  @IBOutlet weak var waveFormView: FDWaveformView!
   @IBOutlet weak var selectedImage: UIImageView!
   
   @IBOutlet weak var postingButton: UILabel!
@@ -101,16 +100,16 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   func showWaveForm(fileURL: NSURL) {
     
-    self.waveFormView.audioURL = fileURL
-    self.waveFormView.doesAllowScrubbing = false
-    self.waveFormView.alpha = 1
+//    self.waveFormView.audioURL = fileURL
+//    self.waveFormView.doesAllowScrubbing = false
+//    self.waveFormView.alpha = 1
     checkAudioRecorded = true
     
   }
   
-  func waveformViewDidRender(waveformView: FDWaveformView) {
-    self.waveFormView.alpha = 1
-  }
+//  func waveformViewDidRender(waveformView: FDWaveformView) {
+//    self.waveFormView.alpha = 1
+//  }
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     
@@ -253,34 +252,6 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     riversRef.putFile(localFile, metadata: nil) { metadata, error in
       guard let metadata = metadata where error == nil else { print("error", error); return }
-      
-//      self.postingButton.x = 300
-//      self.postingButton.animateTo()
-//      
-//      self.postedButton.autohide = false
-//      self.postedButton.animation = "squeezeRight"
-//      self.postedButton.damping = 1
-//      self.postedButton.animateNext({
-//        
-//        self.postedButton.delay = 2
-//        self.postedButton.animation = "squeezeLeft"
-//        self.postedButton.animateTo()
-//        self.recordButton.autohide = true
-//        self.recordButton.delay = 2.5
-//        
-//        self.playButton.damping = 0.8
-//        self.playButton.x = 0
-//        self.playButton.animateTo()
-//        self.playButton.alpha = 0
-//        
-//        self.pauseButton.damping = 0.8
-//        self.pauseButton.x = 0
-//        self.pauseButton.animateTo()
-//        self.pauseButton.alpha = 0
-//        
-//        self.recordButton.animation = "fadeIn"
-//        self.recordButton.animate()
-//      })
       
     }
   }

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
 //
 
-import Firebase
+//import Firebase
 import FirebaseStorage
 import AVFoundation
 

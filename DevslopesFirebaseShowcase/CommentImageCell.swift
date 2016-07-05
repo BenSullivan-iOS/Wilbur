@@ -11,10 +11,12 @@ import UIKit
 class CommentImageCell: UITableViewCell {
   
   @IBOutlet weak var postImage: UIImageView!
+  @IBOutlet weak var postText: UITextView!
+  @IBOutlet weak var postDescription: UITextView!
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    // Initialization code
+    
   }
   
   override func setSelected(selected: Bool, animated: Bool) {

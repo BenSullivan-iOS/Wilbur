@@ -154,17 +154,15 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     
     dismissViewControllerAnimated(true, completion: nil)
     
-    let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    let image = info[UIImagePickerControllerOriginalImage] as! UIImage
     selectedImage.image = image
     
     let saveDirectory = String(HelperFunctions.getDocumentsDirectory()) + "/images/tempImage.jpg"
     
-    let tempImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-    
-    saveImage(tempImage, path: saveDirectory)
+    saveImage(image, path: saveDirectory)
     
     print("Did finish picking image - ", saveDirectory)
-    let height = AVMakeRectWithAspectRatioInsideRect((image?.size)!, selectedImage.frame).height
+    let height = AVMakeRectWithAspectRatioInsideRect(image.size, selectedImage.frame).height
 
     tableView.rowHeight = height
     tableView.reloadData()
@@ -182,42 +180,25 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     return newImage
   }
   
-  func saveImage (image: UIImage, path: String) -> Bool {
-    
-    let compressedImage = resizeImage(image, newWidth: 1536)
-    if let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0) {
-    let result = jpgImageData.writeToFile(String(path), atomically: true)
-      selectedImagePath = NSURL(fileURLWithPath: path)
-
-      return result
-    }
-    return false
+  func direct() -> NSString {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let documentsDirectory = paths[0]
+    return documentsDirectory
   }
   
-  func imagePickerAlert() {
+  func saveImage (image: UIImage, path: String) -> Bool {
     
-    let alert = UIAlertController(title: "Choose source type", message: "", preferredStyle: .ActionSheet)
-    alert.popoverPresentationController?.sourceView = self.view
+    let path2 = direct().stringByAppendingPathComponent("tempImage.jpg")
+    print(path2)
+    let compressedImage = resizeImage(image, newWidth: 1536)
+    let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0)
+    let result = jpgImageData!.writeToFile(path2, atomically: true)
+    print(result)
+    selectedImagePath = NSURL(fileURLWithPath: path2)
     
-    alert.addAction(UIAlertAction(title: "Take photo", style: .Default, handler: { action in
-      
-      self.imagePicker.sourceType = .Camera
-      self.presentViewController(self.imagePicker, animated: true, completion: nil)
-      
-    }))
-    
-    
-    alert.addAction(UIAlertAction(title: "Photo library", style: .Default, handler: { action in
-      
-      self.imagePicker.sourceType = .PhotoLibrary
-      self.presentViewController(self.imagePicker, animated: true, completion: nil)
-      
-    }))
-    
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-    
-    presentViewController(alert, animated: true, completion: nil)
+    return result
   }
+  
   
   
   
@@ -236,7 +217,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
           "date": String(NSDate()),
        "userKey": userKey
       ]
-      
+    
       
       //Save audio if available
       
@@ -283,6 +264,9 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   
       let firebasePost = DataService.ds.REF_USER_CURRENT.child("posts").child(postKey)
       firebasePost.setValue(postKey)
+      
+      let addDefaultText = DataService.ds.REF_POSTS.child(postKey).child("comments").child("placeholder")
+      addDefaultText.setValue(1)
     }
   
   
@@ -292,41 +276,44 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
       let riversRef = storageRef.child("images/\(firebaseReference).jpg")
   
       riversRef.putFile(localFile, metadata: nil) { metadata, error in
-        guard let metadata = metadata where error == nil else { print("error", error); return }
-  
-  //      self.postingButton.x = 300
-  //      self.postingButton.animateTo()
-  //
-  //      self.postedButton.autohide = false
-  //      self.postedButton.animation = "squeezeRight"
-  //      self.postedButton.damping = 1
-  //      self.postedButton.animateNext({
-  //
-  //        self.postedButton.delay = 2
-  //        self.postedButton.animation = "squeezeLeft"
-  //        self.postedButton.animateTo()
-  //        self.recordButton.autohide = true
-  //        self.recordButton.delay = 2.5
-  //
-  //        self.playButton.damping = 0.8
-  //        self.playButton.x = 0
-  //        self.playButton.animateTo()
-  //        self.playButton.alpha = 0
-  //
-  //        self.pauseButton.damping = 0.8
-  //        self.pauseButton.x = 0
-  //        self.pauseButton.animateTo()
-  //        self.pauseButton.alpha = 0
-  //        
-  //        self.recordButton.animation = "fadeIn"
-  //        self.recordButton.animate()
-  //      })
+        guard let metadata = metadata where error == nil else { print("Upload Image Error", error); return }
+
+        print("success")
+        print("metadata")
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("imageSaved", object: self)
+        
+//        addObserver(self, selector: #selector(FeedVC.reloadTable(_:)), name: "imageSaved", object: nil)
+
         
       }
     }
 
   
-  
+  func imagePickerAlert() {
+    
+    let alert = UIAlertController(title: "Choose source type", message: "", preferredStyle: .ActionSheet)
+    alert.popoverPresentationController?.sourceView = self.view
+    
+    alert.addAction(UIAlertAction(title: "Take photo", style: .Default, handler: { action in
+      
+      self.imagePicker.sourceType = .Camera
+      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      
+    }))
+    
+    
+    alert.addAction(UIAlertAction(title: "Photo library", style: .Default, handler: { action in
+      
+      self.imagePicker.sourceType = .PhotoLibrary
+      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
   
   
 }

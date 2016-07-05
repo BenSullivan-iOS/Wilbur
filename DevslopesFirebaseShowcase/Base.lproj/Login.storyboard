@@ -32,7 +32,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5x-vH-WGC" customClass="SpringView" customModule="Spring">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5x-vH-WGC">
                                 <rect key="frame" x="0.0" y="214" width="600" height="172"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jho-Yk-WXk" customClass="MaterialView" customModule="Wilbur" customModuleProvider="target">
@@ -41,25 +41,12 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="t2U-cE-2EK">
                                                 <rect key="frame" x="25" y="30" width="583" height="70"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebookIcon" translatesAutoresizingMaskIntoConstraints="NO" id="CEo-uq-pPk" customClass="SpringImageView" customModule="Spring">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebookIcon" translatesAutoresizingMaskIntoConstraints="NO" id="CEo-uq-pPk">
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="70" id="057-xk-oFx"/>
                                                             <constraint firstAttribute="width" constant="70" id="P3S-yZ-egX"/>
                                                         </constraints>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeRight"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
-                                                                <real key="value" value="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="damping">
-                                                                <real key="value" value="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
-                                                                <real key="value" value="0.20000000000000001"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-Dm-DUf">
                                                         <rect key="frame" x="75" y="19" width="508" height="33"/>
@@ -71,19 +58,6 @@
                                                         <state key="normal" title="FACEBOOK LOGIN">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeLeft"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="duration">
-                                                                <real key="value" value="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="damping">
-                                                                <real key="value" value="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="delay">
-                                                                <real key="value" value="0.20000000000000001"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="FbBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8GN-FS-q2D"/>
                                                         </connections>
@@ -108,13 +82,6 @@
                                     <constraint firstItem="Jho-Yk-WXk" firstAttribute="centerX" secondItem="n5x-vH-WGC" secondAttribute="centerX" constant="-3.5" id="q7U-4Y-TFi"/>
                                     <constraint firstItem="Jho-Yk-WXk" firstAttribute="centerY" secondItem="n5x-vH-WGC" secondAttribute="centerY" id="rbV-q7-7qa"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autostart" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="duration">
-                                        <real key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

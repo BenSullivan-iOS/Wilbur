@@ -11,13 +11,16 @@ import AVFoundation
 
 class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
   
+  @IBOutlet weak var postButton: UIButton!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var commentTextView: UITextView!
   @IBOutlet var keyboardHeightLayoutConstraint: NSLayoutConstraint?
-  
-  
+  @IBOutlet var postButtonHeightLayoutConstraint: NSLayoutConstraint?
+
   private var viewAppeared = false
   private var viewDismissing = false
+  private var keyArray = [String]()
+  private var valueArray = [String]()
   
   var post: Post? = nil
   var postImage: UIImage? = nil
@@ -25,10 +28,17 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    self.title = "Comments"
+    
     configureTableView()
     configureTextView()
     
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentsVC.reloadComments), name: "updateComments", object: nil)
+    
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardNotification(_:)),name: UIKeyboardWillChangeFrameNotification, object: nil)
+    
+    keyArray = (post?.commentText)!
+    valueArray = (post?.commentUsers)!
     
   }
   
@@ -41,12 +51,40 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     viewDismissing = true
   }
   
+  func reloadComments() {
+    
+    tableView.reloadData()
+  }
+  
+  @IBAction func postButtonPressed(sender: AnyObject) {
+    
+    //add a unique string before the username
+    //if string is not
+    
+    guard let comment = commentTextView.text
+      where comment != DescriptionText.defaultText && commentTextView.text != "" else { return }
+    
+    commentTextView.text = ""
+    commentTextView.textColor = .darkGrayColor()
+    
+    let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
+
+    let newCommentRef = DataService.ds.REF_POSTS.child(post!.postKey).child("comments").child(String(keyArray.count)).child(comment)
+    keyArray.append(comment)
+
+    newCommentRef.setValue(currentUser)
+    
+    valueArray.append(currentUser)
+    print(keyArray.count)
+    
+    tableView.reloadData()
+  }
+  
+  
+  
   
   
   //MARK: - TABLE VIEW
-  
-  private let testText = ["Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor", "Nam liber te conscient to factor tum poen legum odioque civiuda.Nam liber te conscient to factor tum poen legum odioque civiuda.Nam liber te conscient to factor tum poen legum odioque civiuda.Nam liber te conscient to factor tum poen legum odioque civiuda.","Nam liber te conscient to factor tum poen legum odioque civiuda.Nam liber te conscient to factor tum poen legum odioque civiuda.","Nam liber te conscient to factor tum poen legum odioque civiuda."
-  ]
   
   private struct cellID {
     static let commentCell = "commentCell"
@@ -56,10 +94,15 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     
     if indexPath.section == 0 {
+      
+      if let image = postImage {
+        
+        let height = AVMakeRectWithAspectRatioInsideRect((image.size), self.view.frame).height
+
+        return height
+      }
     
-      let height = AVMakeRectWithAspectRatioInsideRect((postImage!.size), self.view.frame).height
-    
-      return height
+    return UITableViewAutomaticDimension
       
     } else {
       
@@ -82,7 +125,8 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     case 0:
       return 1
     case 1:
-      return testText.count
+      return keyArray.count
+
     default: return 0
     }
   }
@@ -91,24 +135,47 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
     if let cell = tableView.dequeueReusableCellWithIdentifier(cellID.commentCell) as? CommentCell
       where indexPath.section == 1 {
-    
-      cell.commentText.text = testText[indexPath.row]
-      return cell
       
+        cell.commentText.text = keyArray[indexPath.row]
+      
+      if let value = Cache.FeedVC.profileImageCache.objectForKey(valueArray[indexPath.row]) as? UIImage {
+        
+        cell.profileImage.image = value
+      }
+      
+      return cell
     }
     
-    if let cellImage = tableView.dequeueReusableCellWithIdentifier(cellID.imageCell) as? CommentImageCell
+    if let cellContent = tableView.dequeueReusableCellWithIdentifier(cellID.imageCell) as? CommentImageCell
       where indexPath.section == 0 {
       
-      cellImage.postImage.image = postImage
+      print(postImage)
+      if let image = postImage {
+        cellContent.postImage.image = image
+        cellContent.postText.hidden = true
+
+      } else {
+        cellContent.postImage.hidden = true
+        cellContent.postText.text = post?.postDescription
+        cellContent.postText.font = UIFont.systemFontOfSize(16.0)
+      }
       
-      return cellImage
+      if post?.postDescription != "" {
+        
+        cellContent.postDescription.text = post?.postDescription
+        cellContent.postDescription.font = UIFont.systemFontOfSize(16.0)
+
+      } else {
+        cellContent.postDescription.hidden = true
+      }
+      
+      return cellContent
+      
     }
     
     return UITableViewCell()
     
   }
-  
   
   
   //MARK: - TEXT VIEW AND KEYBOARD
@@ -118,6 +185,10 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   }
   
   func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    
+    if textView.text != DescriptionText.defaultText || textView.text != "" {
+      postButton.enabled = true
+    }
     
     if textView.text == DescriptionText.defaultText && viewAppeared == true {
       commentTextView.text = ""
@@ -144,10 +215,13 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
       if endFrame?.origin.y >= UIScreen.mainScreen().bounds.size.height {
         
         self.keyboardHeightLayoutConstraint?.constant = 0.0
+        self.postButtonHeightLayoutConstraint?.constant = 0.0
         
       } else {
         
         self.keyboardHeightLayoutConstraint?.constant = endFrame?.size.height ?? 0.0
+        self.postButtonHeightLayoutConstraint?.constant = endFrame?.size.height ?? 0.0
+
       }
       
       UIView.animateWithDuration(duration,
@@ -181,10 +255,29 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     commentTextView.text = DescriptionText.defaultText
     commentTextView.textColor = .lightGrayColor()
     commentTextView.layer.addBorder(.Top, color: customGrey, thickness: 1)
+    postButton.layer.addBorder(.Top, color: customGrey, thickness: 1)
+
+    bringCursorToStart()
+  }
+  
+  func textViewDidBeginEditing(textView: UITextView) {//Not working, needs to move cursor
     
+    bringCursorToStart()
+    
+    postButton.enabled = false
+    
+    if viewAppeared && commentTextView.text == DescriptionText.defaultText {
+      
+      commentTextView.text = ""
+      commentTextView.textColor = .darkGrayColor()
+
+    }
+    
+  }
+  
+  func bringCursorToStart() {
     let start = commentTextView.beginningOfDocument
     commentTextView.selectedTextRange = commentTextView.textRangeFromPosition(start, toPosition: start)
-    
   }
   
   func tapped() {

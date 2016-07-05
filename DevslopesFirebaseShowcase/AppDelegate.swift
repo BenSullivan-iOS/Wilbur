@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    
     FIRApp.configure()
     
     self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -38,9 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     self.window?.makeKeyAndVisible()
     
     UINavigationBar.appearance().barStyle = .Default
+    
+    UINavigationBar.appearance().titleTextAttributes = [
+      NSFontAttributeName: UIFont(name: "Cochin", size: 25)!,
+      NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
     UINavigationBar.appearance().tintColor = .whiteColor()
-    
-    
+
+
     return FBSDKApplicationDelegate.sharedInstance()
       .application(application, didFinishLaunchingWithOptions: launchOptions)
   

@@ -16,6 +16,7 @@
 		B51CBCF91CF4DA4900112B51 /* FDWaveformView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */; };
 		B51CBCFC1CF4EBBE00112B51 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */; };
 		B52DBDF11CFDA24F00CB7486 /* AudioControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */; };
+		B52F44E71D2BE97100FC93EB /* Comments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B52F44E51D2BE97100FC93EB /* Comments.storyboard */; };
 		B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4301CE8FFC40084215C /* AppDelegate.swift */; };
 		B548A4331CE8FFC40084215C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4321CE8FFC40084215C /* LoginVC.swift */; };
 		B548A4361CE8FFC40084215C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B548A4341CE8FFC40084215C /* Main.storyboard */; };
@@ -41,9 +42,9 @@
 		B59520F51CF3599E008987A0 /* TopTrumpsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */; };
 		B5967D511CEE0407006CB7BB /* CreatePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5967D501CEE0407006CB7BB /* CreatePostVC.swift */; };
 		B5B063361CF35BE4001DDFDD /* TopTrumpsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */; };
-		B5C62FBD1CF6EADC00E73BFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5C62FBC1CF6EADC00E73BFF /* GoogleService-Info.plist */; };
 		B5D14B9C1D2920F500D0FF3E /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D14B9B1D2920F500D0FF3E /* CommentCell.swift */; };
 		B5D14B9E1D2927FD00D0FF3E /* CommentImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D14B9D1D2927FD00D0FF3E /* CommentImageCell.swift */; };
+		B5D14BA61D2AC2F200D0FF3E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5D14BA51D2AC2F200D0FF3E /* GoogleService-Info.plist */; };
 		B5D3F9971CEB41BD00EEB78F /* FIGHTT3_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */; };
 		B5D3F9991CEB498500EEB78F /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F9981CEB498500EEB78F /* extensions.swift */; };
 		B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */; };
@@ -66,6 +67,7 @@
 		B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FDWaveformView.framework; path = "../../../../Library/Developer/Xcode/DerivedData/DevslopesFirebaseShowcase-aebdmajtydenumdhaiuprfwxpxmv/Build/Products/Debug-iphonesimulator/FDWaveformView/FDWaveformView.framework"; sourceTree = "<group>"; };
 		B51CBCFB1CF4EBBE00112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioControls.swift; sourceTree = "<group>"; };
+		B52F44E61D2BE97100FC93EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Comments.storyboard; sourceTree = "<group>"; };
 		B548A42D1CE8FFC40084215C /* Wilbur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wilbur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B548A4301CE8FFC40084215C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B548A4321CE8FFC40084215C /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -93,10 +95,12 @@
 		B5777B811D01CE1B0062683C /* MyPostsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPostsVC.swift; sourceTree = "<group>"; };
 		B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopTrumpsVC.swift; sourceTree = "<group>"; };
 		B5967D501CEE0407006CB7BB /* CreatePostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePostVC.swift; sourceTree = "<group>"; };
+		B5AC3DC41D2AD7FC00D3358C /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Wildlife-byuntkcfyecotgcaiqpiszrjydtt/Build/Products/Debug-iphonesimulator/Bolts/Bolts.framework"; sourceTree = "<group>"; };
+		B5AC3DC61D2AD80300D3358C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../../Library/Developer/Xcode/DerivedData/Wildlife-byuntkcfyecotgcaiqpiszrjydtt/Build/Products/Debug-iphonesimulator/FBSDKCoreKit/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		B5B063351CF35BE4001DDFDD /* TopTrumpsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopTrumpsCell.swift; sourceTree = "<group>"; };
-		B5C62FBC1CF6EADC00E73BFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5D14B9B1D2920F500D0FF3E /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		B5D14B9D1D2927FD00D0FF3E /* CommentImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentImageCell.swift; sourceTree = "<group>"; };
+		B5D14BA51D2AC2F200D0FF3E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FIGHTT3_.ttf; sourceTree = "<group>"; };
 		B5D3F9981CEB498500EEB78F /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 		06BB2FE03B25609296D5A959 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5AC3DC61D2AD80300D3358C /* FBSDKCoreKit.framework */,
+				B5AC3DC41D2AD7FC00D3358C /* Bolts.framework */,
 				B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */,
 				09C30123EA9644A4B56C8EBD /* Pods_Wildlife.framework */,
 			);
@@ -170,7 +176,7 @@
 				B548A4301CE8FFC40084215C /* AppDelegate.swift */,
 				B548A4371CE8FFC40084215C /* Assets.xcassets */,
 				B548A43C1CE8FFC40084215C /* Info.plist */,
-				B5C62FBC1CF6EADC00E73BFF /* GoogleService-Info.plist */,
+				B5D14BA51D2AC2F200D0FF3E /* GoogleService-Info.plist */,
 			);
 			name = Wildlife;
 			path = DevslopesFirebaseShowcase;
@@ -185,9 +191,9 @@
 				B516F19B1D27CEC00022707C /* CommentsVC.swift */,
 				B5068C3C1CEF18F400AA8C86 /* PagingVC.swift */,
 				B55E6DBB1D192E7600A128E7 /* CreatePostTest.swift */,
+				B5967D501CEE0407006CB7BB /* CreatePostVC.swift */,
 				B5777B811D01CE1B0062683C /* MyPostsVC.swift */,
 				B59520F41CF3599E008987A0 /* TopTrumpsVC.swift */,
-				B5967D501CEE0407006CB7BB /* CreatePostVC.swift */,
 				B566CB421CE9C6A500415A3E /* FeedVC.swift */,
 				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
 				B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */,
@@ -202,6 +208,7 @@
 				B5C62FBB1CF641C800E73BFF /* Cells */,
 				B5777B7E1D01CDDE0062683C /* MyPosts.storyboard */,
 				B548A4341CE8FFC40084215C /* Main.storyboard */,
+				B52F44E51D2BE97100FC93EB /* Comments.storyboard */,
 				B51CBCD21CF45DB000112B51 /* Feed.storyboard */,
 				B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */,
 				B548A4391CE8FFC40084215C /* LaunchScreen.storyboard */,
@@ -349,14 +356,15 @@
 				B548A44A1CE903690084215C /* NotoSans-Bold.ttf in Resources */,
 				B51CBCD41CF45DB000112B51 /* Feed.storyboard in Resources */,
 				B548A43B1CE8FFC40084215C /* LaunchScreen.storyboard in Resources */,
-				B5C62FBD1CF6EADC00E73BFF /* GoogleService-Info.plist in Resources */,
 				B548A44B1CE903690084215C /* NotoSans-BoldItalic.ttf in Resources */,
+				B5D14BA61D2AC2F200D0FF3E /* GoogleService-Info.plist in Resources */,
 				B548A44C1CE903690084215C /* NotoSans-Italic.ttf in Resources */,
 				B548A4381CE8FFC40084215C /* Assets.xcassets in Resources */,
 				B5777B801D01CDDE0062683C /* MyPosts.storyboard in Resources */,
 				B548A4361CE8FFC40084215C /* Main.storyboard in Resources */,
 				B548A44D1CE903690084215C /* NotoSans-Regular.ttf in Resources */,
 				B51CBCFC1CF4EBBE00112B51 /* Login.storyboard in Resources */,
+				B52F44E71D2BE97100FC93EB /* Comments.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +475,14 @@
 			name = Login.storyboard;
 			sourceTree = "<group>";
 		};
+		B52F44E51D2BE97100FC93EB /* Comments.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B52F44E61D2BE97100FC93EB /* Base */,
+			);
+			name = Comments.storyboard;
+			sourceTree = "<group>";
+		};
 		B548A4341CE8FFC40084215C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -518,9 +534,9 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/DevslopesFirebaseShowcase",
-					"$(inherited)",
+					"$(SRCROOT)/**",
+					"$(PROJECT_DIR)/**",
+					"$(inherited)/**",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -536,7 +552,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(inherited)/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -569,7 +585,11 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/**",
+					"$(PROJECT_DIR)/**",
+					"$(inherited)/**",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -578,6 +598,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)/**";
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -596,9 +617,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos/Alamofire",
+					"$(SRCROOT)/**",
+					"$(inherited)/**",
+					"$(PROJECT_DIR)/**",
 				);
+				HEADER_SEARCH_PATHS = "$(inherited)/**";
 				INFOPLIST_FILE = DevslopesFirebaseShowcase/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -618,9 +641,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos/Alamofire",
+					"$(SRCROOT)/**",
+					"$(inherited)/**",
+					"$(PROJECT_DIR)/**",
 				);
+				HEADER_SEARCH_PATHS = "$(inherited)/**";
 				INFOPLIST_FILE = DevslopesFirebaseShowcase/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

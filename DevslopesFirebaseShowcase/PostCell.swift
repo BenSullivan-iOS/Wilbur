@@ -8,12 +8,14 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
 
 class ProfileImageTracker {
   
   static var imageLocations: Set = Set<String>()
   
 }
+var downloadImageTask: FIRStorageDownloadTask? = nil
 
 class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   
@@ -27,12 +29,13 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   @IBOutlet weak var popText: UIButton!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
-  var delegate: PostCellDelegate? = nil
-  private var downloadedImage = UIImage()
   private var likeRef: FIRDatabaseReference!
   private var postRef: FIRDatabaseReference!
   private var profileImage: FIRDatabaseReference!
   private var _post: Post?
+  
+  weak var delegate: PostCellDelegate? = nil
+
   
   var post: Post? {
     return _post
@@ -57,6 +60,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   
   func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
     
+    
     likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
     postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
     
@@ -79,15 +83,17 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
       
     }
     self._post = post
-    self.likesLabel.text = "\(post.likes)"
+    self.likesLabel.text = "\(post.commentText.count)"//"\(post.likes)"
     self.username.text = post.username
     
     configureLikeButton()
+    
     configureImage(post, img: img)
+    
     if profileImg == nil {
       configureProfileImage(post, profileImg: profileImg)
     }
-    downloadAudio(post)
+//    downloadAudio(post)
   }
   
   
@@ -114,12 +120,13 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   func configureImage(post: Post, img: UIImage?) {
     
     if let imageUrl = post.imageUrl {
-      showcaseImg.hidden = false
       
       if let img = img {
         
         self.showcaseImg.image = img
         self.activityIndicator.stopAnimating()
+        
+        self.showcaseImg.hidden = false
         
       } else {
         
@@ -159,43 +166,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   }
   
   
-  func downloadProfileImage(imageLocation: String) {
-    
-    print("PROFILE IMAGE LOCATION", imageLocation)
-    print(ProfileImageTracker.imageLocations)
-    
-    if !ProfileImageTracker.imageLocations.contains(imageLocation) {
-      print("Doesn't contain")
-      
-      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
-      let storageRef = FIRStorage.storage().reference()
-      let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
-      
-      pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
-        print("downloading...")
-        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
-        
-        if let data = NSData(contentsOfURL: URL) {
-          
-          if let image = UIImage(data: data) {
-            
-            self.profileImg.image = image
-            
-            Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
-            
-          }
-          
-        }
-        
-        
-      }
-    } else {
-      print("Post Cell, profile image already chached")
-    }
-    
-    ProfileImageTracker.imageLocations.insert(imageLocation)
-    
-  }
+
   
   func likeTapped() {
     
@@ -222,9 +193,12 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
       
       var postInfo:[String: AnyObject] = ["post": post]
       
-      postInfo["image"] = showcaseImg.image
+      if showcaseImg.hidden == false {
+        
+        postInfo["image"] = showcaseImg.image
+      }
       
-      NSNotificationCenter.defaultCenter().postNotificationName("comment", object: self, userInfo: postInfo)
+      NSNotificationCenter.defaultCenter().postNotificationName("segueToComments", object: self, userInfo: postInfo)
       print("POSTING NOTIFICATION")
     }
     
@@ -253,14 +227,20 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     })
   }
   
+  var storageRef: FIRStorageReference? = nil
+  var pathReference: FIRStorageReference? = nil
+  
+//  var downloadImageTask: FIRStorageDownloadTask? = nil
+  
   func downloadImage(imageLocation: String) {
     
     let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
     
-    let storageRef = FIRStorage.storage().reference()
-    let pathReference = storageRef.child(imageLocation)
+    storageRef = FIRStorage.storage().reference()
     
-    pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+    pathReference = storageRef!.child(imageLocation)
+    
+    downloadImageTask = pathReference!.writeToFile(saveLocation) { (URL, error) -> Void in
       
       guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
       
@@ -269,6 +249,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
         if let image = UIImage(data: data) {
           
           self.showcaseImg.image = image
+          self.showcaseImg.hidden = false
           Cache.FeedVC.imageCache.setObject(image, forKey: imageLocation)
           
           self.delegate?.reloadTable(image)
@@ -278,6 +259,46 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
       
       self.activityIndicator.stopAnimating()
     }
+  }
+  
+  func downloadProfileImage(imageLocation: String) {
+    
+    print("PROFILE IMAGE LOCATION", imageLocation)
+    print(ProfileImageTracker.imageLocations)
+    
+    if !ProfileImageTracker.imageLocations.contains(imageLocation) {
+      print("Doesn't contain")
+      
+      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
+      let storageRef = FIRStorage.storage().reference()
+      let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
+      
+      pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+        print("downloading...")
+        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+        
+        if let data = NSData(contentsOfURL: URL) {
+          
+          if let image = UIImage(data: data) {
+            
+            self.profileImg.image = image
+            
+            Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
+            
+            self.delegate?.reloadTable(nil)
+            
+          }
+          
+        }
+        
+        
+      }
+    } else {
+      print("Post Cell, profile image already chached")
+    }
+    
+    ProfileImageTracker.imageLocations.insert(imageLocation)
+    
   }
   
   func styleProfileImage() {

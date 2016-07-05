@@ -11,7 +11,7 @@ import Firebase
 import FDWaveformView
 import AVFoundation
 
-protocol PostCellDelegate {
+protocol PostCellDelegate: class {
   func showDeletePostAlert(key: String)
   func reloadTable(image: UIImage?)
   func customCellCommentButtonPressed()
@@ -28,14 +28,16 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   func reloadTable(image: UIImage?) {
     
-    if let image = image {
-      
-      cellImage = image
-      tableView.reloadData()
-
-    } else {
-      tableView.reloadData()
-    }
+    tableView.reloadData()
+    
+//    if let image = image {
+//      
+//      cellImage = image
+//      tableView.reloadData()
+//
+//    } else {
+//      tableView.reloadData()
+//    }
   }
   
   func customCellCommentButtonPressed() {
@@ -47,7 +49,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.tableView.estimatedRowHeight = 250
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FeedVC.reloadTable(_:)), name: "imageSaved", object: nil)
+    
+    self.tableView.estimatedRowHeight = 300
     self.tableView.rowHeight = UITableViewAutomaticDimension
     
     self.tableView.scrollsToTop = false
@@ -61,7 +65,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.delegate = self
     tableView.dataSource = self
     
-    NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+//    NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
   }
   
   
@@ -78,25 +82,25 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   @IBOutlet weak var testImage: UIImageView!
   
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    
-        let post = posts[indexPath.row]
-    
-        if let url = post.imageUrl {
-          
-          if let image = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage {
-          
-            let height = AVMakeRectWithAspectRatioInsideRect(image.size, testImage.frame).height
-            
-            return height
-
-          }
-          
-        }
-    
-        return UITableViewAutomaticDimension
-    
-  }
+//  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//    
+//        let post = posts[indexPath.row]
+//    
+//        if let url = post.imageUrl {
+//          
+//          if let image = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage {
+//          
+//            let height = AVMakeRectWithAspectRatioInsideRect(image.size, testImage.frame).height
+//            
+//            return height
+//
+//          }
+//          
+//        }
+//    
+//        return UITableViewAutomaticDimension
+//    
+//  }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
@@ -111,7 +115,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     return posts.count
   }
-  
+    
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
     if AppState.shared.currentState == .Feed {
@@ -120,14 +124,23 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       
       if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
         
+//        cell.downloadImageTask?.cancel()
+        
+//        downloadImageTask?.cancel()
+        
         let post = posts[indexPath.row]
         
         var img: UIImage?
         var profileImg: UIImage?
         
+        cell.showcaseImg.hidden = true
+        cell.showcaseImg.image = nil
+
         if let url = post.imageUrl {
           
           img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
+          cell.showcaseImg.hidden = false
+
         }
         
         if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
@@ -154,6 +167,48 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     return UITableViewCell()
   }
   
+  
+
+  
+  //MARK: - DOWNLOAD CONTENT
+  
+  func downloadTableContent() {
+    
+    DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
+      
+      self.posts = []
+      
+      if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
+        
+        for snap in snapshots {
+          
+          if let postDict = snap.value as? [String: AnyObject] {
+            
+            let key = snap.key
+            let post = Post(postKey: key, dictionary: postDict)
+            self.posts.append(post)
+            
+          }
+        }
+        
+        self.posts.sortInPlace({ (first, second) -> Bool in
+          
+          let df = NSDateFormatter()
+          df.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
+          
+          if let firstDate = df.dateFromString(first.date), secondDate = df.dateFromString(second.date) {
+            
+            return self.isAfterDate(firstDate, endDate: secondDate)
+          }
+          
+          return true
+        })
+        
+        self.tableView.reloadData()
+        NSNotificationCenter.defaultCenter().postNotificationName("updateComments", object: self)
+      }
+    })
+  }
   
   //MARK: - ALERTS
   
@@ -201,46 +256,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
   }
   
-  //MARK: - DOWNLOAD CONTENT
-  
-  func downloadTableContent() {
-    
-    DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
-      
-      self.posts = []
-      
-      if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
-        
-        for snap in snapshots {
-          
-          if let postDict = snap.value as? [String: AnyObject] {
-            
-            let key = snap.key
-            let post = Post(postKey: key, dictionary: postDict)
-            self.posts.append(post)
-            
-          }
-        }
-        
-        self.posts.sortInPlace({ (first, second) -> Bool in
-          
-          let df = NSDateFormatter()
-          df.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
-          
-          if let firstDate = df.dateFromString(first.date), secondDate = df.dateFromString(second.date) {
-            
-            return self.isAfterDate(firstDate, endDate: secondDate)
-          }
-          
-          return true
-        })
-        
-        self.tableView.reloadData()
-      }
-    })
-  }
-  
-  
   //MARK: - OTHER FUNCTIONS
   
   func checkLoggedIn() {
@@ -279,7 +294,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       navigationItem.backBarButtonItem = backItem
     }
   }
-  
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
   }
