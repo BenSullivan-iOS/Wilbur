@@ -13,5 +13,6 @@ class Cache {
   class FeedVC {
     static let imageCache = NSCache()
     static let profileImageCache = NSCache()
+    static let commentedOnCache = NSCache()
   }
 }

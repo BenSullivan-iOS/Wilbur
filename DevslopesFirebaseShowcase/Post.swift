@@ -12,7 +12,6 @@ class Post {
   
   private var _postDescription: String!
   private var _imageUrl: String?
-  private var _likes: Int!
   private var _username: String!
   private var _postKey: String!
   private var _postRef: FIRDatabaseReference!
@@ -23,6 +22,15 @@ class Post {
   private var _comments: [String: String] = [:]
   private var _commentText = [String]()
   private var _commentUsers = [String]()
+  private var _commentedOn: Bool!
+  
+  func wasCommentedOn(commentedOn: Bool) {
+    _commentedOn = commentedOn
+  }
+  
+  var commentedOn: Bool {
+    return _commentedOn
+  }
   
   var date: String {
     return _date
@@ -38,9 +46,6 @@ class Post {
   }
   var imageUrl: String? {
     return _imageUrl
-  }
-  var likes: Int {
-    return _likes
   }
   var fakeCount: Int {
     return _fakeCount
@@ -61,13 +66,6 @@ class Post {
     return _commentText
   }
   
-  func adjustLikes(addLike: Bool) {
-    
-    _likes = addLike ? _likes + 1 : _likes - 1
-    
-    _postRef.child("likes").setValue(_likes)
-  }
-  
   func adjustFakeCount(addFakeCount: Bool) {
     
     _fakeCount = addFakeCount ? _fakeCount + 1 : _fakeCount - 1
@@ -82,11 +80,14 @@ class Post {
     self._username = username
 //    self._audioURL = audioURL
     self._date = date
+    
   }
   
 
   
   init(postKey: String, dictionary: [String: AnyObject]) {
+    
+    self._commentedOn = false
     
     self._postKey = postKey
     
@@ -100,10 +101,6 @@ class Post {
     
     if let username = dictionary["user"] as? String {
       self._username = username
-    }
-    
-    if let likes = dictionary["likes"] as? Int {
-      self._likes = likes
     }
     
     if let userKey = dictionary["userKey"] as? String {

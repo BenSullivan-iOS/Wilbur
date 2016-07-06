@@ -1,6 +1,6 @@
 //
 //  PostCell.swift
-//  Fart Club
+//  Wilbur
 //
 //  Created by Ben Sullivan on 16/05/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -15,7 +15,6 @@ class ProfileImageTracker {
   static var imageLocations: Set = Set<String>()
   
 }
-var downloadImageTask: FIRStorageDownloadTask? = nil
 
 class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   
@@ -29,13 +28,14 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   @IBOutlet weak var popText: UIButton!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
-  private var likeRef: FIRDatabaseReference!
+  private var commentRef: FIRDatabaseReference!
   private var postRef: FIRDatabaseReference!
   private var profileImage: FIRDatabaseReference!
+  private var downloadImageTask: FIRStorageDownloadTask? = nil
   private var _post: Post?
   
   weak var delegate: PostCellDelegate? = nil
-
+  
   
   var post: Post? {
     return _post
@@ -50,6 +50,10 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     
   }
   
+  override func prepareForReuse() {
+    downloadImageTask?.cancel()
+  }
+  
   override func drawRect(rect: CGRect) {
     
     styleProfileImage()
@@ -60,40 +64,45 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   
   func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
     
-    
-    likeRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
-    postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
-    
     activityIndicator.startAnimating()
     
-    if post.postDescription == "" {
+    commentRef = DataService.ds.REF_USER_CURRENT.child("comments").child(post.postKey)
+    postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
+    
+    self._post = post
+    self.likesLabel.text = "\(post.commentText.count)"
+    self.username.text = post.username
+    
+    configureDescriptionText()
+    configureImage(post, img: img)
+    
+    styleCommentButton()
+    
+    
+    if profileImg == nil {
+      configureProfileImage(post, profileImg: profileImg)
+    }
+    //    downloadAudio(post)
+  }
+  
+  
+  
+  //CONFIGURATION FUNCTIONS
+  
+  func configureDescriptionText() {
+    
+    guard let cellPost = post else { return }
+    
+    if cellPost.postDescription == "" {
       
       self.descriptionText.hidden = true
       
     } else {
       
       self.descriptionText.hidden = false
-      self.descriptionText.text = post.postDescription
-      let fixedWidth = descriptionText.frame.size.width
-      descriptionText.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-      let newSize = descriptionText.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
-      var newFrame = descriptionText.frame
-      newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-      descriptionText.frame = newFrame
+      self.descriptionText.text = cellPost.postDescription
       
     }
-    self._post = post
-    self.likesLabel.text = "\(post.commentText.count)"//"\(post.likes)"
-    self.username.text = post.username
-    
-    configureLikeButton()
-    
-    configureImage(post, img: img)
-    
-    if profileImg == nil {
-      configureProfileImage(post, profileImg: profileImg)
-    }
-//    downloadAudio(post)
   }
   
   
@@ -106,7 +115,6 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     if let profileImg = profileImg {
       print("Setting profile image from cache")
       self.profileImg.image = profileImg
-      //profileImg
       
     } else {
       print("downloading profile image")
@@ -147,47 +155,55 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     CreatePost.shared.downloadAudio(finalPath, postKey: post.postKey)
   }
   
-  func configureLikeButton() {
+  func styleCommentButton() {
     
-    likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+    let highlightedColor = UIColor(colorLiteralRed: 42/255, green: 140/255, blue: 166/255, alpha: 1)
+    let greyColor = UIColor(colorLiteralRed: 169/255, green: 194/255, blue: 194/255, alpha: 1)
+    
+    if let commentedOn = Cache.FeedVC.commentedOnCache.objectForKey(post!.postKey) as? Bool {
       
-      if let _ = snapshot.value as? NSNull {
+      print("commentedOn", commentedOn)
+      if commentedOn {
+        self.likeImage.image = UIImage(named: "commentCounter")
+        self.popText.setTitleColor(highlightedColor, forState: .Normal)
         
-        self.likeImage.image = UIImage(named: "commentCounterGrey")
-        self.popText.setTitleColor(UIColor(colorLiteralRed: 169/255, green: 194/255, blue: 194/255, alpha: 1), forState: .Normal)
         
       } else {
+        self.likeImage.image = UIImage(named: "commentCounterGrey")
+        self.popText.setTitleColor(greyColor, forState: .Normal)
         
-        self.likeImage.image = UIImage(named: "commentCounter")
-        self.popText.setTitleColor(UIColor(colorLiteralRed: 42/255, green: 140/255, blue: 166/255, alpha: 1), forState: .Normal)
       }
-    })
+      
+    } else {
+      print("Download commented on")
+      
+      commentRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        
+        if let _ = snapshot.value as? NSNull {
+          
+          self.likeImage.image = UIImage(named: "commentCounterGrey")
+          self.popText.setTitleColor(greyColor, forState: .Normal)
+          Cache.FeedVC.commentedOnCache.setObject(false, forKey: (self.post?.postKey)!)
+          
+          
+        } else {
+          
+          self.post?.wasCommentedOn(true)
+          Cache.FeedVC.commentedOnCache.setObject(true, forKey: (self.post?.postKey)!)
+          
+          self.likeImage.image = UIImage(named: "commentCounter")
+          self.popText.setTitleColor(highlightedColor, forState: .Normal)
+        }
+      })
+      
+    }
     
   }
   
   
-
   
-  func likeTapped() {
-    
-    likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-      
-      if let _ = snapshot.value as? NSNull {
-        
-        self.likeImage.image = UIImage(named: "likeIcon")
-        self.post?.adjustLikes(true)
-        self.likeRef.setValue(true)
-        
-      } else {
-        
-        self.likeImage.image = UIImage(named: "likeIconGrey")
-        self.popText.setTitleColor(UIColor(colorLiteralRed: 169/255, green: 194/255, blue: 194/255, alpha: 1), forState: .Normal)
-        
-        self.post?.adjustLikes(false)
-        
-        self.likeRef.removeValue()
-      }
-    })
+  
+  func commentTapped() {
     
     if let post = post {
       
@@ -198,6 +214,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
         postInfo["image"] = showcaseImg.image
       }
       
+      //Observed by PageContainer
       NSNotificationCenter.defaultCenter().postNotificationName("segueToComments", object: self, userInfo: postInfo)
       print("POSTING NOTIFICATION")
     }
@@ -227,22 +244,20 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     })
   }
   
-  var storageRef: FIRStorageReference? = nil
-  var pathReference: FIRStorageReference? = nil
-  
-//  var downloadImageTask: FIRStorageDownloadTask? = nil
   
   func downloadImage(imageLocation: String) {
     
     let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
     
-    storageRef = FIRStorage.storage().reference()
+    let storageRef: FIRStorageReference? = FIRStorage.storage().reference()
     
-    pathReference = storageRef!.child(imageLocation)
+    guard let storage = storageRef else { return }
     
-    downloadImageTask = pathReference!.writeToFile(saveLocation) { (URL, error) -> Void in
+    let pathReference = storage.child(imageLocation)
+    
+    downloadImageTask = pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
       
-      guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+      guard let URL = URL where error == nil else { print("Download Image Error", error.debugDescription); return }
       
       if let data = NSData(contentsOfURL: URL) {
         
@@ -252,7 +267,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
           self.showcaseImg.hidden = false
           Cache.FeedVC.imageCache.setObject(image, forKey: imageLocation)
           
-          self.delegate?.reloadTable(image)
+          self.delegate?.reloadTable()
           
         }
       }
@@ -285,13 +300,11 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
             
             Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
             
-            self.delegate?.reloadTable(nil)
+            self.delegate?.reloadTable()
             
           }
           
         }
-        
-        
       }
     } else {
       print("Post Cell, profile image already chached")
@@ -313,16 +326,26 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   
   //MARK: - GESTURE RECOGNISERS
   
+  @IBOutlet weak var container: MaterialView!
+  
   func setupGestureRecognisers() {
     
-    let tap = UITapGestureRecognizer(target: self, action: #selector(PostCell.likeTapped))
+    let tap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
     
     tap.numberOfTapsRequired = 1
     
     likeImage.addGestureRecognizer(tap)
     likeImage.userInteractionEnabled = true
     
-    let likeTextTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.likeTapped))
+    let containerTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
+    
+    containerTap.numberOfTapsRequired = 1
+    
+    container.addGestureRecognizer(tap)
+    container.userInteractionEnabled = true
+
+    
+    let likeTextTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
     
     likeTextTap.numberOfTapsRequired = 1
     

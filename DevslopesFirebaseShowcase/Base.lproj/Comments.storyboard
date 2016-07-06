@@ -98,12 +98,12 @@
                                                     </constraints>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlR-RB-ntR">
-                                                    <rect key="frame" x="61" y="0.0" width="531" height="118"/>
+                                                    <rect key="frame" x="61" y="8" width="531" height="110"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="ZTW-xu-82N"/>
                                                     </constraints>
-                                                    <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -111,7 +111,7 @@
                                             <constraints>
                                                 <constraint firstItem="PlR-RB-ntR" firstAttribute="leading" secondItem="Ngh-sV-WUw" secondAttribute="trailing" constant="8" id="2Be-vh-U7d"/>
                                                 <constraint firstItem="PlR-RB-ntR" firstAttribute="trailing" secondItem="bb0-6g-8xT" secondAttribute="trailingMargin" id="Bvf-wy-hqx"/>
-                                                <constraint firstItem="PlR-RB-ntR" firstAttribute="top" secondItem="bb0-6g-8xT" secondAttribute="topMargin" constant="-8" id="bi0-FU-a7Y"/>
+                                                <constraint firstItem="PlR-RB-ntR" firstAttribute="top" secondItem="bb0-6g-8xT" secondAttribute="topMargin" id="bi0-FU-a7Y"/>
                                                 <constraint firstItem="Ngh-sV-WUw" firstAttribute="leading" secondItem="bb0-6g-8xT" secondAttribute="leadingMargin" id="dZy-HN-QdX"/>
                                                 <constraint firstItem="PlR-RB-ntR" firstAttribute="bottom" secondItem="bb0-6g-8xT" secondAttribute="bottomMargin" id="hM5-NF-tgp"/>
                                                 <constraint firstItem="Ngh-sV-WUw" firstAttribute="top" secondItem="bb0-6g-8xT" secondAttribute="topMargin" constant="-3" id="qsY-ht-Mzn"/>

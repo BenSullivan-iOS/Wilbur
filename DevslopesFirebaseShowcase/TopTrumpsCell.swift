@@ -16,10 +16,9 @@ class TopTrumpsCell: UITableViewCell {
   @IBOutlet weak var cellBackground: MaterialView!
   @IBOutlet weak var username: UILabel!
   @IBOutlet weak var descriptionTextView: UITextView!
-  @IBOutlet weak var pops: UILabel!
   
   private var _post: Post?
-  private var likeRef: FIRDatabaseReference!
+  private var commentRef: FIRDatabaseReference!
   private var profileImage: FIRDatabaseReference!
   
   var post: Post? {
@@ -28,34 +27,29 @@ class TopTrumpsCell: UITableViewCell {
   
   override func awakeFromNib() {
     
-    let tap = UITapGestureRecognizer(target: self, action: #selector(PostCell.likeTapped))
+    let tap = UITapGestureRecognizer(target: self, action: #selector(TopTrumpsCell.likeTapped))
     tap.numberOfTapsRequired = 1
   }
   
   func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
     
-    if post.likes == 1 {
-      
-      pops.text = "pop"
+    if let comment = DataService.ds.REF_USER_CURRENT.child("comments").child(post.postKey) as? FIRDatabaseReference? {
+      commentRef = comment
     }
-    
-    if let like = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey) as? FIRDatabaseReference? {
-      likeRef = like
-    }
-    
-    self._post = post
-    self.likesLabel.text = "\(post.likes)"
-    self.username.text = post.username
-    self.descriptionTextView.text = post.postDescription
-    
-    self.profileImg.image = UIImage(named: "profile-placeholder")
-    
-    if let profileImg = profileImg {
-      self.profileImg.image = profileImg
-      
-    } else {
-      downloadProfileImage(post.userKey)
-    }
+//
+//    self._post = post
+//    self.likesLabel.text = "\(post.likes)"
+//    self.username.text = post.username
+//    self.descriptionTextView.text = post.postDescription
+//    
+//    self.profileImg.image = UIImage(named: "profile-placeholder")
+//    
+//    if let profileImg = profileImg {
+//      self.profileImg.image = profileImg
+//      
+//    } else {
+//      downloadProfileImage(post.userKey)
+//    }
   }
   
   
@@ -92,19 +86,19 @@ class TopTrumpsCell: UITableViewCell {
   }
   
   func likeTapped() {
-    
-    likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-      
-      if let _ = snapshot.value as? NSNull {
-        
-        self.post?.adjustLikes(true)
-        self.likeRef.setValue(true)
-        
-      } else {
-        
-        self.post?.adjustLikes(false)
-        self.likeRef.removeValue()
-      }
-    })
+//    
+//    likeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+//      
+//      if let _ = snapshot.value as? NSNull {
+//        
+//        self.post?.adjustLikes(true)
+//        self.likeRef.setValue(true)
+//        
+//      } else {
+//        
+//        self.post?.adjustLikes(false)
+//        self.likeRef.removeValue()
+//      }
+//    })
   }
 }

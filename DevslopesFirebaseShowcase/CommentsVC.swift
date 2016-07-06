@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Firebase
 
 class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
   
@@ -56,6 +57,9 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     tableView.reloadData()
   }
   
+  private var commentRef: FIRDatabaseReference!
+
+  
   @IBAction func postButtonPressed(sender: AnyObject) {
     
     //add a unique string before the username
@@ -64,8 +68,10 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     guard let comment = commentTextView.text
       where comment != DescriptionText.defaultText && commentTextView.text != "" else { return }
     
-    commentTextView.text = ""
-    commentTextView.textColor = .darkGrayColor()
+    commentTextView.text = DescriptionText.defaultText
+    commentTextView.textColor = .lightGrayColor()
+    bringCursorToStart()
+    postButton.enabled = false
     
     let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
 
@@ -75,12 +81,30 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     newCommentRef.setValue(currentUser)
     
     valueArray.append(currentUser)
-    print(keyArray.count)
     
     tableView.reloadData()
+  
+    markAsCommented()
   }
   
-  
+  func markAsCommented() {
+    
+    guard let selectedPost = post else { return }
+    
+    commentRef = DataService.ds.REF_USER_CURRENT.child("comments").child(selectedPost.postKey)
+    
+    commentRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+      
+      if let _ = snapshot.value as? NSNull {
+
+        self.commentRef.setValue(true)
+        
+        Cache.FeedVC.commentedOnCache.removeObjectForKey(selectedPost.postKey)
+        
+      }
+    })
+
+  }
   
   
   

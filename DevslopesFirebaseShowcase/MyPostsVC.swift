@@ -13,16 +13,16 @@ import AVFoundation
 
 class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
   
-  private var posts = [Post]()
-  private var currentRow = Int()
-  
   @IBOutlet weak var navBar: UINavigationBar!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
+  private var posts = [Post]()
+  private var currentRow = Int()
+    
   func customCellCommentButtonPressed() {
   }
-  func reloadTable(image: UIImage?) {
+  func reloadTable() {
   }
   func tableHeight(height: CGFloat) {
   }

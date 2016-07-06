@@ -212,7 +212,6 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   
       var post: [String: AnyObject] = [
   "description" : descriptionText.text!,
-         "likes": 0,
           "user": username,
           "date": String(NSDate()),
        "userKey": userKey

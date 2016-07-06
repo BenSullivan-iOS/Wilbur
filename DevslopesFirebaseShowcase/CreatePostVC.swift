@@ -182,7 +182,6 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     var post: [String: AnyObject] = [
 "description" : descriptionTextField.text!,
-       "likes": 0,
        "audio": "audio/\(firebasePost.key).m4a",
         "user": username,
         "date": String(NSDate()),
@@ -269,10 +268,11 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
   
   func imagePickerAlert() {
     
-    let alert = UIAlertController(title: "Share your fartistic side", message: "", preferredStyle: .ActionSheet)
+    let alert = UIAlertController(title: "Keep it steady!", message: "", preferredStyle: .ActionSheet)
+    
     alert.popoverPresentationController?.sourceView = self.view
     
-    alert.addAction(UIAlertAction(title: "Fartograph", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Photograph", style: .Default, handler: { action in
       
       print("camera")
       self.imagePicker.sourceType = .Camera
@@ -281,7 +281,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     }))
     
     
-    alert.addAction(UIAlertAction(title: "Farto Library", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Photo Library", style: .Default, handler: { action in
       
       print("photo library")
       

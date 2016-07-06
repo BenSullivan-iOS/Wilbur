@@ -13,7 +13,7 @@ import AVFoundation
 
 protocol PostCellDelegate: class {
   func showDeletePostAlert(key: String)
-  func reloadTable(image: UIImage?)
+  func reloadTable()
   func customCellCommentButtonPressed()
 }
 
@@ -26,18 +26,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   @IBOutlet weak var tableView: UITableView!
   private var cellImage: UIImage? = nil
   
-  func reloadTable(image: UIImage?) {
+  func reloadTable() {
     
     tableView.reloadData()
-    
-//    if let image = image {
-//      
-//      cellImage = image
-//      tableView.reloadData()
-//
-//    } else {
-//      tableView.reloadData()
-//    }
   }
   
   func customCellCommentButtonPressed() {
@@ -49,7 +40,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FeedVC.reloadTable(_:)), name: "imageSaved", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FeedVC.reloadTable), name: "imageSaved", object: nil)
     
     self.tableView.estimatedRowHeight = 300
     self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -79,27 +70,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   //MARK: - TABLE VIEW
   
-  
-  @IBOutlet weak var testImage: UIImageView!
-  
-//  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//    
-//        let post = posts[indexPath.row]
-//    
-//        if let url = post.imageUrl {
-//          
-//          if let image = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage {
-//          
-//            let height = AVMakeRectWithAspectRatioInsideRect(image.size, testImage.frame).height
-//            
-//            return height
-//
-//          }
-//          
-//        }
-//    
-//        return UITableViewAutomaticDimension
-//    
 //  }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -124,10 +94,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       
       if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
         
-//        cell.downloadImageTask?.cancel()
-        
-//        downloadImageTask?.cancel()
-        
         let post = posts[indexPath.row]
         
         var img: UIImage?
@@ -140,6 +106,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
           
           img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
           cell.showcaseImg.hidden = false
+          cell.showcaseImg.image = UIImage(named: "DownloadingImageBackground")
 
         }
         
@@ -158,8 +125,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         
         cell.delegate = self
         cell.configureCell(post, img: img, profileImg: profileImg)
-        
-        tableView.rowHeight = UITableViewAutomaticDimension
         
         return cell
       }
