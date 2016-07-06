@@ -223,8 +223,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       
       alert.addAction(UIAlertAction(title: "Report", style: .Default, handler: { (action) in
         
-        
-        
+        self.reportAlert(post)
+      
       }))
       
       alert.addAction(UIAlertAction(title: "Block User", style: .Default, handler: { (action) in
@@ -242,11 +242,30 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
   }
   
-  func reportAlert() {
+  func reportAlert(post: Post) {
     
-    let alert = UIAlertController(title: "Reason for report?", message: nil, preferredStyle: .Alert)
+    let userKey = NSUserDefaults.standardUserDefaults().objectForKey(Constants.shared.KEY_UID) as! String
     
+    let alert = UIAlertController(title: "Submit report", message: nil, preferredStyle: .Alert)
     
+    alert.addTextFieldWithConfigurationHandler { (textField) in
+      
+      textField.placeholder = "Reason for report"
+      textField.returnKeyType = .Default
+    }
+    
+    alert.addAction(UIAlertAction(title: "Submit", style: .Default, handler: { (action) in
+      
+      let reportText = alert.textFields![0].text
+      let postRef = DataService.ds.REF_BASE.child("reportedPosts").child(post.postKey).child(userKey) as FIRDatabaseReference!
+      
+      postRef.setValue(reportText)
+      
+      //Post needs to be marked as reported or deleted
+      
+    }))
+      
+    self.presentViewController(alert, animated: true, completion:  nil)
   }
   
   //MARK: - OTHER FUNCTIONS
