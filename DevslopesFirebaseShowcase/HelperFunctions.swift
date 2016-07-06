@@ -1,6 +1,6 @@
 //
 //  HelperFunctions.swift
-//  Wilbur
+// Wilbur
 //
 //  Created by Ben Sullivan on 04/06/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.

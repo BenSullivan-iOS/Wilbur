@@ -1,6 +1,6 @@
 //
 //  CommentsVCViewController.swift
-//  Wildlife
+// Wilbur
 //
 //  Created by Ben Sullivan on 02/07/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
