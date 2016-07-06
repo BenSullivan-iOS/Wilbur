@@ -14,24 +14,6 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="1Gd-0g-2Tc">
-            <objects>
-                <viewController id="nJt-Fr-3pf" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lgt-aC-TGR"/>
-                        <viewControllerLayoutGuide type="bottom" id="eIc-X0-86c"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vIP-A6-Fid">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.6986233167" green="0.70395285439999999" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TrR-TP-keh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4285" y="905"/>
-        </scene>
         <!--FeedVC-->
         <scene sceneID="fwN-KQ-WNh">
             <objects>
@@ -188,15 +170,15 @@
                                                             <color key="textColor" red="0.76862745098039209" green="0.76078431372549016" blue="0.76078431372549016" alpha="0.50612619535519121" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSR-Yl-xcs">
-                                                            <rect key="frame" x="547" y="455" width="5" height="18"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSR-Yl-xcs">
+                                                            <rect key="frame" x="521" y="455" width="39" height="18"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="5" id="BVQ-pt-UxD"/>
+                                                                <constraint firstAttribute="width" constant="39" id="BVQ-pt-UxD"/>
                                                                 <constraint firstAttribute="height" constant="18" id="iek-aM-8Mi"/>
                                                             </constraints>
                                                             <state key="normal" title="Button" image="menuIcon"/>
                                                             <connections>
-                                                                <segue destination="nJt-Fr-3pf" kind="show" identifier="showComments" id="v1H-Na-b4t"/>
+                                                                <action selector="reportbuttonPressed:" destination="eeD-eg-fg8" eventType="touchUpInside" id="p4G-au-lLB"/>
                                                             </connections>
                                                         </button>
                                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="N6n-JV-uDq">
@@ -217,7 +199,7 @@
                                                         <constraint firstItem="dTd-ac-K5w" firstAttribute="trailing" secondItem="THB-Ez-jjP" secondAttribute="trailing" id="mg1-cC-Tk8"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="THB-Ez-jjP" secondAttribute="trailing" id="ndP-Ut-hCs"/>
                                                         <constraint firstItem="dTd-ac-K5w" firstAttribute="leading" secondItem="THB-Ez-jjP" secondAttribute="leading" id="pWU-qy-WpC"/>
-                                                        <constraint firstAttribute="trailing" secondItem="fSR-Yl-xcs" secondAttribute="trailing" constant="8" id="qPU-YZ-p68"/>
+                                                        <constraint firstAttribute="trailing" secondItem="fSR-Yl-xcs" secondAttribute="trailing" id="qPU-YZ-p68"/>
                                                         <constraint firstItem="bzf-fF-7YK" firstAttribute="top" secondItem="lQe-s4-wnj" secondAttribute="top" constant="8" id="uEQ-JY-StS"/>
                                                         <constraint firstItem="N6n-JV-uDq" firstAttribute="centerY" secondItem="lQe-s4-wnj" secondAttribute="centerY" id="uwR-Tl-hvq"/>
                                                         <constraint firstItem="bzf-fF-7YK" firstAttribute="leading" secondItem="lQe-s4-wnj" secondAttribute="leading" constant="8" id="uxy-FS-HYZ"/>
@@ -242,6 +224,7 @@
                                             <outlet property="likesLabel" destination="KAH-ir-ETq" id="TMi-tt-Lh5"/>
                                             <outlet property="popText" destination="KRS-Ah-iRS" id="MSx-9H-Etd"/>
                                             <outlet property="profileImg" destination="eM3-A1-6pJ" id="xLJ-0r-X2A"/>
+                                            <outlet property="reportButton" destination="fSR-Yl-xcs" id="1KB-yv-hcx"/>
                                             <outlet property="showcaseImg" destination="HtS-J7-BWm" id="enO-qc-cN6"/>
                                             <outlet property="username" destination="o9p-Ga-mr3" id="Tq7-zC-ryX"/>
                                         </connections>

@@ -24,9 +24,18 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   @IBOutlet weak var likesLabel: UILabel!
   @IBOutlet weak var likeImage: UIImageView!
   @IBOutlet weak var username: UILabel!
-  @IBOutlet weak var pop: UILabel!
+//  @IBOutlet weak var pop: UILabel!
   @IBOutlet weak var popText: UIButton!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+  
+  @IBOutlet weak var reportButton: UIButton!
+  
+  @IBAction func reportbuttonPressed(sender: AnyObject) {
+    
+    delegate?.showAlert(post!)
+    
+  }
+  
   
   private var commentRef: FIRDatabaseReference!
   private var postRef: FIRDatabaseReference!
@@ -36,7 +45,6 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   
   weak var delegate: PostCellDelegate? = nil
   
-  
   var post: Post? {
     return _post
   }
@@ -44,6 +52,8 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   override func awakeFromNib() {
     
     setupGestureRecognisers()
+    
+    reportButton.imageView?.contentMode = .ScaleAspectFit
     
     descriptionText.delegate = self
     Cache.FeedVC.profileImageCache.delegate = self
@@ -130,12 +140,11 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     if let imageUrl = post.imageUrl {
       
       if let img = img {
-        
+
         self.showcaseImg.image = img
         self.activityIndicator.stopAnimating()
-        
         self.showcaseImg.hidden = false
-        
+
       } else {
         
         self.downloadImage(imageUrl)
@@ -300,7 +309,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
             
             Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
             
-            self.delegate?.reloadTable()
+//            self.delegate?.reloadTable()
             
           }
           

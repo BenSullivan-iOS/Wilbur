@@ -23,15 +23,15 @@ class Post {
   private var _commentText = [String]()
   private var _commentUsers = [String]()
   private var _commentedOn: Bool!
+  private var _answered: Bool!
   
-  func wasCommentedOn(commentedOn: Bool) {
-    _commentedOn = commentedOn
+  var answered: Bool {
+    return _answered
   }
   
   var commentedOn: Bool {
     return _commentedOn
   }
-  
   var date: String {
     return _date
   }
@@ -64,6 +64,10 @@ class Post {
   }
   var commentText: [String] {
     return _commentText
+  }
+  
+  func wasCommentedOn(commentedOn: Bool) {
+    _commentedOn = commentedOn
   }
   
   func adjustFakeCount(addFakeCount: Bool) {
@@ -119,6 +123,12 @@ class Post {
       self._postDescription = desc
     }
     
+    if let answered = dictionary["answered"] as? Bool {
+     self._answered = answered
+    } else {
+      self._answered = false
+    }
+    
     if let comments = dictionary["comments"] as? NSDictionary {
       
       var value = [String: String]()
@@ -126,10 +136,6 @@ class Post {
       var array = [NSDictionary](count: comments.count, repeatedValue: ["nil":"nil"])
       
       for i in comments where i.key as! String != "placeholder" {
-        
-//        print("i in comments", i.key)
-        
-        //array of dictionaries then sort?
         
         let first = i.key as! String
         let second = Int(first)!
@@ -143,46 +149,27 @@ class Post {
         
         for i in commentValue {
           
-          print(i.value)
-          
           let key = i.key as! String
           let newValue = i.value as! String
           value[key] = newValue
           
         }
       }
-//      print("Array = ", array)
       
       for i in array {
 
         for a in i where a.0 as! String != "nil" {
           
-          print(a.0)
-          
           self._commentText.append(a.0 as! String)
           self._commentUsers.append(a.1 as! String)
           
-          self._comments[a.0 as! String] = a.1 as! String
+//          self._comments[a.0 as! String] = a.1 as! String
 
         }
         
       }
       print(self._comments)
-//      for i in value {
-//
-//        self._comments[i.0] = i.1
-//        
-//      }
-      
-      
-//      for i in comments {
-//        
-//        if let key = i.key as? String, value = i.value as? String {
-//          
-//          self._comments[key] = value
-//          
-//        }
-//      }
+
     }
     
     self._postRef = DataService.ds.REF_POSTS.child(self._postKey)

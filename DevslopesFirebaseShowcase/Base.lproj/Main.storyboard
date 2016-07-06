@@ -23,12 +23,12 @@
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
-            <string>NotoSans-Bold</string>
         </mutableArray>
         <mutableArray key="NotoSans-BoldItalic.ttf">
             <string>NotoSans-BoldItalic</string>
         </mutableArray>
         <mutableArray key="NotoSans-Regular.ttf">
+            <string>NotoSans</string>
             <string>NotoSans</string>
             <string>NotoSans</string>
             <string>NotoSans</string>
@@ -146,7 +146,7 @@
                                     <constraint firstAttribute="width" constant="63" id="3bA-FV-9vQ"/>
                                     <constraint firstAttribute="height" constant="30" id="vKH-IW-zkt"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="18"/>
                                 <state key="normal" title="POST">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -401,20 +401,24 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pEM-aH-YZu" customClass="MaterialView" customModule="Wilbur" customModuleProvider="target">
                                         <rect key="frame" x="8" y="8" width="584" height="584"/>
                                         <subviews>
-                                            <imageView hidden="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V5B-mn-kPs">
-                                                <rect key="frame" x="8" y="108" width="568" height="468"/>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLT-MB-crC" customClass="MaterialView" customModule="Wilbur" customModuleProvider="target">
+                                                <rect key="frame" x="18" y="101" width="549" height="83"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Co-Yk-FAH">
+                                                        <rect key="frame" x="237" y="15" width="74" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="74" id="ehT-fP-r7J"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button" image="micIconGrey"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="435" id="1Vm-gV-NCG"/>
-                                                    <constraint firstAttribute="height" constant="167" id="K5f-kx-moW"/>
-                                                    <constraint firstAttribute="height" constant="468" id="rAu-pL-6Yg"/>
+                                                    <constraint firstItem="3Co-Yk-FAH" firstAttribute="centerX" secondItem="RLT-MB-crC" secondAttribute="centerX" id="7Oj-w3-EQC"/>
+                                                    <constraint firstItem="3Co-Yk-FAH" firstAttribute="top" secondItem="RLT-MB-crC" secondAttribute="top" constant="15" id="8U3-pn-yHt"/>
+                                                    <constraint firstItem="3Co-Yk-FAH" firstAttribute="bottom" secondItem="RLT-MB-crC" secondAttribute="bottomMargin" id="9Ab-2w-xUf"/>
                                                 </constraints>
-                                                <variation key="default">
-                                                    <mask key="constraints">
-                                                        <exclude reference="1Vm-gV-NCG"/>
-                                                        <exclude reference="K5f-kx-moW"/>
-                                                    </mask>
-                                                </variation>
-                                            </imageView>
+                                            </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="425" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H9q-b9-pxx">
                                                 <rect key="frame" x="8" y="117" width="568" height="459"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -447,25 +451,6 @@
                                                     <outlet property="delegate" destination="MTC-Fn-lvg" id="3X5-zI-MAM"/>
                                                 </connections>
                                             </tableView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLT-MB-crC" customClass="MaterialView" customModule="Wilbur" customModuleProvider="target">
-                                                <rect key="frame" x="18" y="101" width="549" height="83"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Co-Yk-FAH">
-                                                        <rect key="frame" x="237" y="15" width="74" height="60"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="74" id="ehT-fP-r7J"/>
-                                                        </constraints>
-                                                        <state key="normal" title="Button" image="micIconGrey"/>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstItem="3Co-Yk-FAH" firstAttribute="centerX" secondItem="RLT-MB-crC" secondAttribute="centerX" id="At1-Dk-JqP"/>
-                                                    <constraint firstAttribute="bottom" secondItem="3Co-Yk-FAH" secondAttribute="bottom" constant="8" id="Bv8-ta-OE8"/>
-                                                    <constraint firstAttribute="height" constant="83" id="PmX-JG-hsu"/>
-                                                    <constraint firstItem="3Co-Yk-FAH" firstAttribute="top" secondItem="RLT-MB-crC" secondAttribute="top" constant="15" id="cw7-xf-INH"/>
-                                                </constraints>
-                                            </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Enter description, include as much detail as possible" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bh2-r8-efI">
                                                 <rect key="frame" x="8" y="39" width="568" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -482,6 +467,20 @@
                                                     </mask>
                                                 </variation>
                                             </textView>
+                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="createPostPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="V5B-mn-kPs">
+                                                <rect key="frame" x="8" y="108" width="568" height="254"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="435" id="1Vm-gV-NCG"/>
+                                                    <constraint firstAttribute="height" constant="167" id="K5f-kx-moW"/>
+                                                    <constraint firstAttribute="height" constant="254" id="rAu-pL-6Yg"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="1Vm-gV-NCG"/>
+                                                        <exclude reference="K5f-kx-moW"/>
+                                                    </mask>
+                                                </variation>
+                                            </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="gQF-w1-2Hc">
                                                 <rect key="frame" x="182" y="7" width="242" height="25"/>
                                                 <subviews>
@@ -549,22 +548,29 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="H9q-b9-pxx" secondAttribute="bottom" constant="8" id="1Bm-Bq-mU4"/>
-                                            <constraint firstAttribute="trailing" secondItem="RLT-MB-crC" secondAttribute="trailing" constant="17" id="Gqv-24-Fe6"/>
+                                            <constraint firstItem="RLT-MB-crC" firstAttribute="leading" secondItem="pEM-aH-YZu" secondAttribute="leading" constant="18" id="AD2-3y-qBC"/>
                                             <constraint firstItem="bh2-r8-efI" firstAttribute="leading" secondItem="pEM-aH-YZu" secondAttribute="leading" constant="8" id="Hie-EU-ttD"/>
                                             <constraint firstItem="RLT-MB-crC" firstAttribute="top" secondItem="gQF-w1-2Hc" secondAttribute="bottom" constant="69" id="V7w-GB-ZlI"/>
                                             <constraint firstAttribute="trailing" secondItem="H9q-b9-pxx" secondAttribute="trailing" constant="8" id="XvE-dw-B80"/>
                                             <constraint firstItem="bh2-r8-efI" firstAttribute="top" secondItem="pEM-aH-YZu" secondAttribute="top" constant="39" id="YmY-S4-X8b"/>
                                             <constraint firstItem="gQF-w1-2Hc" firstAttribute="top" secondItem="pEM-aH-YZu" secondAttribute="topMargin" constant="-1" id="aRC-aD-Xgo"/>
                                             <constraint firstAttribute="trailing" secondItem="V5B-mn-kPs" secondAttribute="trailing" constant="8" id="aTk-Xz-PS4"/>
+                                            <constraint firstAttribute="bottom" secondItem="RLT-MB-crC" secondAttribute="bottom" constant="400" id="csD-Hd-aLu"/>
                                             <constraint firstItem="V5B-mn-kPs" firstAttribute="leading" secondItem="pEM-aH-YZu" secondAttribute="leading" constant="8" id="eW5-mn-Zfo"/>
-                                            <constraint firstItem="RLT-MB-crC" firstAttribute="leading" secondItem="pEM-aH-YZu" secondAttribute="leading" constant="18" id="i2G-Xi-Hz4"/>
                                             <constraint firstAttribute="trailing" secondItem="bh2-r8-efI" secondAttribute="trailing" constant="8" id="let-Im-8QL"/>
+                                            <constraint firstItem="RLT-MB-crC" firstAttribute="centerX" secondItem="bh2-r8-efI" secondAttribute="centerX" id="nUK-u4-knL"/>
+                                            <constraint firstItem="RLT-MB-crC" firstAttribute="top" secondItem="gQF-w1-2Hc" secondAttribute="bottom" constant="69" id="qHj-fO-nv1"/>
                                             <constraint firstItem="V5B-mn-kPs" firstAttribute="top" secondItem="bh2-r8-efI" secondAttribute="bottom" constant="-1" id="rsI-aU-nn6"/>
                                             <constraint firstItem="gQF-w1-2Hc" firstAttribute="centerX" secondItem="V5B-mn-kPs" secondAttribute="centerX" constant="11" id="twW-tC-kk0"/>
                                             <constraint firstItem="H9q-b9-pxx" firstAttribute="leading" secondItem="pEM-aH-YZu" secondAttribute="leading" constant="8" id="vIL-03-QA1"/>
                                             <constraint firstItem="H9q-b9-pxx" firstAttribute="top" secondItem="bh2-r8-efI" secondAttribute="bottom" constant="8" id="vzk-aC-tnx"/>
                                             <constraint firstAttribute="height" constant="584" id="wTj-cf-D3O"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="V7w-GB-ZlI"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -584,15 +590,12 @@
                             <constraint firstAttribute="trailing" secondItem="kNO-jP-Tzx" secondAttribute="trailing" id="q5K-ce-uWj"/>
                         </constraints>
                     </view>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="600"/>
                     <connections>
                         <outlet property="cameraIcon" destination="glK-ii-pK3" id="DdX-Vf-vbS"/>
                         <outlet property="descriptionText" destination="bh2-r8-efI" id="79c-Po-7Cl"/>
-                        <outlet property="image" destination="V5B-mn-kPs" id="bsc-xD-wAS"/>
                         <outlet property="micIcon" destination="73M-ue-Nhy" id="3GH-a9-NUO"/>
                         <outlet property="scrollView" destination="kNO-jP-Tzx" id="xJH-XY-e6f"/>
-                        <outlet property="selectedImage" destination="V5B-mn-kPs" id="33G-uO-zwh"/>
+                        <outlet property="selectedImage" destination="V5B-mn-kPs" id="7Lb-np-kQ4"/>
                         <outlet property="tableView" destination="H9q-b9-pxx" id="xUk-U7-aha"/>
                     </connections>
                 </viewController>
@@ -1050,6 +1053,7 @@
     </scenes>
     <resources>
         <image name="cameraIconGrey" width="626" height="510"/>
+        <image name="createPostPlaceholder" width="576" height="438"/>
         <image name="me" width="587" height="587"/>
         <image name="micIconGrey" width="256" height="256"/>
         <image name="profile-placeholder" width="600" height="600"/>

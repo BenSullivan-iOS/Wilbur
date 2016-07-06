@@ -164,21 +164,21 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
   
   //MARK: - ALERTS
   
-  func showDeletePostAlert(key: String) {
-    displayDeleteAlert(key)
+  func showAlert(post: Post) {
+    displayDeleteAlert(post)
   }
   
-  func displayDeleteAlert(key: String) {
+  func displayDeleteAlert(post: Post) {
     
     let alert = UIAlertController(title: "Delete post?!", message: "", preferredStyle: .Alert)
     
     alert.addAction(UIAlertAction(title: "Yes please!", style: .Default, handler: { (action) in
       
-      let userPostRef = DataService.ds.REF_USER_CURRENT.child("posts").child(key) as FIRDatabaseReference!
-      userPostRef.removeValue()
-      
-      let postRef = DataService.ds.REF_POSTS.child(key)
-      postRef.removeValue()
+//      let userPostRef = DataService.ds.REF_USER_CURRENT.child("posts").child(key) as FIRDatabaseReference!
+//      userPostRef.removeValue()
+//      
+//      let postRef = DataService.ds.REF_POSTS.child(key)
+//      postRef.removeValue()
       
     }))
     

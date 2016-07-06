@@ -58,7 +58,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   //MARK: - VIEW CONTROLLER LIFESCYCLE
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     tableView.delegate = self
     
     scrollView.scrollEnabled = false
@@ -79,8 +79,19 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
 
   
   override func viewWillAppear(animated: Bool) {
+    
+//    selectedImage.image = UIImage(named: "createPostPlaceholder")
+//    
+//    let height = AVMakeRectWithAspectRatioInsideRect(UIImage(named: "createPostPlaceholder")!.size, selectedImage.frame).height
+//    tableView.rowHeight = height
+//    tableView.reloadData()
     AppState.shared.currentState = .CreatingPost
     tap.enabled = true
+    
+//    selectedImage.image = UIImage(named: "createPostPlaceholder")
+
+    
+    
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -90,8 +101,13 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("imageCell") as! ImageTable
   
-    if selectedImage.image != nil {
-    cell.tableImage.image = selectedImage.image
+    if selectedImage.image != UIImage(named: "createPostPlaceholder") {
+      cell.tableImage.image = selectedImage.image
+      self.selectedImage.image = nil
+    } else {
+      
+      cell.tableImage.image = nil
+
     }
     
     return cell
@@ -190,8 +206,10 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     
     let path2 = direct().stringByAppendingPathComponent("tempImage.jpg")
     print(path2)
-    let compressedImage = resizeImage(image, newWidth: 1536)
-    let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0)
+//    let compressedImage = resizeImage(image, newWidth: 1536)
+    let compressedImage = resizeImage(image, newWidth: 1000)
+
+    let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0.2)
     let result = jpgImageData!.writeToFile(path2, atomically: true)
     print(result)
     selectedImagePath = NSURL(fileURLWithPath: path2)
@@ -254,7 +272,8 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
       firebasePost.setValue(post)
   
       descriptionText.text = ""
-      selectedImage.image = UIImage(named: "camera")
+      selectedImage.image = UIImage(named: "createPostPlaceholder")
+      tableView.reloadData()
   
       savePostToUser(firebasePost.key)
     }

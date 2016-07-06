@@ -10,9 +10,10 @@ import UIKit
 import Firebase
 import FDWaveformView
 import AVFoundation
+import FirebaseStorage
 
 protocol PostCellDelegate: class {
-  func showDeletePostAlert(key: String)
+  func showAlert(post: Post)
   func reloadTable()
   func customCellCommentButtonPressed()
 }
@@ -56,21 +57,21 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.delegate = self
     tableView.dataSource = self
     
-//    NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+    NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
   }
   
   
   override func viewWillAppear(animated: Bool) {
-    AppState.shared.currentState = .Feed
     
-    //    tableView.reloadData()
+    AppState.shared.currentState = .Feed
+    tableView.reloadData()
   }
   
   
   
   //MARK: - TABLE VIEW
   
-//  }
+  //  }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
@@ -85,7 +86,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     return posts.count
   }
-    
+  
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
     if AppState.shared.currentState == .Feed {
@@ -101,13 +102,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         
         cell.showcaseImg.hidden = true
         cell.showcaseImg.image = nil
-
+        
         if let url = post.imageUrl {
           
           img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
           cell.showcaseImg.hidden = false
           cell.showcaseImg.image = UIImage(named: "DownloadingImageBackground")
-
+          
         }
         
         if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
@@ -133,7 +134,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   }
   
   
-
+  
   
   //MARK: - DOWNLOAD CONTENT
   
@@ -151,8 +152,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
             
             let key = snap.key
             let post = Post(postKey: key, dictionary: postDict)
-            self.posts.append(post)
             
+            if !post.answered {
+              
+              self.posts.append(post)
+              
+            }
           }
         }
         
@@ -177,47 +182,70 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   //MARK: - ALERTS
   
-  func showDeletePostAlert(key: String) {
-    displayDeleteAlert(key)
+  func showAlert(post: Post) {
+    displayDeleteAlert(post)
   }
   
-  func displayDeleteAlert(key: String) {
+  func displayDeleteAlert(post: Post) {
     
-    let alert = UIAlertController(title: "Delete post?!", message: "", preferredStyle: .Alert)
+    let storageImageRef = FIRStorage.storage().reference()
+    let postRef = DataService.ds.REF_POSTS.child(post.postKey) as FIRDatabaseReference!
+    let userPostRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey) as FIRDatabaseReference!
     
-    alert.addAction(UIAlertAction(title: "Yes please!", style: .Default, handler: { (action) in
-      
-      let userPostRef = DataService.ds.REF_USER_CURRENT.child("posts").child(key) as FIRDatabaseReference!
-      userPostRef.removeValue()
-      
-      let postRef = DataService.ds.REF_POSTS.child(key)
-      postRef.removeValue()
-      
-      let storageAudioRef = FIRStorage.storage().reference()
-      storageAudioRef.child("audio/"+key+".m4a")//.child(key + ".jpg")
-      
-      print("storage audio ref: ", storageAudioRef.fullPath)
-      
-      storageAudioRef.deleteWithCompletion({ (error) in
-        guard error == nil else { print(error.debugDescription) ; return }
-        print("storage audio removed")
-      })
-      
-      //      let storageImageRef = FIRStorage.storage()
-      //
-      //      storageImageRef.child("images/"+key+".jpg")//.child(key + ".m4a")
-      //      print("storage image ref: ", storageImageRef.fullPath)
-      //
-      //      storageImageRef.deleteWithCompletion({ (error) in
-      //        guard error == nil else { print(error.debugDescription) ; return }
-      //        print("storage image removed")
-      //      })
-      
-    }))
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
     
-    alert.addAction(UIAlertAction(title: "Actually, no thanks!", style: .Default, handler: nil))
+    if post.userKey == NSUserDefaults.standardUserDefaults().objectForKey(Constants.shared.KEY_UID) as! String {
+      
+      alert.addAction(UIAlertAction(title: "Mark as Answered", style: .Default, handler: { (action) in
+        
+        postRef.child("answered")
+        postRef.setValue(true)
+        
+      }))
+      
+      alert.addAction(UIAlertAction(title: "Delete Post", style: .Default, handler: { (action) in
+        
+        userPostRef.removeValue()
+        postRef.removeValue()
+        
+        let deleteMethod = storageImageRef.child("images").child(post.postKey + ".jpg")
+        
+        deleteMethod.deleteWithCompletion({ (error) in
+          
+          guard error == nil else { print("delete error", error.debugDescription) ; return }
+          
+          print("storage image removed")
+        })
+        
+      }))
+      
+    } else {
+      
+      alert.addAction(UIAlertAction(title: "Report", style: .Default, handler: { (action) in
+        
+        
+        
+      }))
+      
+      alert.addAction(UIAlertAction(title: "Block User", style: .Default, handler: { (action) in
+        
+        
+        
+      }))
+      
+    }
+    
+    
+    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
     
     self.presentViewController(alert, animated: true, completion: nil)
+    
+  }
+  
+  func reportAlert() {
+    
+    let alert = UIAlertController(title: "Reason for report?", message: nil, preferredStyle: .Alert)
+    
     
   }
   
