@@ -31,22 +31,22 @@ class TopTrumpsCell: UITableViewCell {
     tap.numberOfTapsRequired = 1
   }
   
-  func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
-    
-    if let comment = DataService.ds.REF_USER_CURRENT.child("comments").child(post.postKey) as? FIRDatabaseReference? {
-      commentRef = comment
-    }
-//
+  func configureCell(post: Post, img: UIImageView?, profileImg: UIImage?) {
+//    
+//    if let comment = DataService.ds.REF_USER_CURRENT.child("comments").child(post.postKey) as? FIRDatabaseReference? {
+//      commentRef = comment
+//    }
+////
 //    self._post = post
-//    self.likesLabel.text = "\(post.likes)"
-//    self.username.text = post.username
-//    self.descriptionTextView.text = post.postDescription
-//    
-//    self.profileImg.image = UIImage(named: "profile-placeholder")
-//    
-//    if let profileImg = profileImg {
-//      self.profileImg.image = profileImg
-//      
+////    self.likesLabel.text = "\(post.likes)"
+////    self.username.text = post.username
+////    self.descriptionTextView.text = post.postDescription
+////    
+////    self.profileImg.image = UIImage(named: "profile-placeholder")
+////    
+////    if let profileImg = profileImg {
+////      self.profileImg.image = profileImg
+////      
 //    } else {
 //      downloadProfileImage(post.userKey)
 //    }

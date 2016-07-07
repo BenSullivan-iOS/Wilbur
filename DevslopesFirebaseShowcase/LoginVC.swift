@@ -46,17 +46,17 @@ class LoginVC: UIViewController {
           
           reference.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             
-//            if snapshot.value?.uid == user.uid {
+            if snapshot.value?.uid == user.uid {
             
               if let savedUID = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String {
                 
-//                if savedUID != user.uid {
+                if savedUID != user.uid {
                 
                   DataService.ds.createFirebaseUser(user.uid, user: provider)
                   
-//                }
+                }
               }
-//            }
+            }
           })
           
           NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")

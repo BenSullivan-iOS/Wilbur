@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>Wildlife 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>Wildlife.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +23,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>B548A42C1CE8FFC40084215C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B5DE8A051D2EA42C00F9C364</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -20,16 +20,13 @@ protocol PostCellDelegate: class {
 
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
   
-  private var posts = [Post]()
-  private var currentRow = Int()
-  
-  @IBOutlet weak var profileButton: UIButton!
   @IBOutlet weak var tableView: UITableView!
   private var cellImage: UIImage? = nil
   
   func reloadTable() {
     
     tableView.reloadData()
+    
   }
   
   func customCellCommentButtonPressed() {
@@ -47,8 +44,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     self.tableView.rowHeight = UITableViewAutomaticDimension
     
     self.tableView.scrollsToTop = false
-    
-    downloadTableContent()
+    DataService.ds.delegate = self
+    DataService.ds.downloadTableContent()
     
     AppState.shared.currentState = .Feed
     
@@ -68,34 +65,20 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   }
   
   
-  
   //MARK: - TABLE VIEW
-  
-  //  }
-  
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    
-    //    let path = HelperFunctions.getDocumentsDirectory()
-    //    let stringPath = String(path) + "/" + posts[indexPath.row].audioURL
-    //    let finalPath = NSURL(fileURLWithPath: stringPath)
-    //    CreatePost.shared.downloadAudio(finalPath, postKey: posts[indexPath.row].postKey)
-    
-  }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    return posts.count
+    return DataService.ds.posts.count ?? 0
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
     if AppState.shared.currentState == .Feed {
       
-      currentRow = indexPath.row
-      
       if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
         
-        let post = posts[indexPath.row]
+        let post = DataService.ds.posts[indexPath.row]
         
         var img: UIImage?
         var profileImg: UIImage?
@@ -104,22 +87,27 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         cell.showcaseImg.image = nil
         
         if let url = post.imageUrl {
-          
           img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
           cell.showcaseImg.hidden = false
           cell.showcaseImg.image = UIImage(named: "DownloadingImageBackground")
-          
         }
         
         if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
           
           profileImg = profileImage
-          cell.profileImg.image = profileImg
           
-          if post.username == NSUserDefaults.standardUserDefaults().valueForKey("username") as? String && TempProfileImageStorage.shared.profileImage == nil {
-            print("setting temp profile image")
-            TempProfileImageStorage.shared.profileImage = profileImg
+          dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             
+            if post.username == NSUserDefaults.standardUserDefaults().valueForKey("username") as? String && TempProfileImageStorage.shared.profileImage == nil {
+              TempProfileImageStorage.shared.profileImage = profileImg
+              
+            }
+              cell.profileImg.clipsToBounds = true
+              cell.profileImg.layer.cornerRadius = cell.profileImg.layer.frame.width / 2
+            
+            dispatch_async(dispatch_get_main_queue(), {
+              cell.profileImg.image = profileImg
+            })
           }
           
         }
@@ -133,52 +121,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     return UITableViewCell()
   }
   
-  
-  
-  
-  //MARK: - DOWNLOAD CONTENT
-  
-  func downloadTableContent() {
-    
-    DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
-      
-      self.posts = []
-      
-      if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
-        
-        for snap in snapshots {
-          
-          if let postDict = snap.value as? [String: AnyObject] {
-            
-            let key = snap.key
-            let post = Post(postKey: key, dictionary: postDict)
-            
-            if !post.answered {
-              
-              self.posts.append(post)
-              
-            }
-          }
-        }
-        
-        self.posts.sortInPlace({ (first, second) -> Bool in
-          
-          let df = NSDateFormatter()
-          df.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
-          
-          if let firstDate = df.dateFromString(first.date), secondDate = df.dateFromString(second.date) {
-            
-            return self.isAfterDate(firstDate, endDate: secondDate)
-          }
-          
-          return true
-        })
-        
-        self.tableView.reloadData()
-        NSNotificationCenter.defaultCenter().postNotificationName("updateComments", object: self)
-      }
-    })
-  }
   
   //MARK: - ALERTS
   
@@ -272,27 +214,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   func checkLoggedIn() {
     
-    if posts.isEmpty {
+    if DataService.ds.posts.isEmpty {
       NSUserDefaults.standardUserDefaults().setValue(nil, forKey: Constants.shared.KEY_UID)
       dismissViewControllerAnimated(true, completion: nil)
     }
   }
   
-  func isAfterDate(startDate: NSDate, endDate: NSDate) -> Bool {
-    
-    let calendar = NSCalendar.currentCalendar()
-    
-    let components = calendar.components([.Second],
-                                         fromDate: startDate,
-                                         toDate: endDate.dateByAddingTimeInterval(86400),
-                                         options: [])
-    
-    if components.day > 0 {
-      return true
-    } else {
-      return false
-    }
-  }
   
   @IBAction func profileButtonPressed(sender: UIButton) {
     performSegueWithIdentifier(Constants.sharedSegues.showProfile, sender: self)

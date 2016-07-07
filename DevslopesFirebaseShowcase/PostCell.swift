@@ -20,23 +20,15 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   
   @IBOutlet weak var profileImg: UIImageView!
   @IBOutlet weak var showcaseImg: UIImageView!
-  @IBOutlet weak var descriptionText: UITextView!
   @IBOutlet weak var likesLabel: UILabel!
   @IBOutlet weak var likeImage: UIImageView!
   @IBOutlet weak var username: UILabel!
-//  @IBOutlet weak var pop: UILabel!
   @IBOutlet weak var popText: UIButton!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-  
   @IBOutlet weak var reportButton: UIButton!
   
-  @IBAction func reportbuttonPressed(sender: AnyObject) {
-    
-    delegate?.showAlert(post!)
-    
-  }
-  
-  
+  @IBOutlet weak var descriptionText: UILabel!
+
   private var commentRef: FIRDatabaseReference!
   private var postRef: FIRDatabaseReference!
   private var profileImage: FIRDatabaseReference!
@@ -55,7 +47,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     
     reportButton.imageView?.contentMode = .ScaleAspectFit
     
-    descriptionText.delegate = self
+//    descriptionText.delegate = self
     Cache.FeedVC.profileImageCache.delegate = self
     
   }
@@ -64,28 +56,28 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     downloadImageTask?.cancel()
   }
   
-  override func drawRect(rect: CGRect) {
+  
+  //MARK: - SHOW ALERT
+  
+  @IBAction func reportbuttonPressed(sender: AnyObject) {
     
-    styleProfileImage()
-    showcaseImg.clipsToBounds = true //FIXME: - Is this needed?
+    delegate?.showAlert(post!)
   }
   
   //MARK: - CELL CONFIGURATION
   
   func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
     
-    activityIndicator.startAnimating()
-    
     commentRef = DataService.ds.REF_USER_CURRENT.child("comments").child(post.postKey)
     postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
-    
+
     self._post = post
     self.likesLabel.text = "\(post.commentText.count)"
     self.username.text = post.username
-    
+
     configureDescriptionText()
     configureImage(post, img: img)
-    
+
     styleCommentButton()
     
     
@@ -118,18 +110,30 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   
   
   func configureProfileImage(post: Post, profileImg: UIImage?) {
-    print(post.userKey)
     
     self.profileImg.image = UIImage(named: "profile-placeholder")
     
-    if let profileImg = profileImg {
-      print("Setting profile image from cache")
-      self.profileImg.image = profileImg
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
       
-    } else {
-      print("downloading profile image")
-      downloadProfileImage(post.userKey)
+      self.profileImg.layer.cornerRadius = self.profileImg.layer.frame.width / 2
+      self.profileImg.clipsToBounds = true
+      
+      dispatch_async(dispatch_get_main_queue(), {
+        
+        self.profileImg.image = UIImage(named: "profile-placeholder")
+        
+        if let profileImg = profileImg {
+          
+          self.profileImg.image = profileImg
+          
+        } else {
+          self.downloadProfileImage(post.userKey)
+        }
+        
+      })
     }
+    
+
     
   }
   
@@ -140,10 +144,9 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     if let imageUrl = post.imageUrl {
       
       if let img = img {
-
-        self.showcaseImg.image = img
-        self.activityIndicator.stopAnimating()
+        
         self.showcaseImg.hidden = false
+        self.showcaseImg.image = img
 
       } else {
         
@@ -151,8 +154,6 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
       }
     } else {
       showcaseImg.hidden = true
-      activityIndicator.stopAnimating()
-      
     }
   }
   
@@ -186,20 +187,26 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     } else {
       print("Download commented on")
       
+      
       commentRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
         
         if let _ = snapshot.value as? NSNull {
           
           self.likeImage.image = UIImage(named: "commentCounterGrey")
           self.popText.setTitleColor(greyColor, forState: .Normal)
-          Cache.FeedVC.commentedOnCache.setObject(false, forKey: (self.post?.postKey)!)
+          
+          dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            Cache.FeedVC.commentedOnCache.setObject(false, forKey: (self.post?.postKey)!)
+          }
           
           
         } else {
           
-          self.post?.wasCommentedOn(true)
-          Cache.FeedVC.commentedOnCache.setObject(true, forKey: (self.post?.postKey)!)
           
+          dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            self.post?.wasCommentedOn(true)
+            Cache.FeedVC.commentedOnCache.setObject(true, forKey: (self.post?.postKey)!)
+          }
           self.likeImage.image = UIImage(named: "commentCounter")
           self.popText.setTitleColor(highlightedColor, forState: .Normal)
         }
@@ -253,6 +260,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     })
   }
   
+  //MARK: - DOWNLOAD IMAGE FUNCTIONS
   
   func downloadImage(imageLocation: String) {
     
@@ -272,8 +280,10 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
         
         if let image = UIImage(data: data) {
           
+          self.showcaseImg.clipsToBounds = true
           self.showcaseImg.image = image
           self.showcaseImg.hidden = false
+          
           Cache.FeedVC.imageCache.setObject(image, forKey: imageLocation)
           
           self.delegate?.reloadTable()
@@ -281,22 +291,17 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
         }
       }
       
-      self.activityIndicator.stopAnimating()
+//      self.activityIndicator.stopAnimating()
     }
   }
   
   func downloadProfileImage(imageLocation: String) {
     
-    print("PROFILE IMAGE LOCATION", imageLocation)
-    print(ProfileImageTracker.imageLocations)
-    
     if !ProfileImageTracker.imageLocations.contains(imageLocation) {
-      print("Doesn't contain")
       
       let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
-      
       pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
         print("downloading...")
         guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
@@ -305,28 +310,18 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
           
           if let image = UIImage(data: data) {
             
-            self.profileImg.image = image
-            
             Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
+            ProfileImageTracker.imageLocations.insert(imageLocation)
             
-//            self.delegate?.reloadTable()
-            
+            dispatch_async(dispatch_get_main_queue(), { 
+              self.profileImg.image = image
+            })
           }
-          
         }
       }
     } else {
       print("Post Cell, profile image already chached")
     }
-    
-    ProfileImageTracker.imageLocations.insert(imageLocation)
-    
-  }
-  
-  func styleProfileImage() {
-    
-    profileImg.layer.cornerRadius = profileImg.frame.size.width / 2
-    profileImg.clipsToBounds = true
   }
   
   func cache(cache: NSCache, willEvictObject obj: AnyObject) {
@@ -361,6 +356,9 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     popText.addGestureRecognizer(likeTextTap)
     popText.userInteractionEnabled = true
   }
+  
+
+
   
 }
 

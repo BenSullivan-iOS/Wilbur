@@ -87,8 +87,8 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   
   func saveImage(image: UIImage, path: String) -> Bool {
     
-    let compressedImage = resizeImage(image, newWidth: 1536)
-    if let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0) {
+    let compressedImage = resizeImage(image, newWidth: 280)
+    if let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0.5) {
       let result = jpgImageData.writeToFile(String(path), atomically: true)
       
       selectedImagePath = NSURL(fileURLWithPath: path)

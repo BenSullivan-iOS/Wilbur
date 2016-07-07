@@ -136,25 +136,27 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
     
     if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
       
-      let post = posts[indexPath.row]
+//      let post = posts[indexPath.row]
+//      
+//      var img: UIImageView?
+//      var profileImg: UIImage?
+//      
+//      if let url = post.imageUrl {
+//        img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImageView
+//      }
+//      
+//      if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
+//        profileImg = profileImage
+//      }
+//      
+//      cell.delegate = self
+//      cell.configureCell(post, img: img, profileImg: profileImg)
+//      
+//      return cell
+//    }
       
-      var img: UIImage?
-      var profileImg: UIImage?
-      
-      if let url = post.imageUrl {
-        img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
-      }
-      
-      if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
-        profileImg = profileImage
-      }
-      
-      cell.delegate = self
-      cell.configureCell(post, img: img, profileImg: profileImg)
-      
-      return cell
     }
-    
+//
     let cell = tableView.dequeueReusableCellWithIdentifier("uploadCell")!
     
     return cell

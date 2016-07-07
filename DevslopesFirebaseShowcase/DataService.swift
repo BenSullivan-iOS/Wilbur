@@ -14,13 +14,24 @@ let URL_BASE = FIRDatabase.database().reference()
 class DataService {
   
   static let ds = DataService()
+  
+  weak var delegate: PostCellDelegate? = nil
     
   private init() {}
   
   private var _REF_BASE = URL_BASE
   private var _REF_POSTS = URL_BASE.child("posts")
   private var _REF_USERS = URL_BASE.child("users")
+  private var _posts: [Post]!
 
+  var posts: [Post] {
+    
+    if let postArray = _posts {
+      return postArray
+    }
+    return [Post]()
+    
+  }
   var REF_BASE: FIRDatabaseReference {
     return _REF_BASE
   }
@@ -51,4 +62,127 @@ class DataService {
     
     
   }
+  
+  func isAfterDate(startDate: NSDate, endDate: NSDate) -> Bool {
+    
+    let calendar = NSCalendar.currentCalendar()
+    
+    let components = calendar.components([.Second],
+                                         fromDate: startDate,
+                                         toDate: endDate.dateByAddingTimeInterval(86400),
+                                         options: [])
+    
+    if components.day > 0 {
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  
+  //MARK: - DOWNLOAD CONTENT
+  
+  func downloadTableContent() {
+    
+    DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
+      
+      self._posts = []
+      
+      if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
+        
+        for snap in snapshots {
+          
+          if let postDict = snap.value as? [String: AnyObject] {
+            
+            let key = snap.key
+            let post = Post(postKey: key, dictionary: postDict)
+            
+            if !post.answered {
+              
+              self._posts.append(post)
+              
+            }
+          }
+        }
+        print(self._posts)
+        print(self._posts[self.count])
+        print(self._posts[self.count].imageUrl)
+
+        
+        self._posts.sortInPlace({ (first, second) -> Bool in
+          
+          let df = NSDateFormatter()
+          df.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
+          
+          if let firstDate = df.dateFromString(first.date), secondDate = df.dateFromString(second.date) {
+            
+            return self.isAfterDate(firstDate, endDate: secondDate)
+          }
+          
+          return true
+        })
+        
+        //only download if not in cache already?
+                
+        if !self._posts.isEmpty {
+          self.downloadImage(self.posts)
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName("updateComments", object: self)
+      }
+    })
+  }
+  
+  var count = 0
+  
+  func downloadImage(posts: [Post]) {
+    print("POSTS COUNT", count)
+    print(posts[count])
+    
+    guard let imageLocation = posts[count].imageUrl else { print("no image"); return }
+    
+    guard Cache.FeedVC.imageCache.objectForKey(imageLocation) as? UIImage == nil else {
+      print("image already downloaded")
+      
+      if self.count < posts.count - 1 {
+        
+        self.count += 1
+        self.downloadImage(self.posts)
+      } else {
+        self.count = 0
+      }
+      return }
+    
+    let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
+    let storageRef: FIRStorageReference? = FIRStorage.storage().reference()
+    
+    guard let storage = storageRef else { return }
+    
+    let pathReference = storage.child(imageLocation)
+    
+    let downloadImageTask = pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+      
+      guard let URL = URL where error == nil else { print("Data Service download error", error.debugDescription); return }
+      
+      if let data = NSData(contentsOfURL: URL) {
+        
+        if let image = UIImage(data: data) {
+          
+          Cache.FeedVC.imageCache.setObject(image, forKey: imageLocation)
+          
+          if self.count < posts.count - 1 {
+            if self.count == 1 {
+              self.delegate?.reloadTable()
+            }
+            self.count += 1
+            self.downloadImage(self.posts)
+          } else {
+            self.count = 0
+          }
+        }
+      }
+    }
+  }
+  
+  
+
 }
