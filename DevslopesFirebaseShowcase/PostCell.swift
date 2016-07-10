@@ -27,7 +27,8 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var reportButton: UIButton!
   
-  @IBOutlet weak var descriptionText: UILabel!
+//  @IBOutlet weak var descriptionText: UILabel!
+  @IBOutlet weak var descriptionText: UITextView!
 
   private var commentRef: FIRDatabaseReference!
   private var postRef: FIRDatabaseReference!
@@ -47,7 +48,6 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
     
     reportButton.imageView?.contentMode = .ScaleAspectFit
     
-//    descriptionText.delegate = self
     Cache.FeedVC.profileImageCache.delegate = self
     
   }
@@ -153,6 +153,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
         self.downloadImage(imageUrl)
       }
     } else {
+      print(post.postDescription)
       showcaseImg.hidden = true
     }
   }
@@ -313,9 +314,7 @@ class PostCell: UITableViewCell, UITextViewDelegate, NSCacheDelegate {
             Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
             ProfileImageTracker.imageLocations.insert(imageLocation)
             
-            dispatch_async(dispatch_get_main_queue(), { 
-              self.profileImg.image = image
-            })
+            self.profileImg.image = image
           }
         }
       }

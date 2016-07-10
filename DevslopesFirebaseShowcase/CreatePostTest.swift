@@ -98,6 +98,23 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     tap.enabled = false
   }
   
+  //MARK: - BUTTONS
+  
+  @IBAction func takePhotoButtonPressed(sender: AnyObject) {
+    
+    if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+      imagePickerAlert()
+    } else {
+      presentViewController(imagePicker, animated: true, completion: nil)
+    }
+  }
+  
+  //MARK: - TABLE VIEW
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 1
+  }
+  
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("imageCell") as! ImageTable
   
@@ -113,19 +130,8 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     return cell
     
   }
- 
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
-  }
   
-  @IBAction func takePhotoButtonPressed(sender: AnyObject) {
-    
-    if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-      imagePickerAlert()
-    } else {
-      presentViewController(imagePicker, animated: true, completion: nil)
-    }
-  }
+  //MARK: - SETUP TEXTFIELD
   
   struct DescriptionText {
     static let defaultText = "Enter description, include as much detail as possible"
@@ -139,14 +145,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     descriptionText.textColor = .grayColor()
   }
   
-  func scrollViewDidScroll(scrollView: UIScrollView) {
-    
-    
-  }
-  
   func tapReceived() {
-    
-    print("tapped")
     
     self.view.endEditing(true)
   }
@@ -219,6 +218,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   
   
   
+  //MARK: - POST FUNCTION
   
     func postToFirebase() {
   
@@ -227,6 +227,10 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
       guard let username = NSUserDefaults.standardUserDefaults().valueForKey("username") else { print("no username"); return }
   
       guard let userKey = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String else { print("no username key"); return }
+      
+      guard descriptionText != "" else { return }
+      
+      postingAlert()
   
       var post: [String: AnyObject] = [
   "description" : descriptionText.text!,
@@ -265,6 +269,8 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
         post["imageUrl"] = "images/\(firebasePost.key).jpg"
   
       } else {
+        
+        self.postedAlert()
    
         self.checkAudioRecorded = false
       }
@@ -285,6 +291,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
       
       let addDefaultText = DataService.ds.REF_POSTS.child(postKey).child("comments").child("placeholder")
       addDefaultText.setValue(1)
+      
     }
   
   
@@ -299,14 +306,16 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
         print("success")
         print("metadata")
         
-        NSNotificationCenter.defaultCenter().postNotificationName("imageSaved", object: self)
+        self.postedAlert()
         
-//        addObserver(self, selector: #selector(FeedVC.reloadTable(_:)), name: "imageSaved", object: nil)
-
+        self.selectedImagePath = nil
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("imageSaved", object: self)
         
       }
     }
 
+  //MARK: - ALERTS
   
   func imagePickerAlert() {
     
@@ -333,5 +342,32 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     presentViewController(alert, animated: true, completion: nil)
   }
   
+  func postingAlert() {
+    
+    self.view.endEditing(true)
+    
+    let alert = UIAlertController(title: "🙈 Posting...", message: nil, preferredStyle: .Alert)
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  func dismissAlert() {
+    
+    
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  func postedAlert() {
+    
+    dismissViewControllerAnimated(false) { _ in
+      
+      let alert = UIAlertController(title: "Posted! 🎉", message: nil, preferredStyle: .Alert)
+      
+      self.presentViewController(alert, animated: true, completion: nil)
+      
+      NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(CreatePostTest.dismissAlert), userInfo: nil, repeats: false)
+    }
+  }
+
   
 }

@@ -138,7 +138,19 @@ class DataService {
     print("POSTS COUNT", count)
     print(posts[count])
     
-    guard let imageLocation = posts[count].imageUrl else { print("no image"); return }
+    guard let imageLocation = posts[count].imageUrl else { print("no image");
+      
+      if self.count < posts.count - 1 {
+        if self.count == 1 {
+          self.delegate?.reloadTable()
+        }
+        self.count += 1
+        self.downloadImage(self.posts)
+      } else {
+        self.count = 0
+      }
+
+      return }
     
     guard Cache.FeedVC.imageCache.objectForKey(imageLocation) as? UIImage == nil else {
       print("image already downloaded")

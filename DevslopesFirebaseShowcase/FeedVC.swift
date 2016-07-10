@@ -54,7 +54,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.delegate = self
     tableView.dataSource = self
     
-    NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
   }
   
   
@@ -215,8 +215,16 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   func checkLoggedIn() {
     
     if DataService.ds.posts.isEmpty {
-      NSUserDefaults.standardUserDefaults().setValue(nil, forKey: Constants.shared.KEY_UID)
+//      NSUserDefaults.standardUserDefaults().setValue(nil, forKey: Constants.shared.KEY_UID)
       dismissViewControllerAnimated(true, completion: nil)
+      
+      let loginViewController: UIViewController!
+      
+      let storyboard = UIStoryboard(name: "Login", bundle: nil)
+      loginViewController = storyboard.instantiateViewControllerWithIdentifier("LoginVC")
+      
+      presentViewController(loginViewController, animated: true, completion: nil)
+    
     }
   }
   
