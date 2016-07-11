@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/DataService.swift"
-            timestampString = "489607944.812011"
+            timestampString = "489832381.981101"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "createFirebaseUser(_:user:)"
             landmarkType = "5">
          </BreakpointContent>

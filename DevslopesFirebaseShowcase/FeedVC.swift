@@ -54,7 +54,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.delegate = self
     tableView.dataSource = self
     
-    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+//    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
   }
   
   
@@ -157,6 +157,17 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
           guard error == nil else { print("delete error", error.debugDescription) ; return }
           
           print("storage image removed")
+          
+          for i in DataService.ds.posts.indices {
+            
+            if DataService.ds.posts[i].postKey == postRef.key {
+              
+              DataService.ds.deletePostAtIndex(i)
+              
+            }
+            
+          }
+          
         })
         
       }))

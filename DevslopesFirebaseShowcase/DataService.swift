@@ -53,6 +53,11 @@ class DataService {
     return user
   }
   
+  func deletePostAtIndex(index: Int) {
+    
+    _posts.removeAtIndex(index)
+  }
+  
   
   func createFirebaseUser(uid: String, user: [String:String]) {
     
@@ -125,7 +130,9 @@ class DataService {
         //only download if not in cache already?
                 
         if !self._posts.isEmpty {
-          self.downloadImage(self.posts)
+          self.delegate?.reloadTable()
+
+//          self.downloadImage(self.posts)
         }
         NSNotificationCenter.defaultCenter().postNotificationName("updateComments", object: self)
       }
