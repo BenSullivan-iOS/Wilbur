@@ -14,15 +14,29 @@ class CommentImageCell: UITableViewCell {
   @IBOutlet weak var postText: UITextView!
   @IBOutlet weak var postDescription: UITextView!
   
-  override func awakeFromNib() {
-    super.awakeFromNib()
+  func configureCell(selectedPost: Post?, downloadedImage: UIImage?) {
     
-  }
-  
-  override func setSelected(selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
+    guard let post = selectedPost else { return }
     
-    // Configure the view for the selected state
+    if let image = downloadedImage {
+      postImage.image = image
+      postText.hidden = true
+      
+      if post.postDescription != "" {
+        
+        postDescription.text = "\(post.postDescription) - \(post.username)"
+        postDescription.font = UIFont.systemFontOfSize(16.0)
+        
+      } else {
+        postDescription.hidden = true
+      }
+      
+    } else {
+      postImage.hidden = true
+      postDescription.hidden = true
+      
+      postText.text = "\(post.postDescription) - \(post.username)"
+      postText.font = UIFont.systemFontOfSize(16.0)
+    }
   }
-  
 }

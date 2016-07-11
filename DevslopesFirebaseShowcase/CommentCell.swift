@@ -13,7 +13,6 @@ class CommentCell: UITableViewCell {
   @IBOutlet weak var profileImage: UIImageView!
   @IBOutlet weak var commentText: UITextView!
   
-  
   override func awakeFromNib() {
     super.awakeFromNib()
     
@@ -22,22 +21,14 @@ class CommentCell: UITableViewCell {
     
   }
   
-  func configureCell(post: Post) {
+  func configureCell(key: String, value: String) {
     
-    let commentRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey).child("comments")
+    commentText.text = key
     
-    commentRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+    if let value = Cache.FeedVC.profileImageCache.objectForKey(value) as? UIImage {
       
-      if let _ = snapshot.value as? NSNull {
-        
-        
-      } else {
-        
-             }
-    })
-
-    
-
+      profileImage.image = value
+    }
   }
   
   override func setSelected(selected: Bool, animated: Bool) {

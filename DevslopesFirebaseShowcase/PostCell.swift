@@ -24,11 +24,9 @@ class PostCell: UITableViewCell, NSCacheDelegate {
   @IBOutlet weak var likeImage: UIImageView!
   @IBOutlet weak var username: UILabel!
   @IBOutlet weak var popText: UIButton!
-  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var reportButton: UIButton!
   
-//  @IBOutlet weak var descriptionText: UILabel!
-  @IBOutlet weak var descriptionText: UITextView!
+  @IBOutlet weak var descriptionText: UILabel!
 
   private var commentRef: FIRDatabaseReference!
   private var postRef: FIRDatabaseReference!

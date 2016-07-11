@@ -130,9 +130,8 @@ class DataService {
         //only download if not in cache already?
                 
         if !self._posts.isEmpty {
-          self.delegate?.reloadTable()
 
-//          self.downloadImage(self.posts)
+          self.downloadImage(self.posts)
         }
         NSNotificationCenter.defaultCenter().postNotificationName("updateComments", object: self)
       }

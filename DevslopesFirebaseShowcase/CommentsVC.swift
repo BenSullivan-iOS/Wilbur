@@ -123,7 +123,7 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
         
         let height = AVMakeRectWithAspectRatioInsideRect((image.size), self.view.frame).height
 
-        return height
+        return height + UITableViewAutomaticDimension
       }
     
     return UITableViewAutomaticDimension
@@ -160,12 +160,7 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     if let cell = tableView.dequeueReusableCellWithIdentifier(cellID.commentCell) as? CommentCell
       where indexPath.section == 1 {
       
-        cell.commentText.text = keyArray[indexPath.row]
-      
-      if let value = Cache.FeedVC.profileImageCache.objectForKey(valueArray[indexPath.row]) as? UIImage {
-        
-        cell.profileImage.image = value
-      }
+      cell.configureCell(keyArray[indexPath.row], value: valueArray[indexPath.row])
       
       return cell
     }
@@ -173,25 +168,7 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     if let cellContent = tableView.dequeueReusableCellWithIdentifier(cellID.imageCell) as? CommentImageCell
       where indexPath.section == 0 {
       
-      print(postImage)
-      if let image = postImage {
-        cellContent.postImage.image = image
-        cellContent.postText.hidden = true
-
-      } else {
-        cellContent.postImage.hidden = true
-        cellContent.postText.text = post?.postDescription
-        cellContent.postText.font = UIFont.systemFontOfSize(16.0)
-      }
-      
-      if post?.postDescription != "" {
-        
-        cellContent.postDescription.text = post?.postDescription
-        cellContent.postDescription.font = UIFont.systemFontOfSize(16.0)
-
-      } else {
-        cellContent.postDescription.hidden = true
-      }
+      cellContent.configureCell(post, downloadedImage: postImage)
       
       return cellContent
       

@@ -52,16 +52,21 @@
                                                     <rect key="frame" x="8" y="8" width="584" height="335"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QVN-pZ-9x6">
-                                                            <rect key="frame" x="0.0" y="0.0" width="584" height="292"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="584" height="297"/>
                                                         </imageView>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Test text" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ADe-5p-YXT">
-                                                            <rect key="frame" x="0.0" y="292" width="584" height="43"/>
+                                                            <rect key="frame" x="0.0" y="297" width="584" height="38"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="43" id="s5M-14-xpZ"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="16"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <variation key="default">
+                                                                <mask key="constraints">
+                                                                    <exclude reference="s5M-14-xpZ"/>
+                                                                </mask>
+                                                            </variation>
                                                         </textView>
                                                     </subviews>
                                                 </stackView>
@@ -198,6 +203,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="profile-placeholder" width="600" height="600"/>
+        <image name="profile-placeholder" width="70" height="70"/>
     </resources>
 </document>
