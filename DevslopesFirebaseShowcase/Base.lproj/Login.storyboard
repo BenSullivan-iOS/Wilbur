@@ -13,6 +13,7 @@
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
+            <string>NotoSans-Bold</string>
         </mutableArray>
         <mutableArray key="NotoSans-Regular.ttf">
             <string>NotoSans</string>
@@ -83,6 +84,20 @@
                                     <constraint firstItem="Jho-Yk-WXk" firstAttribute="centerY" secondItem="n5x-vH-WGC" secondAttribute="centerY" id="rbV-q7-7qa"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rhw-ry-H19">
+                                <rect key="frame" x="46" y="394" width="508" height="33"/>
+                                <color key="backgroundColor" red="0.27058823529999998" green="0.35294117650000001" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="eH1-JH-Csh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
+                                <state key="normal" title="Continue as guest">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="guestButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4q6-4N-bu2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -93,6 +108,7 @@
                     </view>
                     <connections>
                         <outlet property="facebookLoginButton" destination="Tg7-Dm-DUf" id="sbd-Bu-VoO"/>
+                        <outlet property="guestButton" destination="Rhw-ry-H19" id="FLP-j7-Ocb"/>
                         <segue destination="ArX-Yy-GJ7" kind="show" identifier="loggedIn" id="20j-QR-Kjv"/>
                     </connections>
                 </viewController>

@@ -9,11 +9,11 @@
 import UIKit
 import FirebaseStorage
 import Firebase
-
-protocol ProfileTableDelegate {
-  
-  func rowSelected(rowTitle: SelectedRow)
-}
+//
+//protocol ProfileTableDelegate {
+//  
+//  func rowSelected(rowTitle: SelectedRow)
+//}
 
 enum SelectedRow {
   
@@ -31,18 +31,25 @@ class TempProfileImageStorage {
   
 }
 
-class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, ProfileTableDelegate {
+class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
   
+  @IBOutlet weak var username: UILabel!
   @IBOutlet weak var profileImage: UIImageView!
   
-  let imagePicker = UIImagePickerController()
-  var selectedImagePath = NSURL?()
+  private let imagePicker = UIImagePickerController()
+  private var profileImageRef: FIRDatabaseReference!
+  private var selectedImagePath = NSURL?()
+  private var loggedIn = false
+  
+  //MARK: - VC LIFECYCLE
   
   override func viewDidLoad() {
+    super.viewDidLoad()
     
     if TempProfileImageStorage.shared.profileImage == nil {
       getProfileImageReferenceThenDownload()
     } else {
+      loggedIn = true
       profileImage.image = TempProfileImageStorage.shared.profileImage
     }
     
@@ -57,7 +64,16 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       username.text = currentUsername
     }
   }
+  
+  override func viewDidAppear(animated: Bool) {
+    
+    if !loggedIn {
+      guestAlert()
+    }
 
+  }
+  
+  //MARK: - BUTTONS
   
   @IBAction func setProfileImagePressed(sender: AnyObject) {
     
@@ -67,6 +83,13 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       presentViewController(imagePicker, animated: true, completion: nil)
     }
   }
+  
+  @IBAction func backButtonPressed(sender: UIButton) {
+    
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  //MARK: - IMAGE FUNCTIONS
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     
@@ -138,67 +161,58 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     }
   }
   
-  @IBAction func popOffButtonPressed(sender: UIButton) {
-    
-    dismissViewControllerAnimated(true, completion: nil)
-  }
+//  func rowSelected(rowTitle: SelectedRow) {
+//    
+//    switch rowTitle {
+//    case .MyPosts:
+//      print("my posts")
+//      self.navigationController?.pushViewController(TopTrumpsVC(), animated: true) //FIXME: Why isn't this pusing as a nav controller?
+//    case .PoppedPosts:
+//      print("popped posts")
+//    case .Feedback:
+//      print("feedback")
+//    case .FeatureRequest:
+//      print("feature request")
+//    }
+//  }
   
-  @IBOutlet weak var username: UILabel!
-  
-  func rowSelected(rowTitle: SelectedRow) {
-    
-    switch rowTitle {
-    case .MyPosts:
-      print("my posts")
-      self.navigationController?.pushViewController(TopTrumpsVC(), animated: true) //FIXME: Why isn't this pusing as a nav controller?
-    case .PoppedPosts:
-      print("popped posts")
-    case .Feedback:
-      print("feedback")
-    case .FeatureRequest:
-      print("feature request")
-    }
-  }
-  
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "embeddedTable" {
-      print("embedded segue")
-      
-      if let profileTable = segue.destinationViewController as? ProfileTable {
-        
-        profileTable.delegate = self
-      }
-      
-    }
-  }
-  
-  var profileImageRef: FIRDatabaseReference!
-  
+//  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//    if segue.identifier == "embeddedTable" {
+//      print("embedded segue")
+//      
+//      if let profileTabl = segue.destinationViewController as? ProfileTable {
+//        
+//        profileTable.delegate = self
+//      }
+//      
+//    }
+//  }
   
   func getProfileImageReferenceThenDownload() {
     
-    let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
-    profileImageRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
+    loggedIn = true
     
-    profileImageRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+    if let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String {
+            
+      profileImageRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
       
-      if let _ = snapshot.value as? NSNull {
+      profileImageRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
         
-        print("profile vc = null found")
+        if let _ = snapshot.value as? NSNull {
+          
+          print("profile vc = null found")
+          
+        } else {
+          
+          self.downloadProfileImage(snapshot.value as! String)
+          
+        }
         
-      } else {
-        
-        self.downloadProfileImage(snapshot.value as! String)
-        
-      }
+      })
       
-    })
-  }
-  
-  func direct() -> NSString {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
-    return documentsDirectory
+    } else {
+      loggedIn = false
+    }
   }
 
   func downloadProfileImage(imageLocation: String) {
@@ -218,17 +232,36 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       print(URL)
       print(saveLocation)
       
-      if let data = NSData(contentsOfURL: URL) {
-        if let image = UIImage(data: data) {
-          
+      guard let data = NSData(contentsOfURL: URL), image = UIImage(data: data) else { return }
+      
           self.profileImage.image = image
           TempProfileImageStorage.shared.profileImage = image
-          
-        }
-      }
-      
     }
   }
+  
+  //MARK: - AlERTS
+  
+  func guestAlert() {
+    
+    let alert = UIAlertController(title: "Function unavailable", message: "You must be logged in to comment", preferredStyle: .Alert)
+    
+    alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
+      
+      AppState.shared.currentState = .PresentLoginFromComments
+      
+      self.dismissViewControllerAnimated(false, completion: nil)
+      
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { action in
+      
+      self.dismissViewControllerAnimated(true, completion: nil)
+      
+    }))
+    
+    self.presentViewController(alert, animated: true, completion: nil)
+  }
+
   
   func imagePickerAlert() {
     
@@ -243,7 +276,6 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       
     }))
     
-    
     alert.addAction(UIAlertAction(title: "Photo Library", style: .Default, handler: { action in
       
       print("photo library")
@@ -253,9 +285,17 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Blow Off", style: .Cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
     
     presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  //MARK: - OTHER
+  
+  func direct() -> NSString {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let documentsDirectory = paths[0]
+    return documentsDirectory
   }
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {

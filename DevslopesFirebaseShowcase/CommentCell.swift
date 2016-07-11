@@ -18,7 +18,6 @@ class CommentCell: UITableViewCell {
     
     profileImage.layer.cornerRadius = profileImage.frame.width / 2
     profileImage.clipsToBounds = true
-    
   }
   
   func configureCell(key: String, value: String) {
@@ -30,11 +29,4 @@ class CommentCell: UITableViewCell {
       profileImage.image = value
     }
   }
-  
-  override func setSelected(selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
-  }
-  
 }

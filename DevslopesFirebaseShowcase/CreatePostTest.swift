@@ -36,25 +36,6 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   private var selectedImagePath = NSURL?()
   private let tap = UITapGestureRecognizer()
   
-  @IBAction func recordButtonPressed(sender: UIButton) {
-    
-    AudioControls.shared.recordTapped()
-
-    
-    
-  }
-  
-  func audioRecorded() {
-  //
-  }
-  
-  
-  
-  func postButtonPressed() {
-    print("Well done! Creating post etc...")
-    postToFirebase()
-  }
-  
   //MARK: - VIEW CONTROLLER LIFESCYCLE
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -94,6 +75,25 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     
   }
   
+  @IBAction func recordButtonPressed(sender: UIButton) {
+    
+    AudioControls.shared.recordTapped()
+    
+    
+    
+  }
+  
+  func audioRecorded() {
+    //
+  }
+  
+  
+  
+  func postButtonPressed() {
+    print("Well done! Creating post etc...")
+    postToFirebase()
+  }
+  
   override func viewWillDisappear(animated: Bool) {
     tap.enabled = false
   }
@@ -102,8 +102,12 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   
   @IBAction func takePhotoButtonPressed(sender: AnyObject) {
     
+    guard NSUserDefaults.standardUserDefaults().valueForKey("username") != nil else { displayAlert("Function unavailable", message: "You must be logged in to post", state: .notLoggedIn); return }
+    
     if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-      imagePickerAlert()
+      
+        imagePickerAlert()
+      
     } else {
       presentViewController(imagePicker, animated: true, completion: nil)
     }
@@ -172,7 +176,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     let image = info[UIImagePickerControllerOriginalImage] as! UIImage
     selectedImage.image = image
     
-    let saveDirectory = String(HelperFunctions.getDocumentsDirectory()) + "/images/tempImage.jpg"
+    let saveDirectory = String(direct()) + "/images/tempImage.jpg"
     
     saveImage(image, path: saveDirectory)
     
@@ -221,10 +225,12 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
   //MARK: - POST FUNCTION
   
     func postToFirebase() {
-  
-      let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
+      
+      guard selectedImage.image != UIImage(named: "createPostPlaceholder") else { displayAlert("🤔 Missing information", message: "Please add a photo", state: .noPhoto); return }
       
       guard let username = NSUserDefaults.standardUserDefaults().valueForKey("username") else { print("no username"); return }
+
+      let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
   
       guard let userKey = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String else { print("no username key"); return }
       
@@ -242,14 +248,14 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
       
       //Save audio if available
       
-      if let audioPath = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a").path {
+      if let audioPath = NSURL(fileURLWithPath: String(direct()) + "/recording.m4a").path {
         
         let fileManager = NSFileManager.defaultManager()
         
         if fileManager.fileExistsAtPath(audioPath) {
           print("Audio available")
           
-          let audioURL = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/recording.m4a")
+          let audioURL = NSURL(fileURLWithPath: String(direct()) + "/recording.m4a")
           
           CreatePost.shared.uploadAudio(audioURL, firebaseReference: firebasePost.key)
           
@@ -322,7 +328,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     let alert = UIAlertController(title: "Choose source type", message: "", preferredStyle: .ActionSheet)
     alert.popoverPresentationController?.sourceView = self.view
     
-    alert.addAction(UIAlertAction(title: "Take photo", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Take photo 📷", style: .Default, handler: { action in
       
       self.imagePicker.sourceType = .Camera
       self.presentViewController(self.imagePicker, animated: true, completion: nil)
@@ -330,14 +336,44 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     }))
     
     
-    alert.addAction(UIAlertAction(title: "Photo library", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Photo library 📱", style: .Default, handler: { action in
       
       self.imagePicker.sourceType = .PhotoLibrary
       self.presentViewController(self.imagePicker, animated: true, completion: nil)
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel ", style: .Cancel, handler: nil))
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
+  
+  enum AlertState {
+    case notLoggedIn
+    case noPhoto
+  }
+  
+  func displayAlert(title: String, message: String, state: AlertState) {
+
+    self.view.endEditing(true)
+    
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+    
+    switch state {
+    case .noPhoto:
+      alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+      
+    case .notLoggedIn:
+      alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
+      
+        self.dismissViewControllerAnimated(false, completion: nil)
+      
+      }))
+      
+      alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+
+      
+    }
     
     presentViewController(alert, animated: true, completion: nil)
   }
@@ -351,12 +387,6 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     presentViewController(alert, animated: true, completion: nil)
   }
   
-  func dismissAlert() {
-    
-    
-    dismissViewControllerAnimated(true, completion: nil)
-  }
-  
   func postedAlert() {
     
     dismissViewControllerAnimated(false) { _ in
@@ -368,6 +398,9 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
       NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(CreatePostTest.dismissAlert), userInfo: nil, repeats: false)
     }
   }
-
+  
+  func dismissAlert() {
+    dismissViewControllerAnimated(true, completion: nil)
+  }
   
 }

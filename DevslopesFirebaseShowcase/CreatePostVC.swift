@@ -290,7 +290,7 @@ class CreatePostVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Blow Off", style: .Cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
     
     presentViewController(alert, animated: true, completion: nil)
   }

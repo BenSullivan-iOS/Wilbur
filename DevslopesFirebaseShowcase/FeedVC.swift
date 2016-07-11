@@ -21,19 +21,11 @@ protocol PostCellDelegate: class {
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
   
   @IBOutlet weak var tableView: UITableView!
+  
   private var cellImage: UIImage? = nil
   
-  func reloadTable() {
-    
-    tableView.reloadData()
-    
-  }
   
-  func customCellCommentButtonPressed() {
-    
-    performSegueWithIdentifier("showComments", sender: self)
-  }
-  
+  //MARK: - VC LIFECYCLE
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -54,14 +46,22 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.delegate = self
     tableView.dataSource = self
     
-//    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+    //    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
   }
   
   
   override func viewWillAppear(animated: Bool) {
     
-    AppState.shared.currentState = .Feed
-    tableView.reloadData()
+    if AppState.shared.currentState == .PresentLoginFromComments {
+      
+      dismissViewControllerAnimated(false, completion: nil)
+      
+    } else {
+      
+      AppState.shared.currentState = .Feed
+      tableView.reloadData()
+    }
+    
   }
   
   
@@ -100,10 +100,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
             
             if post.username == NSUserDefaults.standardUserDefaults().valueForKey("username") as? String && TempProfileImageStorage.shared.profileImage == nil {
               TempProfileImageStorage.shared.profileImage = profileImg
-              
+              print("temp profile image saved")
             }
-              cell.profileImg.clipsToBounds = true
-              cell.profileImg.layer.cornerRadius = cell.profileImg.layer.frame.width / 2
+            
+            cell.profileImg.clipsToBounds = true
+            cell.profileImg.layer.cornerRadius = cell.profileImg.layer.frame.width / 2
             
             dispatch_async(dispatch_get_main_queue(), {
               cell.profileImg.image = profileImg
@@ -121,78 +122,88 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     return UITableViewCell()
   }
   
+  //MARK - POST CELL DELEGATE
+  
+  func reloadTable() {
+    
+    tableView.reloadData()
+    
+  }
+  
+  func showAlert(post: Post) {
+    displayAlert(post)
+  }
+  
+  func customCellCommentButtonPressed() {
+    
+    performSegueWithIdentifier("showComments", sender: self)
+  }
+  
   
   //MARK: - ALERTS
   
-  func showAlert(post: Post) {
-    displayDeleteAlert(post)
-  }
-  
-  func displayDeleteAlert(post: Post) {
+  func displayAlert(post: Post) {
     
     let storageImageRef = FIRStorage.storage().reference()
     let postRef = DataService.ds.REF_POSTS.child(post.postKey) as FIRDatabaseReference!
+    
+    guard let user = NSUserDefaults.standardUserDefaults().objectForKey(Constants.shared.KEY_UID) as? String else { guestAlert(); return }
+    
     let userPostRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey) as FIRDatabaseReference!
     
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
     
-    if post.userKey == NSUserDefaults.standardUserDefaults().objectForKey(Constants.shared.KEY_UID) as! String {
-      
-      alert.addAction(UIAlertAction(title: "Mark as Answered", style: .Default, handler: { (action) in
+      //post belongs to user
+      if post.userKey == user {
         
-        postRef.child("answered")
-        postRef.setValue(true)
-        
-      }))
-      
-      alert.addAction(UIAlertAction(title: "Delete Post", style: .Default, handler: { (action) in
-        
-        userPostRef.removeValue()
-        postRef.removeValue()
-        
-        let deleteMethod = storageImageRef.child("images").child(post.postKey + ".jpg")
-        
-        deleteMethod.deleteWithCompletion({ (error) in
+        alert.addAction(UIAlertAction(title: "Mark as Answered", style: .Default, handler: { (action) in
           
-          guard error == nil else { print("delete error", error.debugDescription) ; return }
+          postRef.child("answered")
+          postRef.setValue(true)
           
-          print("storage image removed")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Delete Post", style: .Default, handler: { (action) in
           
-          for i in DataService.ds.posts.indices {
+          userPostRef.removeValue()
+          postRef.removeValue()
+          
+          let deleteMethod = storageImageRef.child("images").child(post.postKey + ".jpg")
+          
+          deleteMethod.deleteWithCompletion({ (error) in
             
-            if DataService.ds.posts[i].postKey == postRef.key {
+            guard error == nil else { print("delete error", error.debugDescription) ; return }
+            
+            print("storage image removed")
+            
+            for i in DataService.ds.posts.indices {
               
-              DataService.ds.deletePostAtIndex(i)
-              
+              if DataService.ds.posts[i].postKey == postRef.key {
+                
+                DataService.ds.deletePostAtIndex(i)
+              }
             }
-            
-          }
+          })
+        }))
+        
+      } else {
+        
+        alert.addAction(UIAlertAction(title: "Report", style: .Default, handler: { (action) in
           
-        })
+          self.reportAlert(post)
+          
+        }))
         
-      }))
-      
-    } else {
-      
-      alert.addAction(UIAlertAction(title: "Report", style: .Default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Block User", style: .Default, handler: { (action) in
+          
+          //add block user functionality
+        }))
         
-        self.reportAlert(post)
+      }
       
-      }))
+      alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
       
-      alert.addAction(UIAlertAction(title: "Block User", style: .Default, handler: { (action) in
-        
-        
-        
-      }))
-      
-    }
-    
-    
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-    
-    self.presentViewController(alert, animated: true, completion: nil)
-    
+      self.presentViewController(alert, animated: true, completion: nil)
   }
   
   func reportAlert(post: Post) {
@@ -217,8 +228,24 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       //Post needs to be marked as reported or deleted
       
     }))
-      
+    
     self.presentViewController(alert, animated: true, completion:  nil)
+    
+  }
+  
+  func guestAlert() {
+    
+    let alert = UIAlertController(title: "Function unavailable", message: "You must be logged in to comment", preferredStyle: .Alert)
+    
+    alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
+      
+      self.dismissViewControllerAnimated(false, completion: nil)
+      
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+    
+    self.presentViewController(alert, animated: true, completion: nil)
   }
   
   //MARK: - OTHER FUNCTIONS
@@ -226,7 +253,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   func checkLoggedIn() {
     
     if DataService.ds.posts.isEmpty {
-//      NSUserDefaults.standardUserDefaults().setValue(nil, forKey: Constants.shared.KEY_UID)
+      //      NSUserDefaults.standardUserDefaults().setValue(nil, forKey: Constants.shared.KEY_UID)
       dismissViewControllerAnimated(true, completion: nil)
       
       let loginViewController: UIViewController!
@@ -235,7 +262,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       loginViewController = storyboard.instantiateViewControllerWithIdentifier("LoginVC")
       
       presentViewController(loginViewController, animated: true, completion: nil)
-    
+      
     }
   }
   

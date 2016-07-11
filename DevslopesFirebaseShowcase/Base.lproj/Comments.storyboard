@@ -152,7 +152,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cpP-WT-tJc">
-                                <rect key="frame" x="0.0" y="566" width="544" height="34"/>
+                                <rect key="frame" x="0.0" y="566" width="543" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="14O-XW-5EH"/>
@@ -176,12 +176,17 @@
                             <constraint firstAttribute="trailing" secondItem="lDY-Mf-ApG" secondAttribute="trailing" id="Xje-nd-riR"/>
                             <constraint firstItem="lDY-Mf-ApG" firstAttribute="top" secondItem="JGu-HQ-yB2" secondAttribute="bottom" constant="-2" id="Zw2-5Y-Ahx"/>
                             <constraint firstItem="JJ0-4p-qRt" firstAttribute="top" secondItem="lDY-Mf-ApG" secondAttribute="bottom" id="h94-Wf-mjy"/>
+                            <constraint firstItem="cpP-WT-tJc" firstAttribute="trailing" secondItem="lDY-Mf-ApG" secondAttribute="trailing" id="io4-Ai-zeX"/>
+                            <constraint firstItem="lDY-Mf-ApG" firstAttribute="leading" secondItem="cpP-WT-tJc" secondAttribute="trailing" id="nyg-U8-6OA"/>
                             <constraint firstAttribute="trailing" secondItem="cpP-WT-tJc" secondAttribute="trailing" constant="56" id="rOo-O8-p4N"/>
                             <constraint firstItem="lDY-Mf-ApG" firstAttribute="baseline" secondItem="cpP-WT-tJc" secondAttribute="baseline" id="t9u-Zq-YAQ"/>
                             <constraint firstItem="JJ0-4p-qRt" firstAttribute="top" secondItem="cpP-WT-tJc" secondAttribute="bottom" id="xkM-4m-Mfz"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="4Nq-5H-r8B"/>
+                                <exclude reference="io4-Ai-zeX"/>
+                                <exclude reference="rOo-O8-p4N"/>
                                 <exclude reference="t9u-Zq-YAQ"/>
                             </mask>
                         </variation>

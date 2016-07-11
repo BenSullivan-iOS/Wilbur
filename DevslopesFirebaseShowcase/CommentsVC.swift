@@ -22,9 +22,13 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   private var viewDismissing = false
   private var keyArray = [String]()
   private var valueArray = [String]()
+  private var commentRef: FIRDatabaseReference!
+
   
   var post: Post? = nil
   var postImage: UIImage? = nil
+  
+  //MARK: - VC LIFECYCLE
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -52,28 +56,30 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     viewDismissing = true
   }
   
+  //MARK: - BUTTONS
+  
   func reloadComments() {
     
     tableView.reloadData()
   }
   
-  private var commentRef: FIRDatabaseReference!
-
   
   @IBAction func postButtonPressed(sender: AnyObject) {
     
     //add a unique string before the username
     //if string is not
-    
+    guard let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String else { guestAlert(); return }
+
     guard let comment = commentTextView.text
       where comment != DescriptionText.defaultText && commentTextView.text != "" else { return }
+    
     
     commentTextView.text = DescriptionText.defaultText
     commentTextView.textColor = .lightGrayColor()
     bringCursorToStart()
     postButton.enabled = false
     
-    let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
+    
 
     let newCommentRef = DataService.ds.REF_POSTS.child(post!.postKey).child("comments").child(String(keyArray.count)).child(comment)
     keyArray.append(comment)
@@ -279,6 +285,26 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   func bringCursorToStart() {
     let start = commentTextView.beginningOfDocument
     commentTextView.selectedTextRange = commentTextView.textRangeFromPosition(start, toPosition: start)
+  }
+  
+  //MARK: - ALERTS
+  
+  func guestAlert() {
+    
+    let alert = UIAlertController(title: "Function unavailable", message: "You must be logged in to comment", preferredStyle: .Alert)
+    
+    alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
+    
+    AppState.shared.currentState = .PresentLoginFromComments
+      
+    self.navigationController?.popViewControllerAnimated(false)
+      
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+
+    
+    self.presentViewController(alert, animated: true, completion: nil)
   }
   
   func tapped() {

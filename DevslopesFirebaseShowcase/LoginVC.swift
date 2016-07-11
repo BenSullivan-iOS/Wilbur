@@ -9,17 +9,64 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
-//import Firebase
 import FirebaseAuth
 
 class LoginVC: UIViewController {
   
   @IBOutlet weak var facebookLoginButton: UIButton!
+  @IBOutlet weak var guestButton: UIButton!
+  
+  @IBAction func guestButtonPressed(sender: UIButton) {
+    
+    presentFeedVC()
+  }
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     styleFacebookLoginButton()
+  }
+  
+  func returnUserData() {
+    let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+    graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+      
+      if ((error) != nil)
+      {
+        // Process error
+        print("Error: \(error)")
+      }
+      else
+      {
+        print("fetched user: \(result)")
+        
+        if let id: NSString = result.valueForKey("id") as? NSString {
+          print("ID is: \(id)")
+          self.returnUserProfileImage(id)
+        } else {
+          print("ID es null")
+        }
+        
+        
+      }
+    })
+  }
+  
+  func returnUserProfileImage(accessToken: NSString)
+  {
+    var userID = accessToken as NSString
+    var facebookProfileUrl = NSURL(string: "https://graph.facebook.com/\(userID)/picture?type=large")
+    
+    if let data = NSData(contentsOfURL: facebookProfileUrl!) {
+      
+      print(UIImage(data: data))
+//      imageProfile.image = UIImage(data: data)
+    } else {
+      print("buggar")
+      
+    }
+    
   }
   
   @IBAction func FbBtnPressed(sender: UIButton) {
@@ -62,12 +109,8 @@ class LoginVC: UIViewController {
           NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
           NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.shared.KEY_UID)
 
+          self.presentFeedVC()
           
-          let storyboard = UIStoryboard(name: "Main", bundle: nil)
-          let feedVC = storyboard.instantiateViewControllerWithIdentifier("NavigationContainer")
-
-          self.presentViewController(feedVC, animated: true, completion: nil)
-                    
           self.facebookLoginButton.setTitle("Logging in...", forState: .Normal)
         }
       }
@@ -77,6 +120,13 @@ class LoginVC: UIViewController {
     
   }
   
+  func presentFeedVC() {
+    
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let feedVC = storyboard.instantiateViewControllerWithIdentifier("NavigationContainer")
+    
+    self.presentViewController(feedVC, animated: true, completion: nil)
+  }
   
   
   func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {

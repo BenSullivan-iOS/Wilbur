@@ -213,7 +213,7 @@
                                             <constraint firstAttribute="height" constant="140" id="Lcb-YU-ELG"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BEN SULLIVAN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o7H-YP-2ap">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o7H-YP-2ap">
                                         <rect key="frame" x="28" y="169" width="544" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="41" id="Aoh-ZN-Yvj"/>
@@ -322,7 +322,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="popOffButtonPressed:" destination="xEH-ob-IKm" eventType="touchUpInside" id="C2q-t5-TDD"/>
+                                    <action selector="backButtonPressed:" destination="xEH-ob-IKm" eventType="touchUpInside" id="IjN-L2-0mc"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PROFILE  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giV-lT-Mx2">
@@ -451,6 +451,20 @@
                                                     <outlet property="delegate" destination="MTC-Fn-lvg" id="3X5-zI-MAM"/>
                                                 </connections>
                                             </tableView>
+                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="createPostPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="V5B-mn-kPs">
+                                                <rect key="frame" x="8" y="108" width="568" height="254"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="435" id="1Vm-gV-NCG"/>
+                                                    <constraint firstAttribute="height" constant="167" id="K5f-kx-moW"/>
+                                                    <constraint firstAttribute="height" constant="254" id="rAu-pL-6Yg"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="1Vm-gV-NCG"/>
+                                                        <exclude reference="K5f-kx-moW"/>
+                                                    </mask>
+                                                </variation>
+                                            </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Enter description, include as much detail as possible" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bh2-r8-efI">
                                                 <rect key="frame" x="8" y="39" width="568" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -467,20 +481,6 @@
                                                     </mask>
                                                 </variation>
                                             </textView>
-                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="createPostPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="V5B-mn-kPs">
-                                                <rect key="frame" x="8" y="108" width="568" height="254"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="435" id="1Vm-gV-NCG"/>
-                                                    <constraint firstAttribute="height" constant="167" id="K5f-kx-moW"/>
-                                                    <constraint firstAttribute="height" constant="254" id="rAu-pL-6Yg"/>
-                                                </constraints>
-                                                <variation key="default">
-                                                    <mask key="constraints">
-                                                        <exclude reference="1Vm-gV-NCG"/>
-                                                        <exclude reference="K5f-kx-moW"/>
-                                                    </mask>
-                                                </variation>
-                                            </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="gQF-w1-2Hc">
                                                 <rect key="frame" x="182" y="7" width="242" height="25"/>
                                                 <subviews>

@@ -21,6 +21,7 @@ class AppState {
     case CreatingPost
     case Feed
     case TopTrumps
+    case PresentLoginFromComments
     case None
   }
 }

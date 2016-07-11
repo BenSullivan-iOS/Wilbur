@@ -263,12 +263,7 @@
 			children = (
 				B5D85BF61CFA130600E62148 /* Custom controls */,
 				B5C62FBB1CF641C800E73BFF /* Cells */,
-				B5777B7E1D01CDDE0062683C /* MyPosts.storyboard */,
-				B548A4341CE8FFC40084215C /* Main.storyboard */,
-				B52F44E51D2BE97100FC93EB /* Comments.storyboard */,
-				B51CBCD21CF45DB000112B51 /* Feed.storyboard */,
-				B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */,
-				B548A4391CE8FFC40084215C /* LaunchScreen.storyboard */,
+				B5DE8A101D34015C00F9C364 /* Storyboards */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -354,6 +349,19 @@
 				B5DE8A0A1D2EA42D00F9C364 /* Info.plist */,
 			);
 			path = WilburUITests;
+			sourceTree = "<group>";
+		};
+		B5DE8A101D34015C00F9C364 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				B5777B7E1D01CDDE0062683C /* MyPosts.storyboard */,
+				B548A4341CE8FFC40084215C /* Main.storyboard */,
+				B52F44E51D2BE97100FC93EB /* Comments.storyboard */,
+				B51CBCD21CF45DB000112B51 /* Feed.storyboard */,
+				B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */,
+				B548A4391CE8FFC40084215C /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

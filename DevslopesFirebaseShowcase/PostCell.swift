@@ -66,8 +66,8 @@ class PostCell: UITableViewCell, NSCacheDelegate {
   
   func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
     
-    commentRef = DataService.ds.REF_USER_CURRENT.child("comments").child(post.postKey)
-    postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
+//    commentRef = DataService.ds.REF_USER_CURRENT.child("comments").child(post.postKey)
+//    postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
 
     self._post = post
     self.likesLabel.text = "\(post.commentText.count)"
@@ -186,6 +186,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
     } else {
       print("Download commented on")
       
+      if let commentRef = commentRef {
       
       commentRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
         
@@ -197,8 +198,6 @@ class PostCell: UITableViewCell, NSCacheDelegate {
           dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             Cache.FeedVC.commentedOnCache.setObject(false, forKey: (self.post?.postKey)!)
           }
-          
-          
         } else {
           
           
@@ -210,6 +209,8 @@ class PostCell: UITableViewCell, NSCacheDelegate {
           self.popText.setTitleColor(highlightedColor, forState: .Normal)
         }
       })
+        
+      }
       
     }
     
