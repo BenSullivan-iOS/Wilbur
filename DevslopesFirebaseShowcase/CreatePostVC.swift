@@ -21,7 +21,7 @@ class ImageTable: UITableViewCell {
   
 }
 
-class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate, AudioPlayerDelegate {
+class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate, AudioPlayerDelegate {
   
   @IBOutlet weak var descriptionText: UITextView!
   @IBOutlet weak var image: UIImageView!
@@ -47,7 +47,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
     tapGestureRecogniser()
     
     scrollView.delegate = self
-    cameraIcon.imageView?.contentMode = .ScaleAspectFit
+//    cameraIcon.imageView?.contentMode = .ScaleAspectFit
     micIcon.imageView?.contentMode = .ScaleAspectFit
     
     imagePicker.delegate = self
@@ -232,7 +232,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
 
       let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
   
-      guard let userKey = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String else { print("no username key"); return }
+      guard let userKey = DataService.ds.currentUserKey else { print("no username key"); return }
       
       guard descriptionText != "" else { return }
       
@@ -343,7 +343,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Cancel ", style: .Default, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
     
     presentViewController(alert, animated: true, completion: nil)
   }

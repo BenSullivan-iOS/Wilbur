@@ -29,14 +29,12 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
   override func viewDidLoad() {
     super.viewDidLoad()
     
-//    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyPostsVC.reloadTable), name: "reloadTables", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyPostsVC.reloadTable), name: "reloadTables", object: nil)
     
     self.tableView.estimatedRowHeight = 300
     self.tableView.rowHeight = UITableViewAutomaticDimension
     
     self.tableView.scrollsToTop = false
-//    DataService.ds.delegate = self
-//    DataService.ds.downloadTableContent()
     
     //    AudioControls.shared.setupRecording()
     

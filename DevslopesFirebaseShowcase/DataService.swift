@@ -304,7 +304,15 @@ class DataService {
     
     deleteMethod.deleteWithCompletion({ error in
       
-      guard error == nil else { print("delete error", error.debugDescription) ; return }
+      guard error == nil else { print("delete error", error.debugDescription)
+        
+//        DataService.ds.deletePostAtIndex(i)
+//        userPostRef.removeValue()
+//        postRef.removeValue()
+//        
+//        NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
+        
+        return }
       
       print("storage image removed")
       
