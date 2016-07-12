@@ -58,13 +58,16 @@ class DataService {
     _posts.removeAtIndex(index)
   }
   
+  func deletePostsByBlockedUser(userKey: String) {
+    
+    _posts = _posts.filter { $0.userKey != userKey }
+  }
   
   func createFirebaseUser(uid: String, user: [String:String]) {
     
     REF_USERS.child(uid).setValue(user)
     
     print("Create firebase user")
-    
     
   }
   
@@ -89,6 +92,43 @@ class DataService {
   
   func downloadTableContent() {
     
+    var blockedUsers = [String]()
+    
+    let userRef = DataService.ds.REF_USER_CURRENT
+
+    userRef.observeEventType(.Value, withBlock: { snapshot in
+      
+      if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
+        
+        for snap in snapshots {
+          
+          if let userDict = snap.value as? [String: AnyObject] {
+            
+            print(snap.key)
+            
+            if snap.key == "blockedUsers" {
+              
+              for i in userDict {
+                
+                blockedUsers.append(i.0)
+                
+              }
+              
+              print(userDict)
+            
+              
+              print("Blocked users:", snap)
+
+            }
+          }
+        }
+        self.downloadPosts(blockedUsers)
+      }
+    })
+  }
+  
+  func downloadPosts(blockedUsers: [String]) {
+    
     DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
       
       self._posts = []
@@ -98,21 +138,25 @@ class DataService {
         for snap in snapshots {
           
           if let postDict = snap.value as? [String: AnyObject] {
-            
+            print(postDict)
             let key = snap.key
             let post = Post(postKey: key, dictionary: postDict)
             
             if !post.answered {
               
-              self._posts.append(post)
+              if !blockedUsers.contains(post.userKey) {
+                
+                self._posts.append(post)
+
+              }
               
+              
+            } else {
+              
+              //create array for answered table or just filter other array?
             }
           }
         }
-        print(self._posts)
-        print(self._posts[self.count])
-        print(self._posts[self.count].imageUrl)
-
         
         self._posts.sortInPlace({ (first, second) -> Bool in
           
@@ -128,9 +172,9 @@ class DataService {
         })
         
         //only download if not in cache already?
-                
+        
         if !self._posts.isEmpty {
-
+          
           self.downloadImage(self.posts)
         }
         NSNotificationCenter.defaultCenter().postNotificationName("updateComments", object: self)

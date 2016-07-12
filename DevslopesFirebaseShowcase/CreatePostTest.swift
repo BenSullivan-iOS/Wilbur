@@ -343,7 +343,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Cancel ", style: .Cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel ", style: .Default, handler: nil))
     
     presentViewController(alert, animated: true, completion: nil)
   }

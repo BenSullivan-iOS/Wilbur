@@ -163,8 +163,6 @@ class Post {
           self._commentText.append(a.0 as! String)
           self._commentUsers.append(a.1 as! String)
           
-//          self._comments[a.0 as! String] = a.1 as! String
-
         }
         
       }

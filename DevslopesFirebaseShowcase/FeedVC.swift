@@ -188,15 +188,37 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         
       } else {
         
-        alert.addAction(UIAlertAction(title: "Report", style: .Default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Report", style: .Default, handler: { action in
           
           self.reportAlert(post)
           
         }))
         
-        alert.addAction(UIAlertAction(title: "Block User", style: .Default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Block User", style: .Default, handler: { action in
           
           //add block user functionality
+          //add the post's user to a blockedUsers list in the db
+          //create firebase reference then add to it and reload the table
+          
+          //Add blocked user to database
+          let userRef = DataService.ds.REF_USER_CURRENT.child("blockedUsers").child(post.userKey)
+          userRef.setValue(post.userKey)
+          
+          //Remove blocked user locally and update table
+          for i in DataService.ds.posts {
+            if i.postKey == post.postKey {
+              
+              print(i.postKey, i.username)
+            
+              DataService.ds.deletePostsByBlockedUser(post.userKey)
+              
+            }
+          }
+          
+          self.tableView.reloadData()
+          
+          DataService.ds.downloadTableContent()
+          
         }))
         
       }
