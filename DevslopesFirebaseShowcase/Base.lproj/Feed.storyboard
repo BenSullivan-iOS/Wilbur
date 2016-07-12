@@ -278,14 +278,6 @@
             </objects>
             <point key="canvasLocation" x="4072.5" y="384"/>
         </scene>
-        <!--MyPosts-->
-        <scene sceneID="R0V-Oh-Efz">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="MyPosts" storyboardName="MyPosts" referencedIdentifier="MyPosts" id="icP-vi-35z" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9qv-kf-4aD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4057" y="504"/>
-        </scene>
     </scenes>
     <resources>
         <image name="commentCounter" width="193" height="218"/>

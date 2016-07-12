@@ -10,13 +10,7 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
-class ProfileImageTracker {
-  
-  static var imageLocations: Set = Set<String>()
-  
-}
-
-class PostCell: UITableViewCell, NSCacheDelegate {
+class AnsweredCell: UITableViewCell, NSCacheDelegate {
   
   @IBOutlet weak var profileImg: UIImageView!
   @IBOutlet weak var showcaseImg: UIImageView!
@@ -27,7 +21,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
   @IBOutlet weak var reportButton: UIButton!
   
   @IBOutlet weak var descriptionText: UILabel!
-
+  
   private var commentRef: FIRDatabaseReference!
   private var postRef: FIRDatabaseReference!
   private var profileImage: FIRDatabaseReference!
@@ -68,14 +62,14 @@ class PostCell: UITableViewCell, NSCacheDelegate {
     
     commentRef = DataService.ds.REF_USER_CURRENT.child("comments").child(post.postKey)
     postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
-
+    
     self._post = post
     self.likesLabel.text = "\(post.commentText.count)"
     self.username.text = post.username
-
+    
     configureDescriptionText()
     configureImage(post, img: img)
-
+    
     styleCommentButton()
     
     
@@ -130,9 +124,6 @@ class PostCell: UITableViewCell, NSCacheDelegate {
         
       })
     }
-    
-
-    
   }
   
   
@@ -145,7 +136,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
         
         self.showcaseImg.hidden = false
         self.showcaseImg.image = img
-
+        
       } else {
         
         self.downloadImage(imageUrl)
@@ -187,27 +178,27 @@ class PostCell: UITableViewCell, NSCacheDelegate {
       print("Download commented on")
       
       if let commentRef = commentRef {
-      
-      commentRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
         
-        if let _ = snapshot.value as? NSNull {
+        commentRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
           
-          self.likeImage.image = UIImage(named: "commentCounterGrey")
-          self.popText.setTitleColor(greyColor, forState: .Normal)
-          
-          dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            Cache.FeedVC.commentedOnCache.setObject(false, forKey: (self.post?.postKey)!)
+          if let _ = snapshot.value as? NSNull {
+            
+            self.likeImage.image = UIImage(named: "commentCounterGrey")
+            self.popText.setTitleColor(greyColor, forState: .Normal)
+            
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+              Cache.FeedVC.commentedOnCache.setObject(false, forKey: (self.post?.postKey)!)
+            }
+          } else {
+            
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+              self.post?.wasCommentedOn(true)
+              Cache.FeedVC.commentedOnCache.setObject(true, forKey: (self.post?.postKey)!)
+            }
+            self.likeImage.image = UIImage(named: "commentCounter")
+            self.popText.setTitleColor(highlightedColor, forState: .Normal)
           }
-        } else {
-          
-          dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            self.post?.wasCommentedOn(true)
-            Cache.FeedVC.commentedOnCache.setObject(true, forKey: (self.post?.postKey)!)
-          }
-          self.likeImage.image = UIImage(named: "commentCounter")
-          self.popText.setTitleColor(highlightedColor, forState: .Normal)
-        }
-      })
+        })
         
       }
       
@@ -290,7 +281,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
         }
       }
       
-//      self.activityIndicator.stopAnimating()
+      //      self.activityIndicator.stopAnimating()
     }
   }
   
@@ -344,7 +335,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
     
     container.addGestureRecognizer(tap)
     container.userInteractionEnabled = true
-
+    
     
     let likeTextTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
     
@@ -354,8 +345,8 @@ class PostCell: UITableViewCell, NSCacheDelegate {
     popText.userInteractionEnabled = true
   }
   
-
-
+  
+  
   
 }
 

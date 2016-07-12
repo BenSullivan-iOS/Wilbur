@@ -49,13 +49,13 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
         self.setViewControllers([orderedViewControllers[segment]], direction: .Forward, animated: true, completion: nil)
       }
       
-      if AppState.shared.currentState == .TopTrumps {
+      if AppState.shared.currentState == .Answered {
         self.setViewControllers([orderedViewControllers[segment]], direction: .Reverse, animated: true, completion: nil)
       }
       
     case 2:
       
-      if AppState.shared.currentState != .TopTrumps {
+      if AppState.shared.currentState != .Answered {
         self.setViewControllers([orderedViewControllers[segment]], direction: .Forward, animated: true, completion: nil)
       }
       
@@ -94,7 +94,7 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
     
     return [self.newViewController("CreatePostVC"),
             self.newViewController("Feed"),
-            self.newViewController("TopTrumpsVC")]
+            self.newViewController("Answered")]
   }()
   
   

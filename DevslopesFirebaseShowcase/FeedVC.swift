@@ -26,7 +26,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FeedVC.reloadTable), name: "imageSaved", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FeedVC.reloadTable), name: "reloadTables", object: nil)
     
     self.tableView.estimatedRowHeight = 300
     self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -58,6 +58,21 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       tableView.reloadData()
     }
     
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+    if segue.identifier == Constants.sharedSegues.showProfile {
+      let backItem = UIBarButtonItem()
+      backItem.title = "Back"
+      navigationItem.backBarButtonItem = backItem
+    }
+  }
+  
+  //MARK: - BUTTONS
+  
+  @IBAction func profileButtonPressed(sender: UIButton) {
+    performSegueWithIdentifier(Constants.sharedSegues.showProfile, sender: self)
   }
   
   
@@ -95,8 +110,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
           
           dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             
-            if post.username == NSUserDefaults.standardUserDefaults().valueForKey("username") as? String && TempProfileImageStorage.shared.profileImage == nil {
-              TempProfileImageStorage.shared.profileImage = profileImg
+            if post.username == NSUserDefaults.standardUserDefaults().valueForKey("username") as? String { //TempProfileImageStorage.shared.profileImage == nil {
+//              TempProfileImageStorage.shared.profileImage = profileImg
               print("temp profile image saved")
             }
             
@@ -141,50 +156,23 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   func displayAlert(post: Post) {
     
-    let storageImageRef = FIRStorage.storage().reference()
-    let postRef = DataService.ds.REF_POSTS.child(post.postKey) as FIRDatabaseReference!
-    
     guard let user = NSUserDefaults.standardUserDefaults().objectForKey(Constants.shared.KEY_UID) as? String else { guestAlert(); return }
-    
-    let userPostRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey) as FIRDatabaseReference!
     
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
     
       //post belongs to user
       if post.userKey == user {
         
-        alert.addAction(UIAlertAction(title: "Mark as Answered", style: .Default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "   Mark as Answered 😃", style: .Default, handler: { (action) in
           
-          postRef.child("answered")
-          postRef.setValue(true)
+          DataService.ds.markPostAsAnswered(post)
           
         }))
         
-        alert.addAction(UIAlertAction(title: "Delete Post", style: .Default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "   Delete Post 👋", style: .Default, handler: { (action) in
           
-          let deleteMethod = storageImageRef.child("images").child(post.postKey + ".jpg")
+          DataService.ds.deletePost(post)
           
-          deleteMethod.deleteWithCompletion({ (error) in
-            
-            guard error == nil else { print("delete error", error.debugDescription) ; return }
-            
-            print("storage image removed")
-            
-            for i in DataService.ds.posts.indices {
-              
-              if DataService.ds.posts[i].postKey == post.postKey {
-                
-                DataService.ds.deletePostAtIndex(i)
-                userPostRef.removeValue()
-                postRef.removeValue()
-                
-                dispatch_async(dispatch_get_main_queue(), { 
-                  self.tableView.reloadData()
-                })
-                return
-              }
-            }
-          })
         }))
         
       } else {
@@ -197,28 +185,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         
         alert.addAction(UIAlertAction(title: "Block User", style: .Default, handler: { action in
           
-          //add block user functionality
-          //add the post's user to a blockedUsers list in the db
-          //create firebase reference then add to it and reload the table
-          
-          //Add blocked user to database
-          let userRef = DataService.ds.REF_USER_CURRENT.child("blockedUsers").child(post.userKey)
-          userRef.setValue(post.userKey)
-          
-          //Remove blocked user locally and update table
-          for i in DataService.ds.posts {
-            if i.postKey == post.postKey {
-              
-              print(i.postKey, i.username)
-            
-              DataService.ds.deletePostsByBlockedUser(post.userKey)
-              
-            }
-          }
-          
-          self.tableView.reloadData()
-          
-          DataService.ds.downloadTableContent()
+          DataService.ds.blockUser(post)
           
         }))
         
@@ -231,8 +198,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   func reportAlert(post: Post) {
     
-    let userKey = NSUserDefaults.standardUserDefaults().objectForKey(Constants.shared.KEY_UID) as! String
-    
     let alert = UIAlertController(title: "Submit report", message: nil, preferredStyle: .Alert)
     
     alert.addTextFieldWithConfigurationHandler { (textField) in
@@ -243,22 +208,16 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     alert.addAction(UIAlertAction(title: "Submit", style: .Default, handler: { (action) in
       
-      let reportText = alert.textFields![0].text
-      let postRef = DataService.ds.REF_BASE.child("reportedPosts").child(post.postKey).child(userKey) as FIRDatabaseReference!
-      
-      postRef.setValue(reportText)
-      
-      //Post needs to be marked as reported or deleted
+      DataService.ds.reportPost(post, reason: alert.textFields![0].text!)
       
     }))
     
     self.presentViewController(alert, animated: true, completion:  nil)
-    
   }
   
   func guestAlert() {
     
-    let alert = UIAlertController(title: "Function unavailable", message: "You must be logged in to comment", preferredStyle: .Alert)
+    let alert = UIAlertController(title: "Function unavailable 😕", message: "You must be logged in to comment", preferredStyle: .Alert)
     
     alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
       
@@ -289,19 +248,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     }
   }
   
-  
-  @IBAction func profileButtonPressed(sender: UIButton) {
-    performSegueWithIdentifier(Constants.sharedSegues.showProfile, sender: self)
-  }
-  
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    
-    if segue.identifier == Constants.sharedSegues.showProfile {
-      let backItem = UIBarButtonItem()
-      backItem.title = "Back"
-      navigationItem.backBarButtonItem = backItem
-    }
-  }
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
   }

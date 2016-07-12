@@ -124,7 +124,7 @@ class Post {
     }
     
     if let answered = dictionary["answered"] as? Bool {
-     self._answered = answered
+      self._answered = answered
     } else {
       self._answered = false
     }

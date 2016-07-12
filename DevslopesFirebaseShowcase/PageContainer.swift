@@ -38,9 +38,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     static let standard = UIColor(colorLiteralRed: 239/255, green: 239/255, blue: 244/255, alpha: 1)
   }
   
-  //MARK: - VIEW CONTROLLER LIFECYCLE
-  
-  
+  //MARK: - VC LIFECYCLE
   
   override func viewDidLoad() {
     
@@ -50,6 +48,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   }
   
   override func viewWillAppear(animated: Bool) {
+    
     if AppState.shared.currentState != .CreatingPost {
       postButton.alpha = 0
     }
@@ -176,7 +175,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
       UIView.animateWithDuration(0.2, animations: {
         self.postButton.alpha = 0
       })
-    case .TopTrumps:
+    case .Answered:
       updateColours(2)
       UIView.animateWithDuration(0.2, animations: {
         self.postButton.alpha = 0

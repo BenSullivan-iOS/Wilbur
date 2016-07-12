@@ -9,11 +9,6 @@
 import UIKit
 import FirebaseStorage
 import Firebase
-//
-//protocol ProfileTableDelegate {
-//  
-//  func rowSelected(rowTitle: SelectedRow)
-//}
 
 enum SelectedRow {
   
@@ -21,14 +16,6 @@ enum SelectedRow {
   case PoppedPosts
   case Feedback
   case FeatureRequest
-}
-
-class TempProfileImageStorage {
-  
-  static let shared = TempProfileImageStorage()
-  
-  var profileImage: UIImage? = nil
-  
 }
 
 class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -39,20 +26,28 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   private let imagePicker = UIImagePickerController()
   private var profileImageRef: FIRDatabaseReference!
   private var selectedImagePath = NSURL?()
-  private var loggedIn = false
+  private var loggedIn = true
   
   //MARK: - VC LIFECYCLE
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    if TempProfileImageStorage.shared.profileImage == nil {
-      getProfileImageReferenceThenDownload()
+    if let userKey = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String {
+
+      if let image = Cache.FeedVC.profileImageCache.objectForKey(userKey) as? UIImage {
+        
+        profileImage.image = image
+        
+      } else {
+        
+        getProfileImageReferenceThenDownload()
+      }
+      
     } else {
-      loggedIn = true
-      profileImage.image = TempProfileImageStorage.shared.profileImage
+      
+      getProfileImageReferenceThenDownload()
     }
-    
     
     imagePicker.delegate = self
     
@@ -95,7 +90,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     
     let image = info[UIImagePickerControllerOriginalImage] as! UIImage
     profileImage.image = image
-    TempProfileImageStorage.shared.profileImage = image
+//    TempProfileImageStorage.shared.profileImage = image
     
     Cache.FeedVC.profileImageCache.removeAllObjects()
     
@@ -166,7 +161,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
 //    switch rowTitle {
 //    case .MyPosts:
 //      print("my posts")
-//      self.navigationController?.pushViewController(TopTrumpsVC(), animated: true) //FIXME: Why isn't this pusing as a nav controller?
+//      self.navigationController?.pushViewController(AnsweredVC(), animated: true) //FIXME: Why isn't this pusing as a nav controller?
 //    case .PoppedPosts:
 //      print("popped posts")
 //    case .Feedback:
@@ -190,7 +185,6 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   
   func getProfileImageReferenceThenDownload() {
     
-    loggedIn = true
     
     if let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String {
             
@@ -235,7 +229,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       guard let data = NSData(contentsOfURL: URL), image = UIImage(data: data) else { return }
       
           self.profileImage.image = image
-          TempProfileImageStorage.shared.profileImage = image
+//          TempProfileImageStorage.shared.profileImage = image
     }
   }
   

@@ -11,7 +11,7 @@ import Firebase
 import AVFoundation
 import FirebaseStorage
 
-class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
+class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
   
   @IBOutlet weak var tableView: UITableView!
   
@@ -20,7 +20,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyPostsVC.reloadTable), name: "reloadTables", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnsweredVC.reloadTable), name: "reloadTables", object: nil)
     
     self.tableView.estimatedRowHeight = 300
     self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -44,7 +44,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
       
     } else {
       
-//      AppState.shared.currentState = .Answered
+      AppState.shared.currentState = .Answered
       tableView.reloadData()
     }
     
@@ -70,14 +70,16 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    return DataService.ds.myPosts.count ?? 0
+    return DataService.ds.answeredPosts.count ?? 0
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-      if let cell = tableView.dequeueReusableCellWithIdentifier("myPostCell") as? PostCell {
-        
-        let post = DataService.ds.myPosts[indexPath.row]
+    if AppState.shared.currentState == .Answered {
+      
+      if let cell = tableView.dequeueReusableCellWithIdentifier("answeredCell") as? AnsweredCell {
+
+        let post = DataService.ds.answeredPosts[indexPath.row]
         
         var img: UIImage?
         var profileImg: UIImage?
@@ -116,6 +118,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
         
         return cell
       }
+    }
     return UITableViewCell()
   }
   
@@ -149,11 +152,11 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
     if post.userKey == user {
       
       //Potentially change this to mark as unanswered
-      //      alert.addAction(UIAlertAction(title: "   Mark as Answered 😃", style: .Default, handler: { (action) in
-      //
-      //        DataService.ds.markPostAsAnswered(post)
-      //
-      //      }))
+//      alert.addAction(UIAlertAction(title: "   Mark as Answered 😃", style: .Default, handler: { (action) in
+//        
+//        DataService.ds.markPostAsAnswered(post)
+//        
+//      }))
       
       alert.addAction(UIAlertAction(title: "   Delete Post 👋", style: .Default, handler: { (action) in
         

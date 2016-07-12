@@ -23,6 +23,9 @@ class DataService {
   private var _REF_POSTS = URL_BASE.child("posts")
   private var _REF_USERS = URL_BASE.child("users")
   private var _posts: [Post]!
+  private var _answeredPosts: [Post]!
+  private var _myPosts: [Post]!
+
 
   var posts: [Post] {
     
@@ -30,6 +33,25 @@ class DataService {
       return postArray
     }
     return [Post]()
+    
+  }
+  
+  var answeredPosts: [Post] {
+    
+    if let postArray = _answeredPosts {
+      return postArray
+    }
+    return [Post]()
+    
+  }
+  
+  var myPosts: [Post] {
+    
+    let allPosts = _posts + _answeredPosts
+    
+    let posts = allPosts.filter { $0.userKey == NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String }
+    
+    return posts
     
   }
   var REF_BASE: FIRDatabaseReference {
@@ -132,6 +154,7 @@ class DataService {
     DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
       
       self._posts = []
+      self._answeredPosts = []
       
       if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
         
@@ -150,6 +173,7 @@ class DataService {
               }
             } else {
               
+              self._answeredPosts.append(post)
               //create array for answered table or just filter other array?
             }
           }
@@ -218,7 +242,7 @@ class DataService {
     
     let pathReference = storage.child(imageLocation)
     
-    let downloadImageTask = pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+    pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
       
       guard let URL = URL where error == nil else { print("Data Service download error", error.debugDescription); return }
       
@@ -265,6 +289,80 @@ class DataService {
       }
     }
   }
+  
+  func deletePost(post: Post) {
+    
+    let storageImageRef = FIRStorage.storage().reference()
+    let postRef = DataService.ds.REF_POSTS.child(post.postKey) as FIRDatabaseReference!
+    let userPostRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey) as FIRDatabaseReference!
+    
+    let deleteMethod = storageImageRef.child("images").child(post.postKey + ".jpg")
+    
+    deleteMethod.deleteWithCompletion({ error in
+      
+      guard error == nil else { print("delete error", error.debugDescription) ; return }
+      
+      print("storage image removed")
+      
+      for i in DataService.ds.posts.indices {
+        
+        if DataService.ds.posts[i].postKey == post.postKey {
+          
+          DataService.ds.deletePostAtIndex(i)
+          userPostRef.removeValue()
+          postRef.removeValue()
+          
+          NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
+          
+          return
+        }
+      }
+    })
+  
+  }
+  
+  func blockUser(post: Post) {
+    
+    //add block user functionality
+    //add the post's user to a blockedUsers list in the db
+    //create firebase reference then add to it and reload the table
+    
+    //Add blocked user to database
+    let userRef = DataService.ds.REF_USER_CURRENT.child("blockedUsers").child(post.userKey)
+    userRef.setValue(post.userKey)
+    
+    //Remove blocked user locally and update table
+    for i in DataService.ds.posts {
+      if i.postKey == post.postKey {
+        
+        print(i.postKey, i.username)
+        
+        DataService.ds.deletePostsByBlockedUser(post.userKey)
+        
+      }
+    }
+    
+    NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
+    
+    DataService.ds.downloadTableContent()
+  }
 
+  func markPostAsAnswered(post: Post) {
+    
+    let postRef = DataService.ds.REF_POSTS.child(post.postKey).child("answered") as FIRDatabaseReference!
+    
+    postRef.setValue(true)
+  }
+  
+  func reportPost(post: Post, reason: String) {
+    
+    let userKey = NSUserDefaults.standardUserDefaults().objectForKey(Constants.shared.KEY_UID) as! String
+    let postRef = DataService.ds.REF_BASE.child("reportedPosts").child(post.postKey).child(userKey) as FIRDatabaseReference!
+    
+    postRef.setValue(reason)
+    
+    //Post needs to be marked as reported or deleted
+
+  }
 
 }

@@ -20,7 +20,7 @@ class AppState {
   enum State {
     case CreatingPost
     case Feed
-    case TopTrumps
+    case Answered
     case PresentLoginFromComments
     case None
   }

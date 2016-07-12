@@ -316,7 +316,7 @@ class CreatePostTest: UIViewController, UITextViewDelegate, UIGestureRecognizerD
         
         self.selectedImagePath = nil
         
-        NSNotificationCenter.defaultCenter().postNotificationName("imageSaved", object: self)
+        NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
         
       }
     }
