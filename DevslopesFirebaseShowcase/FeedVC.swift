@@ -110,8 +110,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
           
           dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             
-            if post.username == NSUserDefaults.standardUserDefaults().valueForKey("username") as? String { //TempProfileImageStorage.shared.profileImage == nil {
-//              TempProfileImageStorage.shared.profileImage = profileImg
+            if post.username == NSUserDefaults.standardUserDefaults().valueForKey("username") as? String {
               print("temp profile image saved")
             }
             

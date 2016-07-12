@@ -25,6 +25,12 @@ class DataService {
   private var _posts: [Post]!
   private var _answeredPosts: [Post]!
   private var _myPosts: [Post]!
+  private var _currentUserKey: String?
+  
+  var currentUserKey: String? {
+    
+    return NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String ?? nil
+  }
 
 
   var posts: [Post] {

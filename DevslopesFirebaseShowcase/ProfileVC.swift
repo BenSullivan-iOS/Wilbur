@@ -90,9 +90,6 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     
     let image = info[UIImagePickerControllerOriginalImage] as! UIImage
     profileImage.image = image
-//    TempProfileImageStorage.shared.profileImage = image
-    
-    Cache.FeedVC.profileImageCache.removeAllObjects()
     
     let saveDirectory = direct().stringByAppendingPathComponent("/images/tempImage.jpg")
     print("Did finish save directory = ", saveDirectory)
@@ -228,8 +225,9 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       
       guard let data = NSData(contentsOfURL: URL), image = UIImage(data: data) else { return }
       
-          self.profileImage.image = image
-//          TempProfileImageStorage.shared.profileImage = image
+      self.profileImage.image = image
+      
+      Cache.FeedVC.profileImageCache.setObject(image, forKey: NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String)
     }
   }
   
@@ -266,6 +264,8 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       
       print("camera")
       self.imagePicker.sourceType = .Camera
+      self.imagePicker.cameraDevice = .Front
+      
       self.presentViewController(self.imagePicker, animated: true, completion: nil)
       
     }))

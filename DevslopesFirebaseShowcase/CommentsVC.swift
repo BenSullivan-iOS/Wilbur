@@ -269,14 +269,12 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   
   func textViewDidBeginEditing(textView: UITextView) {//Not working, needs to move cursor
     
-    bringCursorToStart()
-    
-    postButton.enabled = false
     
     if viewAppeared && commentTextView.text == DescriptionText.defaultText {
       
       commentTextView.text = ""
       commentTextView.textColor = .blackColor()
+      postButton.enabled = false
 
     }
     
