@@ -95,7 +95,7 @@ class LoginVC: UIViewController {
             
             if snapshot.value?.uid == user.uid {
             
-              if let savedUID = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String {
+              if let savedUID = DataService.ds.currentUserKey {
                 
                 if savedUID != user.uid {
                 

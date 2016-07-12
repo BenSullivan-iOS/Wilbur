@@ -33,7 +33,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    if let userKey = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String {
+    if let userKey = DataService.ds.currentUserKey {
 
       if let image = Cache.FeedVC.profileImageCache.objectForKey(userKey) as? UIImage {
         
@@ -129,9 +129,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   
   func saveProfileImageToFirebaseStorageWithURL(imagePath: String) {
     
-    let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
-    
-    let firebaseRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
+    let firebaseRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(DataService.ds.currentUserKey!)
     
     if let imagePath = selectedImagePath {
       
@@ -183,7 +181,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   func getProfileImageReferenceThenDownload() {
     
     
-    if let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String {
+    if let currentUser = DataService.ds.currentUserKey {
             
       profileImageRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
       
@@ -227,7 +225,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       
       self.profileImage.image = image
       
-      Cache.FeedVC.profileImageCache.setObject(image, forKey: NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String)
+      Cache.FeedVC.profileImageCache.setObject(image, forKey: DataService.ds.currentUserKey!)
     }
   }
   

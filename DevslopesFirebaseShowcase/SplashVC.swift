@@ -27,7 +27,7 @@ class SplashVC: UIViewController {
     
     dismissViewControllerAnimated(true, completion: nil)
     
-    if NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) != nil {
+    if DataService.ds.currentUserKey != nil {
       self.performSegueWithIdentifier(Constants.sharedSegues.loggedInFromSplash, sender: self)
     } else {
       self.performSegueWithIdentifier(Constants.sharedSegues.signUp, sender: self)

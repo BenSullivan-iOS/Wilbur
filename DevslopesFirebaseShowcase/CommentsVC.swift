@@ -68,18 +68,15 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
     //add a unique string before the username
     //if string is not
-    guard let currentUser = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String else { guestAlert(); return }
+    guard let currentUser = DataService.ds.currentUserKey else { guestAlert(); return }
 
     guard let comment = commentTextView.text
       where comment != DescriptionText.defaultText && commentTextView.text != "" else { return }
-    
     
     commentTextView.text = DescriptionText.defaultText
     commentTextView.textColor = .lightGrayColor()
     bringCursorToStart()
     postButton.enabled = false
-    
-    
 
     let newCommentRef = DataService.ds.REF_POSTS.child(post!.postKey).child("comments").child(String(keyArray.count)).child(comment)
     keyArray.append(comment)

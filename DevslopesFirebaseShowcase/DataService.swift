@@ -55,7 +55,7 @@ class DataService {
     
     let allPosts = _posts + _answeredPosts
     
-    let posts = allPosts.filter { $0.userKey == NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String }
+    let posts = allPosts.filter { $0.userKey == DataService.ds.currentUserKey }
     
     return posts
     
@@ -74,9 +74,7 @@ class DataService {
   
   var REF_USER_CURRENT: FIRDatabaseReference {
     
-    let uid = NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as! String
-    
-    let user = URL_BASE.child("users").child(uid)
+    let user = URL_BASE.child("users").child(DataService.ds.currentUserKey!)
     
     return user
   }
@@ -120,7 +118,7 @@ class DataService {
     
     var blockedUsers = [String]()
     
-    guard NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String != nil else {
+    guard DataService.ds.currentUserKey != nil else {
       downloadPosts([""]); return }
     
     let userRef = DataService.ds.REF_USER_CURRENT
@@ -362,8 +360,7 @@ class DataService {
   
   func reportPost(post: Post, reason: String) {
     
-    let userKey = NSUserDefaults.standardUserDefaults().objectForKey(Constants.shared.KEY_UID) as! String
-    let postRef = DataService.ds.REF_BASE.child("reportedPosts").child(post.postKey).child(userKey) as FIRDatabaseReference!
+    let postRef = DataService.ds.REF_BASE.child("reportedPosts").child(post.postKey).child(DataService.ds.currentUserKey!) as FIRDatabaseReference!
     
     postRef.setValue(reason)
     

@@ -11,23 +11,31 @@ import Firebase
 import AVFoundation
 import FirebaseStorage
 
-class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
+protocol MyPostsCellDelegate: class {
+  func showComments(post: Post, image: UIImage)
+  func reloadTable()
+}
+
+class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MyPostsCellDelegate {
   
   @IBOutlet weak var tableView: UITableView!
+  
+  var selectedPost: Post? = nil
+  var selectedPostImage: UIImage? = nil
   
   //MARK: - VC LIFECYCLE
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyPostsVC.reloadTable), name: "reloadTables", object: nil)
+//    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyPostsVC.reloadTable), name: "reloadTables", object: nil)
     
     self.tableView.estimatedRowHeight = 300
     self.tableView.rowHeight = UITableViewAutomaticDimension
     
     self.tableView.scrollsToTop = false
-    DataService.ds.delegate = self
-    DataService.ds.downloadTableContent()
+//    DataService.ds.delegate = self
+//    DataService.ds.downloadTableContent()
     
     //    AudioControls.shared.setupRecording()
     
@@ -57,6 +65,18 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
       backItem.title = "Back"
       navigationItem.backBarButtonItem = backItem
     }
+    
+    if segue.identifier == "showComments" {
+      
+      if let dest = segue.destinationViewController as? CommentsVC {
+        
+        dest.post = selectedPost
+        dest.postImage = selectedPostImage
+        
+        selectedPost = nil
+        selectedPostImage = nil
+      }
+    }
   }
   
   //MARK: - BUTTONS
@@ -75,7 +95,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-      if let cell = tableView.dequeueReusableCellWithIdentifier("myPostCell") as? PostCell {
+      if let cell = tableView.dequeueReusableCellWithIdentifier("myPostCell") as? MyPostsCell {
         
         let post = DataService.ds.myPosts[indexPath.row]
         
@@ -97,10 +117,6 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
           
           dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             
-            if post.username == NSUserDefaults.standardUserDefaults().valueForKey("username") as? String {
-              print("temp profile image saved")
-            }
-            
             cell.profileImg.clipsToBounds = true
             cell.profileImg.layer.cornerRadius = cell.profileImg.layer.frame.width / 2
             
@@ -121,27 +137,34 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, P
   
   //MARK - POST CELL DELEGATE
   
+  func showComments(post: Post, image: UIImage) {
+    
+    selectedPostImage = image
+    selectedPost = post
+    
+    performSegueWithIdentifier("showComments", sender: self)
+  }
   func reloadTable() {
     
     tableView.reloadData()
     
   }
-  
-  func showAlert(post: Post) {
-    displayAlert(post)
-  }
-  
-  func customCellCommentButtonPressed() {
-    
-    performSegueWithIdentifier("showComments", sender: self)
-  }
+//
+//  func showAlert(post: Post) {
+//    displayAlert(post)
+//  }
+//  
+//  func customCellCommentButtonPressed() {
+//    
+//    performSegueWithIdentifier("showComments", sender: self)
+//  }
   
   
   //MARK: - ALERTS
   
   func displayAlert(post: Post) {
     
-    guard let user = NSUserDefaults.standardUserDefaults().objectForKey(Constants.shared.KEY_UID) as? String else { guestAlert(); return }
+    guard let user = DataService.ds.currentUserKey else { guestAlert(); return }
     
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
     

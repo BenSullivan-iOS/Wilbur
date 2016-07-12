@@ -99,10 +99,6 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
           
           dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             
-            if post.username == NSUserDefaults.standardUserDefaults().valueForKey("username") as? String {
-              print("temp profile image saved")
-            }
-            
             cell.profileImg.clipsToBounds = true
             cell.profileImg.layer.cornerRadius = cell.profileImg.layer.frame.width / 2
             
@@ -144,7 +140,7 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
   
   func displayAlert(post: Post) {
     
-    guard let user = NSUserDefaults.standardUserDefaults().objectForKey(Constants.shared.KEY_UID) as? String else { guestAlert(); return }
+    guard let user = DataService.ds.currentUserKey else { guestAlert(); return }
     
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
     
