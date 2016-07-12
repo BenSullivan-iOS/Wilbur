@@ -14,6 +14,7 @@ import FirebaseStorage
 protocol MyPostsCellDelegate: class {
   func showComments(post: Post, image: UIImage)
   func reloadTable()
+  func showDeleteAlert(post: Post)
 }
 
 class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MyPostsCellDelegate {
@@ -149,95 +150,23 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
     tableView.reloadData()
     
   }
-//
-//  func showAlert(post: Post) {
-//    displayAlert(post)
-//  }
-//  
-//  func customCellCommentButtonPressed() {
-//    
-//    performSegueWithIdentifier("showComments", sender: self)
-//  }
   
-  
-  //MARK: - ALERTS
-  
-  func displayAlert(post: Post) {
+  func showDeleteAlert(post: Post) {
     
-    guard let user = DataService.ds.currentUserKey else { guestAlert(); return }
+    let alert = UIAlertController(title: "Are you sure you want to delete this post??", message: nil, preferredStyle: .ActionSheet)
     
-    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-    
-    //post belongs to user
-    if post.userKey == user {
-      
-      //Potentially change this to mark as unanswered
-      //      alert.addAction(UIAlertAction(title: "   Mark as Answered 😃", style: .Default, handler: { (action) in
-      //
-      //        DataService.ds.markPostAsAnswered(post)
-      //
-      //      }))
-      
-      alert.addAction(UIAlertAction(title: "   Delete Post 👋", style: .Default, handler: { (action) in
+    alert.addAction(UIAlertAction(title: "🤔...Yes please!", style: .Default, handler: { (action) in
         
         DataService.ds.deletePost(post)
         
       }))
-      
-    } else {
-      
-      alert.addAction(UIAlertAction(title: "Report", style: .Default, handler: { action in
-        
-        self.reportAlert(post)
-        
-      }))
-      
-      alert.addAction(UIAlertAction(title: "Block User", style: .Default, handler: { action in
-        
-        DataService.ds.blockUser(post)
-        
-      }))
-      
-    }
     
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "   No thanks 😁", style: .Cancel, handler: nil))
     
     self.presentViewController(alert, animated: true, completion: nil)
   }
   
-  func reportAlert(post: Post) {
-    
-    let alert = UIAlertController(title: "Submit report", message: nil, preferredStyle: .Alert)
-    
-    alert.addTextFieldWithConfigurationHandler { (textField) in
-      
-      textField.placeholder = "Reason for report"
-      textField.returnKeyType = .Default
-    }
-    
-    alert.addAction(UIAlertAction(title: "Submit", style: .Default, handler: { (action) in
-      
-      DataService.ds.reportPost(post, reason: alert.textFields![0].text!)
-      
-    }))
-    
-    self.presentViewController(alert, animated: true, completion:  nil)
-  }
-  
-  func guestAlert() {
-    
-    let alert = UIAlertController(title: "Function unavailable 😕", message: "You must be logged in to comment", preferredStyle: .Alert)
-    
-    alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
-      
-      self.dismissViewControllerAnimated(false, completion: nil)
-      
-    }))
-    
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
-    
-    self.presentViewController(alert, animated: true, completion: nil)
-  }
+  //MARK: - ALERTS
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent

@@ -295,11 +295,11 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate {
   
   func setupGestureRecognisers() {
     
-    let tap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
+    let tap = UITapGestureRecognizer(target: self, action: #selector(MyPostsCell.commentTapped))
     
     tap.numberOfTapsRequired = 1
     
-    let containerTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
+    let containerTap = UITapGestureRecognizer(target: self, action: #selector(MyPostsCell.commentTapped))
     
     containerTap.numberOfTapsRequired = 1
     
@@ -307,7 +307,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate {
     container.userInteractionEnabled = true
     
     
-    let likeTextTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
+    let likeTextTap = UITapGestureRecognizer(target: self, action: #selector(MyPostsCell.showDeleteAlert))
     
     likeTextTap.numberOfTapsRequired = 1
     
@@ -316,7 +316,9 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate {
   }
   
   
-  
+  func showDeleteAlert() {
+    delegate?.showDeleteAlert(post!)
+  }
   
 }
 

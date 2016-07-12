@@ -154,6 +154,19 @@
                                                                 </mask>
                                                             </variation>
                                                         </stackView>
+                                                        <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hbw-0l-WT1">
+                                                            <rect key="frame" x="217" y="439" width="126" height="40"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="126" id="jJr-kW-ULP"/>
+                                                                <constraint firstAttribute="height" constant="40" id="mTe-bQ-X9v"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
+                                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <state key="normal" title="   Delete 👋">
+                                                                <color key="titleColor" red="0.1647058824" green="0.54901960780000003" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                        </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_______________________________________________________________________________________________________________________" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="pH7-ib-iSY">
                                                             <rect key="frame" x="8" y="428" width="544" height="21"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -164,19 +177,6 @@
                                                             <color key="textColor" red="0.76862745099999996" green="0.76078431369999999" blue="0.76078431369999999" alpha="0.50612619540000003" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hbw-0l-WT1">
-                                                            <rect key="frame" x="230" y="453" width="101" height="22"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="101" id="jJr-kW-ULP"/>
-                                                                <constraint firstAttribute="height" constant="22" id="mTe-bQ-X9v"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
-                                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <state key="normal" title="   Delete 👋">
-                                                                <color key="titleColor" red="0.1647058824" green="0.54901960780000003" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </state>
-                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -187,10 +187,10 @@
                                                         <constraint firstItem="pH7-ib-iSY" firstAttribute="leading" secondItem="MCu-6z-aDT" secondAttribute="leading" constant="8" id="Ncf-xU-YiV"/>
                                                         <constraint firstItem="aC6-kC-8n1" firstAttribute="leading" secondItem="MCu-6z-aDT" secondAttribute="leading" constant="8" id="P0x-gL-N3F"/>
                                                         <constraint firstAttribute="trailing" secondItem="aC6-kC-8n1" secondAttribute="trailing" constant="8" id="U90-G2-0Lf"/>
-                                                        <constraint firstItem="Hbw-0l-WT1" firstAttribute="top" secondItem="pH7-ib-iSY" secondAttribute="bottom" constant="4" id="UNz-HX-UUX"/>
+                                                        <constraint firstItem="Hbw-0l-WT1" firstAttribute="top" secondItem="pH7-ib-iSY" secondAttribute="bottom" constant="-10" id="UNz-HX-UUX"/>
                                                         <constraint firstItem="1Ya-xI-C50" firstAttribute="top" secondItem="MCu-6z-aDT" secondAttribute="topMargin" constant="75" id="V60-0K-PGJ"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="1Ya-xI-C50" secondAttribute="bottom" constant="30" id="fyG-vd-yld"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Hbw-0l-WT1" secondAttribute="bottom" constant="4" id="lNT-Pi-O5k"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Hbw-0l-WT1" secondAttribute="bottom" id="lNT-Pi-O5k"/>
                                                         <constraint firstItem="1Ya-xI-C50" firstAttribute="leading" secondItem="MCu-6z-aDT" secondAttribute="leadingMargin" id="oee-Bz-noT"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="1Ya-xI-C50" secondAttribute="trailing" id="pJO-cO-sxB"/>
                                                         <constraint firstItem="Hbw-0l-WT1" firstAttribute="centerX" secondItem="MCu-6z-aDT" secondAttribute="centerX" id="pQp-B5-XvQ"/>
@@ -254,7 +254,7 @@
                 <viewControllerPlaceholder storyboardName="Comments" id="4Us-s2-l73" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7N5-Sq-5MQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4473.5" y="-501"/>
+            <point key="canvasLocation" x="4449" y="-465"/>
         </scene>
     </scenes>
     <resources>
