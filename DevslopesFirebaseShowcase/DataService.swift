@@ -92,6 +92,9 @@ class DataService {
     
     var blockedUsers = [String]()
     
+    guard NSUserDefaults.standardUserDefaults().valueForKey(Constants.shared.KEY_UID) as? String != nil else {
+      downloadPosts([""]); return }
+    
     let userRef = DataService.ds.REF_USER_CURRENT
 
     userRef.observeEventType(.Value, withBlock: { snapshot in
@@ -102,30 +105,20 @@ class DataService {
           
           if let userDict = snap.value as? [String: AnyObject] {
             
-            print(snap.key)
-            
             if snap.key == "blockedUsers" {
               
               for i in userDict {
                 
                 blockedUsers.append(i.0)
-                
               }
-              
-              print(userDict)
-            
-              
-              print("Blocked users:", snap)
-
             }
             
             if snap.key == "profileImage" {
-              print("begin downloading profile image")
+
               for i in userDict {
                 
                 self.downloadProfileImage(i.0)
               }
-              
             }
           }
         }
@@ -154,10 +147,7 @@ class DataService {
               if !blockedUsers.contains(post.userKey) {
                 
                 self._posts.append(post)
-
               }
-              
-              
             } else {
               
               //create array for answered table or just filter other array?

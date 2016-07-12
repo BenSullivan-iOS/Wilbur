@@ -21,8 +21,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   @IBOutlet weak var tableView: UITableView!
   
-  private var cellImage: UIImage? = nil
-  
   //MARK: - VC LIFECYCLE
   
   override func viewDidLoad() {
@@ -75,7 +73,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     if AppState.shared.currentState == .Feed {
       
       if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
-        
+        print("indexPath = ", indexPath.row)
+        print("postCount", DataService.ds.posts.count)
         let post = DataService.ds.posts[indexPath.row]
         
         var img: UIImage?
@@ -163,9 +162,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         
         alert.addAction(UIAlertAction(title: "Delete Post", style: .Default, handler: { (action) in
           
-          userPostRef.removeValue()
-          postRef.removeValue()
-          
           let deleteMethod = storageImageRef.child("images").child(post.postKey + ".jpg")
           
           deleteMethod.deleteWithCompletion({ (error) in
@@ -176,9 +172,16 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
             
             for i in DataService.ds.posts.indices {
               
-              if DataService.ds.posts[i].postKey == postRef.key {
+              if DataService.ds.posts[i].postKey == post.postKey {
                 
                 DataService.ds.deletePostAtIndex(i)
+                userPostRef.removeValue()
+                postRef.removeValue()
+                
+                dispatch_async(dispatch_get_main_queue(), { 
+                  self.tableView.reloadData()
+                })
+                return
               }
             }
           })
