@@ -200,7 +200,6 @@ class PostCell: UITableViewCell, NSCacheDelegate {
           }
         } else {
           
-          
           dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             self.post?.wasCommentedOn(true)
             Cache.FeedVC.commentedOnCache.setObject(true, forKey: (self.post?.postKey)!)

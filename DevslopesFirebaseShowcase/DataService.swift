@@ -67,8 +67,6 @@ class DataService {
     
     REF_USERS.child(uid).setValue(user)
     
-    print("Create firebase user")
-    
   }
   
   func isAfterDate(startDate: NSDate, endDate: NSDate) -> Bool {
@@ -119,6 +117,15 @@ class DataService {
               
               print("Blocked users:", snap)
 
+            }
+            
+            if snap.key == "profileImage" {
+              print("begin downloading profile image")
+              for i in userDict {
+                
+                self.downloadProfileImage(i.0)
+              }
+              
             }
           }
         }
@@ -245,6 +252,29 @@ class DataService {
     }
   }
   
-  
+  func downloadProfileImage(imageLocation: String) {
+    
+    if !ProfileImageTracker.imageLocations.contains(imageLocation) {
+      
+      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
+      let storageRef = FIRStorage.storage().reference()
+      let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
+      pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+
+        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+        
+        if let data = NSData(contentsOfURL: URL) {
+          
+          if let image = UIImage(data: data) {
+            
+            Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
+            ProfileImageTracker.imageLocations.insert(imageLocation)
+            
+          }
+        }
+      }
+    }
+  }
+
 
 }

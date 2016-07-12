@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import FDWaveformView
 import AVFoundation
 import FirebaseStorage
 
@@ -23,7 +22,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   @IBOutlet weak var tableView: UITableView!
   
   private var cellImage: UIImage? = nil
-  
   
   //MARK: - VC LIFECYCLE
   

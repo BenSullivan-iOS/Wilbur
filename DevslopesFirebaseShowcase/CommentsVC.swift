@@ -199,7 +199,7 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
     if textView.text == DescriptionText.defaultText && viewAppeared == true {
       commentTextView.text = ""
-      commentTextView.textColor = .darkGrayColor()
+      commentTextView.textColor = .blackColor()
     }
     return true
   }
@@ -276,7 +276,7 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     if viewAppeared && commentTextView.text == DescriptionText.defaultText {
       
       commentTextView.text = ""
-      commentTextView.textColor = .darkGrayColor()
+      commentTextView.textColor = .blackColor()
 
     }
     
