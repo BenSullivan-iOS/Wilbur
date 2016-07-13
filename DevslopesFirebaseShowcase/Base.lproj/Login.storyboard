@@ -13,15 +13,15 @@
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
             <string>NotoSans-Bold</string>
-            <string>NotoSans-Bold</string>
         </mutableArray>
         <mutableArray key="NotoSans-Regular.ttf">
+            <string>NotoSans</string>
             <string>NotoSans</string>
             <string>NotoSans</string>
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--LoginVC-->
+        <!--Title-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="LoginVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LoginVC" customModule="Wilbur" customModuleProvider="target" sceneMemberID="viewController">
@@ -33,64 +33,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5x-vH-WGC">
-                                <rect key="frame" x="0.0" y="214" width="600" height="172"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jho-Yk-WXk" customClass="MaterialView" customModule="Wilbur" customModuleProvider="target">
-                                        <rect key="frame" x="-20" y="22" width="633" height="129"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="t2U-cE-2EK">
-                                                <rect key="frame" x="25" y="30" width="583" height="70"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebookIcon" translatesAutoresizingMaskIntoConstraints="NO" id="CEo-uq-pPk">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="70" id="057-xk-oFx"/>
-                                                            <constraint firstAttribute="width" constant="70" id="P3S-yZ-egX"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-Dm-DUf">
-                                                        <rect key="frame" x="75" y="19" width="508" height="33"/>
-                                                        <color key="backgroundColor" red="0.27058823529411763" green="0.35294117647058826" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="33" id="ctc-2e-O3Y"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
-                                                        <state key="normal" title="FACEBOOK LOGIN">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="FbBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8GN-FS-q2D"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="t2U-cE-2EK" firstAttribute="leading" secondItem="Jho-Yk-WXk" secondAttribute="leading" constant="25" id="2pQ-y7-4r7"/>
-                                            <constraint firstItem="t2U-cE-2EK" firstAttribute="centerY" secondItem="Jho-Yk-WXk" secondAttribute="centerY" id="Hxd-xI-ZP6"/>
-                                            <constraint firstAttribute="trailing" secondItem="t2U-cE-2EK" secondAttribute="trailing" constant="25" id="ejB-vF-ebe"/>
-                                            <constraint firstAttribute="height" constant="129" id="gFW-yQ-CAb"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By using this application you are agreeing to the Wilbur Terms and Conditions" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ur-3E-Wcn">
+                                <rect key="frame" x="132" y="516" width="336" height="51"/>
                                 <constraints>
-                                    <constraint firstItem="Jho-Yk-WXk" firstAttribute="leading" secondItem="n5x-vH-WGC" secondAttribute="leadingMargin" constant="-28" id="WmU-Od-MAe"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="Jho-Yk-WXk" secondAttribute="trailing" constant="-21" id="cVe-OB-bAy"/>
-                                    <constraint firstAttribute="height" constant="172" id="pD4-th-QfO"/>
-                                    <constraint firstItem="Jho-Yk-WXk" firstAttribute="centerX" secondItem="n5x-vH-WGC" secondAttribute="centerX" constant="-3.5" id="q7U-4Y-TFi"/>
-                                    <constraint firstItem="Jho-Yk-WXk" firstAttribute="centerY" secondItem="n5x-vH-WGC" secondAttribute="centerY" id="rbV-q7-7qa"/>
+                                    <constraint firstAttribute="width" constant="336" id="PqP-rx-Xhl"/>
+                                    <constraint firstAttribute="height" constant="51" id="XHb-GK-t6u"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XS7-ic-tnn">
+                                <rect key="frame" x="225" y="562" width="150" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="9Gc-OF-MRo"/>
+                                    <constraint firstAttribute="width" constant="150" id="m56-02-0RY"/>
+                                </constraints>
+                                <state key="normal" title="Terms and Conditions"/>
+                                <connections>
+                                    <segue destination="sMb-gj-xyQ" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="partialCurl" id="yGZ-mj-1gn"/>
+                                </connections>
+                            </button>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y6G-lr-FNq">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                                <color key="backgroundColor" red="0.01908319315" green="0.53050233739999997" blue="0.6555484989" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="cKY-hK-TNd"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.01908319315" green="0.53050233739999997" blue="0.6555484989" alpha="1" colorSpace="calibratedRGB"/>
+                                <items>
+                                    <navigationItem id="06z-Bp-73U"/>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOGIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoB-93-a9e">
+                                <rect key="frame" x="248" y="20" width="105" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="Zvc-jr-k6h"/>
+                                    <constraint firstAttribute="height" constant="35" id="tqi-JA-BhG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Cochin" family="Cochin" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxM-rN-uVX" customClass="GoogleButton" customModule="Wilbur" customModuleProvider="target">
+                                <rect key="frame" x="20" y="156" width="560" height="50"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rhw-ry-H19">
-                                <rect key="frame" x="46" y="394" width="508" height="33"/>
-                                <color key="backgroundColor" red="0.27058823529999998" green="0.35294117650000001" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rhw-ry-H19" customClass="MaterialButton" customModule="Wilbur" customModuleProvider="target">
+                                <rect key="frame" x="216" y="221" width="168" height="41"/>
+                                <color key="backgroundColor" red="0.1647058824" green="0.54901960780000003" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="eH1-JH-Csh"/>
+                                    <constraint firstAttribute="width" constant="168" id="KSr-uc-z8L"/>
+                                    <constraint firstAttribute="height" constant="41" id="vae-45-nel"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                 <state key="normal" title="Continue as guest">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -98,14 +94,46 @@
                                     <action selector="guestButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4q6-4N-bu2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-Dm-DUf">
+                                <rect key="frame" x="16" y="420" width="568" height="33"/>
+                                <color key="backgroundColor" red="0.27058823529411763" green="0.35294117647058826" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="UdD-Bl-JMt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
+                                <state key="normal" title="FACEBOOK LOGIN">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="FbBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8GN-FS-q2D"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="n5x-vH-WGC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="3uc-7u-ckn"/>
-                            <constraint firstAttribute="trailing" secondItem="n5x-vH-WGC" secondAttribute="trailing" id="NnJ-EZ-3ir"/>
-                            <constraint firstItem="n5x-vH-WGC" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="OMT-TH-o1b"/>
+                            <constraint firstItem="XS7-ic-tnn" firstAttribute="top" secondItem="2ur-3E-Wcn" secondAttribute="bottom" constant="-5" id="0wp-Cv-w1X"/>
+                            <constraint firstItem="eoB-93-a9e" firstAttribute="top" secondItem="y6G-lr-FNq" secondAttribute="bottom" constant="-40" id="2pb-1c-11G"/>
+                            <constraint firstAttribute="trailing" secondItem="y6G-lr-FNq" secondAttribute="trailing" id="6Lp-IL-Sso"/>
+                            <constraint firstItem="y6G-lr-FNq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="6dn-A3-NSx"/>
+                            <constraint firstItem="2ur-3E-Wcn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IVM-eQ-qaU"/>
+                            <constraint firstItem="zxM-rN-uVX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Ps3-pA-8AD"/>
+                            <constraint firstItem="y6G-lr-FNq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ptb-8h-9g1"/>
+                            <constraint firstItem="eoB-93-a9e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WTm-Fm-vLC"/>
+                            <constraint firstItem="XS7-ic-tnn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XBB-zx-x1b"/>
+                            <constraint firstItem="Rhw-ry-H19" firstAttribute="top" secondItem="zxM-rN-uVX" secondAttribute="bottom" constant="15" id="lIV-mD-Oa1"/>
+                            <constraint firstItem="zxM-rN-uVX" firstAttribute="top" secondItem="y6G-lr-FNq" secondAttribute="bottom" constant="96" id="m6w-xp-Vic"/>
+                            <constraint firstItem="zxM-rN-uVX" firstAttribute="centerX" secondItem="eoB-93-a9e" secondAttribute="centerX" id="ozi-Ms-TFb"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="XS7-ic-tnn" secondAttribute="bottom" constant="8" id="qT2-37-x3O"/>
+                            <constraint firstItem="Rhw-ry-H19" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="221" id="v9W-8W-jTi"/>
+                            <constraint firstItem="zxM-rN-uVX" firstAttribute="centerX" secondItem="Rhw-ry-H19" secondAttribute="centerX" id="yBB-BM-HSa"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Tg7-Dm-DUf"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="3KZ-f5-2kZ"/>
                     <connections>
                         <outlet property="facebookLoginButton" destination="Tg7-Dm-DUf" id="sbd-Bu-VoO"/>
                         <outlet property="guestButton" destination="Rhw-ry-H19" id="FLP-j7-Ocb"/>
@@ -114,7 +142,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="361" y="97"/>
+            <point key="canvasLocation" x="1173" y="97"/>
         </scene>
         <!--Container-->
         <scene sceneID="aSK-0G-Dy2">
@@ -122,7 +150,15 @@
                 <viewControllerPlaceholder storyboardIdentifier="PagingVC" storyboardName="Main" referencedIdentifier="Container" id="ArX-Yy-GJ7" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iwL-ZW-XGr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="938.5" y="97"/>
+            <point key="canvasLocation" x="1750" y="97"/>
+        </scene>
+        <!--Main-->
+        <scene sceneID="C0Y-z5-2ys">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" id="sMb-gj-xyQ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ehe-zl-biA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1622" y="325"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="O9s-WS-egV">
@@ -309,8 +345,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="code-icon-logo" width="318" height="281"/>
-        <image name="facebookIcon" width="768" height="768"/>
+        <image name="code-icon-logo" width="527" height="800"/>
         <image name="fb-icon" width="65" height="65"/>
     </resources>
 </document>

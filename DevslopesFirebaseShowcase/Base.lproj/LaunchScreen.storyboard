@@ -16,18 +16,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sherlock" translatesAutoresizingMaskIntoConstraints="NO" id="CpK-eJ-nKt">
-                                <rect key="frame" x="193" y="136" width="215" height="327"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wilburIcon" translatesAutoresizingMaskIntoConstraints="NO" id="CpK-eJ-nKt">
+                                <rect key="frame" x="174" y="174" width="253" height="252"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="215" id="5Y5-dZ-d99"/>
-                                    <constraint firstAttribute="height" constant="327" id="OWt-ME-Mcp"/>
+                                    <constraint firstAttribute="width" constant="253" id="Nzh-oM-1R5"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="CpK-eJ-nKt" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="E3h-ZU-s8U"/>
-                            <constraint firstItem="CpK-eJ-nKt" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="TXS-5J-mOM"/>
+                            <constraint firstItem="CpK-eJ-nKt" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Gvd-6u-uhT"/>
+                            <constraint firstItem="CpK-eJ-nKt" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mAt-0w-vkT"/>
+                            <constraint firstItem="CpK-eJ-nKt" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="154" id="pik-gB-WgF"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="sherlock" width="527" height="800"/>
+        <image name="wilburIcon" width="250" height="249"/>
     </resources>
 </document>

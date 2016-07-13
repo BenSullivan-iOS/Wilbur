@@ -117,6 +117,7 @@
 		B5D3F9981CEB498500EEB78F /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		B5D6A97F1D358A56006B7207 /* CreatePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePost.swift; sourceTree = "<group>"; };
+		B5D6A9811D36483A006B7207 /* Wildlife-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wildlife-Bridging-Header.h"; sourceTree = "<group>"; };
 		B5D85BF41CFA12B800E62148 /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableVC.swift; sourceTree = "<group>"; };
 		B5DE8A001D2E812B00F9C364 /* ShowcaseImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowcaseImage.swift; sourceTree = "<group>"; };
@@ -164,6 +165,7 @@
 			children = (
 				9025CDEE26ACA91AABC390FC /* Pods-Wildlife.debug.xcconfig */,
 				26AAC8E599183F4EF442741D /* Pods-Wildlife.release.xcconfig */,
+				B5D6A9811D36483A006B7207 /* Wildlife-Bridging-Header.h */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -735,6 +737,7 @@
 			baseConfigurationReference = 9025CDEE26ACA91AABC390FC /* Pods-Wildlife.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -750,6 +753,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.Wildlife;
 				PRODUCT_NAME = Wilbur;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Wildlife-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
@@ -759,6 +764,7 @@
 			baseConfigurationReference = 26AAC8E599183F4EF442741D /* Pods-Wildlife.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -774,6 +780,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.SullivanApplications.Wildlife;
 				PRODUCT_NAME = Wilbur;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Wildlife-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
 			};
 			name = Release;

@@ -395,7 +395,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
       
       self.presentViewController(alert, animated: true, completion: nil)
       
-      NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(CreatePostTest.dismissAlert), userInfo: nil, repeats: false)
+      NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(CreatePostVC.dismissAlert), userInfo: nil, repeats: false)
     }
   }
   

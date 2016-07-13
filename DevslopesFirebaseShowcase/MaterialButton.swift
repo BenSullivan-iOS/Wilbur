@@ -8,17 +8,32 @@
 
 import UIKit
 
+class GoogleButton: GIDSignInButton {
+  
+  override func awakeFromNib() {
+
+  
+  let color = Constants.shared.shadowColor
+  
+  layer.cornerRadius = 2.0
+  layer.shadowColor = UIColor(red: color, green: color, blue: color, alpha: 0.5).CGColor
+  layer.shadowOpacity = 1
+  layer.shadowRadius = 2
+  layer.shadowOffset = CGSizeMake(0.0, 2.0)
+}
+}
+
 class MaterialButton: UIButton {
 
-//  override func awakeFromNib() {
-//    
-//    let color = Constants.shared.shadowColor
-//    
-//    layer.cornerRadius = 2.0
-//    layer.shadowColor = UIColor(red: color, green: color, blue: color, alpha: 0.5).CGColor
-//    layer.shadowOpacity = 0.8
-//    layer.shadowRadius = 5.0
-//    layer.shadowOffset = CGSizeMake(0.0, 2.0)
-//  }
+  override func awakeFromNib() {
+    
+    let color = Constants.shared.shadowColor
+    
+    layer.cornerRadius = 2.0
+    layer.shadowColor = UIColor(red: color, green: color, blue: color, alpha: 0.5).CGColor
+    layer.shadowOpacity = 1
+    layer.shadowRadius = 2
+    layer.shadowOffset = CGSizeMake(0.0, 2.0)
+  }
 
 }

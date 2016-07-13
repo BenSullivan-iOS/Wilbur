@@ -102,7 +102,7 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
     
     if title == "CreatePostVC" {
       
-      let VC = UIStoryboard(name: "Main", bundle: nil) .instantiateViewControllerWithIdentifier(title) as! CreatePostTest
+      let VC = UIStoryboard(name: "Main", bundle: nil) .instantiateViewControllerWithIdentifier(title) as! CreatePostVC
       
       rootController?.createPostDelegate = VC
       

@@ -10,8 +10,9 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import FirebaseAuth
+import Firebase
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
   
   @IBOutlet weak var facebookLoginButton: UIButton!
   @IBOutlet weak var guestButton: UIButton!
@@ -21,53 +22,95 @@ class LoginVC: UIViewController {
     presentFeedVC()
   }
   
+  func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError?) {
+    
+    let authentication = user.authentication
+    let credential = FIRGoogleAuthProvider.credentialWithIDToken(authentication.idToken,
+                                                                 accessToken: authentication.accessToken)
+    
+    FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+      
+      print("did sign in for user", error)
+      print(user)
+      
+      guard let user = user where error == nil else { print(error); return }
+      
+      NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
+      NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.shared.KEY_UID)
+      
+      self.presentFeedVC()
+    }
+    
+  }
+  
+  func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
+              withError error: NSError!) {
+    
+    print("did disconnect with user")
+    // Perform any operations when the user disconnects from app here.
+    // ...
+  }
+
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     styleFacebookLoginButton()
+    
+    GIDSignIn.sharedInstance().uiDelegate = self
+    GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+    GIDSignIn.sharedInstance().delegate = self
+
+
+
+    // Uncomment to automatically sign in the user.
+    //GIDSignIn.sharedInstance().signInSilently()
+    
+    // TODO(developer) Configure the sign-in button look/feel
+    // ...
   }
   
-  func returnUserData() {
-    let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-    graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
-      
-      if ((error) != nil)
-      {
-        // Process error
-        print("Error: \(error)")
-      }
-      else
-      {
-        print("fetched user: \(result)")
-        
-        if let id: NSString = result.valueForKey("id") as? NSString {
-          print("ID is: \(id)")
-          self.returnUserProfileImage(id)
-        } else {
-          print("ID es null")
-        }
-        
-        
-      }
-    })
-  }
-  
-  func returnUserProfileImage(accessToken: NSString)
-  {
-    var userID = accessToken as NSString
-    var facebookProfileUrl = NSURL(string: "https://graph.facebook.com/\(userID)/picture?type=large")
-    
-    if let data = NSData(contentsOfURL: facebookProfileUrl!) {
-      
-      print(UIImage(data: data))
-//      imageProfile.image = UIImage(data: data)
-    } else {
-      print("buggar")
-      
-    }
-    
-  }
+//  func returnUserData() {
+//    let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+//    graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+//      
+//      if ((error) != nil)
+//      {
+//        // Process error
+//        print("Error: \(error)")
+//      }
+//      else
+//      {
+//        print("fetched user: \(result)")
+//        
+//        if let id: NSString = result.valueForKey("id") as? NSString {
+//          print("ID is: \(id)")
+//          self.returnUserProfileImage(id)
+//        } else {
+//          print("ID es null")
+//        }
+//        
+//        
+//      }
+//    })
+//  }
+//  
+//  func returnUserProfileImage(accessToken: NSString)
+//  {
+//    var userID = accessToken as NSString
+//    var facebookProfileUrl = NSURL(string: "https://graph.facebook.com/\(userID)/picture?type=large")
+//    
+//    if let data = NSData(contentsOfURL: facebookProfileUrl!) {
+//      
+//      print(UIImage(data: data))
+////      imageProfile.image = UIImage(data: data)
+//    } else {
+//      print("buggar")
+//      
+//    }
+//    
+//  }
   
   @IBAction func FbBtnPressed(sender: UIButton) {
     
@@ -161,6 +204,8 @@ class LoginVC: UIViewController {
     facebookLoginButton.layer.cornerRadius = 2.0
     facebookLoginButton.clipsToBounds = true
   }
-
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
+  }
 }
 

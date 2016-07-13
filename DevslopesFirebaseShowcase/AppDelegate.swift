@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     FIRApp.configure()
     
+    GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+//    GIDSignIn.sharedInstance().delegate = self
+    
     self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
     var initialViewController: UIViewController?
@@ -79,5 +82,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
     return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
   }
+  
+  //MARK: - GOOGLE AUTHENTICATION
+  
+  func application(application: UIApplication,
+                   openURL url: NSURL, options: [String: AnyObject]) -> Bool {
+    return GIDSignIn.sharedInstance().handleURL(url,
+                                                sourceApplication: options[UIApplicationOpenURLOptionsSourceApplicationKey] as? String,
+                                                annotation: options[UIApplicationOpenURLOptionsAnnotationKey])
+  }
+  
 }
 
