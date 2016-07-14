@@ -106,8 +106,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         
         cell.showcaseImg.hidden = true
         cell.showcaseImg.image = nil
-        cell.profileImg.image = UIImage(named: "profile-placeholder")
-        
+        cell.profileImg.hidden = true
+        cell.profileImg.image = nil
+                
         if let url = post.imageUrl {
           img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
           cell.showcaseImg.hidden = false
@@ -117,6 +118,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
           
           profileImg = profileImage
+
+
           
           dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             
@@ -124,10 +127,11 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
             cell.profileImg.layer.cornerRadius = cell.profileImg.layer.frame.width / 2
             
             dispatch_async(dispatch_get_main_queue(), {
-              cell.profileImg.image = profileImg
+              cell.profileImg.hidden = false
+              cell.profileImg.image = profileImage
             })
           }
-          
+      
         }
         
         cell.delegate = self

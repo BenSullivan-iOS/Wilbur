@@ -108,6 +108,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
   
   func configureProfileImage(post: Post, profileImg: UIImage?) {
     
+    self.profileImg.hidden = false
     self.profileImg.image = UIImage(named: "profile-placeholder")
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
@@ -116,9 +117,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
       self.profileImg.clipsToBounds = true
       
       dispatch_async(dispatch_get_main_queue(), {
-        
-        self.profileImg.image = UIImage(named: "profile-placeholder")
-        
+                
         if let profileImg = profileImg {
           
           self.profileImg.image = profileImg
