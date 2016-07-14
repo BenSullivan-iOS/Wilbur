@@ -103,6 +103,8 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         
         cell.showcaseImg.hidden = true
         cell.showcaseImg.image = nil
+        cell.profileImg.hidden = true
+        cell.profileImg.image = nil
         
         if let url = post.imageUrl {
           img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
@@ -120,7 +122,8 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
             cell.profileImg.layer.cornerRadius = cell.profileImg.layer.frame.width / 2
             
             dispatch_async(dispatch_get_main_queue(), {
-              cell.profileImg.image = profileImg
+              cell.profileImg.hidden = false
+              cell.profileImg.image = profileImage
             })
           }
           

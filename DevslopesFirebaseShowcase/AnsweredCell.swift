@@ -103,6 +103,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
   
   func configureProfileImage(post: Post, profileImg: UIImage?) {
     
+    self.profileImg.hidden = false
     self.profileImg.image = UIImage(named: "profile-placeholder")
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
