@@ -33,15 +33,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By using this application you are agreeing to the Wilbur Terms and Conditions" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ur-3E-Wcn">
-                                <rect key="frame" x="132" y="516" width="336" height="51"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By using this application you are agreeing to the Wilbur Terms and Conditions" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2ur-3E-Wcn">
+                                <rect key="frame" x="20" y="516" width="560" height="51"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="336" id="PqP-rx-Xhl"/>
+                                    <constraint firstAttribute="width" constant="560" id="PqP-rx-Xhl"/>
                                     <constraint firstAttribute="height" constant="51" id="XHb-GK-t6u"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="PqP-rx-Xhl"/>
+                                    </mask>
+                                </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XS7-ic-tnn">
                                 <rect key="frame" x="225" y="562" width="150" height="30"/>
@@ -116,8 +121,10 @@
                             <constraint firstAttribute="trailing" secondItem="y6G-lr-FNq" secondAttribute="trailing" id="6Lp-IL-Sso"/>
                             <constraint firstItem="y6G-lr-FNq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="6dn-A3-NSx"/>
                             <constraint firstItem="2ur-3E-Wcn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="IVM-eQ-qaU"/>
+                            <constraint firstItem="2ur-3E-Wcn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Mah-KA-rvE"/>
                             <constraint firstItem="zxM-rN-uVX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Ps3-pA-8AD"/>
                             <constraint firstItem="y6G-lr-FNq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ptb-8h-9g1"/>
+                            <constraint firstItem="2ur-3E-Wcn" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="SF7-Er-Ha6"/>
                             <constraint firstItem="eoB-93-a9e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WTm-Fm-vLC"/>
                             <constraint firstItem="XS7-ic-tnn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XBB-zx-x1b"/>
                             <constraint firstItem="Rhw-ry-H19" firstAttribute="top" secondItem="zxM-rN-uVX" secondAttribute="bottom" constant="15" id="lIV-mD-Oa1"/>
@@ -345,7 +352,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="code-icon-logo" width="527" height="800"/>
+        <image name="code-icon-logo" width="70" height="70"/>
         <image name="fb-icon" width="65" height="65"/>
     </resources>
 </document>

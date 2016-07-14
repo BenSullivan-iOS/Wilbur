@@ -22,6 +22,8 @@ class CommentCell: UITableViewCell {
   
   func configureCell(key: String, value: String) {
     
+    profileImage.image = UIImage(named: "profile-placeholder")
+    
     commentText.text = key
     
     if let value = Cache.FeedVC.profileImageCache.objectForKey(value) as? UIImage {

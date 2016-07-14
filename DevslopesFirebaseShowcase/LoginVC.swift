@@ -24,11 +24,13 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
   
   func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError?) {
     
+    guard error == nil else { print(error); return }
+    
     let authentication = user.authentication
     let credential = FIRGoogleAuthProvider.credentialWithIDToken(authentication.idToken,
                                                                  accessToken: authentication.accessToken)
     
-    FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+    FIRAuth.auth()?.signInWithCredential(credential) { user, error in
       
       print("did sign in for user", error)
       print(user)

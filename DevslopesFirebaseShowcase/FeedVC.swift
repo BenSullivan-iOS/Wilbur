@@ -21,6 +21,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   @IBOutlet weak var tableView: UITableView!
   
+  let indicator = UIActivityIndicatorView()
+  
   //MARK: - VC LIFECYCLE
   
   override func viewDidLoad() {
@@ -34,6 +36,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     self.tableView.scrollsToTop = false
     DataService.ds.delegate = self
     DataService.ds.downloadTableContent()
+    
+    indicator.startAnimating()
+    indicator.hidesWhenStopped = true
+    indicator.activityIndicatorViewStyle = .Gray
+    indicator.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.width / 2, 15.0, 15.0)
+    
+    self.view.addSubview(indicator)
     
     AppState.shared.currentState = .Feed
     
@@ -97,6 +106,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         
         cell.showcaseImg.hidden = true
         cell.showcaseImg.image = nil
+        cell.profileImg.image = UIImage(named: "profile-placeholder")
         
         if let url = post.imageUrl {
           img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
@@ -135,6 +145,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     tableView.reloadData()
     
+    indicator.stopAnimating()
   }
   
   func showAlert(post: Post) {

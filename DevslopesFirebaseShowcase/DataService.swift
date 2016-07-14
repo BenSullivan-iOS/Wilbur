@@ -74,9 +74,14 @@ class DataService {
   
   var REF_USER_CURRENT: FIRDatabaseReference {
     
-    let user = URL_BASE.child("users").child(DataService.ds.currentUserKey!)
-    
-    return user
+    if let userKey = DataService.ds.currentUserKey {
+      
+      return URL_BASE.child("users").child(userKey)
+    } else {
+      
+      return URL_BASE.child("users").child("guest")
+
+    }
   }
   
   func deletePostAtIndex(index: Int) {

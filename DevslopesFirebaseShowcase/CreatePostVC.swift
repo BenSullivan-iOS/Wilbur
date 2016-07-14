@@ -234,12 +234,17 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
       guard let userKey = DataService.ds.currentUserKey else { print("no username key"); return }
       
-      guard descriptionText != "" else { return }
+      var description = descriptionText.text!
+      
+      if descriptionText.text! == DescriptionText.defaultText {
+        
+        description = ""
+      }
       
       postingAlert()
   
       var post: [String: AnyObject] = [
-  "description" : descriptionText.text!,
+  "description" : description,
           "user": username,
           "date": String(NSDate()),
        "userKey": userKey
@@ -315,6 +320,8 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
         self.postedAlert()
         
         self.selectedImagePath = nil
+        
+        self.descriptionText.text = DescriptionText.defaultText
         
         NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
         

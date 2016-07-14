@@ -45,6 +45,8 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     keyArray = (post?.commentText)!
     valueArray = (post?.commentUsers)!
     
+    postButton.enabled = false
+    
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -265,7 +267,6 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   }
   
   func textViewDidBeginEditing(textView: UITextView) {//Not working, needs to move cursor
-    
     
     if viewAppeared && commentTextView.text == DescriptionText.defaultText {
       
