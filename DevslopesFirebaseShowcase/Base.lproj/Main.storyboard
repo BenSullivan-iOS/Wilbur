@@ -20,6 +20,9 @@
         <mutableArray key="NotoSans-BoldItalic.ttf">
             <string>NotoSans-BoldItalic</string>
         </mutableArray>
+        <mutableArray key="NotoSans-Italic.ttf">
+            <string>NotoSans-Italic</string>
+        </mutableArray>
         <mutableArray key="NotoSans-Regular.ttf">
             <string>NotoSans</string>
             <string>NotoSans</string>
@@ -1018,7 +1021,7 @@ Cg
                                                                 </mask>
                                                             </variation>
                                                         </stackView>
-                                                        <stackView contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="aVF-yY-K9m">
+                                                        <stackView contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aVF-yY-K9m">
                                                             <rect key="frame" x="8" y="83" width="544" height="358"/>
                                                             <subviews>
                                                                 <stackView contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="LWU-h9-cTR">
@@ -1034,8 +1037,36 @@ Cg
                                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buS-UC-zZN">
+                                                                            <rect key="frame" x="0.0" y="32" width="544" height="30"/>
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privet hawk moth - Sphinx ligustri  Privet hawk moth - Sphinx ligustriv" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a5N-92-cFE" customClass="RoundedLabel" customModule="Wilbur" customModuleProvider="target">
+                                                                                    <rect key="frame" x="2" y="0.0" width="540" height="28"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="5Ne-1o-661"/>
+                                                                                    </constraints>
+                                                                                    <fontDescription key="fontDescription" name="NotoSans-Italic" family="Noto Sans" pointSize="15"/>
+                                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <constraints>
+                                                                                <constraint firstItem="a5N-92-cFE" firstAttribute="top" secondItem="buS-UC-zZN" secondAttribute="top" id="Gie-Rr-vdH"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="a5N-92-cFE" secondAttribute="trailing" constant="2" id="Ifd-ZA-FRg"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="a5N-92-cFE" secondAttribute="bottom" constant="2" id="SYb-UQ-HT6"/>
+                                                                                <constraint firstItem="a5N-92-cFE" firstAttribute="leading" secondItem="buS-UC-zZN" secondAttribute="leading" constant="2" id="lFZ-mO-onE"/>
+                                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="uUr-3A-dqh"/>
+                                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="vIS-Bq-8yy"/>
+                                                                            </constraints>
+                                                                            <variation key="default">
+                                                                                <mask key="constraints">
+                                                                                    <exclude reference="vIS-Bq-8yy"/>
+                                                                                </mask>
+                                                                            </variation>
+                                                                        </view>
                                                                         <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Bme-TO-wLx" customClass="ShowcaseImage" customModule="Wilbur" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="32" width="544" height="326"/>
+                                                                            <rect key="frame" x="0.0" y="64" width="544" height="294"/>
                                                                             <gestureRecognizers/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="400" id="hdn-0Y-PFH"/>

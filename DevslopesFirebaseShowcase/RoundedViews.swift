@@ -35,7 +35,12 @@ class RoundedLabel: UILabel {
   
   override func awakeFromNib() {
     
-    layer.cornerRadius = 5.0
+    layer.cornerRadius = 3.0
     layer.backgroundColor = UIColor(colorLiteralRed: 255/255, green: 243/255, blue: 214/255, alpha: 1.0).CGColor
+  }
+  
+  override func drawTextInRect(rect: CGRect) {
+    let insets: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 6.0, bottom: 0.0, right: 0.0)
+    super.drawTextInRect(UIEdgeInsetsInsetRect(rect, insets))
   }
 }
