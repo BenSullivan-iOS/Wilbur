@@ -140,9 +140,9 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     if post.userKey == user {
       
       //Potentially change this to mark as unanswered
-//      alert.addAction(UIAlertAction(title: "   Mark as Answered 😃", style: .Default, handler: { (action) in
+//      alert.addAction(UIAlertAction(title: "Update answer", style: .Default, handler: { (action) in
 //        
-//        DataService.ds.markPostAsAnswered(post)
+////        DataService.ds.markPostAsAnswered(post)
 //        
 //      }))
       

@@ -1169,6 +1169,7 @@ Cg
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <connections>
+                                            <outlet property="answerText" destination="a5N-92-cFE" id="Ghv-qB-Ndk"/>
                                             <outlet property="container" destination="m0c-jA-IOk" id="rWN-fr-qqM"/>
                                             <outlet property="descriptionText" destination="BaB-R7-GFp" id="HsX-ZJ-u4m"/>
                                             <outlet property="likeImage" destination="g1h-qD-9Wy" id="wZQ-p0-0J5"/>

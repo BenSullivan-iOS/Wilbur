@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/CommentsVC.swift"
-            timestampString = "490265855.458756"
+            timestampString = "490285837.804172"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "315"
+            endingLineNumber = "315"
             landmarkName = "textViewDidBeginEditing(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -442,11 +442,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/CommentsVC.swift"
-            timestampString = "490265563.592739"
+            timestampString = "490285114.559771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "postButtonPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -458,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/CommentsVC.swift"
-            timestampString = "490265855.458756"
+            timestampString = "490285837.804172"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
             landmarkName = "guestAlert()"
             landmarkType = "5">
          </BreakpointContent>
@@ -474,11 +474,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/CommentsVC.swift"
-            timestampString = "490265563.592739"
+            timestampString = "490285114.559771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "postButtonPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -497,22 +497,6 @@
             endingLineNumber = "227"
             landmarkName = "PostCell"
             landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DevslopesFirebaseShowcase/DataService.swift"
-            timestampString = "490265563.592739"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "394"
-            endingLineNumber = "394"
-            landmarkName = "blockUser(_:)"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

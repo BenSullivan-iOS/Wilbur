@@ -163,7 +163,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         
         alert.addAction(UIAlertAction(title: "   Mark as Answered 😃", style: .Default, handler: { (action) in
           
-          DataService.ds.markPostAsAnswered(post)
+          self.markAsAnsweredAlert(post)
           
         }))
         
@@ -212,6 +212,50 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     self.presentViewController(alert, animated: true, completion:  nil)
   }
+  
+  func markAsAnsweredAlert(post: Post) {
+    
+    let alert = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .Alert)
+    
+    alert.addTextFieldWithConfigurationHandler { (textField) in
+      
+      textField.placeholder = "Answer"
+      textField.returnKeyType = .Default
+    }
+    
+    alert.addAction(UIAlertAction(title: "Done", style: .Default, handler: { action in
+      
+      print(alert.textFields![0])
+      if alert.textFields![0].text == "" {
+        
+        self.answerMissingAlert(post)
+        
+      } else {
+        
+        DataService.ds.markPostAsAnswered(post, answer: alert.textFields![0].text!)
+
+      }
+      
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+    
+    self.presentViewController(alert, animated: true, completion:  nil)
+  }
+  
+  func answerMissingAlert(post: Post) {
+    
+    let alert = UIAlertController(title: "Answer missing!", message: nil, preferredStyle: .Alert)
+    
+    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
+      
+      self.markAsAnsweredAlert(post)
+    }))
+    
+    self.presentViewController(alert, animated: true, completion:  nil)
+    
+  }
+
   
   func guestAlert() {
     

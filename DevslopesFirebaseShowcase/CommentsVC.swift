@@ -47,6 +47,18 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     keyArray = (post?.commentText)!
     valueArray = (post?.commentUsers)!
     
+    print("view did for loop")
+
+    populateUsernames()
+    
+    postButton.enabled = false
+    
+  }
+  
+  func populateUsernames() {
+    
+    usernameArray = []
+    
     let users = DataService.ds.usernames
     
     for i in valueArray {
@@ -54,7 +66,6 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
       usernameArray.append(users[i]!)
     }
     
-    print("view did for loop")
     for i in valueArray {
       
       let userRef = DataService.ds.REF_USERS.child(i)
@@ -62,24 +73,17 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
       userRef.observeEventType(FIRDataEventType.Value, withBlock: { snapshot in
         let userDict = snapshot.value as! [String : AnyObject]
         
-        
         for user in userDict where user.0 == "username" {
           
           let name = user.1 as! String
           
-          self.usernameArray.append(name)
-          self.tableView.reloadData()
+//          self.usernameArray.append(name)
           print(name)
-          
         }
+        self.tableView.reloadData()
         
       })
-
     }
-    
-    
-    postButton.enabled = false
-    
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -95,7 +99,8 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   
   func reloadComments() {
     
-    tableView.reloadData()
+    populateUsernames()
+  
   }
   
   
@@ -120,8 +125,6 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
     valueArray.append(currentUser)
     
-    tableView.reloadData()
-  
     markAsCommented()
   }
   
@@ -197,7 +200,10 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
     if let cell = tableView.dequeueReusableCellWithIdentifier(cellID.commentCell) as? CommentCell
       where indexPath.section == 1 {
-      
+      print(keyArray.count, valueArray.count, usernameArray.count, indexPath.row)
+      print(usernameArray)
+      print(keyArray)
+      print(valueArray)
       let ip = indexPath.row
       cell.configureCell(keyArray[ip], value: valueArray[ip], user: usernameArray[ip])
       

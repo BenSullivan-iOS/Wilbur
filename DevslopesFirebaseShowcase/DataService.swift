@@ -16,7 +16,7 @@ class DataService {
   static let ds = DataService()
   
   weak var delegate: PostCellDelegate? = nil
-    
+  
   private init() {}
   
   private var _REF_BASE = URL_BASE
@@ -36,8 +36,8 @@ class DataService {
   var usernames: [String: String] {
     return _usernames
   }
-
-
+  
+  
   var posts: [Post] {
     
     if let postArray = _posts {
@@ -85,7 +85,7 @@ class DataService {
     } else {
       
       return URL_BASE.child("users").child("guest")
-
+      
     }
   }
   
@@ -139,7 +139,7 @@ class DataService {
       downloadPosts([""]); return }
     
     let userRef = DataService.ds.REF_USER_CURRENT
-
+    
     userRef.observeEventType(.Value, withBlock: { snapshot in
       
       if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
@@ -157,7 +157,7 @@ class DataService {
             }
             
             if snap.key == "profileImage" {
-
+              
               for i in userDict {
                 
                 self.downloadProfileImage(i.0)
@@ -212,7 +212,7 @@ class DataService {
             let key = snap.key
             let post = Post(postKey: key, dictionary: postDict)
             
-            if !post.answered {
+            if post.answered == "" {
               
               if !blockedUsers.contains(post.userKey) {
                 
@@ -267,7 +267,7 @@ class DataService {
       } else {
         self.count = 0
       }
-
+      
       return }
     
     guard Cache.FeedVC.imageCache.objectForKey(imageLocation) as? UIImage == nil else {
@@ -322,7 +322,7 @@ class DataService {
       let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
       
       pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
-
+        
         guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
         
         if let data = NSData(contentsOfURL: URL) {
@@ -350,11 +350,11 @@ class DataService {
       
       guard error == nil else { print("delete error", error.debugDescription)
         
-//        DataService.ds.deletePostAtIndex(i)
-//        userPostRef.removeValue()
-//        postRef.removeValue()
-//        
-//        NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
+        //        DataService.ds.deletePostAtIndex(i)
+        //        userPostRef.removeValue()
+        //        postRef.removeValue()
+        //
+        //        NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
         
         return }
       
@@ -388,7 +388,7 @@ class DataService {
         }
       }
     })
-  
+    
   }
   
   func blockUser(post: Post) {
@@ -412,12 +412,24 @@ class DataService {
     
     DataService.ds.downloadTableContent()
   }
-
-  func markPostAsAnswered(post: Post) {
+  
+  func markPostAsAnswered(post: Post, answer: String) {
     
     let postRef = DataService.ds.REF_POSTS.child(post.postKey).child("answered") as FIRDatabaseReference!
     
-    postRef.setValue(true)
+    postRef.setValue(answer)
+    
+    for i in DataService.ds.posts.indices {
+      
+      if DataService.ds.posts[i].postKey == post.postKey {
+        
+        DataService.ds.deletePostAtIndex(i)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
+        
+        return
+      }
+    }
   }
   
   func reportPost(post: Post, reason: String) {
@@ -427,7 +439,7 @@ class DataService {
     postRef.setValue(reason)
     
     //Post needs to be marked as reported or deleted
-
+    
   }
-
+  
 }

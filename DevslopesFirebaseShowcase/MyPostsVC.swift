@@ -100,7 +100,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         
         print("indexPath = ", indexPath.row)
         
-        let post = DataService.ds.posts[indexPath.row]
+        let post = DataService.ds.myPosts[indexPath.row]
         
         var img: UIImage?
         var profileImg: UIImage?

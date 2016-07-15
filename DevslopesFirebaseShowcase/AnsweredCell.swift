@@ -19,7 +19,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
   @IBOutlet weak var username: UILabel!
   @IBOutlet weak var popText: UIButton!
   @IBOutlet weak var reportButton: UIButton!
-  
+  @IBOutlet weak var answerText: RoundedLabel!
   @IBOutlet weak var descriptionText: UILabel!
   
   private var commentRef: FIRDatabaseReference!
@@ -68,6 +68,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
     self._post = post
     self.likesLabel.text = "\(post.commentText.count)"
     self.username.text = post.username
+    self.answerText.text = post.answered
     
     configureDescriptionText()
     configureImage(post, img: img)
@@ -297,8 +298,11 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
           
           if let image = UIImage(data: data) {
             
-            Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
-            ProfileImageTracker.imageLocations.insert(imageLocation)
+            dispatch_async(dispatch_get_main_queue(), { 
+              
+              Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
+              ProfileImageTracker.imageLocations.insert(imageLocation)
+            })
             
             self.profileImg.image = image
           }

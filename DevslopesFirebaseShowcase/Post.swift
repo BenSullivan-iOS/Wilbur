@@ -23,9 +23,9 @@ class Post {
   private var _commentText = [String]()
   private var _commentUsers = [String]()
   private var _commentedOn: Bool!
-  private var _answered: Bool!
+  private var _answered: String!
   
-  var answered: Bool {
+  var answered: String {
     return _answered
   }
   var commentedOn: Bool {
@@ -122,10 +122,10 @@ class Post {
       self._postDescription = desc
     }
     
-    if let answered = dictionary["answered"] as? Bool {
+    if let answered = dictionary["answered"] as? String {
       self._answered = answered
     } else {
-      self._answered = false
+      self._answered = ""
     }
     
     if let comments = dictionary["comments"] as? NSDictionary {
