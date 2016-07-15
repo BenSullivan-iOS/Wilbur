@@ -37,6 +37,10 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
       
       guard let user = user where error == nil else { print(error); return }
       
+      let userRef = DataService.ds.REF_USER_CURRENT.child("username")
+      
+      userRef.setValue(user.displayName)
+      
       NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
       NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.shared.KEY_UID)
       

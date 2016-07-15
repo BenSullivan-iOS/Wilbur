@@ -31,6 +31,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
   private var postRef: FIRDatabaseReference!
   private var profileImage: FIRDatabaseReference!
   private var downloadImageTask: FIRStorageDownloadTask? = nil
+  private var downloadProfileImageTask: FIRStorageDownloadTask? = nil
   private var _post: Post?
   
   weak var delegate: PostCellDelegate? = nil
@@ -51,6 +52,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
   
   override func prepareForReuse() {
     downloadImageTask?.cancel()
+    downloadProfileImageTask?.cancel()
   }
   
   
@@ -77,9 +79,11 @@ class PostCell: UITableViewCell, NSCacheDelegate {
 
     styleCommentButton()
     
-    
     if profileImg == nil {
       configureProfileImage(post, profileImg: profileImg)
+    } else {
+      self.profileImg.hidden = false
+      self.profileImg.image = profileImg
     }
     //    downloadAudio(post)
   }
@@ -109,28 +113,15 @@ class PostCell: UITableViewCell, NSCacheDelegate {
   func configureProfileImage(post: Post, profileImg: UIImage?) {
     
     self.profileImg.hidden = false
-    self.profileImg.image = UIImage(named: "profile-placeholder")
     
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+    if let profileImg = profileImg {
       
-      self.profileImg.layer.cornerRadius = self.profileImg.layer.frame.width / 2
-      self.profileImg.clipsToBounds = true
+      self.profileImg.image = profileImg
       
-      dispatch_async(dispatch_get_main_queue(), {
-                
-        if let profileImg = profileImg {
-          
-          self.profileImg.image = profileImg
-          
-        } else {
-          self.downloadProfileImage(post.userKey)
-        }
-        
-      })
+    } else {
+      self.profileImg.image = UIImage(named: "profile-placeholder")
+      self.downloadProfileImage(post.userKey)
     }
-    
-
-    
   }
   
   
@@ -269,7 +260,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
     
     let pathReference = storage.child(imageLocation)
     
-    downloadImageTask = pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+    downloadImageTask = pathReference.writeToFile(saveLocation) { URL, error -> Void in
       
       guard let URL = URL where error == nil else { print("Download Image Error", error.debugDescription); return }
       
@@ -287,8 +278,6 @@ class PostCell: UITableViewCell, NSCacheDelegate {
           
         }
       }
-      
-//      self.activityIndicator.stopAnimating()
     }
   }
   
@@ -299,8 +288,9 @@ class PostCell: UITableViewCell, NSCacheDelegate {
       let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
-      pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
-        print("downloading...")
+      
+      downloadProfileImageTask = pathReference.writeToFile(saveLocation) { URL, error -> Void in
+
         guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
         
         if let data = NSData(contentsOfURL: URL) {

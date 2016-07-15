@@ -22,3 +22,13 @@ class MaterialView: UIView {
   }
   
 }
+
+class RoundedImage: UIImageView {
+  
+  override func awakeFromNib() {
+    
+    clipsToBounds = true
+    layer.cornerRadius = layer.frame.width / 2
+  }
+  
+}

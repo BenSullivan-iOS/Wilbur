@@ -28,7 +28,6 @@ class Post {
   var answered: Bool {
     return _answered
   }
-  
   var commentedOn: Bool {
     return _commentedOn
   }

@@ -8,8 +8,10 @@
     <customFonts key="customFonts">
         <mutableArray key="NotoSans-Bold.ttf">
             <string>NotoSans-Bold</string>
+            <string>NotoSans-Bold</string>
         </mutableArray>
         <mutableArray key="NotoSans-Regular.ttf">
+            <string>NotoSans</string>
             <string>NotoSans</string>
             <string>NotoSans</string>
         </mutableArray>
@@ -102,29 +104,42 @@
                                                         <constraint firstAttribute="height" constant="45" id="8o7-A1-8Bc"/>
                                                     </constraints>
                                                 </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlR-RB-ntR">
-                                                    <rect key="frame" x="61" y="8" width="531" height="110"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PlR-RB-ntR">
+                                                    <rect key="frame" x="61" y="22" width="531" height="96"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="ZTW-xu-82N"/>
                                                     </constraints>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</string>
+                                                    <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUT-sp-Fzn">
+                                                    <rect key="frame" x="65" y="8" width="531" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="rNT-uL-t8b"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="PlR-RB-ntR" firstAttribute="leading" secondItem="Ngh-sV-WUw" secondAttribute="trailing" constant="8" id="2Be-vh-U7d"/>
                                                 <constraint firstItem="PlR-RB-ntR" firstAttribute="trailing" secondItem="bb0-6g-8xT" secondAttribute="trailingMargin" id="Bvf-wy-hqx"/>
-                                                <constraint firstItem="PlR-RB-ntR" firstAttribute="top" secondItem="bb0-6g-8xT" secondAttribute="topMargin" id="bi0-FU-a7Y"/>
+                                                <constraint firstItem="fUT-sp-Fzn" firstAttribute="top" secondItem="bb0-6g-8xT" secondAttribute="topMargin" id="Idd-92-chq"/>
+                                                <constraint firstItem="fUT-sp-Fzn" firstAttribute="trailing" secondItem="bb0-6g-8xT" secondAttribute="trailingMargin" constant="4" id="M1M-ec-rBL"/>
+                                                <constraint firstItem="PlR-RB-ntR" firstAttribute="top" secondItem="bb0-6g-8xT" secondAttribute="topMargin" constant="14" id="bi0-FU-a7Y"/>
                                                 <constraint firstItem="Ngh-sV-WUw" firstAttribute="leading" secondItem="bb0-6g-8xT" secondAttribute="leadingMargin" id="dZy-HN-QdX"/>
                                                 <constraint firstItem="PlR-RB-ntR" firstAttribute="bottom" secondItem="bb0-6g-8xT" secondAttribute="bottomMargin" id="hM5-NF-tgp"/>
                                                 <constraint firstItem="Ngh-sV-WUw" firstAttribute="top" secondItem="bb0-6g-8xT" secondAttribute="topMargin" constant="-3" id="qsY-ht-Mzn"/>
+                                                <constraint firstItem="fUT-sp-Fzn" firstAttribute="leading" secondItem="Ngh-sV-WUw" secondAttribute="trailing" constant="12" id="zV4-1n-g43"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="commentText" destination="PlR-RB-ntR" id="fZe-vW-vv4"/>
                                             <outlet property="profileImage" destination="Ngh-sV-WUw" id="ASg-b1-xOY"/>
+                                            <outlet property="username" destination="fUT-sp-Fzn" id="5Zf-TU-2e8"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

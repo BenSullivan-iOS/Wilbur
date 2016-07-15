@@ -99,31 +99,19 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
     }
   }
   
-  
-  
   func configureProfileImage(post: Post, profileImg: UIImage?) {
     
     self.profileImg.hidden = false
     self.profileImg.image = UIImage(named: "profile-placeholder")
     
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+    self.profileImg.image = UIImage(named: "profile-placeholder")
+    
+    if let profileImg = profileImg {
       
-      self.profileImg.layer.cornerRadius = self.profileImg.layer.frame.width / 2
-      self.profileImg.clipsToBounds = true
+      self.profileImg.image = profileImg
       
-      dispatch_async(dispatch_get_main_queue(), {
-        
-        self.profileImg.image = UIImage(named: "profile-placeholder")
-        
-        if let profileImg = profileImg {
-          
-          self.profileImg.image = profileImg
-          
-        } else {
-          self.downloadProfileImage(post.userKey)
-        }
-        
-      })
+    } else {
+      self.downloadProfileImage(post.userKey)
     }
   }
   

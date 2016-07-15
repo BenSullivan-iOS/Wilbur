@@ -22,6 +22,8 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   private var viewDismissing = false
   private var keyArray = [String]()
   private var valueArray = [String]()
+  private var usernameArray = [String]()
+
   private var commentRef: FIRDatabaseReference!
 
   
@@ -44,6 +46,37 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
     keyArray = (post?.commentText)!
     valueArray = (post?.commentUsers)!
+    
+    let users = DataService.ds.usernames
+    
+    for i in valueArray {
+      
+      usernameArray.append(users[i]!)
+    }
+    
+    print("view did for loop")
+    for i in valueArray {
+      
+      let userRef = DataService.ds.REF_USERS.child(i)
+      
+      userRef.observeEventType(FIRDataEventType.Value, withBlock: { snapshot in
+        let userDict = snapshot.value as! [String : AnyObject]
+        
+        
+        for user in userDict where user.0 == "username" {
+          
+          let name = user.1 as! String
+          
+          self.usernameArray.append(name)
+          self.tableView.reloadData()
+          print(name)
+          
+        }
+        
+      })
+
+    }
+    
     
     postButton.enabled = false
     
@@ -165,7 +198,8 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     if let cell = tableView.dequeueReusableCellWithIdentifier(cellID.commentCell) as? CommentCell
       where indexPath.section == 1 {
       
-      cell.configureCell(keyArray[indexPath.row], value: valueArray[indexPath.row])
+      let ip = indexPath.row
+      cell.configureCell(keyArray[ip], value: valueArray[ip], user: usernameArray[ip])
       
       return cell
     }

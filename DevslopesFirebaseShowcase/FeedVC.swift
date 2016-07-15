@@ -97,8 +97,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     if AppState.shared.currentState == .Feed {
       
       if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
+        
         print("indexPath = ", indexPath.row)
-        print("postCount", DataService.ds.posts.count)
+
         let post = DataService.ds.posts[indexPath.row]
         
         var img: UIImage?
@@ -108,32 +109,20 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         cell.showcaseImg.image = nil
         cell.profileImg.hidden = true
         cell.profileImg.image = nil
-                
+        
         if let url = post.imageUrl {
           img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
           cell.showcaseImg.hidden = false
           cell.showcaseImg.image = UIImage(named: "DownloadingImageBackground")
         }
-        
-        if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
-          
-          profileImg = profileImage
-
-
-          
-          dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            
-            cell.profileImg.clipsToBounds = true
-            cell.profileImg.layer.cornerRadius = cell.profileImg.layer.frame.width / 2
-            
-            dispatch_async(dispatch_get_main_queue(), {
-              cell.profileImg.hidden = false
-              cell.profileImg.image = profileImage
-            })
-          }
-      
+        if indicator.isAnimating() {
+          self.indicator.stopAnimating()
         }
-        
+
+        if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
+          profileImg = profileImage
+        }
+      
         cell.delegate = self
         cell.configureCell(post, img: img, profileImg: profileImg)
         
@@ -148,7 +137,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   func reloadTable() {
     
     tableView.reloadData()
-    
     indicator.stopAnimating()
   }
   
