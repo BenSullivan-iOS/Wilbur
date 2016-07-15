@@ -96,7 +96,9 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
     
       if let cell = tableView.dequeueReusableCellWithIdentifier("myPostCell") as? MyPostsCell {
         
-        let post = DataService.ds.myPosts[indexPath.row]
+        print("indexPath = ", indexPath.row)
+        
+        let post = DataService.ds.posts[indexPath.row]
         
         var img: UIImage?
         var profileImg: UIImage?
@@ -113,26 +115,14 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         }
         
         if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
-          
           profileImg = profileImage
-          
-          dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            
-            cell.profileImg.clipsToBounds = true
-            cell.profileImg.layer.cornerRadius = cell.profileImg.layer.frame.width / 2
-            
-            dispatch_async(dispatch_get_main_queue(), {
-              cell.profileImg.hidden = false
-              cell.profileImg.image = profileImage
-            })
-          }
-          
         }
         
         cell.delegate = self
         cell.configureCell(post, img: img, profileImg: profileImg)
         
         return cell
+
       }
     return UITableViewCell()
   }

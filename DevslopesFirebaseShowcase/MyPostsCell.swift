@@ -58,11 +58,11 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate {
     configureDescriptionText()
     configureImage(post, img: img)
     
-//    styleCommentButton()
-    
-    
     if profileImg == nil {
       configureProfileImage(post, profileImg: profileImg)
+    } else {
+      self.profileImg.hidden = false
+      self.profileImg.image = profileImg
     }
     //    downloadAudio(post)
   }
@@ -92,15 +92,13 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate {
   func configureProfileImage(post: Post, profileImg: UIImage?) {
     
     self.profileImg.hidden = false
-    self.profileImg.image = UIImage(named: "profile-placeholder")
-    
-    self.profileImg.image = UIImage(named: "profile-placeholder")
     
     if let profileImg = profileImg {
       
       self.profileImg.image = profileImg
       
     } else {
+      self.profileImg.image = UIImage(named: "profile-placeholder")
       self.downloadProfileImage(post.userKey)
     }
     

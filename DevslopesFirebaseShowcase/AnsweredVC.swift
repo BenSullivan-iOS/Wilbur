@@ -79,7 +79,9 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
       
       if let cell = tableView.dequeueReusableCellWithIdentifier("answeredCell") as? AnsweredCell {
 
-        let post = DataService.ds.answeredPosts[indexPath.row]
+        print("indexPath = ", indexPath.row)
+        
+        let post = DataService.ds.posts[indexPath.row]
         
         var img: UIImage?
         var profileImg: UIImage?
@@ -96,20 +98,7 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
         
         if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
-          
           profileImg = profileImage
-          
-          dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            
-            cell.profileImg.clipsToBounds = true
-            cell.profileImg.layer.cornerRadius = cell.profileImg.layer.frame.width / 2
-            
-            dispatch_async(dispatch_get_main_queue(), {
-              cell.profileImg.hidden = false
-              cell.profileImg.image = profileImg
-            })
-          }
-          
         }
         
         cell.delegate = self
