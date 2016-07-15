@@ -259,7 +259,11 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate {
       
       downloadProfileImageTask = pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
 
-        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription)
+          
+          Cache.FeedVC.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (imageLocation))
+          
+          return }
         
         if let data = NSData(contentsOfURL: URL) {
           

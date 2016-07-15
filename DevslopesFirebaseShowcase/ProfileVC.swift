@@ -73,6 +73,10 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   @IBAction func setProfileImagePressed(sender: AnyObject) {
     
     if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+//      self.imagePicker.sourceType = .Camera
+//      self.imagePicker.cameraDevice = .Front
+//      presentViewController(imagePicker, animated: true, completion: nil)
+
       imagePickerAlert()
     } else {
       presentViewController(imagePicker, animated: true, completion: nil)
@@ -148,35 +152,13 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       
       guard let metadata = metadata where error == nil else { print("error", error); return }
       
+
+      dispatch_async(dispatch_get_main_queue(), { 
+        
+        Cache.FeedVC.profileImageCache.removeAllObjects()
+      })
     }
   }
-  
-//  func rowSelected(rowTitle: SelectedRow) {
-//    
-//    switch rowTitle {
-//    case .MyPosts:
-//      print("my posts")
-//      self.navigationController?.pushViewController(AnsweredVC(), animated: true) //FIXME: Why isn't this pusing as a nav controller?
-//    case .PoppedPosts:
-//      print("popped posts")
-//    case .Feedback:
-//      print("feedback")
-//    case .FeatureRequest:
-//      print("feature request")
-//    }
-//  }
-  
-//  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//    if segue.identifier == "embeddedTable" {
-//      print("embedded segue")
-//      
-//      if let profileTabl = segue.destinationViewController as? ProfileTable {
-//        
-//        profileTable.delegate = self
-//      }
-//      
-//    }
-//  }
   
   func getProfileImageReferenceThenDownload() {
     
@@ -206,13 +188,10 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
 
   func downloadProfileImage(imageLocation: String) {
     
-    print("Download Image")
     let saveLocation = NSURL(fileURLWithPath: direct().stringByAppendingPathComponent("/\(imageLocation)"))
-    print("Save location = ", saveLocation)
-    
     let storageRef = FIRStorage.storage().reference()
     let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
-    print("profile image path reference", pathReference)
+
     pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
       print("Write to file")
       guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
