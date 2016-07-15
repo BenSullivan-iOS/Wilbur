@@ -81,7 +81,7 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 
         print("indexPath = ", indexPath.row)
         
-        let post = DataService.ds.posts[indexPath.row]
+        let post = DataService.ds.answeredPosts[indexPath.row]
         
         var img: UIImage?
         var profileImg: UIImage?

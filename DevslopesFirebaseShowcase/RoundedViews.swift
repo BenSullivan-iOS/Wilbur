@@ -20,7 +20,6 @@ class MaterialView: UIView {
     layer.shadowRadius = 5.0
     layer.shadowOffset = CGSizeMake(0.0, 2.0)
   }
-  
 }
 
 class RoundedImage: UIImageView {
@@ -30,5 +29,13 @@ class RoundedImage: UIImageView {
     clipsToBounds = true
     layer.cornerRadius = layer.frame.width / 2
   }
+}
+
+class RoundedLabel: UILabel {
   
+  override func awakeFromNib() {
+    
+    layer.cornerRadius = 5.0
+    layer.backgroundColor = UIColor(colorLiteralRed: 255/255, green: 243/255, blue: 214/255, alpha: 1.0).CGColor
+  }
 }

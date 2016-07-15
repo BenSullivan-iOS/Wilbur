@@ -29,6 +29,8 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    self.title = "Posts"
+    
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyPostsVC.reloadTable), name: "reloadTables", object: nil)
     
     self.tableView.estimatedRowHeight = 300

@@ -26,6 +26,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
   private var postRef: FIRDatabaseReference!
   private var profileImage: FIRDatabaseReference!
   private var downloadImageTask: FIRStorageDownloadTask? = nil
+  private var downloadProfileImageTask: FIRStorageDownloadTask? = nil
   private var _post: Post?
   
   weak var delegate: PostCellDelegate? = nil
@@ -46,6 +47,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
   
   override func prepareForReuse() {
     downloadImageTask?.cancel()
+    downloadProfileImageTask?.cancel()
   }
   
   
@@ -282,7 +284,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
       let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
-      pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+      downloadProfileImageTask = pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
         print("downloading...")
         guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
         
