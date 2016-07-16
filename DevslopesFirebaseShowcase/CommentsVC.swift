@@ -110,9 +110,16 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     //if string is not
     guard let currentUser = DataService.ds.currentUserKey else { guestAlert(); return }
 
-    guard let comment = commentTextView.text
+    guard var comment = commentTextView.text
       where comment != DescriptionText.defaultText && commentTextView.text != "" else { return }
     
+    //FIXME: Work on this bug fix, functions correctly but inefficient
+    comment = comment.stringByReplacingOccurrencesOfString(".", withString: ",")
+    comment = comment.stringByReplacingOccurrencesOfString("#", withString: "-")
+    comment = comment.stringByReplacingOccurrencesOfString("$", withString: "£")
+    comment = comment.stringByReplacingOccurrencesOfString("[", withString: "(")
+    comment = comment.stringByReplacingOccurrencesOfString("]", withString: ")")
+
     commentTextView.text = DescriptionText.defaultText
     commentTextView.textColor = .lightGrayColor()
     bringCursorToStart()

@@ -28,7 +28,6 @@ class CommentCell: UITableViewCell {
     profileImage.image = UIImage(named: "profile-placeholder")
     
     username.text = user
-    
     commentText.text = key
     
     if let value = Cache.FeedVC.profileImageCache.objectForKey(value) as? UIImage {
@@ -59,6 +58,7 @@ class CommentCell: UITableViewCell {
             ProfileImageTracker.imageLocations.insert(userKey)
             
             self.profileImage.image = image
+            
           }
         }
       }

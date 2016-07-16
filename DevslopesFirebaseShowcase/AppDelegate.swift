@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
+    registerForNotifications()
+    
     FIRApp.configure()
     
     GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
@@ -52,6 +54,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return FBSDKApplicationDelegate.sharedInstance()
       .application(application, didFinishLaunchingWithOptions: launchOptions)
   
+  }
+  
+  func registerForNotifications() {
+    
+    let settings: UIUserNotificationSettings =
+      UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+    UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+    UIApplication.sharedApplication().registerForRemoteNotifications()
   }
 
   func applicationWillResignActive(application: UIApplication) {

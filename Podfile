@@ -13,5 +13,14 @@ pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'Firebase/Crash'
 pod 'GoogleSignIn'
+pod 'Firebase/Messaging'
+pod 'Firebase'
 
 end
+
+#target 'FCM' do
+#end
+#target 'FCMSwift' do
+#end
+#target 'FCMTests' do
+#end
