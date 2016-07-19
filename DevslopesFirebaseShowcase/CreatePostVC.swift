@@ -157,7 +157,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   //MARK: - SETUP TEXTFIELD
   
   struct DescriptionText {
-    static let defaultText = "Enter description, include as much detail as possible"
+    static let defaultText = "Enter description, include your location and as much detail as possible"
   }
   
   func configureTextField() {

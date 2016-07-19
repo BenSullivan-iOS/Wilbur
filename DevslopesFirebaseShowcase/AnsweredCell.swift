@@ -273,8 +273,6 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
           
         }
       }
-      
-      //      self.activityIndicator.stopAnimating()
     }
   }
   

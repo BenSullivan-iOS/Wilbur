@@ -15,7 +15,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   @IBOutlet weak var tableView: UITableView!
   
-  let indicator = UIActivityIndicatorView()
+  private let indicator = UIActivityIndicatorView()
   
   //MARK: - VC LIFECYCLE
   
@@ -40,12 +40,10 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     AppState.shared.currentState = .Feed
     
-    //    AudioControls.shared.setupRecording()
-    
     tableView.delegate = self
     tableView.dataSource = self
     
-    //    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+    NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
   }
   
   
@@ -125,6 +123,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     }
     return UITableViewCell()
   }
+  
   
   //MARK - POST CELL DELEGATE
   

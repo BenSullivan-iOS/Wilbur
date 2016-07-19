@@ -29,8 +29,6 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     DataService.ds.delegate = self
     DataService.ds.downloadTableContent()
     
-    //    AudioControls.shared.setupRecording()
-    
     tableView.delegate = self
     tableView.dataSource = self
   }
@@ -109,6 +107,7 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     return UITableViewCell()
   }
+  
   
   //MARK - POST CELL DELEGATE
   

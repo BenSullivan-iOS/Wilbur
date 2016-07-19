@@ -101,9 +101,6 @@
                                 <state key="normal" title="FACEBOOK LOGIN">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="FbBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8GN-FS-q2D"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -134,7 +131,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="3KZ-f5-2kZ"/>
                     <connections>
-                        <outlet property="facebookLoginButton" destination="Tg7-Dm-DUf" id="sbd-Bu-VoO"/>
                         <outlet property="guestButton" destination="Rhw-ry-H19" id="FLP-j7-Ocb"/>
                         <segue destination="ArX-Yy-GJ7" kind="show" identifier="loggedIn" id="20j-QR-Kjv"/>
                     </connections>

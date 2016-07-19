@@ -25,10 +25,10 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   private var usernameArray = [String]()
 
   private var commentRef: FIRDatabaseReference!
-
   
   var post: Post? = nil
   var postImage: UIImage? = nil
+  
   
   //MARK: - VC LIFECYCLE
   
@@ -42,53 +42,15 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentsVC.reloadComments), name: "updateComments", object: nil)
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardNotification(_:)),name: UIKeyboardWillChangeFrameNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentsVC.keyboardNotification(_:)),name: UIKeyboardWillChangeFrameNotification, object: nil)
     
     keyArray = (post?.commentText)!
     valueArray = (post?.commentUsers)!
-    print(keyArray)
-    print(valueArray)
-    
-    print("view did for loop")
 
     populateUsernames()
     
     postButton.enabled = false
     
-  }
-  
-  func populateUsernames() {
-    
-    usernameArray = []
-    
-    let users = DataService.ds.usernames
-    
-    for i in valueArray {
-      
-      if let user = users[i] {
-        
-        usernameArray.append(user)
-      }
-    }
-    
-    for i in valueArray {
-      
-      let userRef = DataService.ds.REF_USERS.child(i)
-      
-      userRef.observeEventType(FIRDataEventType.Value, withBlock: { snapshot in
-        let userDict = snapshot.value as! [String : AnyObject]
-        
-        for user in userDict where user.0 == "username" {
-          
-          let name = user.1 as! String
-          
-//          self.usernameArray.append(name)
-          print(name)
-        }
-        self.tableView.reloadData()
-        
-      })
-    }
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -99,6 +61,7 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   override func viewWillDisappear(animated: Bool) {
     viewDismissing = true
   }
+  
   
   //MARK: - BUTTONS
   
@@ -111,14 +74,13 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   
   @IBAction func postButtonPressed(sender: AnyObject) {
     
-    //add a unique string before the username
-    //if string is not
     guard let currentUser = DataService.ds.currentUserKey else { guestAlert(); return }
 
     guard var comment = commentTextView.text
       where comment != DescriptionText.defaultText && commentTextView.text != "" else { return }
     
     //FIXME: Work on this bug fix, functions correctly but inefficient
+    //Commnt Key/Values need to be swapped
     comment = comment.stringByReplacingOccurrencesOfString(".", withString: ",")
     comment = comment.stringByReplacingOccurrencesOfString("#", withString: "-")
     comment = comment.stringByReplacingOccurrencesOfString("$", withString: "£")
@@ -157,6 +119,42 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
       }
     })
 
+  }
+  
+  //MARK: - POPULATE USERNAMES
+  
+  func populateUsernames() {
+    
+    usernameArray = []
+    
+    let users = DataService.ds.usernames
+    
+    for i in valueArray {
+      
+      if let user = users[i] {
+        
+        usernameArray.append(user)
+      }
+    }
+    
+    for i in valueArray {
+      
+      let userRef = DataService.ds.REF_USERS.child(i)
+      
+      userRef.observeEventType(FIRDataEventType.Value, withBlock: { snapshot in
+        let userDict = snapshot.value as! [String : AnyObject]
+        
+        for user in userDict where user.0 == "username" {
+          
+          let name = user.1 as! String
+          
+          //          self.usernameArray.append(name)
+          print(name)
+        }
+        self.tableView.reloadData()
+        
+      })
+    }
   }
   
   
