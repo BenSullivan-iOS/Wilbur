@@ -32,8 +32,6 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
     
     self.tableView.scrollsToTop = false
     
-    //    AudioControls.shared.setupRecording()
-    
     tableView.delegate = self
     tableView.dataSource = self
   }
@@ -47,7 +45,6 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
       
     } else {
       
-//      AppState.shared.currentState = .Answered
       tableView.reloadData()
     }
     

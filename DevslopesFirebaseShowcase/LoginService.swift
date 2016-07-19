@@ -53,17 +53,88 @@ class LoginService {
         return
       }
       
-      let userRef = DataService.ds.REF_USER_CURRENT.child("username")
-      
-      userRef.setValue(user.displayName)
-      
       NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
       NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.shared.KEY_UID)
       
-      self.delegate?.loginSuccessful()
+      let userRef = DataService.ds.REF_USER_CURRENT.child("username")
+      userRef.setValue(user.displayName)
+      
+      if let imageURL = user.photoURL {
+        
+        let url = String(imageURL)
+        let firebaseRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(user.uid)
+        
+        firebaseRef.setValue(url)
+        
+        guard let downloadImage = NSData(contentsOfURL: imageURL) else { return }
+        
+        if let image = UIImage(data: downloadImage) {
+          
+          Cache.shared.profileImageCache.setObject(image, forKey: user.uid)
+          
+          ProfileImageTracker.imageLocations.insert(user.uid)
+          
+          print(image)
+          print(user.uid)
+          print(url)
+          
+        }
+        
+      }
+      
+        
+        self.delegate?.loginSuccessful()
       
     }
+      
     
+  }
+  
+  func direct() -> NSString {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let documentsDirectory = paths[0]
+    return documentsDirectory
+  }
+
+  
+  func uploadImage(url: NSURL, uid: String) {
+    
+    guard let downloadImage = NSData(contentsOfURL: url) else { return }
+    
+    let path = direct().stringByAppendingPathComponent("images/tempImage.jpg")
+
+    downloadImage.writeToFile(path, atomically: true)
+    
+    let storageRef = FIRStorage.storage().reference()
+    let profileImgRef = storageRef.child("profileImages/\(uid).jpg")
+    
+    let urlOfLocalImage = NSURL(fileURLWithPath: path)
+    
+    let task: FIRStorageUploadTask = profileImgRef.putFile(urlOfLocalImage, metadata: nil) { metadata, error in
+      
+//      guard let _ = metadata where error == nil else {
+//        
+//        print("error", error); return
+//      
+//      }
+      
+      print(error ?? "no error")
+      
+      dispatch_async(dispatch_get_main_queue(), {
+        
+        if let image = UIImage(data: downloadImage) {
+        
+          Cache.shared.profileImageCache.setObject(image, forKey: uid)
+        }
+        
+        let firebaseRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(uid)
+        
+        firebaseRef.setValue(firebaseRef.key)
+      })
+    }
+    
+    task.resume()
+  
   }
 
   

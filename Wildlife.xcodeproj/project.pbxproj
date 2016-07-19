@@ -123,7 +123,7 @@
 		B5D6A97F1D358A56006B7207 /* CreatePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreatePost.swift; path = DevslopesFirebaseShowcase/CreatePost.swift; sourceTree = "<group>"; };
 		B5D6A9811D36483A006B7207 /* Wildlife-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wildlife-Bridging-Header.h"; sourceTree = "<group>"; };
 		B5D85BF41CFA12B800E62148 /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
-		B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableVC.swift; sourceTree = "<group>"; };
+		B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableVC.swift; path = DevslopesFirebaseShowcase/ProfileTableVC.swift; sourceTree = "<group>"; };
 		B5DE8A001D2E812B00F9C364 /* ShowcaseImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowcaseImage.swift; sourceTree = "<group>"; };
 		B5DE8A061D2EA42C00F9C364 /* WilburUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WilburUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5DE8A081D2EA42D00F9C364 /* WilburUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WilburUITests.swift; sourceTree = "<group>"; };
@@ -181,6 +181,7 @@
 		B54581CE1D2C624E00976EBC /* Backup */ = {
 			isa = PBXGroup;
 			children = (
+				B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */,
 				B5D6A97F1D358A56006B7207 /* CreatePost.swift */,
 				B55808361CF713CE00FEC41D /* SplashVC.swift */,
 				B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */,
@@ -212,7 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */,
-				B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */,
 				B5777B811D01CE1B0062683C /* MyPostsVC.swift */,
 			);
 			name = ProfileVCs;

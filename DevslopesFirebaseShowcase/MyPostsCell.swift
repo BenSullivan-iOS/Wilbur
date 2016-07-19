@@ -249,19 +249,60 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate {
     }
   }
   
-  func downloadProfileImage(imageLocation: String) {
+  func downloadProfileImage(uid: String) {
     
-    if !ProfileImageTracker.imageLocations.contains(imageLocation) {
+    let profileImgRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(uid)
+    
+    profileImgRef.observeSingleEventOfType(.Value, withBlock: { snap in
       
-      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
+      guard let value = snap.value else { return }
+      
+      let stringURL = String(value)
+      
+      print("snap", value)
+      print(stringURL)
+      
+      guard let url = NSURL(string: stringURL) else {
+        self.downloadProfileImageFromStorage(uid)
+        
+        return }
+      
+      guard let downloadImage = NSData(contentsOfURL: url) else {
+        self.downloadProfileImageFromStorage(uid)
+        
+        return }
+      
+      guard let image = UIImage(data: downloadImage) else {
+        self.downloadProfileImageFromStorage(uid)
+        
+        return }
+      
+      print(image)
+      
+      Cache.shared.profileImageCache.setObject(image, forKey: uid)
+      
+      ProfileImageTracker.imageLocations.insert(uid)
+      
+      self.profileImg.image = image
+      
+    })
+    
+    
+  }
+  
+  func downloadProfileImageFromStorage(uid: String) {
+    
+    if !ProfileImageTracker.imageLocations.contains(uid) {
+      
+      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + uid)
       let storageRef = FIRStorage.storage().reference()
-      let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
+      let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       
-      downloadProfileImageTask = pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
-
-        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription)
+      self.downloadProfileImageTask = pathReference.writeToFile(saveLocation) { URL, error -> Void in
+        
+        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription);
           
-          Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (imageLocation))
+          Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (uid))
           
           return }
         
@@ -269,8 +310,8 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate {
           
           if let image = UIImage(data: data) {
             
-            Cache.shared.profileImageCache.setObject(image, forKey: (imageLocation))
-            ProfileImageTracker.imageLocations.insert(imageLocation)
+            Cache.shared.profileImageCache.setObject(image, forKey: (uid))
+            ProfileImageTracker.imageLocations.insert(uid)
             
             self.profileImg.image = image
           }

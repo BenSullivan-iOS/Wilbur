@@ -311,7 +311,7 @@ class DataService {
   }
   
   func downloadProfileImage(imageLocation: String) {
-    
+
     if !ProfileImageTracker.imageLocations.contains(imageLocation) {
       
       let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)

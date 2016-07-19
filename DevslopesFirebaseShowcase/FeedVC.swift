@@ -43,7 +43,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.delegate = self
     tableView.dataSource = self
     
-    NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+    NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
   }
   
   

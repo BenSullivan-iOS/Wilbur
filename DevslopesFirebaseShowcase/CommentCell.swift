@@ -38,27 +38,71 @@ class CommentCell: UITableViewCell {
     }
   }
   
-  func downloadProfileImage(userKey: String) {
+  func downloadProfileImage(uid: String) {
     
-    if !ProfileImageTracker.imageLocations.contains(userKey) {
+    let profileImgRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(uid)
+    
+    profileImgRef.observeSingleEventOfType(.Value, withBlock: { snap in
       
-      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + userKey)
-      let storageRef = FIRStorage.storage().reference()
-      let pathReference = storageRef.child("profileImages").child(userKey + ".jpg")
+      guard let value = snap.value else { return }
       
-       pathReference.writeToFile(saveLocation) { URL, error -> Void in
+      let stringURL = String(value)
+      
+      print("snap", value)
+      print(stringURL)
+      
+      guard let url = NSURL(string: stringURL) else {
+        self.downloadProfileImageFromStorage(uid)
         
-        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+        return }
+      
+      guard let downloadImage = NSData(contentsOfURL: url) else {
+        self.downloadProfileImageFromStorage(uid)
+        
+        return }
+      
+      guard let image = UIImage(data: downloadImage) else {
+        self.downloadProfileImageFromStorage(uid)
+        
+        return }
+      
+      print(image)
+      
+      Cache.shared.profileImageCache.setObject(image, forKey: uid)
+      
+      ProfileImageTracker.imageLocations.insert(uid)
+      
+      self.profileImage.image = image
+      
+    })
+    
+    
+  }
+  
+  func downloadProfileImageFromStorage(uid: String) {
+    
+    if !ProfileImageTracker.imageLocations.contains(uid) {
+      
+      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + uid)
+      let storageRef = FIRStorage.storage().reference()
+      let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
+      
+      pathReference.writeToFile(saveLocation) { URL, error -> Void in
+        
+        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription);
+          
+          Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (uid))
+          
+          return }
         
         if let data = NSData(contentsOfURL: URL) {
           
           if let image = UIImage(data: data) {
             
-            Cache.shared.profileImageCache.setObject(image, forKey: (userKey))
-            ProfileImageTracker.imageLocations.insert(userKey)
+            Cache.shared.profileImageCache.setObject(image, forKey: (uid))
+            ProfileImageTracker.imageLocations.insert(uid)
             
             self.profileImage.image = image
-            
           }
         }
       }
@@ -66,5 +110,4 @@ class CommentCell: UITableViewCell {
       print("Post Cell, profile image already chached")
     }
   }
-
 }
