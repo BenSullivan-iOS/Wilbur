@@ -10,18 +10,7 @@ import UIKit
 import AVFoundation
 import FirebaseStorage
 
-protocol AudioPlayerDelegate {
-
-  func audioRecorded()
-}
-
-class ImageTable: UITableViewCell {
-  
-  @IBOutlet weak var tableImage: UIImageView!
-  
-}
-
-class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate, AudioPlayerDelegate {
+class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate, AudioPlayerDelegate, CreatePostDelegate {
   
   @IBOutlet weak var descriptionText: UITextView!
   @IBOutlet weak var image: UIImageView!
@@ -36,7 +25,8 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   private var selectedImagePath = NSURL?()
   private let tap = UITapGestureRecognizer()
   
-  //MARK: - VIEW CONTROLLER LIFESCYCLE
+  //MARK: - VC LIFESCYCLE
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -47,7 +37,6 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     tapGestureRecogniser()
     
     scrollView.delegate = self
-//    cameraIcon.imageView?.contentMode = .ScaleAspectFit
     micIcon.imageView?.contentMode = .ScaleAspectFit
     
     imagePicker.delegate = self
@@ -61,33 +50,10 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   override func viewWillAppear(animated: Bool) {
     
-//    selectedImage.image = UIImage(named: "createPostPlaceholder")
-//    
-//    let height = AVMakeRectWithAspectRatioInsideRect(UIImage(named: "createPostPlaceholder")!.size, selectedImage.frame).height
-//    tableView.rowHeight = height
-//    tableView.reloadData()
     AppState.shared.currentState = .CreatingPost
     tap.enabled = true
     
-//    selectedImage.image = UIImage(named: "createPostPlaceholder")
-
-    
-    
   }
-  
-  @IBAction func recordButtonPressed(sender: UIButton) {
-    
-    AudioControls.shared.recordTapped()
-    
-    
-    
-  }
-  
-  func audioRecorded() {
-    //
-  }
-  
-  
   
   func postButtonPressed() {
     print("Well done! Creating post etc...")
@@ -112,6 +78,66 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
       presentViewController(imagePicker, animated: true, completion: nil)
     }
   }
+  
+  //MARK: - CREATE POST DELEGATE
+  
+  func postSuccessful() {
+    
+    self.postedAlert()
+    self.selectedImagePath = nil
+    self.descriptionText.text = DescriptionText.defaultText
+    
+    NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
+    
+    selectedImage.image = UIImage(named: "createPostPlaceholder")
+    
+    tableView.reloadData()
+    
+  }
+  
+  func postError() {
+    
+    self.dismissViewControllerAnimated(false) { _ in
+      
+      self.displayAlert("Error saving image", message: "Please check your internet connection", state: .noPhoto)
+    }
+  }
+  
+  //MARK: - POST FUNCTION
+  
+  func postToFirebase() {
+    
+    guard AppState.shared.currentState == .CreatingPost else { displayAlert("Error 🤔", message: "Please select 'Create Post'", state: .noPhoto); return }
+    
+    guard selectedImage.image != UIImage(named: "createPostPlaceholder") else { displayAlert("🤔 Missing information", message: "Please add a photo", state: .noPhoto); return }
+    
+    guard let imagePath = selectedImagePath else { displayAlert("🤔 Missing information", message: "Please add a photo", state: .noPhoto); return }
+    
+    guard let username = NSUserDefaults.standardUserDefaults().valueForKey("username") as? String else { print("no username"); return }
+    
+    guard let userKey = DataService.ds.currentUserKey else { print("no username key"); return }
+    
+    
+    var description = descriptionText.text!
+    
+    if descriptionText.text! == DescriptionText.defaultText {
+      
+      description = ""
+    }
+    
+    postingAlert()
+    
+    let post: [String: AnyObject] = [
+      "description" : description,
+      "user": username,
+      "date": String(NSDate()),
+      "userKey": userKey,
+    ]
+    
+    PostService.shared.uploadImage(imagePath, username: username, dict: post)
+    
+  }
+
   
   //MARK: - TABLE VIEW
   
@@ -199,12 +225,6 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     return newImage
   }
   
-  func direct() -> NSString {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
-    return documentsDirectory
-  }
-  
   func saveImage (image: UIImage, path: String) -> Bool {
     
     let path2 = direct().stringByAppendingPathComponent("tempImage.jpg")
@@ -222,112 +242,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   
   
-  //MARK: - POST FUNCTION
   
-    func postToFirebase() {
-      
-      guard selectedImage.image != UIImage(named: "createPostPlaceholder") else { displayAlert("🤔 Missing information", message: "Please add a photo", state: .noPhoto); return }
-      
-      guard let username = NSUserDefaults.standardUserDefaults().valueForKey("username") else { print("no username"); return }
-
-      let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
-  
-      guard let userKey = DataService.ds.currentUserKey else { print("no username key"); return }
-      
-      var description = descriptionText.text!
-      
-      if descriptionText.text! == DescriptionText.defaultText {
-        
-        description = ""
-      }
-      
-      postingAlert()
-  
-      var post: [String: AnyObject] = [
-  "description" : description,
-          "user": username,
-          "date": String(NSDate()),
-       "userKey": userKey
-      ]
-    
-      
-      //Save audio if available
-      
-      if let audioPath = NSURL(fileURLWithPath: String(direct()) + "/recording.m4a").path {
-        
-        let fileManager = NSFileManager.defaultManager()
-        
-        if fileManager.fileExistsAtPath(audioPath) {
-          print("Audio available")
-          
-          let audioURL = NSURL(fileURLWithPath: String(direct()) + "/recording.m4a")
-          
-          CreatePost.shared.uploadAudio(audioURL, firebaseReference: firebasePost.key)
-          
-          post["audio"] = "audio/\(firebasePost.key).m4a"
-
-        } else {
-          print("Audio unavailable")
-        }
-      }
-      
-      
-      //Save image if available
-  
-      if let imagePath = selectedImagePath {
-  
-        uploadImage(imagePath, firebaseReference: firebasePost.key)
-        post["imageUrl"] = "images/\(firebasePost.key).jpg"
-  
-      } else {
-        
-        self.postedAlert()
-   
-        self.checkAudioRecorded = false
-      }
-  
-      firebasePost.setValue(post)
-  
-      descriptionText.text = ""
-      selectedImage.image = UIImage(named: "createPostPlaceholder")
-      tableView.reloadData()
-  
-      savePostToUser(firebasePost.key)
-    }
-  
-    func savePostToUser(postKey: String) {
-  
-      let firebasePost = DataService.ds.REF_USER_CURRENT.child("posts").child(postKey)
-      firebasePost.setValue(postKey)
-      
-      let addDefaultText = DataService.ds.REF_POSTS.child(postKey).child("comments").child("placeholder")
-      addDefaultText.setValue(1)
-      
-    }
-  
-  
-    func uploadImage(localFile: NSURL, firebaseReference: String) {
-  
-      let storageRef = FIRStorage.storage().reference()
-      let riversRef = storageRef.child("images/\(firebaseReference).jpg")
-  
-      riversRef.putFile(localFile, metadata: nil) { metadata, error in
-        guard let metadata = metadata where error == nil else { print("Upload Image Error", error); return }
-
-        print("success")
-        print("metadata")
-        
-        self.postedAlert()
-        
-        self.selectedImagePath = nil
-        
-        self.descriptionText.text = DescriptionText.defaultText
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
-        
-      }
-    }
-
   //MARK: - ALERTS
   
   func imagePickerAlert() {
@@ -338,6 +253,9 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     alert.addAction(UIAlertAction(title: "Take photo 📷", style: .Default, handler: { action in
       
       self.imagePicker.sourceType = .Camera
+
+      //FIXME: - allow cropping
+      
       self.presentViewController(self.imagePicker, animated: true, completion: nil)
       
     }))
@@ -353,11 +271,6 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
     
     presentViewController(alert, animated: true, completion: nil)
-  }
-  
-  enum AlertState {
-    case notLoggedIn
-    case noPhoto
   }
   
   func displayAlert(title: String, message: String, state: AlertState) {
@@ -410,4 +323,43 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     dismissViewControllerAnimated(true, completion: nil)
   }
   
+  //MARK: - OTHER
+  
+  func direct() -> NSString {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let documentsDirectory = paths[0]
+    return documentsDirectory
+  }
+  
+  //MARK: - DEPRECIATED
+  
+  //Save audio if available
+  
+  @IBAction func recordButtonPressed(sender: UIButton) {
+    
+    AudioControls.shared.recordTapped()
+    
+  }
+  
+  func audioRecorded() {
+    //
+  }
+  
+  //      if let audioPath = NSURL(fileURLWithPath: String(direct()) + "/recording.m4a").path {
+  //
+  //        let fileManager = NSFileManager.defaultManager()
+  //
+  //        if fileManager.fileExistsAtPath(audioPath) {
+  //          print("Audio available")
+  //
+  //          let audioURL = NSURL(fileURLWithPath: String(direct()) + "/recording.m4a")
+  //
+  //          CreatePost.shared.uploadAudio(audioURL, firebaseReference: firebasePost.key)
+  //
+  //          post["audio"] = "audio/\(firebasePost.key).m4a"
+  //
+  //        } else {
+  //          print("Audio unavailable")
+  //        }
+  //      }
 }

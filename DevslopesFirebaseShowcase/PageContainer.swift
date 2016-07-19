@@ -8,18 +8,6 @@
 
 import UIKit
 
-protocol NavigationBarDelegate: class {
-  func didSelectSegment(segment: Int)
-}
-
-protocol UpdateNavButtonsDelegate: class {
-  func updateNavButtons()
-}
-
-protocol PostButtonPressedDelegate: class {
-  func postButtonPressed()
-}
-
 class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDelegate {
   
   @IBOutlet weak var createPostButton: UIButton!
@@ -69,7 +57,11 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     if segue.identifier == Constants.sharedSegues.comments {
       
       if let dest = segue.destinationViewController as? CommentsVC {
-        
+        print(selectedPost?.commentText)
+        print(selectedPost?.comments)
+        print(selectedPost?.commentedOn)
+        print(selectedPost?.commentUsers)
+
         dest.post = selectedPost
         dest.postImage = selectedPostImage
         

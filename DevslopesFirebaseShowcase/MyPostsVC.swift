@@ -11,12 +11,6 @@ import Firebase
 import AVFoundation
 import FirebaseStorage
 
-protocol MyPostsCellDelegate: class {
-  func showComments(post: Post, image: UIImage)
-  func reloadTable()
-  func showDeleteAlert(post: Post)
-}
-
 class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MyPostsCellDelegate {
   
   @IBOutlet weak var tableView: UITableView!

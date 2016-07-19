@@ -55,6 +55,9 @@
 		B5DE8A091D2EA42D00F9C364 /* WilburUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE8A081D2EA42D00F9C364 /* WilburUITests.swift */; };
 		B5E484F01D02F83C0099A060 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */; };
 		B5E553121D144EE100982E60 /* PageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E553111D144EE100982E60 /* PageContainer.swift */; };
+		B5FD20A81D3E2C8B0095D583 /* ImageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FD20A71D3E2C8B0095D583 /* ImageTableCell.swift */; };
+		B5FD20AA1D3E2CE10095D583 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FD20A91D3E2CE10095D583 /* Protocols.swift */; };
+		B5FD20AC1D3E31E70095D583 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FD20AB1D3E31E70095D583 /* PostService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +129,9 @@
 		B5DE8A0A1D2EA42D00F9C364 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		B5E553111D144EE100982E60 /* PageContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageContainer.swift; sourceTree = "<group>"; };
+		B5FD20A71D3E2C8B0095D583 /* ImageTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableCell.swift; sourceTree = "<group>"; };
+		B5FD20A91D3E2CE10095D583 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		B5FD20AB1D3E31E70095D583 /* PostService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +284,7 @@
 				B501DBBA1D0305CE001320C7 /* AppState.swift */,
 				B501DBBC1D0305E9001320C7 /* Cache.swift */,
 				B5D6A97F1D358A56006B7207 /* CreatePost.swift */,
+				B5FD20A91D3E2CE10095D583 /* Protocols.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -316,6 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				B566CB401CE920A500415A3E /* DataService.swift */,
+				B5FD20AB1D3E31E70095D583 /* PostService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -328,6 +336,7 @@
 				B5D14B9D1D2927FD00D0FF3E /* CommentImageCell.swift */,
 				B56697211D352B4E00CB8236 /* AnsweredCell.swift */,
 				B56697281D354B5E00CB8236 /* MyPostsCell.swift */,
+				B5FD20A71D3E2C8B0095D583 /* ImageTableCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -533,6 +542,7 @@
 				B5D3F99B1CEB4A9F00EEB78F /* ProfileVC.swift in Sources */,
 				B501DBBB1D0305CE001320C7 /* AppState.swift in Sources */,
 				B5D85BF81CFA134C00E62148 /* ProfileTableVC.swift in Sources */,
+				B5FD20AA1D3E2CE10095D583 /* Protocols.swift in Sources */,
 				B548A4561CE90F630084215C /* MaterialTextField.swift in Sources */,
 				B56697221D352B4E00CB8236 /* AnsweredCell.swift in Sources */,
 				B5068C3D1CEF18F400AA8C86 /* PagingVC.swift in Sources */,
@@ -554,8 +564,10 @@
 				B5D14B9E1D2927FD00D0FF3E /* CommentImageCell.swift in Sources */,
 				B548A4521CE906A80084215C /* Constants.swift in Sources */,
 				B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */,
+				B5FD20AC1D3E31E70095D583 /* PostService.swift in Sources */,
 				B5D14B9C1D2920F500D0FF3E /* CommentCell.swift in Sources */,
 				B548A4541CE90A5E0084215C /* MaterialButton.swift in Sources */,
+				B5FD20A81D3E2C8B0095D583 /* ImageTableCell.swift in Sources */,
 				B5777B821D01CE1B0062683C /* MyPostsVC.swift in Sources */,
 				B55E6DBC1D192E7600A128E7 /* CreatePostVC.swift in Sources */,
 				B56697241D352B8B00CB8236 /* AnsweredVC.swift in Sources */,

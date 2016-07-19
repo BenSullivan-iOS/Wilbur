@@ -37,14 +37,12 @@ class DataService {
     return _usernames
   }
   
-  
   var posts: [Post] {
     
     if let postArray = _posts {
       return postArray
     }
     return [Post]()
-    
   }
   
   var answeredPosts: [Post] {
@@ -53,7 +51,6 @@ class DataService {
       return postArray
     }
     return [Post]()
-    
   }
   
   var myPosts: [Post] {
@@ -63,8 +60,8 @@ class DataService {
     let posts = allPosts.filter { $0.userKey == DataService.ds.currentUserKey }
     
     return posts
-    
   }
+  
   var REF_BASE: FIRDatabaseReference {
     return _REF_BASE
   }
@@ -186,10 +183,10 @@ class DataService {
           
           if let userDict = snap.value as? [String: AnyObject] {
             
-            let name = userDict["username"] as! String
-            print(name, snap.key)
-            self._usernames[snap.key] = name
-            
+            if let name = userDict["username"] as? String {
+              print(name, snap.key)
+              self._usernames[snap.key] = name
+            }
           }
         }
       }

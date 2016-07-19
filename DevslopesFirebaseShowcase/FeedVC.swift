@@ -11,12 +11,6 @@ import Firebase
 import AVFoundation
 import FirebaseStorage
 
-protocol PostCellDelegate: class {
-  func showAlert(post: Post)
-  func reloadTable()
-  func customCellCommentButtonPressed()
-}
-
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
   
   @IBOutlet weak var tableView: UITableView!

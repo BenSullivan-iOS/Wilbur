@@ -193,7 +193,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
 
     pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
-      print("Write to file")
+
       guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
       
       print("SUCCESS - ")
@@ -212,7 +212,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   
   func guestAlert() {
     
-    let alert = UIAlertController(title: "Function unavailable", message: "You must be logged in to comment", preferredStyle: .Alert)
+    let alert = UIAlertController(title: "Function unavailable", message: "You must be logged in to access your profile", preferredStyle: .Alert)
     
     alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
       

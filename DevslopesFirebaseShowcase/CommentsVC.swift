@@ -10,6 +10,12 @@ import UIKit
 import AVFoundation
 import Firebase
 
+extension Array {
+  func ref (i:Int) -> Element? {
+    return 0 <= i && i < count ? self[i] : nil
+  }
+}
+
 class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
   
   @IBOutlet weak var postButton: UIButton!
@@ -46,6 +52,8 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
     keyArray = (post?.commentText)!
     valueArray = (post?.commentUsers)!
+    print(keyArray)
+    print(valueArray)
     
     print("view did for loop")
 
@@ -63,7 +71,10 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
     for i in valueArray {
       
-      usernameArray.append(users[i]!)
+      if let user = users[i] {
+        
+        usernameArray.append(user)
+      }
     }
     
     for i in valueArray {
@@ -207,13 +218,17 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
     if let cell = tableView.dequeueReusableCellWithIdentifier(cellID.commentCell) as? CommentCell
       where indexPath.section == 1 {
-      print(keyArray.count, valueArray.count, usernameArray.count, indexPath.row)
-      print(usernameArray)
-      print(keyArray)
-      print(valueArray)
+     
       let ip = indexPath.row
-      cell.configureCell(keyArray[ip], value: valueArray[ip], user: usernameArray[ip])
       
+      if let username = usernameArray.ref(ip) {
+        
+        cell.configureCell(keyArray[ip], value: valueArray[ip], user: username)
+
+      } else {
+        cell.configureCell(keyArray[ip], value: valueArray[ip], user: "")
+        
+      }
       return cell
     }
     
