@@ -72,44 +72,6 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     
   }
   
-  func customCellCommentButtonPressed(notification: NSNotification) {
-    
-    if let post = notification.userInfo!["post"] as? Post {
-      
-      if let image = notification.userInfo!["image"] as? UIImage {
-        
-        selectedPostImage = image
-        selectedPost = post
-        performSegueWithIdentifier("comments", sender: self)
-
-        
-      } else { //if there is no image
-        selectedPost = post
-        performSegueWithIdentifier("comments", sender: self)
-
-      }
-      
-    }
-  }
-  
-
-  
-  
-  
-  //MARK: - DELEGATES
-  
-  func postButtonPressed() {
-    
-    createPostDelegate?.postButtonPressed()
-  }
-  
-  //Notifies paging VC to scroll to selected segment
-  func didSelectSegment(segment: Int) {
-    
-    navigationBarDelegate?.didSelectSegment(segment)
-  }
-  
-  
   
   //MARK: - BUTTONS
   
@@ -149,6 +111,39 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     
   }
   
+  
+  //MARK: - DELEGATE FUNCTIONS
+  
+  func postButtonPressed() {
+    
+    createPostDelegate?.postButtonPressed()
+  }
+  
+  //Notifies paging VC to scroll to selected segment
+  func didSelectSegment(segment: Int) {
+    
+    navigationBarDelegate?.didSelectSegment(segment)
+  }
+  
+  func customCellCommentButtonPressed(notification: NSNotification) {
+    
+    if let post = notification.userInfo!["post"] as? Post {
+      
+      if let image = notification.userInfo!["image"] as? UIImage {
+        
+        selectedPostImage = image
+        selectedPost = post
+        performSegueWithIdentifier("comments", sender: self)
+        
+        
+      } else { //if there is no image
+        selectedPost = post
+        performSegueWithIdentifier("comments", sender: self)
+        
+      }
+      
+    }
+  }
   
   
   //MARK: - STYLE NAV BUTTONS
@@ -200,7 +195,6 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
       print("Page Container, updateColours, default case")
     }
   }
-  
   
   
   //MARK: - MISC FUNCTIONS

@@ -38,7 +38,8 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, LoginSe
     presentFeedVC()
   }
   
-  //MARK: LOGIN DELEGATE FUNCTIONS
+  
+  //MARK: - LOGIN DELEGATE FUNCTIONS
   
   func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError?) {
     
@@ -61,7 +62,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, LoginSe
   }
   
 
-  //MARK: ALERTS AND SEGUES
+  //MARK: - ALERTS AND SEGUES
   
   func presentFeedVC() {
     
@@ -83,7 +84,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, LoginSe
   }
   
   
-  //MARK: OTHER
+  //MARK: - OTHER
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
