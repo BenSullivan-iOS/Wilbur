@@ -58,6 +58,7 @@
 		B5FD20A81D3E2C8B0095D583 /* ImageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FD20A71D3E2C8B0095D583 /* ImageTableCell.swift */; };
 		B5FD20AA1D3E2CE10095D583 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FD20A91D3E2CE10095D583 /* Protocols.swift */; };
 		B5FD20AC1D3E31E70095D583 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FD20AB1D3E31E70095D583 /* PostService.swift */; };
+		B5FD20AE1D3E57BB0095D583 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FD20AD1D3E57BB0095D583 /* LoginService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +133,7 @@
 		B5FD20A71D3E2C8B0095D583 /* ImageTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableCell.swift; sourceTree = "<group>"; };
 		B5FD20A91D3E2CE10095D583 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		B5FD20AB1D3E31E70095D583 /* PostService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		B5FD20AD1D3E57BB0095D583 /* LoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +326,7 @@
 			children = (
 				B566CB401CE920A500415A3E /* DataService.swift */,
 				B5FD20AB1D3E31E70095D583 /* PostService.swift */,
+				B5FD20AD1D3E57BB0095D583 /* LoginService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 				B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */,
 				B5FD20AC1D3E31E70095D583 /* PostService.swift in Sources */,
 				B5D14B9C1D2920F500D0FF3E /* CommentCell.swift in Sources */,
+				B5FD20AE1D3E57BB0095D583 /* LoginService.swift in Sources */,
 				B548A4541CE90A5E0084215C /* MaterialButton.swift in Sources */,
 				B5FD20A81D3E2C8B0095D583 /* ImageTableCell.swift in Sources */,
 				B5777B821D01CE1B0062683C /* MyPostsVC.swift in Sources */,

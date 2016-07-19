@@ -48,7 +48,7 @@
                                                         <stackView contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bzf-fF-7YK">
                                                             <rect key="frame" x="8" y="8" width="544" height="70"/>
                                                             <subviews>
-                                                                <stackView contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ibh-Rf-mVO">
+                                                                <stackView contentMode="scaleToFill" misplaced="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ibh-Rf-mVO">
                                                                     <rect key="frame" x="0.0" y="0.0" width="163" height="70"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" translatesAutoresizingMaskIntoConstraints="NO" id="eM3-A1-6pJ" customClass="RoundedImage" customModule="Wilbur" customModuleProvider="target">
@@ -58,7 +58,7 @@
                                                                                 <constraint firstAttribute="width" constant="70" id="QWT-G9-6HU"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o9p-Ga-mr3">
+                                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" misplaced="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o9p-Ga-mr3">
                                                                             <rect key="frame" x="75" y="0.0" width="88" height="70"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="18"/>
@@ -153,10 +153,10 @@
                                                                 </mask>
                                                             </variation>
                                                         </stackView>
-                                                        <stackView contentMode="scaleToFill" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="7wP-6G-l6U">
+                                                        <stackView contentMode="scaleToFill" misplaced="YES" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="7wP-6G-l6U">
                                                             <rect key="frame" x="232" y="456" width="97" height="15"/>
                                                             <subviews>
-                                                                <stackView contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QdK-Nw-X1k">
+                                                                <stackView contentMode="scaleToFill" misplaced="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QdK-Nw-X1k">
                                                                     <rect key="frame" x="0.0" y="0.0" width="97" height="15"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="commentCounterGrey" translatesAutoresizingMaskIntoConstraints="NO" id="6qe-zg-3Cn">
@@ -168,7 +168,7 @@
                                                                                 <constraint firstAttribute="height" constant="15" id="gOg-Jc-4jm"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRS-Ah-iRS">
+                                                                        <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRS-Ah-iRS">
                                                                             <rect key="frame" x="23" y="0.0" width="74" height="15"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
