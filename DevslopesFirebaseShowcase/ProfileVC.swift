@@ -35,7 +35,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     
     if let userKey = DataService.ds.currentUserKey {
 
-      if let image = Cache.FeedVC.profileImageCache.objectForKey(userKey) as? UIImage {
+      if let image = Cache.shared.profileImageCache.objectForKey(userKey) as? UIImage {
         
         profileImage.image = image
         
@@ -155,7 +155,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
 
       dispatch_async(dispatch_get_main_queue(), { 
         
-        Cache.FeedVC.profileImageCache.removeAllObjects()
+        Cache.shared.profileImageCache.removeAllObjects()
       })
     }
   }
@@ -204,7 +204,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
       
       self.profileImage.image = image
       
-      Cache.FeedVC.profileImageCache.setObject(image, forKey: DataService.ds.currentUserKey!)
+      Cache.shared.profileImageCache.setObject(image, forKey: DataService.ds.currentUserKey!)
     }
   }
   

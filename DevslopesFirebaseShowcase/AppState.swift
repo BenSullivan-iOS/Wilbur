@@ -10,12 +10,9 @@ class AppState {
   
   static let shared = AppState()
   
-  var currentState = State.None {
-    
-    didSet {
-      print("CURRENT STATE DID SET,", currentState)
-    }
-  }
+  private init() {}
+  
+  var currentState = State.None
   
   enum State {
     case CreatingPost

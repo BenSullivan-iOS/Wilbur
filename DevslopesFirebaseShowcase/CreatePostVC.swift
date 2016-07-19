@@ -30,23 +30,15 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView.delegate = self
-    
+    setDelegates()
+    configureTextField()
+    configureTapGestureRecogniser()
+
     scrollView.scrollEnabled = false
     
-    tapGestureRecogniser()
-    
-    scrollView.delegate = self
     micIcon.imageView?.contentMode = .ScaleAspectFit
     
-    imagePicker.delegate = self
-    
-    descriptionText.delegate = self
-    descriptionText.layer.cornerRadius = 3.0
-    descriptionText.layer.borderWidth = 1.0
-    descriptionText.layer.borderColor = UIColor(colorLiteralRed: 170/255, green: 170/255, blue: 170/255, alpha: 0.5).CGColor
   }
-
   
   override func viewWillAppear(animated: Bool) {
     
@@ -55,16 +47,18 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     
   }
   
-  func postButtonPressed() {
-    print("Well done! Creating post etc...")
-    postToFirebase()
-  }
-  
   override func viewWillDisappear(animated: Bool) {
     tap.enabled = false
   }
   
+  
+  
   //MARK: - BUTTONS
+
+  func postButtonPressed() {
+    print("Well done! Creating post etc...")
+    postToFirebase()
+  }
   
   @IBAction func takePhotoButtonPressed(sender: AnyObject) {
     
@@ -120,7 +114,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     
     var description = descriptionText.text!
     
-    if descriptionText.text! == DescriptionText.defaultText {
+    if description == DescriptionText.defaultText {
       
       description = ""
     }
@@ -135,7 +129,6 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     ]
     
     PostService.shared.uploadImage(imagePath, username: username, dict: post)
-    
   }
 
   
@@ -167,6 +160,13 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     static let defaultText = "Enter description, include as much detail as possible"
   }
   
+  func configureTextField() {
+    
+    descriptionText.layer.cornerRadius = 3.0
+    descriptionText.layer.borderWidth = 1.0
+    descriptionText.layer.borderColor = UIColor(colorLiteralRed: 170/255, green: 170/255, blue: 170/255, alpha: 0.5).CGColor
+  }
+  
   func textViewDidBeginEditing(textView: UITextView) {
     
     if descriptionText.text == DescriptionText.defaultText {
@@ -180,7 +180,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     self.view.endEditing(true)
   }
   
-  func tapGestureRecogniser() {
+  func configureTapGestureRecogniser() {
     
     tap.addTarget(self, action: #selector(self.tapReceived))
     tap.numberOfTapsRequired = 1
@@ -329,6 +329,15 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
     let documentsDirectory = paths[0]
     return documentsDirectory
+  }
+  
+  func setDelegates() {
+    
+    PostService.shared.delegate = self
+    tableView.delegate = self
+    scrollView.delegate = self
+    imagePicker.delegate = self
+    descriptionText.delegate = self
   }
   
   //MARK: - DEPRECIATED

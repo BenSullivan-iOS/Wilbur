@@ -19,3 +19,9 @@ extension UINavigationController {
     return self.topViewController
   }
 }
+
+extension Array {
+  func ref (i:Int) -> Element? {
+    return 0 <= i && i < count ? self[i] : nil
+  }
+}

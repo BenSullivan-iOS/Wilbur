@@ -41,7 +41,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
     
     reportButton.imageView?.contentMode = .ScaleAspectFit
     
-    Cache.FeedVC.profileImageCache.delegate = self
+    Cache.shared.profileImageCache.delegate = self
     
   }
   
@@ -153,7 +153,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
     let highlightedColor = UIColor(colorLiteralRed: 42/255, green: 140/255, blue: 166/255, alpha: 1)
     let greyColor = UIColor(colorLiteralRed: 169/255, green: 194/255, blue: 194/255, alpha: 1)
     
-    if let commentedOn = Cache.FeedVC.commentedOnCache.objectForKey(post!.postKey) as? Bool {
+    if let commentedOn = Cache.shared.commentedOnCache.objectForKey(post!.postKey) as? Bool {
       
       print("commentedOn", commentedOn)
       if commentedOn {
@@ -180,13 +180,13 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
             self.popText.setTitleColor(greyColor, forState: .Normal)
             
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-              Cache.FeedVC.commentedOnCache.setObject(false, forKey: (self.post?.postKey)!)
+              Cache.shared.commentedOnCache.setObject(false, forKey: (self.post?.postKey)!)
             }
           } else {
             
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
               self.post?.wasCommentedOn(true)
-              Cache.FeedVC.commentedOnCache.setObject(true, forKey: (self.post?.postKey)!)
+              Cache.shared.commentedOnCache.setObject(true, forKey: (self.post?.postKey)!)
             }
             self.likeImage.image = UIImage(named: "commentCounter")
             self.popText.setTitleColor(highlightedColor, forState: .Normal)
@@ -267,7 +267,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
           self.showcaseImg.image = image
           self.showcaseImg.hidden = false
           
-          Cache.FeedVC.imageCache.setObject(image, forKey: imageLocation)
+          Cache.shared.imageCache.setObject(image, forKey: imageLocation)
           
           self.delegate?.reloadTable()
           
@@ -290,7 +290,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
 
         guard let URL = URL where error == nil else { print("Error - ", error.debugDescription)
           
-          Cache.FeedVC.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (imageLocation))
+          Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (imageLocation))
 
           return }
         
@@ -300,7 +300,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
             
             dispatch_async(dispatch_get_main_queue(), { 
               
-              Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
+              Cache.shared.profileImageCache.setObject(image, forKey: (imageLocation))
               ProfileImageTracker.imageLocations.insert(imageLocation)
             })
             

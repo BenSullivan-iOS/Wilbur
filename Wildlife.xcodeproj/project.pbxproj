@@ -81,7 +81,7 @@
 		B51CBCD31CF45DB000112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feed.storyboard; sourceTree = "<group>"; };
 		B51CBCF81CF4DA4800112B51 /* FDWaveformView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FDWaveformView.framework; path = "../../../../Library/Developer/Xcode/DerivedData/DevslopesFirebaseShowcase-aebdmajtydenumdhaiuprfwxpxmv/Build/Products/Debug-iphonesimulator/FDWaveformView/FDWaveformView.framework"; sourceTree = "<group>"; };
 		B51CBCFB1CF4EBBE00112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
-		B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioControls.swift; sourceTree = "<group>"; };
+		B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioControls.swift; path = DevslopesFirebaseShowcase/AudioControls.swift; sourceTree = "<group>"; };
 		B52F44E61D2BE97100FC93EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Comments.storyboard; sourceTree = "<group>"; };
 		B548A42D1CE8FFC40084215C /* Wilbur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wilbur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B548A4301CE8FFC40084215C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 		B5D3F9961CEB41BD00EEB78F /* FIGHTT3_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FIGHTT3_.ttf; sourceTree = "<group>"; };
 		B5D3F9981CEB498500EEB78F /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		B5D6A97F1D358A56006B7207 /* CreatePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePost.swift; sourceTree = "<group>"; };
+		B5D6A97F1D358A56006B7207 /* CreatePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreatePost.swift; path = DevslopesFirebaseShowcase/CreatePost.swift; sourceTree = "<group>"; };
 		B5D6A9811D36483A006B7207 /* Wildlife-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wildlife-Bridging-Header.h"; sourceTree = "<group>"; };
 		B5D85BF41CFA12B800E62148 /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableVC.swift; sourceTree = "<group>"; };
@@ -179,7 +179,9 @@
 		B54581CE1D2C624E00976EBC /* Backup */ = {
 			isa = PBXGroup;
 			children = (
+				B5D6A97F1D358A56006B7207 /* CreatePost.swift */,
 				B55808361CF713CE00FEC41D /* SplashVC.swift */,
+				B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */,
 			);
 			name = Backup;
 			sourceTree = "<group>";
@@ -238,7 +240,6 @@
 		B548A42F1CE8FFC40084215C /* Wildlife */ = {
 			isa = PBXGroup;
 			children = (
-				B566CB3F1CE9209100415A3E /* Services */,
 				B548A4571CE913800084215C /* Frameworks */,
 				B548A4501CE906970084215C /* Util */,
 				B548A4451CE903070084215C /* Resources */,
@@ -278,12 +279,11 @@
 		B548A4441CE903020084215C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B566CB3F1CE9209100415A3E /* Services */,
 				B566CB461CE9E15500415A3E /* Post.swift */,
-				B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */,
 				B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */,
 				B501DBBA1D0305CE001320C7 /* AppState.swift */,
 				B501DBBC1D0305E9001320C7 /* Cache.swift */,
-				B5D6A97F1D358A56006B7207 /* CreatePost.swift */,
 				B5FD20A91D3E2CE10095D583 /* Protocols.swift */,
 			);
 			name = Model;

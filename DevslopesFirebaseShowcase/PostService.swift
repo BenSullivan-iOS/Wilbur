@@ -6,7 +6,6 @@
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
 //
 
-import Foundation
 import FirebaseStorage
 
 enum AlertState {

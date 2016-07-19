@@ -10,12 +10,6 @@ import UIKit
 import AVFoundation
 import Firebase
 
-extension Array {
-  func ref (i:Int) -> Element? {
-    return 0 <= i && i < count ? self[i] : nil
-  }
-}
-
 class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
   
   @IBOutlet weak var postButton: UIButton!
@@ -158,7 +152,7 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
 
         self.commentRef.setValue(true)
         
-        Cache.FeedVC.commentedOnCache.removeObjectForKey(selectedPost.postKey)
+        Cache.shared.commentedOnCache.removeObjectForKey(selectedPost.postKey)
         
       }
     })

@@ -10,9 +10,11 @@ import Foundation
 
 class Cache {
   
-  class FeedVC {
-    static let imageCache = NSCache()
-    static let profileImageCache = NSCache()
-    static let commentedOnCache = NSCache()
-  }
+  static let shared = Cache()
+  
+  private init() {}
+  
+  let imageCache = NSCache()
+  let profileImageCache = NSCache()
+  let commentedOnCache = NSCache()
 }

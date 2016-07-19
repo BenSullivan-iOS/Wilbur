@@ -138,10 +138,11 @@ class Post {
         
         let first = i.key as! String
         let second = Int(first)!
-        print("array = ", array)
+
         if array[second] == ["nil":"nil"] {
           array.removeAtIndex(second)
         }
+        
         array.insert(comments[i.key as! String] as! NSDictionary, atIndex: second)
         
         let commentValue = i.value as! NSDictionary
@@ -165,62 +166,26 @@ class Post {
         }
         
       }
-      print(self._comments)
-      print(self._username)
-      
-      if self._username == "Lourdes Lomeli Rodriguez" {
-        
-      }
-
     }
     
+    
+    //Bug Fix - Unusual error where one set of comments returned as an NSArray
     if let comments = dictionary["comments"] as? NSArray {
-      
-      var value = [String: String]()
-      
-      var array = [NSDictionary](count: comments.count, repeatedValue: ["nil":"nil"])
-      print(comments[0])
-      print("all comments")
-      print(comments)
-      print("for loop")
-      
+            
       let com = Array(comments)
       
-      var count = 0
       for i in com.indices {
         
-        print("loop ", count, com[i])
-        
         var key = String(com[i])
-        
-//        var key2 = [String]()
-//        var key3 = [String]()
-//
-//        key2.append(key.componentsSeparatedByString(" = ").first!)
-//        key3.append(key.componentsSeparatedByString(" = ").last!)
-        
-//        print(key2)
-//        print(key3)
-
-        
-        count += 1
         
         key = key.stringByReplacingOccurrencesOfString(";\n}", withString: "")
         key = key.stringByReplacingOccurrencesOfString("{", withString: "")
         key = key.stringByReplacingOccurrencesOfString("\n    ", withString: "")
         key = key.stringByReplacingOccurrencesOfString("\"", withString: "")
 
-        print("first,", key.componentsSeparatedByString(" = ").first!)
         self._commentText.append(key.componentsSeparatedByString(" = ").first!)
-        
-        print("last,", key.componentsSeparatedByString(" = ").last!)
-
         self._commentUsers.append(key.componentsSeparatedByString(" = ").last!)
-
       }
-      
-      print(self._username)
-      
     }
 
     

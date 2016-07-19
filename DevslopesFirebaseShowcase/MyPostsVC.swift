@@ -105,12 +105,12 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         cell.profileImg.image = nil
         
         if let url = post.imageUrl {
-          img = Cache.FeedVC.imageCache.objectForKey(url) as? UIImage
+          img = Cache.shared.imageCache.objectForKey(url) as? UIImage
           cell.showcaseImg.hidden = false
           cell.showcaseImg.image = UIImage(named: "DownloadingImageBackground")
         }
         
-        if let profileImage = Cache.FeedVC.profileImageCache.objectForKey(post.userKey) as? UIImage {
+        if let profileImage = Cache.shared.profileImageCache.objectForKey(post.userKey) as? UIImage {
           profileImg = profileImage
         }
         

@@ -267,7 +267,7 @@ class DataService {
       
       return }
     
-    guard Cache.FeedVC.imageCache.objectForKey(imageLocation) as? UIImage == nil else {
+    guard Cache.shared.imageCache.objectForKey(imageLocation) as? UIImage == nil else {
       print("image already downloaded")
       
       if self.count < posts.count - 1 {
@@ -294,7 +294,7 @@ class DataService {
         
         if let image = UIImage(data: data) {
           
-          Cache.FeedVC.imageCache.setObject(image, forKey: imageLocation)
+          Cache.shared.imageCache.setObject(image, forKey: imageLocation)
           
           if self.count < posts.count - 1 {
             if self.count == 1 {
@@ -326,7 +326,7 @@ class DataService {
           
           if let image = UIImage(data: data) {
             
-            Cache.FeedVC.profileImageCache.setObject(image, forKey: (imageLocation))
+            Cache.shared.profileImageCache.setObject(image, forKey: (imageLocation))
             ProfileImageTracker.imageLocations.insert(imageLocation)
             
           }

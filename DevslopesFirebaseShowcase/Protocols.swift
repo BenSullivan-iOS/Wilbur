@@ -6,8 +6,6 @@
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
 //
 
-import Foundation
-
 protocol AudioPlayerDelegate {
   func audioRecorded()
 }

@@ -30,7 +30,7 @@ class CommentCell: UITableViewCell {
     username.text = user
     commentText.text = key
     
-    if let value = Cache.FeedVC.profileImageCache.objectForKey(value) as? UIImage {
+    if let value = Cache.shared.profileImageCache.objectForKey(value) as? UIImage {
       
       profileImage.image = value
     } else {
@@ -54,7 +54,7 @@ class CommentCell: UITableViewCell {
           
           if let image = UIImage(data: data) {
             
-            Cache.FeedVC.profileImageCache.setObject(image, forKey: (userKey))
+            Cache.shared.profileImageCache.setObject(image, forKey: (userKey))
             ProfileImageTracker.imageLocations.insert(userKey)
             
             self.profileImage.image = image
