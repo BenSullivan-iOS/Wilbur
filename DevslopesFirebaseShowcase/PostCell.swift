@@ -1,6 +1,6 @@
 //
 //  PostCell.swift
-// Wilbur
+//  Wilbur
 //
 //  Created by Ben Sullivan on 16/05/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -133,7 +133,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
         
         self.showcaseImg.hidden = false
         self.showcaseImg.image = img
-
+        
       } else {
         
         self.downloadImage(imageUrl)
@@ -215,6 +215,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
       if showcaseImg.hidden == false {
         
         postInfo["image"] = showcaseImg.image
+        postInfo["text"] = descriptionText
       }
       
       //Observed by PageContainer
@@ -317,8 +318,6 @@ class PostCell: UITableViewCell, NSCacheDelegate {
         self.profileImg.image = image
 
       })
-    
-    
   }
   
   func downloadProfileImageFromStorage(uid: String) {
@@ -343,8 +342,11 @@ class PostCell: UITableViewCell, NSCacheDelegate {
             
             Cache.shared.profileImageCache.setObject(image, forKey: (uid))
             ProfileImageTracker.imageLocations.insert(uid)
-            
-            self.profileImg.image = image
+
+            if self.profileImg.image == UIImage(named: "profile-placeholder") {
+              
+              self.profileImg.image = image
+            }
           }
         }
       }

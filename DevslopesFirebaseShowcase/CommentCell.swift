@@ -1,6 +1,6 @@
 //
 //  CommentCell.swift
-// Wilbur
+//  Wilbur
 //
 //  Created by Ben Sullivan on 03/07/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -102,7 +102,10 @@ class CommentCell: UITableViewCell {
             Cache.shared.profileImageCache.setObject(image, forKey: (uid))
             ProfileImageTracker.imageLocations.insert(uid)
             
-            self.profileImage.image = image
+            if self.profileImage.image == UIImage(named: "profile-placeholder") {
+              
+              self.profileImage.image = image
+            }
           }
         }
       }

@@ -1,6 +1,6 @@
 //
 //  FeedVC.swift
-// Wilbur
+//  Wilbur
 //
 //  Created by Ben Sullivan on 16/05/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -117,7 +117,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       
         cell.delegate = self
         cell.configureCell(post, img: img, profileImg: profileImg)
-        
+                
         return cell
       }
     }

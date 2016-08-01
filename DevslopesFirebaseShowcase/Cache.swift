@@ -1,6 +1,6 @@
 //
 //  Cache.swift
-// Wilbur
+//  Wilbur
 //
 //  Created by Ben Sullivan on 04/06/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -17,4 +17,5 @@ class Cache {
   let imageCache = NSCache()
   let profileImageCache = NSCache()
   let commentedOnCache = NSCache()
+  let cellCache = NSCache()
 }

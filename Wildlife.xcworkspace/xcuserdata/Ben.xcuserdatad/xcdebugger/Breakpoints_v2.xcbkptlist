@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/CommentsVC.swift"
-            timestampString = "490627268.102434"
+            timestampString = "491764825.834244"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329"
+            startingLineNumber = "337"
+            endingLineNumber = "337"
             landmarkName = "textViewDidBeginEditing(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "490644554.142382"
+            timestampString = "491561228.386517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
             landmarkName = "commentTapped()"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "490644554.142382"
+            timestampString = "491561228.386517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
             landmarkName = "PostCell"
             landmarkType = "3">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "490644554.142382"
+            timestampString = "491561228.386517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "report(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "490644554.142382"
+            timestampString = "491557782.060269"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "154"
@@ -234,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "490644554.142382"
+            timestampString = "491557782.060269"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "141"
@@ -250,13 +250,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/CommentsVC.swift"
-            timestampString = "490627268.102434"
+            timestampString = "491764825.834244"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
-            landmarkName = "guestAlert()"
-            landmarkType = "5">
+            startingLineNumber = "351"
+            endingLineNumber = "351"
+            landmarkName = "CommentsVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "490644554.142382"
+            timestampString = "491561228.386517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "PostCell"
             landmarkType = "3">
          </BreakpointContent>
@@ -314,7 +314,7 @@
                   moduleName = "Wilbur"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "490647589.351164"
+                  timestampString = "491764916.163973"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "123"
@@ -329,7 +329,7 @@
                   moduleName = "Wilbur"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "490647589.35141"
+                  timestampString = "491764916.164228"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "125"
@@ -362,7 +362,7 @@
                   moduleName = "Wilbur"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "490647589.352921"
+                  timestampString = "491764916.165544"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "113"
@@ -377,7 +377,7 @@
                   moduleName = "Wilbur"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "490647589.353172"
+                  timestampString = "491764916.165757"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "121"
@@ -416,6 +416,54 @@
             startingLineNumber = "120"
             endingLineNumber = "120"
             landmarkName = "uploadImage(_:uid:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DevslopesFirebaseShowcase/PostCell.swift"
+            timestampString = "491763722.213957"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "configureProfileImage(_:profileImg:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DevslopesFirebaseShowcase/PostCell.swift"
+            timestampString = "491763774.251621"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "configureProfileImage(_:profileImg:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DevslopesFirebaseShowcase/PostCell.swift"
+            timestampString = "491763836.779652"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
+            landmarkName = "downloadProfileImage(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

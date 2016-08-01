@@ -1,6 +1,6 @@
 //
 //  CommentsVCViewController.swift
-// Wilbur
+//  Wilbur
 //
 //  Created by Ben Sullivan on 02/07/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -28,6 +28,7 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   
   var post: Post? = nil
   var postImage: UIImage? = nil
+  var textFrame: CGRect? = nil
   
   
   //MARK: - VC LIFECYCLE
@@ -86,6 +87,8 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     comment = comment.stringByReplacingOccurrencesOfString("$", withString: "£")
     comment = comment.stringByReplacingOccurrencesOfString("[", withString: "(")
     comment = comment.stringByReplacingOccurrencesOfString("]", withString: ")")
+    comment = comment.stringByReplacingOccurrencesOfString("/", withString: "-")
+    comment = comment.stringByReplacingOccurrencesOfString("\\", withString: "-")
 
     commentTextView.text = DescriptionText.defaultText
     commentTextView.textColor = .lightGrayColor()
@@ -94,6 +97,8 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
 
     let newCommentRef = DataService.ds.REF_POSTS.child(post!.postKey).child("comments").child(String(keyArray.count)).child(comment)
     keyArray.append(comment)
+    
+    self.view.endEditing(true)
 
     newCommentRef.setValue(currentUser)
     
@@ -158,7 +163,6 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   }
   
   
-  
   //MARK: - TABLE VIEW
   
   private struct cellID {
@@ -173,8 +177,14 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
       if let image = postImage {
         
         let height = AVMakeRectWithAspectRatioInsideRect((image.size), self.view.frame).height
+        
+        if let textHeight = textFrame?.height {
+          
+          return height + textHeight
 
-        return height + UITableViewAutomaticDimension
+        }
+
+        return height + 38
       }
     
     return UITableViewAutomaticDimension

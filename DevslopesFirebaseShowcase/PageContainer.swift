@@ -1,6 +1,6 @@
 //
 //  PageContainer.swift
-// Wilbur
+//  Wilbur
 //
 //  Created by Ben Sullivan on 17/06/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
@@ -17,6 +17,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   
   var selectedPost: Post? = nil
   var selectedPostImage: UIImage? = nil
+  var textFrame = CGRect()
   
   weak var createPostDelegate: PostButtonPressedDelegate? = nil
   weak var navigationBarDelegate: NavigationBarDelegate? = nil
@@ -64,6 +65,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
 
         dest.post = selectedPost
         dest.postImage = selectedPostImage
+        dest.textFrame = textFrame
         
         selectedPost = nil
         selectedPostImage = nil
@@ -133,7 +135,14 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
         
         selectedPostImage = image
         selectedPost = post
+        
+        if let text = notification.userInfo!["text"] as? UILabel {
+
+        textFrame = text.frame
+        
         performSegueWithIdentifier("comments", sender: self)
+          
+        }
         
         
       } else { //if there is no image
