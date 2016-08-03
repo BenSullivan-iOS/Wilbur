@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
-class MyPostsCell: UITableViewCell, NSCacheDelegate {
+class MyPostsCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   @IBOutlet weak var profileImg: UIImageView!
   @IBOutlet weak var showcaseImg: UIImageView!
@@ -129,7 +129,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate {
   
   func downloadAudio(post: Post) {
     
-    let path = HelperFunctions.getDocumentsDirectory()
+    let path = getDocumentsDirectory()
     let stringPath = String(path) + "/" + post.audioURL
     let finalPath = NSURL(fileURLWithPath: stringPath)
     CreatePost.shared.downloadAudio(finalPath, postKey: post.postKey)
@@ -218,7 +218,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate {
   
   func downloadImage(imageLocation: String) {
     
-    let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
+    let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
     
     let storageRef: FIRStorageReference? = FIRStorage.storage().reference()
     
@@ -294,7 +294,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate {
     
     if !ProfileImageTracker.imageLocations.contains(uid) {
       
-      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + uid)
+      let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + uid)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       

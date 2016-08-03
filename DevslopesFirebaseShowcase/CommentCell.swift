@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseStorage
 
-class CommentCell: UITableViewCell {
+class CommentCell: UITableViewCell, HelperFunctions {
   
   @IBOutlet weak var profileImage: UIImageView!
   @IBOutlet weak var commentText: UITextView!
@@ -83,7 +83,7 @@ class CommentCell: UITableViewCell {
     
     if !ProfileImageTracker.imageLocations.contains(uid) {
       
-      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + uid)
+      let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + uid)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       

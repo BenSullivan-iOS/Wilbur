@@ -1,5 +1,5 @@
 //
-//  ShowcaseImage.swift
+//  PostImageView.swift
 //  Wilbur
 //
 //  Created by Ben Sullivan on 07/07/2016.

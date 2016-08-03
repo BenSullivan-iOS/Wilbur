@@ -16,7 +16,7 @@ class ProfileImageTracker {
   
 }
 
-class PostCell: UITableViewCell, NSCacheDelegate {
+class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   @IBOutlet weak var profileImg: UIImageView!
   @IBOutlet weak var showcaseImg: UIImageView!
@@ -146,7 +146,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
   
   func downloadAudio(post: Post) {
     
-    let path = HelperFunctions.getDocumentsDirectory()
+    let path = getDocumentsDirectory()
     let stringPath = String(path) + "/" + post.audioURL
     let finalPath = NSURL(fileURLWithPath: stringPath)
     CreatePost.shared.downloadAudio(finalPath, postKey: post.postKey)
@@ -252,7 +252,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
   
   func downloadImage(imageLocation: String) {
     
-    let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
+    let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
     
     let storageRef: FIRStorageReference? = FIRStorage.storage().reference()
     
@@ -324,7 +324,7 @@ class PostCell: UITableViewCell, NSCacheDelegate {
     
     if !ProfileImageTracker.imageLocations.contains(uid) {
       
-      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + uid)
+      let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + uid)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       

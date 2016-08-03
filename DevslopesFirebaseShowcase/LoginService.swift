@@ -19,7 +19,7 @@ protocol LoginServiceDelegate: class {
   
 }
 
-class LoginService {
+class LoginService: HelperFunctions {
   
   static let shared = LoginService()
   private init() {}
@@ -88,12 +88,6 @@ class LoginService {
     }
       
     
-  }
-  
-  func direct() -> NSString {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
-    return documentsDirectory
   }
 
   

@@ -11,7 +11,7 @@ import Firebase
 
 let URL_BASE = FIRDatabase.database().reference()
 
-class DataService {
+class DataService: HelperFunctions {
   
   static let ds = DataService()
   
@@ -279,7 +279,7 @@ class DataService {
       }
       return }
     
-    let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
+    let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
     let storageRef: FIRStorageReference? = FIRStorage.storage().reference()
     
     guard let storage = storageRef else { return }
@@ -314,7 +314,7 @@ class DataService {
 
     if !ProfileImageTracker.imageLocations.contains(imageLocation) {
       
-      let saveLocation = NSURL(fileURLWithPath: String(HelperFunctions.getDocumentsDirectory()) + "/" + imageLocation)
+      let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
       

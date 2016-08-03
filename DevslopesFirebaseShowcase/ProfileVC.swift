@@ -18,7 +18,7 @@ enum SelectedRow {
   case FeatureRequest
 }
 
-class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, HelperFunctions {
   
   @IBOutlet weak var username: UILabel!
   @IBOutlet weak var profileImage: UIImageView!
@@ -262,12 +262,6 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   }
   
   //MARK: - OTHER
-  
-  func direct() -> NSString {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
-    return documentsDirectory
-  }
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent

@@ -8,9 +8,21 @@
 
 import Foundation
 
-class HelperFunctions {
+protocol HelperFunctions {
   
-  static func getDocumentsDirectory() -> NSURL {
+  func direct() -> NSString
+  func getDocumentsDirectory() -> NSURL
+}
+
+extension HelperFunctions {
+  
+  func direct() -> NSString {
+    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let documentsDirectory = paths[0]
+    return documentsDirectory
+  }
+  
+  func getDocumentsDirectory() -> NSURL {
     let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
     let documentsDirectory = paths[0]
     

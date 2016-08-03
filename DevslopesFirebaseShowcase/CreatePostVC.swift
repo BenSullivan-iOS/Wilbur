@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import FirebaseStorage
 
-class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate, CreatePostDelegate {
+class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate, CreatePostDelegate, HelperFunctions {
   
   @IBOutlet weak var descriptionText: UITextView!
   @IBOutlet weak var image: UIImageView!
@@ -338,12 +338,6 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   }
   
   //MARK: - OTHER
-  
-  func direct() -> NSString {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
-    return documentsDirectory
-  }
   
   func setDelegates() {
     

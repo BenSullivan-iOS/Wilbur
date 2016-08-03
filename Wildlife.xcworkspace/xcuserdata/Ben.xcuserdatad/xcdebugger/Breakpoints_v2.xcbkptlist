@@ -73,22 +73,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DevslopesFirebaseShowcase/MaterialTextField.swift"
-            timestampString = "489162629.876559"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "awakeFromNib()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/ProfileVC.swift"
             timestampString = "490273687.565674"
             startingColumnNumber = "9223372036854775807"
@@ -289,38 +273,6 @@
             endingLineNumber = "122"
             landmarkName = "uploadImage(_:uid:)"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Wilbur.LoginService.(uploadImage (__ObjC.NSURL, uid : Swift.String) -&gt; ()).(closure #1)"
-                  moduleName = "Wilbur"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "491783318.621988"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "123"
-                  endingLineNumber = "123"
-                  offsetFromSymbolStart = "692">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Wilbur.LoginService.(uploadImage (__ObjC.NSURL, uid : Swift.String) -&gt; ()).(closure #1).(closure #1)"
-                  moduleName = "Wilbur"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "491783318.622181"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "125"
-                  endingLineNumber = "125"
-                  offsetFromSymbolStart = "28">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -337,38 +289,6 @@
             endingLineNumber = "113"
             landmarkName = "uploadImage(_:uid:)"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Wilbur.LoginService.uploadImage (__ObjC.NSURL, uid : Swift.String) -&gt; ()"
-                  moduleName = "Wilbur"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "491783318.624555"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "113"
-                  endingLineNumber = "113"
-                  offsetFromSymbolStart = "948">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Wilbur.LoginService.(uploadImage (__ObjC.NSURL, uid : Swift.String) -&gt; ()).(closure #1)"
-                  moduleName = "Wilbur"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "491783318.624803"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "121"
-                  endingLineNumber = "121"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -383,8 +303,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
             endingLineNumber = "137"
-            landmarkName = "uploadImage(_:uid:)"
-            landmarkType = "5">
+            landmarkName = "LoginService"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -400,70 +320,6 @@
             startingLineNumber = "120"
             endingLineNumber = "120"
             landmarkName = "uploadImage(_:uid:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "491763722.213957"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "configureProfileImage(_:profileImg:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "491763774.251621"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "configureProfileImage(_:profileImg:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "491783379.202384"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
-            landmarkName = "downloadProfileImageFromStorage(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "491783670.993195"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "configureImage(_:img:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -490,12 +346,12 @@
                   moduleName = "Wilbur"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/PostCell.swift"
-                  timestampString = "491783637.689571"
+                  timestampString = "491918260.32789"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "265"
                   endingLineNumber = "265"
-                  offsetFromSymbolStart = "44">
+                  offsetFromSymbolStart = "35">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -505,12 +361,12 @@
                   moduleName = "Wilbur"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/PostCell.swift"
-                  timestampString = "491783637.689881"
+                  timestampString = "491918260.328443"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "265"
                   endingLineNumber = "265"
-                  offsetFromSymbolStart = "100">
+                  offsetFromSymbolStart = "118">
                </Location>
             </Locations>
          </BreakpointContent>
