@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import FirebaseStorage
 
-class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate, AudioPlayerDelegate, CreatePostDelegate {
+class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate, CreatePostDelegate {
   
   @IBOutlet weak var descriptionText: UITextView!
   @IBOutlet weak var image: UIImageView!
@@ -101,16 +101,30 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   func postToFirebase() {
     
-    guard AppState.shared.currentState == .CreatingPost else { displayAlert("Error 🤔", message: "Please select 'Create Post'", state: .noPhoto); return }
+    guard AppState.shared.currentState == .CreatingPost else {
+      
+      displayAlert("Error 🤔", message: "Please select 'Create Post'", state: .noPhoto)
+      
+      return
+    }
     
-    guard selectedImage.image != UIImage(named: "createPostPlaceholder") else { displayAlert("🤔 Missing information", message: "Please add a photo", state: .noPhoto); return }
+    guard selectedImage.image != UIImage(named: "createPostPlaceholder") else {
+      
+      displayAlert("🤔 Missing information", message: "Please add a photo", state: .noPhoto)
+      
+      return
+    }
     
-    guard let imagePath = selectedImagePath else { displayAlert("🤔 Missing information", message: "Please add a photo", state: .noPhoto); return }
+    guard let imagePath = selectedImagePath else {
+      
+      displayAlert("🤔 Missing information", message: "Please add a photo", state: .noPhoto)
+      
+      return
+    }
     
     guard let username = NSUserDefaults.standardUserDefaults().valueForKey("username") as? String else { print("no username"); return }
     
     guard let userKey = DataService.ds.currentUserKey else { print("no username key"); return }
-    
     
     var description = descriptionText.text!
     
@@ -344,15 +358,15 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   //Save audio if available
   
-  @IBAction func recordButtonPressed(sender: UIButton) {
-    
-    AudioControls.shared.recordTapped()
-    
-  }
-  
-  func audioRecorded() {
-    //
-  }
+//  @IBAction func recordButtonPressed(sender: UIButton) {
+//    
+//    AudioControls.shared.recordTapped()
+//    
+//  }
+//  
+//  func audioRecorded() {
+//    //
+//  }
   
   //      if let audioPath = NSURL(fileURLWithPath: String(direct()) + "/recording.m4a").path {
   //

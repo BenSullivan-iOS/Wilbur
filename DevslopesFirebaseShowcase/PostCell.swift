@@ -346,6 +346,9 @@ class PostCell: UITableViewCell, NSCacheDelegate {
             if self.profileImg.image == UIImage(named: "profile-placeholder") {
               
               self.profileImg.image = image
+              
+              self.delegate?.reloadTable()
+
             }
           }
         }

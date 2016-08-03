@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class ShowcaseImage: UIImageView {
+class PostImageView: UIImageView {
   
   override func awakeFromNib() {
     clipsToBounds = true

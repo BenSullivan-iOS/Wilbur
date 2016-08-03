@@ -1,15 +1,15 @@
 //
-//  MaterialButton.swift
-//  Wilbur
+//  GoogleButton.swift
+//  Wildlife
 //
-//  Created by Ben Sullivan on 15/05/2016.
+//  Created by Ben Sullivan on 03/08/2016.
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
 //
 
 import UIKit
 
-class MaterialButton: UIButton {
-
+class GoogleButton: GIDSignInButton {
+  
   override func awakeFromNib() {
     
     let color = Constants.shared.shadowColor
@@ -20,5 +20,4 @@ class MaterialButton: UIButton {
     layer.shadowRadius = 2
     layer.shadowOffset = CGSizeMake(0.0, 2.0)
   }
-
 }

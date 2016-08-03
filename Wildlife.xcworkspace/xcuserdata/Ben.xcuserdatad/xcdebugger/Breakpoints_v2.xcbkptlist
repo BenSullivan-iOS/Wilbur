@@ -265,22 +265,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "491561228.386517"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "PostCell"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/LoginService.swift"
             timestampString = "490645170.736057"
             startingColumnNumber = "9223372036854775807"
@@ -314,7 +298,7 @@
                   moduleName = "Wilbur"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "491764916.163973"
+                  timestampString = "491783318.621988"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "123"
@@ -329,7 +313,7 @@
                   moduleName = "Wilbur"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "491764916.164228"
+                  timestampString = "491783318.622181"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "125"
@@ -362,7 +346,7 @@
                   moduleName = "Wilbur"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "491764916.165544"
+                  timestampString = "491783318.624555"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "113"
@@ -377,7 +361,7 @@
                   moduleName = "Wilbur"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/LoginService.swift"
-                  timestampString = "491764916.165757"
+                  timestampString = "491783318.624803"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "121"
@@ -438,7 +422,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/PostCell.swift"
@@ -458,13 +442,77 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DevslopesFirebaseShowcase/PostCell.swift"
-            timestampString = "491763836.779652"
+            timestampString = "491783379.202384"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "317"
-            endingLineNumber = "317"
-            landmarkName = "downloadProfileImage(_:)"
+            startingLineNumber = "335"
+            endingLineNumber = "335"
+            landmarkName = "downloadProfileImageFromStorage(_:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DevslopesFirebaseShowcase/PostCell.swift"
+            timestampString = "491783670.993195"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "configureImage(_:img:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DevslopesFirebaseShowcase/PostCell.swift"
+            timestampString = "491783637.664552"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "downloadImage(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Wilbur.PostCell.(downloadImage (Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "Wilbur"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/PostCell.swift"
+                  timestampString = "491783637.689571"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "265"
+                  endingLineNumber = "265"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Wilbur.PostCell.(downloadImage (Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "Wilbur"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Ben/iOS%20Swift%20Projects/Personal%20Apps/Animal%20Finder/Animal%20Finder/DevslopesFirebaseShowcase/PostCell.swift"
+                  timestampString = "491783637.689881"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "265"
+                  endingLineNumber = "265"
+                  offsetFromSymbolStart = "100">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

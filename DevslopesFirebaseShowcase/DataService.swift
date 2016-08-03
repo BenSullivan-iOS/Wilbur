@@ -27,6 +27,8 @@ class DataService {
   private var _myPosts: [Post]!
   private var _currentUserKey: String?
   private var _usernames: [String: String]!
+  private var count = 0
+
   
   var currentUserKey: String? {
     
@@ -246,8 +248,6 @@ class DataService {
       }
     })
   }
-  
-  var count = 0
   
   func downloadImage(posts: [Post]) {
     print("POSTS COUNT", count)

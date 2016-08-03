@@ -12,7 +12,18 @@ class AppState {
   
   private init() {}
   
-  var currentState = State.None
+  private var _currentState = State.None
+  
+  var currentState: State {
+    
+    get {
+      return _currentState
+    }
+    
+    set {
+      _currentState = newValue
+    }
+  }
   
   enum State {
     case CreatingPost

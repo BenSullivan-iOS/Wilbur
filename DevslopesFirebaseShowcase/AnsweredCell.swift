@@ -329,7 +329,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
         
         guard let URL = URL where error == nil else { print("Error - ", error.debugDescription);
           
-          Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (uid))
+          Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: uid)
           
           return }
         
@@ -337,12 +337,14 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate {
           
           if let image = UIImage(data: data) {
             
-            Cache.shared.profileImageCache.setObject(image, forKey: (uid))
+            Cache.shared.profileImageCache.setObject(image, forKey: uid)
             ProfileImageTracker.imageLocations.insert(uid)
             
             if self.profileImg.image == UIImage(named: "profile-placeholder") {
               
               self.profileImg.image = image
+              
+              self.delegate?.reloadTable()
             }
           }
         }

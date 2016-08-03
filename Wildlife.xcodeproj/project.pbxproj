@@ -17,6 +17,7 @@
 		B51CBCFC1CF4EBBE00112B51 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51CBCFA1CF4EBBE00112B51 /* Login.storyboard */; };
 		B52DBDF11CFDA24F00CB7486 /* AudioControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */; };
 		B52F44E71D2BE97100FC93EB /* Comments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B52F44E51D2BE97100FC93EB /* Comments.storyboard */; };
+		B543AB151D5205E700872F76 /* GoogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B543AB141D5205E700872F76 /* GoogleButton.swift */; };
 		B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4301CE8FFC40084215C /* AppDelegate.swift */; };
 		B548A4331CE8FFC40084215C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B548A4321CE8FFC40084215C /* LoginVC.swift */; };
 		B548A4361CE8FFC40084215C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B548A4341CE8FFC40084215C /* Main.storyboard */; };
@@ -51,7 +52,7 @@
 		B5D6A9801D358A56006B7207 /* CreatePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D6A97F1D358A56006B7207 /* CreatePost.swift */; };
 		B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF41CFA12B800E62148 /* WaveformView.swift */; };
 		B5D85BF81CFA134C00E62148 /* ProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */; };
-		B5DE8A011D2E812B00F9C364 /* ShowcaseImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE8A001D2E812B00F9C364 /* ShowcaseImage.swift */; };
+		B5DE8A011D2E812B00F9C364 /* PostImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE8A001D2E812B00F9C364 /* PostImageView.swift */; };
 		B5DE8A091D2EA42D00F9C364 /* WilburUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE8A081D2EA42D00F9C364 /* WilburUITests.swift */; };
 		B5E484F01D02F83C0099A060 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */; };
 		B5E553121D144EE100982E60 /* PageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E553111D144EE100982E60 /* PageContainer.swift */; };
@@ -84,6 +85,7 @@
 		B51CBCFB1CF4EBBE00112B51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioControls.swift; path = DevslopesFirebaseShowcase/AudioControls.swift; sourceTree = "<group>"; };
 		B52F44E61D2BE97100FC93EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Comments.storyboard; sourceTree = "<group>"; };
+		B543AB141D5205E700872F76 /* GoogleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleButton.swift; sourceTree = "<group>"; };
 		B548A42D1CE8FFC40084215C /* Wilbur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wilbur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B548A4301CE8FFC40084215C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B548A4321CE8FFC40084215C /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -122,9 +124,9 @@
 		B5D3F99A1CEB4A9F00EEB78F /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		B5D6A97F1D358A56006B7207 /* CreatePost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreatePost.swift; path = DevslopesFirebaseShowcase/CreatePost.swift; sourceTree = "<group>"; };
 		B5D6A9811D36483A006B7207 /* Wildlife-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wildlife-Bridging-Header.h"; sourceTree = "<group>"; };
-		B5D85BF41CFA12B800E62148 /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
+		B5D85BF41CFA12B800E62148 /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaveformView.swift; path = DevslopesFirebaseShowcase/WaveformView.swift; sourceTree = "<group>"; };
 		B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableVC.swift; path = DevslopesFirebaseShowcase/ProfileTableVC.swift; sourceTree = "<group>"; };
-		B5DE8A001D2E812B00F9C364 /* ShowcaseImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowcaseImage.swift; sourceTree = "<group>"; };
+		B5DE8A001D2E812B00F9C364 /* PostImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostImageView.swift; sourceTree = "<group>"; };
 		B5DE8A061D2EA42C00F9C364 /* WilburUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WilburUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5DE8A081D2EA42D00F9C364 /* WilburUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WilburUITests.swift; sourceTree = "<group>"; };
 		B5DE8A0A1D2EA42D00F9C364 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */,
 				B5D6A97F1D358A56006B7207 /* CreatePost.swift */,
 				B55808361CF713CE00FEC41D /* SplashVC.swift */,
+				B5D85BF41CFA12B800E62148 /* WaveformView.swift */,
 				B52DBDF01CFDA24F00CB7486 /* AudioControls.swift */,
 			);
 			name = Backup;
@@ -350,8 +353,8 @@
 				B548A44E1CE905950084215C /* RoundedViews.swift */,
 				B548A4531CE90A5E0084215C /* MaterialButton.swift */,
 				B548A4551CE90F630084215C /* MaterialTextField.swift */,
-				B5D85BF41CFA12B800E62148 /* WaveformView.swift */,
-				B5DE8A001D2E812B00F9C364 /* ShowcaseImage.swift */,
+				B5DE8A001D2E812B00F9C364 /* PostImageView.swift */,
+				B543AB141D5205E700872F76 /* GoogleButton.swift */,
 			);
 			name = "Custom controls";
 			sourceTree = "<group>";
@@ -562,8 +565,9 @@
 				B566CB451CE9C72500415A3E /* PostCell.swift in Sources */,
 				B548A4311CE8FFC40084215C /* AppDelegate.swift in Sources */,
 				B516F19C1D27CEC00022707C /* CommentsVC.swift in Sources */,
-				B5DE8A011D2E812B00F9C364 /* ShowcaseImage.swift in Sources */,
+				B5DE8A011D2E812B00F9C364 /* PostImageView.swift in Sources */,
 				B5E553121D144EE100982E60 /* PageContainer.swift in Sources */,
+				B543AB151D5205E700872F76 /* GoogleButton.swift in Sources */,
 				B5D14B9E1D2927FD00D0FF3E /* CommentImageCell.swift in Sources */,
 				B548A4521CE906A80084215C /* Constants.swift in Sources */,
 				B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */,

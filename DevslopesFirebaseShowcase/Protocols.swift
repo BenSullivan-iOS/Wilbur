@@ -6,10 +6,6 @@
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
 //
 
-protocol AudioPlayerDelegate {
-  func audioRecorded()
-}
-
 protocol NavigationBarDelegate: class {
   func didSelectSegment(segment: Int)
 }
@@ -39,3 +35,9 @@ protocol CreatePostDelegate: class {
   func postSuccessful()
   func postError()
 }
+
+//DEPRECIATED
+
+//protocol AudioPlayerDelegate {
+//  func audioRecorded()
+//}
