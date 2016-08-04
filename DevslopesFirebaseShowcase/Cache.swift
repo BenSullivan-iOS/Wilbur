@@ -17,4 +17,5 @@ class Cache {
   let imageCache = NSCache()
   let profileImageCache = NSCache()
   let commentedOnCache = NSCache()
+  let labelCache = NSCache()
 }

@@ -960,7 +960,7 @@ Cg
                                                         <stackView contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iWZ-Z5-1tD">
                                                             <rect key="frame" x="8" y="8" width="556" height="70"/>
                                                             <subviews>
-                                                                <stackView contentMode="scaleToFill" misplaced="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ejx-kG-oEw">
+                                                                <stackView contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ejx-kG-oEw">
                                                                     <rect key="frame" x="0.0" y="0.0" width="158" height="70"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="ctr-Oi-nOk" customClass="RoundedImage" customModule="Wilbur" customModuleProvider="target">
@@ -970,7 +970,7 @@ Cg
                                                                                 <constraint firstAttribute="height" constant="70" id="eHf-Td-Ngh"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" misplaced="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MVZ-O8-76f">
+                                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MVZ-O8-76f">
                                                                             <rect key="frame" x="75" y="0.0" width="83" height="70"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="18"/>
@@ -1096,7 +1096,7 @@ Cg
                                                         <stackView contentMode="scaleToFill" misplaced="YES" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="wZ3-ca-jm9">
                                                             <rect key="frame" x="238" y="456" width="90" height="15"/>
                                                             <subviews>
-                                                                <stackView contentMode="scaleToFill" misplaced="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AP4-Sx-m9e">
+                                                                <stackView contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AP4-Sx-m9e">
                                                                     <rect key="frame" x="0.0" y="0.0" width="90" height="15"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="commentCounterGrey" translatesAutoresizingMaskIntoConstraints="NO" id="g1h-qD-9Wy">
@@ -1108,7 +1108,7 @@ Cg
                                                                                 <constraint firstAttribute="height" constant="15" id="yj7-QP-hwz"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ncp-N3-BZ6">
+                                                                        <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ncp-N3-BZ6">
                                                                             <rect key="frame" x="23" y="0.0" width="67" height="15"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>

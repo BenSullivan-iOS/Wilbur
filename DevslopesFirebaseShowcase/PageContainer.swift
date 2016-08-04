@@ -45,7 +45,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
-    if segue.identifier == Constants.sharedSegues.embedSegue {
+    if segue.identifier == Constants().sharedSegues.embedSegue {
       
       if let dest = segue.destinationViewController as? PagingVC {
         
@@ -55,7 +55,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
       }
     }
     
-    if segue.identifier == Constants.sharedSegues.comments {
+    if segue.identifier == Constants().sharedSegues.comments {
       
       if let dest = segue.destinationViewController as? CommentsVC {
         print(selectedPost?.commentText)
@@ -78,7 +78,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   //MARK: - BUTTONS
   
   @IBAction func profileButtonPressed(sender: AnyObject) {
-    performSegueWithIdentifier(Constants.sharedSegues.showProfile, sender: self)
+    performSegueWithIdentifier(Constants().sharedSegues.showProfile, sender: self)
   }
   
   @IBAction func postButtonPressed(sender: AnyObject) {
@@ -129,12 +129,12 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   
   func customCellCommentButtonPressed(notification: NSNotification) {
     
-    if let post = notification.userInfo!["post"] as? Post {
+    if let post = notification.userInfo!["post"] as? Wrap<Post> {
       
       if let image = notification.userInfo!["image"] as? UIImage {
         
         selectedPostImage = image
-        selectedPost = post
+        selectedPost = post.wrappedValue
         
         if let text = notification.userInfo!["text"] as? UILabel {
 
@@ -146,7 +146,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
         
         
       } else { //if there is no image
-        selectedPost = post
+        selectedPost = post.wrappedValue
         performSegueWithIdentifier("comments", sender: self)
         
       }

@@ -95,7 +95,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     let image = info[UIImagePickerControllerOriginalImage] as! UIImage
     profileImage.image = image
     
-    let saveDirectory = direct().stringByAppendingPathComponent("/images/tempImage.jpg")
+    let saveDirectory = docsDirect() + "images/tempImage.jpg"
     print("Did finish save directory = ", saveDirectory)
     
     saveImage(image, path: saveDirectory)
@@ -188,7 +188,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
 
   func downloadProfileImage(imageLocation: String) {
     
-    let saveLocation = NSURL(fileURLWithPath: direct().stringByAppendingPathComponent("/\(imageLocation)"))
+    let saveLocation = NSURL(fileURLWithPath: docsDirect() + "/\(imageLocation)")
     let storageRef = FIRStorage.storage().reference()
     let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
 

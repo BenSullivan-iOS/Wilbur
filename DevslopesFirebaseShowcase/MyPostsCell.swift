@@ -30,7 +30,13 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   weak var delegate: MyPostsCellDelegate? = nil
   
   var post: Post? {
-    return _post
+    
+    get {
+      return _post
+    }
+    set {
+      self._post = newValue
+    }
   }
   
   override func awakeFromNib() {
@@ -66,7 +72,6 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
       self.profileImg.hidden = false
       self.profileImg.image = profileImg
     }
-    //    downloadAudio(post)
   }
   
   
@@ -129,8 +134,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   func downloadAudio(post: Post) {
     
-    let path = getDocumentsDirectory()
-    let stringPath = String(path) + "/" + post.audioURL
+    let stringPath = docsDirect() + post.audioURL
     let finalPath = NSURL(fileURLWithPath: stringPath)
     CreatePost.shared.downloadAudio(finalPath, postKey: post.postKey)
   }
@@ -218,7 +222,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   func downloadImage(imageLocation: String) {
     
-    let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
+    let saveLocation = NSURL(fileURLWithPath: docsDirect() +  imageLocation)
     
     let storageRef: FIRStorageReference? = FIRStorage.storage().reference()
     
@@ -294,7 +298,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
     
     if !ProfileImageTracker.imageLocations.contains(uid) {
       
-      let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + uid)
+      let saveLocation = NSURL(fileURLWithPath: docsDirect() +  uid)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       

@@ -32,7 +32,13 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   weak var delegate: PostCellDelegate? = nil
   
   var post: Post? {
-    return _post
+    
+    get {
+     return _post
+    }
+    set {
+      self._post = newValue
+    }
   }
   
   override func awakeFromNib() {
@@ -142,8 +148,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   func downloadAudio(post: Post) {
     
-    let path = getDocumentsDirectory()
-    let stringPath = String(path) + "/" + post.audioURL
+    let stringPath = docsDirect() + post.audioURL
     let finalPath = NSURL(fileURLWithPath: stringPath)
     CreatePost.shared.downloadAudio(finalPath, postKey: post.postKey)
   }
@@ -205,16 +210,18 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   func commentTapped() {
     
     if let post = post {
+    
+      let wrappedStruct = Wrap(post)
       
-      var postInfo:[String: AnyObject] = ["post": post]
+      var postInfo:[String: AnyObject] = ["post": wrappedStruct]
       
       if showcaseImg.hidden == false {
-        
+      
         postInfo["image"] = showcaseImg.image
         postInfo["text"] = descriptionText
       }
       
-      //Observed by PageContainer
+//      Observed by PageContainer
       NSNotificationCenter.defaultCenter().postNotificationName("segueToComments", object: self, userInfo: postInfo)
       print("POSTING NOTIFICATION")
     }
@@ -247,7 +254,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   func downloadImage(imageLocation: String) {
     
-    let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
+    let saveLocation = NSURL(fileURLWithPath: docsDirect() +  imageLocation)
     
     let storageRef: FIRStorageReference? = FIRStorage.storage().reference()
     
@@ -321,7 +328,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
     
     if !ProfileImageTracker.imageLocations.contains(uid) {
       
-      let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + uid)
+      let saveLocation = NSURL(fileURLWithPath: docsDirect() +  uid)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       

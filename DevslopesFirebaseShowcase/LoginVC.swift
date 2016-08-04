@@ -22,7 +22,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, LoginSe
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    LoginService.shared.delegate = self
+    //    LoginService.shared.delegate = self
     
     GIDSignIn.sharedInstance().uiDelegate = self
     GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
@@ -43,8 +43,10 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, LoginSe
   
   func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError?) {
     
-    LoginService.shared.didSignIn(signIn, didSignInForUser: user, withError: error)
-
+    var loginService = LoginService()
+    
+    loginService.delegate = self
+    loginService.didSignIn(signIn, didSignInForUser: user, withError: error)
   }
   
   func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,

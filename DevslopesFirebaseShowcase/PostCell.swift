@@ -26,6 +26,7 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   @IBOutlet weak var popText: UIButton!
   @IBOutlet weak var reportButton: UIButton!
   @IBOutlet weak var descriptionText: UILabel!
+  @IBOutlet weak var container: MaterialView!
 
   private var commentRef: FIRDatabaseReference!
   private var postRef: FIRDatabaseReference!
@@ -34,10 +35,18 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   private var downloadProfileImageTask: FIRStorageDownloadTask? = nil
   private var _post: Post?
   
+  let dataStruct = DataStruct()
+  
   weak var delegate: PostCellDelegate? = nil
   
   var post: Post? {
-    return _post
+    
+    get {
+      return _post
+    }
+    set {
+      self._post = newValue
+    }
   }
   
   override func awakeFromNib() {
@@ -67,17 +76,28 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
     
-    commentRef = DataService.ds.REF_USER_CURRENT.child("comments").child(post.postKey)
-    postRef = DataService.ds.REF_USER_CURRENT.child("posts").child(post.postKey)
-
+    commentRef = dataStruct.REF_USER_CURRENT.child("comments").child(post.postKey)
+    postRef = dataStruct.REF_USER_CURRENT.child("posts").child(post.postKey)
+//
     self._post = post
     self.likesLabel.text = "\(post.commentText.count)"
     self.username.text = post.username
 
-    configureDescriptionText()
+//    configureDescriptionText()
     configureImage(post, img: img)
 
     styleCommentButton()
+
+    
+//    if let label = Cache.shared.labelCache.objectForKey(post.postKey) as? UILabel! {
+//      
+//      descriptionText = label
+//      
+//    } else {
+//      
+//      configureDescriptionText()
+//
+//    }
     
     if profileImg == nil {
       configureProfileImage(post, profileImg: profileImg)
@@ -103,6 +123,8 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
       
       self.descriptionText.hidden = false
       self.descriptionText.text = cellPost.postDescription
+      
+      Cache.shared.labelCache.setObject(descriptionText, forKey: cellPost.postKey)
       
     }
   }
@@ -146,8 +168,7 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   func downloadAudio(post: Post) {
     
-    let path = getDocumentsDirectory()
-    let stringPath = String(path) + "/" + post.audioURL
+    let stringPath = docsDirect() + post.audioURL
     let finalPath = NSURL(fileURLWithPath: stringPath)
     CreatePost.shared.downloadAudio(finalPath, postKey: post.postKey)
   }
@@ -210,7 +231,9 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
     
     if let post = post {
       
-      var postInfo:[String: AnyObject] = ["post": post]
+      let wrappedStruct = Wrap(post)
+      
+      var postInfo:[String: AnyObject] = ["post": wrappedStruct]
       
       if showcaseImg.hidden == false {
         
@@ -227,8 +250,8 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   func report(key: String) {
     
-    let fakeRef = DataService.ds.REF_POSTS.child(key).child("fakeCount") as FIRDatabaseReference
-    let deletePostRef = DataService.ds.REF_POSTS.child(key) as FIRDatabaseReference
+    let fakeRef = dataStruct.REF_POSTS.child(key).child("fakeCount") as FIRDatabaseReference
+    let deletePostRef = dataStruct.REF_POSTS.child(key) as FIRDatabaseReference
     
     fakeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
       
@@ -252,7 +275,7 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   func downloadImage(imageLocation: String) {
     
-    let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + imageLocation)
+    let saveLocation = NSURL(fileURLWithPath: docsDirect() +  imageLocation)
     
     let storageRef: FIRStorageReference? = FIRStorage.storage().reference()
     
@@ -324,7 +347,7 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
     
     if !ProfileImageTracker.imageLocations.contains(uid) {
       
-      let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + uid)
+      let saveLocation = NSURL(fileURLWithPath: docsDirect() +  uid)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       
@@ -364,8 +387,6 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   //MARK: - GESTURE RECOGNISERS
   
-  @IBOutlet weak var container: MaterialView!
-  
   func setupGestureRecognisers() {
     
     let tap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
@@ -396,3 +417,9 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
 }
 
+class Wrap<T> {
+  var wrappedValue: T
+  init(_ theValue: T) {
+    wrappedValue = theValue
+  }
+}

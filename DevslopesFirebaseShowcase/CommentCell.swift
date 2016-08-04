@@ -83,7 +83,7 @@ class CommentCell: UITableViewCell, HelperFunctions {
     
     if !ProfileImageTracker.imageLocations.contains(uid) {
       
-      let saveLocation = NSURL(fileURLWithPath: String(getDocumentsDirectory()) + "/" + uid)
+      let saveLocation = NSURL(fileURLWithPath: docsDirect() +  uid)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       

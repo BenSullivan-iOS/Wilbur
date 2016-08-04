@@ -19,10 +19,7 @@ protocol LoginServiceDelegate: class {
   
 }
 
-class LoginService: HelperFunctions {
-  
-  static let shared = LoginService()
-  private init() {}
+struct LoginService: HelperFunctions {
   
   weak var delegate: LoginServiceDelegate? = nil
   
@@ -54,7 +51,7 @@ class LoginService: HelperFunctions {
       }
       
       NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
-      NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.shared.KEY_UID)
+      NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants().KEY_UID)
       
       let userRef = DataService.ds.REF_USER_CURRENT.child("username")
       userRef.setValue(user.displayName)
@@ -95,7 +92,7 @@ class LoginService: HelperFunctions {
     
     guard let downloadImage = NSData(contentsOfURL: url) else { return }
     
-    let path = direct().stringByAppendingPathComponent("images/tempImage.jpg")
+    let path = docsDirect() + "images/tempImage.jpg"
 
     downloadImage.writeToFile(path, atomically: true)
     

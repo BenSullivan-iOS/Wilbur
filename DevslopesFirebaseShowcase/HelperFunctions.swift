@@ -10,24 +10,14 @@ import Foundation
 
 protocol HelperFunctions {
   
-  func direct() -> NSString
-  func getDocumentsDirectory() -> NSURL
+  func docsDirect() -> String
 }
 
 extension HelperFunctions {
   
-  func direct() -> NSString {
+  func docsDirect() -> String {
     let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
     let documentsDirectory = paths[0]
-    return documentsDirectory
-  }
-  
-  func getDocumentsDirectory() -> NSURL {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-    let documentsDirectory = paths[0]
-    
-    let url = NSURL(string: documentsDirectory)!
-    
-    return url
+    return documentsDirectory + "/"
   }
 }

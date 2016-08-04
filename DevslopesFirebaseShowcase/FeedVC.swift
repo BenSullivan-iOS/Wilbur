@@ -63,7 +63,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
-    if segue.identifier == Constants.sharedSegues.showProfile {
+    if segue.identifier == Constants().sharedSegues.showProfile {
       let backItem = UIBarButtonItem()
       backItem.title = "Back"
       navigationItem.backBarButtonItem = backItem
@@ -73,7 +73,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   //MARK: - BUTTONS
   
   @IBAction func profileButtonPressed(sender: UIButton) {
-    performSegueWithIdentifier(Constants.sharedSegues.showProfile, sender: self)
+    performSegueWithIdentifier(Constants().sharedSegues.showProfile, sender: self)
   }
   
   

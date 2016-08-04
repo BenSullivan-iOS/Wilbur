@@ -30,7 +30,7 @@ protocol MyPostsCellDelegate: class {
   func showDeleteAlert(post: Post)
 }
 
-protocol CreatePostDelegate: class {
+protocol CreatePostDelegate {
   func displayAlert(title: String, message: String, state: AlertState)
   func postSuccessful()
   func postError()

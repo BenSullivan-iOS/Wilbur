@@ -141,10 +141,12 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
       "date": String(NSDate()),
       "userKey": userKey,
     ]
-    
-    PostService.shared.uploadImage(imagePath, username: username, dict: post)
+  
+    var postService = PostService()
+    postService.delegate = self
+    postService.uploadImage(imagePath, username: username, dict: post)
   }
-
+  
   
   //MARK: - TABLE VIEW
   
@@ -216,7 +218,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     let image = info[UIImagePickerControllerOriginalImage] as! UIImage
     selectedImage.image = image
     
-    let saveDirectory = String(direct()) + "/images/tempImage.jpg"
+    let saveDirectory = docsDirect() + "images/tempImage.jpg"
     
     saveImage(image, path: saveDirectory)
     
@@ -241,7 +243,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   func saveImage (image: UIImage, path: String) -> Bool {
     
-    let path2 = direct().stringByAppendingPathComponent("tempImage.jpg")
+    let path2 = docsDirect() + "tempImage.jpg"
     print(path2)
 //    let compressedImage = resizeImage(image, newWidth: 1536)
     let compressedImage = resizeImage(image, newWidth: 1000)
@@ -341,7 +343,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   func setDelegates() {
     
-    PostService.shared.delegate = self
+//    PostService.shared.delegate = self
     tableView.delegate = self
     scrollView.delegate = self
     imagePicker.delegate = self
