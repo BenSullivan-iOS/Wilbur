@@ -18,15 +18,19 @@ protocol PostButtonPressedDelegate: class {
   func postButtonPressed()
 }
 
+protocol ReloadTableDelegate: class {
+  func reloadTable()
+}
+
 protocol PostCellDelegate: class {
   func showAlert(post: Post)
-  func reloadTable()
+//  func reloadTable()
   func customCellCommentButtonPressed()
 }
 
 protocol MyPostsCellDelegate: class {
   func showComments(post: Post, image: UIImage)
-  func reloadTable()
+//  func reloadTable()
   func showDeleteAlert(post: Post)
 }
 

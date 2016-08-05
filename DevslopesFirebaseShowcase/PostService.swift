@@ -8,15 +8,10 @@
 
 import FirebaseStorage
 
-enum AlertState {
-  case notLoggedIn
-  case noPhoto
-}
-
 struct PostService {
     
   var delegate: CreatePostDelegate? = nil
-  
+    
   func uploadImage(localFile: NSURL, username: String, dict: [String: AnyObject]) {
     
     var post = dict

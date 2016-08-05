@@ -22,7 +22,7 @@ protocol LoginServiceDelegate: class {
 struct LoginService: HelperFunctions {
   
   weak var delegate: LoginServiceDelegate? = nil
-  
+    
   func didSignIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError?) {
     
     guard error == nil else {

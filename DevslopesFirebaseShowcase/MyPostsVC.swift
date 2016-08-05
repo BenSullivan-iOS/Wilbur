@@ -11,13 +11,13 @@ import Firebase
 import AVFoundation
 import FirebaseStorage
 
-class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MyPostsCellDelegate {
+class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, MyPostsCellDelegate, ReloadTableDelegate {
   
   @IBOutlet weak var tableView: UITableView!
   
   var selectedPost: Post? = nil
   var selectedPostImage: UIImage? = nil
-  
+    
   //MARK: - VC LIFECYCLE
   
   override func viewDidLoad() {
@@ -112,6 +112,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         }
         
         cell.delegate = self
+        cell.reloadTableDelegate = self
         cell.configureCell(post, img: img, profileImg: profileImg)
         
         return cell

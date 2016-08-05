@@ -10,6 +10,11 @@ import UIKit
 import AVFoundation
 import FirebaseStorage
 
+enum AlertState {
+  case notLoggedIn
+  case noPhoto
+}
+
 class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, PostButtonPressedDelegate, CreatePostDelegate, HelperFunctions {
   
   @IBOutlet weak var descriptionText: UITextView!
@@ -343,7 +348,6 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   func setDelegates() {
     
-//    PostService.shared.delegate = self
     tableView.delegate = self
     scrollView.delegate = self
     imagePicker.delegate = self

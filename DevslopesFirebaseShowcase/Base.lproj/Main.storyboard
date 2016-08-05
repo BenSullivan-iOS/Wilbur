@@ -960,8 +960,8 @@ Cg
                                                         <stackView contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="iWZ-Z5-1tD">
                                                             <rect key="frame" x="8" y="8" width="556" height="70"/>
                                                             <subviews>
-                                                                <stackView contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ejx-kG-oEw">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="158" height="70"/>
+                                                                <stackView contentMode="scaleToFill" misplaced="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ejx-kG-oEw">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="163" height="70"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="ctr-Oi-nOk" customClass="RoundedImage" customModule="Wilbur" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -970,8 +970,8 @@ Cg
                                                                                 <constraint firstAttribute="height" constant="70" id="eHf-Td-Ngh"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MVZ-O8-76f">
-                                                                            <rect key="frame" x="75" y="0.0" width="83" height="70"/>
+                                                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" misplaced="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MVZ-O8-76f">
+                                                                            <rect key="frame" x="75" y="0.0" width="88" height="70"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="18"/>
                                                                             <color key="textColor" red="0.13725490200000001" green="0.36470588240000001" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1094,10 +1094,10 @@ Cg
                                                             </variation>
                                                         </stackView>
                                                         <stackView contentMode="scaleToFill" misplaced="YES" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="wZ3-ca-jm9">
-                                                            <rect key="frame" x="238" y="456" width="90" height="15"/>
+                                                            <rect key="frame" x="238" y="456" width="97" height="15"/>
                                                             <subviews>
-                                                                <stackView contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AP4-Sx-m9e">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="15"/>
+                                                                <stackView contentMode="scaleToFill" misplaced="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AP4-Sx-m9e">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="97" height="15"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="commentCounterGrey" translatesAutoresizingMaskIntoConstraints="NO" id="g1h-qD-9Wy">
                                                                             <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
@@ -1108,8 +1108,8 @@ Cg
                                                                                 <constraint firstAttribute="height" constant="15" id="yj7-QP-hwz"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ncp-N3-BZ6">
-                                                                            <rect key="frame" x="23" y="0.0" width="67" height="15"/>
+                                                                        <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ncp-N3-BZ6">
+                                                                            <rect key="frame" x="23" y="0.0" width="74" height="15"/>
                                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
                                                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

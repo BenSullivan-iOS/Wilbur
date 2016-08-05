@@ -10,13 +10,7 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
-class ProfileImageTracker {
-  
-  static var imageLocations: Set = Set<String>()
-  
-}
-
-class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
+class PostCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
   
   @IBOutlet weak var profileImg: UIImageView!
   @IBOutlet weak var showcaseImg: UIImageView!
@@ -28,33 +22,31 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   @IBOutlet weak var descriptionText: UILabel!
   @IBOutlet weak var container: MaterialView!
 
-  private var commentRef: FIRDatabaseReference!
-  private var postRef: FIRDatabaseReference!
-  private var profileImage: FIRDatabaseReference!
-  private var downloadImageTask: FIRStorageDownloadTask? = nil
-  private var downloadProfileImageTask: FIRStorageDownloadTask? = nil
-  private var _post: Post?
-  
-  let dataStruct = DataStruct()
+  internal var downloadImageTask: FIRStorageDownloadTask? = nil
+  internal var downloadProfileImageTask: FIRStorageDownloadTask? = nil
+  internal var _post: Post?
   
   weak var delegate: PostCellDelegate? = nil
-  
+  weak var reloadTableDelegate: ReloadTableDelegate? = nil
+
   var post: Post? {
     
     get {
       return _post
     }
     set {
+      print("post set = ", post, newValue)
+      
       self._post = newValue
     }
   }
   
+  //MARK: - CELL LIFECYCLE
+  
   override func awakeFromNib() {
     
     setupGestureRecognisers()
-    
     reportButton.imageView?.contentMode = .ScaleAspectFit
-    
     Cache.shared.profileImageCache.delegate = self
     
   }
@@ -76,156 +68,19 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
   
   func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
     
-    commentRef = dataStruct.REF_USER_CURRENT.child("comments").child(post.postKey)
-    postRef = dataStruct.REF_USER_CURRENT.child("posts").child(post.postKey)
-//
     self._post = post
     self.likesLabel.text = "\(post.commentText.count)"
     self.username.text = post.username
 
-//    configureDescriptionText()
+    configureDescriptionText()
     configureImage(post, img: img)
+    configureProfileImage(post, profileImg: profileImg)
 
     styleCommentButton()
-
     
 //    if let label = Cache.shared.labelCache.objectForKey(post.postKey) as? UILabel! {
-//      
-//      descriptionText = label
-//      
-//    } else {
-//      
-//      configureDescriptionText()
-//
-//    }
-    
-    if profileImg == nil {
-      configureProfileImage(post, profileImg: profileImg)
-    } else {
-      self.profileImg.hidden = false
-      self.profileImg.image = profileImg
-    }
+
   }
-  
-  
-  
-  //CONFIGURATION FUNCTIONS
-  
-  func configureDescriptionText() {
-    
-    guard let cellPost = post else { return }
-    
-    if cellPost.postDescription == "" {
-      
-      self.descriptionText.hidden = true
-      
-    } else {
-      
-      self.descriptionText.hidden = false
-      self.descriptionText.text = cellPost.postDescription
-      
-      Cache.shared.labelCache.setObject(descriptionText, forKey: cellPost.postKey)
-      
-    }
-  }
-  
-  
-  
-  func configureProfileImage(post: Post, profileImg: UIImage?) {
-    
-    self.profileImg.hidden = false
-    
-    if let profileImg = profileImg {
-      
-      self.profileImg.image = profileImg
-      
-    } else {
-      self.profileImg.image = UIImage(named: "profile-placeholder")
-      self.downloadProfileImage(post.userKey)
-    }
-  }
-  
-  
-  
-  func configureImage(post: Post, img: UIImage?) {
-    
-    if let imageUrl = post.imageUrl {
-      
-      if let img = img {
-        
-        self.showcaseImg.hidden = false
-        self.showcaseImg.image = img
-        
-      } else {
-        
-        self.downloadImage(imageUrl)
-      }
-    } else {
-      print(post.postDescription)
-      showcaseImg.hidden = true
-    }
-  }
-  
-  func downloadAudio(post: Post) {
-    
-    let stringPath = docsDirect() + post.audioURL
-    let finalPath = NSURL(fileURLWithPath: stringPath)
-    CreatePost.shared.downloadAudio(finalPath, postKey: post.postKey)
-  }
-  
-  func styleCommentButton() {
-    
-    let highlightedColor = UIColor(colorLiteralRed: 42/255, green: 140/255, blue: 166/255, alpha: 1)
-    let greyColor = UIColor(colorLiteralRed: 169/255, green: 194/255, blue: 194/255, alpha: 1)
-    
-    if let commentedOn = Cache.shared.commentedOnCache.objectForKey(post!.postKey) as? Bool {
-      
-      print("commentedOn", commentedOn)
-      if commentedOn {
-        self.likeImage.image = UIImage(named: "commentCounter")
-        self.popText.setTitleColor(highlightedColor, forState: .Normal)
-        
-        
-      } else {
-        self.likeImage.image = UIImage(named: "commentCounterGrey")
-        self.popText.setTitleColor(greyColor, forState: .Normal)
-        
-      }
-      
-    } else {
-      print("Download commented on")
-      
-      if let commentRef = commentRef {
-      
-      commentRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-        
-        if let _ = snapshot.value as? NSNull {
-          
-          self.likeImage.image = UIImage(named: "commentCounterGrey")
-          self.popText.setTitleColor(greyColor, forState: .Normal)
-          
-          dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            Cache.shared.commentedOnCache.setObject(false, forKey: (self.post?.postKey)!)
-          }
-        } else {
-          
-          dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            self.post?.wasCommentedOn(true)
-            Cache.shared.commentedOnCache.setObject(true, forKey: (self.post?.postKey)!)
-          }
-          self.likeImage.image = UIImage(named: "commentCounter")
-          self.popText.setTitleColor(highlightedColor, forState: .Normal)
-        }
-      })
-        
-      }
-      
-    }
-    
-  }
-  
-  
-  
   
   func commentTapped() {
     
@@ -248,178 +103,8 @@ class PostCell: UITableViewCell, NSCacheDelegate, HelperFunctions {
     
   }
   
-  func report(key: String) {
-    
-    let fakeRef = dataStruct.REF_POSTS.child(key).child("fakeCount") as FIRDatabaseReference
-    let deletePostRef = dataStruct.REF_POSTS.child(key) as FIRDatabaseReference
-    
-    fakeRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-      
-      if let _ = snapshot.value as? NSNull {
-        
-        fakeRef.setValue(1)
-        
-      } else {
-        
-        if snapshot.value as! Int > 4 {
-          deletePostRef.removeValue()
-          self.postRef.removeValue()
-        } else {
-          self.post?.adjustFakeCount(true)
-        }
-      }
-    })
-  }
-  
-  //MARK: - DOWNLOAD IMAGE FUNCTIONS
-  
-  func downloadImage(imageLocation: String) {
-    
-    let saveLocation = NSURL(fileURLWithPath: docsDirect() +  imageLocation)
-    
-    let storageRef: FIRStorageReference? = FIRStorage.storage().reference()
-    
-    guard let storage = storageRef else { return }
-    
-    let pathReference = storage.child(imageLocation)
-    
-    downloadImageTask = pathReference.writeToFile(saveLocation) { URL, error -> Void in
-      
-      guard let URL = URL where error == nil else { print("Download Image Error", error.debugDescription); return }
-      
-      if let data = NSData(contentsOfURL: URL) {
-        
-        if let image = UIImage(data: data) {
-          
-          self.showcaseImg.clipsToBounds = true
-          self.showcaseImg.image = image
-          self.showcaseImg.hidden = false
-          
-          Cache.shared.imageCache.setObject(image, forKey: imageLocation)
-          
-          self.delegate?.reloadTable()
-          
-        }
-      }
-    }
-  }
-  
-  func downloadProfileImage(uid: String) {
-    
-    let profileImgRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(uid)
-
-    profileImgRef.observeSingleEventOfType(.Value, withBlock: { snap in
-      
-      guard let value = snap.value else { return }
-      
-      let stringURL = String(value)
-      
-      print("snap", value)
-      print(stringURL)
-      
-      guard let url = NSURL(string: stringURL) else {
-        self.downloadProfileImageFromStorage(uid)
-        
-      return }
-      
-      guard let downloadImage = NSData(contentsOfURL: url) else {
-        self.downloadProfileImageFromStorage(uid)
-
-        return }
-      
-      guard let image = UIImage(data: downloadImage) else {
-        self.downloadProfileImageFromStorage(uid)
-
-        return }
-  
-        print(image)
-        
-        Cache.shared.profileImageCache.setObject(image, forKey: uid)
-        
-        ProfileImageTracker.imageLocations.insert(uid)
-        
-        self.profileImg.image = image
-
-      })
-  }
-  
-  func downloadProfileImageFromStorage(uid: String) {
-    
-    if !ProfileImageTracker.imageLocations.contains(uid) {
-      
-      let saveLocation = NSURL(fileURLWithPath: docsDirect() +  uid)
-      let storageRef = FIRStorage.storage().reference()
-      let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
-      
-      self.downloadProfileImageTask = pathReference.writeToFile(saveLocation) { URL, error -> Void in
-        
-        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription);
-          
-          Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (uid))
-          
-          return }
-        
-        if let data = NSData(contentsOfURL: URL) {
-          
-          if let image = UIImage(data: data) {
-            
-            Cache.shared.profileImageCache.setObject(image, forKey: (uid))
-            ProfileImageTracker.imageLocations.insert(uid)
-
-            if self.profileImg.image == UIImage(named: "profile-placeholder") {
-              
-              self.profileImg.image = image
-              
-              self.delegate?.reloadTable()
-
-            }
-          }
-        }
-      }
-    } else {
-      print("Post Cell, profile image already chached")
-    }
-  }
-  
   func cache(cache: NSCache, willEvictObject obj: AnyObject) {
     ProfileImageTracker.imageLocations.removeAll()
   }
   
-  //MARK: - GESTURE RECOGNISERS
-  
-  func setupGestureRecognisers() {
-    
-    let tap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
-    
-    tap.numberOfTapsRequired = 1
-    
-    likeImage.addGestureRecognizer(tap)
-    likeImage.userInteractionEnabled = true
-    
-    let containerTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
-    
-    containerTap.numberOfTapsRequired = 1
-    
-    container.addGestureRecognizer(tap)
-    container.userInteractionEnabled = true
-
-    
-    let likeTextTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
-    
-    likeTextTap.numberOfTapsRequired = 1
-    
-    popText.addGestureRecognizer(likeTextTap)
-    popText.userInteractionEnabled = true
-  }
-  
-
-
-  
-}
-
-class Wrap<T> {
-  var wrappedValue: T
-  init(_ theValue: T) {
-    wrappedValue = theValue
-  }
 }

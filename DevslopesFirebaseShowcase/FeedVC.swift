@@ -11,12 +11,12 @@ import Firebase
 import AVFoundation
 import FirebaseStorage
 
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate {
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, PostCellDelegate, ReloadTableDelegate {
   
   @IBOutlet weak var tableView: UITableView!
   
   private let indicator = UIActivityIndicatorView()
-  
+    
   //MARK: - VC LIFECYCLE
   
   override func viewDidLoad() {
@@ -43,7 +43,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     tableView.delegate = self
     tableView.dataSource = self
     
-    NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
+//    NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(self.checkLoggedIn), userInfo: nil, repeats: false)
   }
   
   
@@ -80,6 +80,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   //MARK: - TABLE VIEW
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    print(DataService.ds.posts.count)
     
     return DataService.ds.posts.count ?? 0
   }
@@ -116,6 +117,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         }
       
         cell.delegate = self
+        cell.reloadTableDelegate = self
         cell.configureCell(post, img: img, profileImg: profileImg)
                 
         return cell
@@ -128,9 +130,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   //MARK - POST CELL DELEGATE
   
   func reloadTable() {
-    
     tableView.reloadData()
     indicator.stopAnimating()
+
   }
   
   func showAlert(post: Post) {

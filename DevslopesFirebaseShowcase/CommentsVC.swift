@@ -25,7 +25,7 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   private var usernameArray = [String]()
 
   private var commentRef: FIRDatabaseReference!
-  
+    
   var post: Post? = nil
   var postImage: UIImage? = nil
   var textFrame: CGRect? = nil
@@ -71,8 +71,6 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     populateUsernames()
   
   }
-  
-  
   @IBAction func postButtonPressed(sender: AnyObject) {
     
     guard let currentUser = DataService.ds.currentUserKey else { guestAlert(); return }
