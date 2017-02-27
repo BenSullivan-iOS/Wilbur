@@ -19,9 +19,9 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
   @IBOutlet weak var username: UILabel!
   @IBOutlet weak var popText: UIButton!
   @IBOutlet weak var reportButton: UIButton!
-  @IBOutlet weak var answerText: RoundedLabel!
+  @IBOutlet weak var answerText: ColoredLabel!
   @IBOutlet weak var descriptionText: UILabel!
-  @IBOutlet weak var container: MaterialView!
+  @IBOutlet weak var container: UIView!
   
   internal var downloadImageTask: FIRStorageDownloadTask? = nil
   internal var downloadProfileImageTask: FIRStorageDownloadTask? = nil
