@@ -31,7 +31,7 @@ class RoundedImage: UIImageView {
   }
 }
 
-class RoundedLabel: UILabel {
+class ColoredLabel: UILabel {
   
   override func awakeFromNib() {
     
