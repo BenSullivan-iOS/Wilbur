@@ -329,7 +329,6 @@ class DataService: HelperFunctions {
           
           Cache.shared.imageCache.setObject(newImage, forKey: imageLocation)
           
-//          Cache.shared.imageCache.setObject(image, forKey: imageLocation)
           
           if self.count < posts.count - 1 {
             if self.count == 1 {
@@ -348,13 +347,13 @@ class DataService: HelperFunctions {
     }
   }
   
-  func downloadProfileImage(imageLocation: String) {
+  func downloadProfileImage(uid: String) {
 
-    if !ProfileImageTracker.imageLocations.contains(imageLocation) {
+    if !ProfileImageTracker.imageLocations.contains(uid) {
       
-      let saveLocation = NSURL(fileURLWithPath: docsDirect() + imageLocation)
+      let saveLocation = NSURL(fileURLWithPath: docsDirect() + uid)
       let storageRef = FIRStorage.storage().reference()
-      let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
+      let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       
       pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
         
@@ -365,10 +364,10 @@ class DataService: HelperFunctions {
           if let image = UIImage(data: data) {
             
 //          Cache.shared.profileImageCache.setObject(image, forKey: (imageLocation))
-            Cache.shared.profileImageCache.setObject(image, forKey: (imageLocation))
+            Cache.shared.profileImageCache.setObject(image, forKey: (uid))
 
-            ProfileImageTracker.imageLocations.insert(imageLocation)
-            print(imageLocation)
+            ProfileImageTracker.imageLocations.insert(uid)
+            print(uid)
             
           }
         }
