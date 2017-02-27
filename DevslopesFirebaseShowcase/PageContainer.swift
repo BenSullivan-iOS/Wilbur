@@ -45,7 +45,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
-    if segue.identifier == Constants().sharedSegues.embedSegue {
+    if segue.identifier == Constants.Segues.embed.rawValue {
       
       if let dest = segue.destinationViewController as? PagingVC {
         
@@ -55,7 +55,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
       }
     }
     
-    if segue.identifier == Constants().sharedSegues.comments {
+    if segue.identifier == Constants.Segues.comments.rawValue {
       
       if let dest = segue.destinationViewController as? CommentsVC {
         print(selectedPost?.commentText)
@@ -78,7 +78,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   //MARK: - BUTTONS
   
   @IBAction func profileButtonPressed(sender: AnyObject) {
-    performSegueWithIdentifier(Constants().sharedSegues.showProfile, sender: self)
+    performSegueWithIdentifier(Constants.Segues.showProfile.rawValue, sender: self)
   }
   
   @IBAction func postButtonPressed(sender: AnyObject) {

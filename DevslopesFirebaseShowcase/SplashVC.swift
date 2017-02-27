@@ -28,9 +28,9 @@ class SplashVC: UIViewController {
     dismissViewControllerAnimated(true, completion: nil)
     
     if DataService.ds.currentUserKey != nil {
-      self.performSegueWithIdentifier(Constants().sharedSegues.loggedInFromSplash, sender: self)
+      self.performSegueWithIdentifier(Constants.Segues.loggedInFromSplash.rawValue, sender: self)
     } else {
-      self.performSegueWithIdentifier(Constants().sharedSegues.signUp, sender: self)
+      self.performSegueWithIdentifier(Constants.Segues.signUp.rawValue, sender: self)
     }
     
     viewInitiallyAppeared = true
@@ -45,7 +45,7 @@ class SplashVC: UIViewController {
       
       dismissViewControllerAnimated(true, completion: {
         
-        self.performSegueWithIdentifier(Constants().sharedSegues.signUp, sender: self)
+        self.performSegueWithIdentifier(Constants.Segues.signUp.rawValue, sender: self)
         
       })
     }

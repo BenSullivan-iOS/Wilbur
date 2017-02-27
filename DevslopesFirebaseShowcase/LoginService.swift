@@ -51,7 +51,7 @@ struct LoginService: HelperFunctions {
       }
       
       NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
-      NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants().KEY_UID)
+      NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.KEY_UID)
       
       let userRef = DataService.ds.REF_USER_CURRENT.child("username")
       userRef.setValue(user.displayName)

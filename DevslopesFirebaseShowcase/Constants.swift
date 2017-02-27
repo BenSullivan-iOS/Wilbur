@@ -8,23 +8,23 @@
 
 import UIKit
 
+
 struct Constants {
   
-  let sharedSegues = Constants.Segues()
   let sharedStatusCodes = Constants.StatusCodes()
   
   let shadowColor: CGFloat = 157.0 / 255.0
   
-  let KEY_UID = "uid"
+  static let KEY_UID = "uid"
   
-  struct Segues {
+  enum Segues: String {
     
-    let loggedIn = "loggedIn"
-    let showProfile = "showProfile"
-    let loggedInFromSplash = "loggedInFromSplash"
-    let signUp = "signUp"
-    let embedSegue = "embedSegue"
-    let comments = "comments"
+    case loggedIn
+    case showProfile
+    case loggedInFromSplash
+    case signUp
+    case embed
+    case comments
   }
   
   struct StatusCodes {
