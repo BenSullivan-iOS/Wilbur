@@ -243,7 +243,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
-    return newImage
+    return newImage!
   }
   
   func saveImage (image: UIImage, path: String) -> Bool {
