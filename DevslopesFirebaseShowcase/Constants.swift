@@ -17,8 +17,9 @@ struct Constants {
     case showProfile
     case loggedInFromSplash
     case signUp
-    case embed
+    case embedSegue
     case comments
+    case showComments
   }
   
 }

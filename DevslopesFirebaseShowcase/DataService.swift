@@ -176,7 +176,7 @@ class DataService: HelperFunctions {
               
               for i in userDict {
                 
-                self.downloadProfileImage(i.0)
+//                self.downloadProfileImage(i.0)
               }
             }
             
@@ -233,6 +233,8 @@ class DataService: HelperFunctions {
               if !blockedUsers.contains(post.userKey) {
                 
                 self._posts.append(post)
+                self.downloadProfileImage(post.userKey)
+
               }
             } else {
               
@@ -332,12 +334,13 @@ class DataService: HelperFunctions {
           if self.count < posts.count - 1 {
             if self.count == 1 {
               
-              self.delegate?.reloadTable()
             }
             self.count += 1
             
             self.downloadImage(self.posts)
           } else {
+            self.delegate?.reloadTable()
+
             self.count = 0
           }
         }
@@ -349,7 +352,7 @@ class DataService: HelperFunctions {
 
     if !ProfileImageTracker.imageLocations.contains(imageLocation) {
       
-      let saveLocation = NSURL(fileURLWithPath: docsDirect() +  imageLocation)
+      let saveLocation = NSURL(fileURLWithPath: docsDirect() + imageLocation)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
       
@@ -361,8 +364,11 @@ class DataService: HelperFunctions {
           
           if let image = UIImage(data: data) {
             
+//          Cache.shared.profileImageCache.setObject(image, forKey: (imageLocation))
             Cache.shared.profileImageCache.setObject(image, forKey: (imageLocation))
+
             ProfileImageTracker.imageLocations.insert(imageLocation)
+            print(imageLocation)
             
           }
         }

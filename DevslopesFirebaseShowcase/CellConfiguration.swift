@@ -83,12 +83,9 @@ extension CellConfiguration {
     if let imageUrl = post.imageUrl {
       
       if let img = img {
-        dispatch_async(dispatch_get_main_queue(), { 
-          
-          self.showcaseImg.hidden = false
-          self.showcaseImg.image = img
-        })
-
+        
+        showcaseImg.hidden = false
+        showcaseImg.image = img
         
       } else {
         downloadImage(imageUrl)

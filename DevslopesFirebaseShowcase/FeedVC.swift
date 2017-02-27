@@ -24,7 +24,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FeedVC.reloadTable), name: "reloadTables", object: nil)
     
-    self.tableView.estimatedRowHeight = 300
+    self.tableView.estimatedRowHeight = 400
     self.tableView.rowHeight = UITableViewAutomaticDimension
     
     self.tableView.scrollsToTop = false
@@ -139,7 +139,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   func customCellCommentButtonPressed() {
     
-    performSegueWithIdentifier("showComments", sender: self)
+    performSegueWithIdentifier(Constants.Segues.showComments.rawValue, sender: self)
   }
   
   

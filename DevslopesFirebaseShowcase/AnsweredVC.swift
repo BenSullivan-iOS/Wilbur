@@ -84,9 +84,9 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         var img: UIImage?
         var profileImg: UIImage?
         
-        cell.showcaseImg.hidden = true
+        cell.showcaseImg.hidden = false
         cell.showcaseImg.image = nil
-        cell.profileImg.hidden = true
+        cell.profileImg.hidden = false
         cell.profileImg.image = nil
         
         if let url = post.imageUrl {
@@ -114,7 +114,7 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
   
   func reloadTable() {
     
-    tableView.reloadData()
+//    tableView.reloadData()
     
   }
   

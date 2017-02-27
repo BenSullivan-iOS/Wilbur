@@ -52,9 +52,9 @@ class PostCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
   override func prepareForReuse() {
     super.prepareForReuse()
     
-    showcaseImg.hidden = true
+    showcaseImg.hidden = false
     showcaseImg.image = nil
-    profileImg.hidden = true
+    profileImg.hidden = false
     profileImg.image = nil
     
     downloadImageTask?.cancel()
@@ -83,10 +83,8 @@ class PostCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
 
     configureDescriptionText()
     
-
-      self.configureImage(post, img: img)
-      self.configureProfileImage(post, profileImg: profileImg)
-      
+    configureImage(post, img: img)
+    configureProfileImage(post, profileImg: profileImg)
 
     styleCommentButton()
     

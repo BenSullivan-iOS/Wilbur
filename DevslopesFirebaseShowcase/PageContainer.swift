@@ -20,7 +20,11 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   var textFrame = CGRect()
   
   weak var createPostDelegate: PostButtonPressedDelegate? = nil
-  weak var navigationBarDelegate: NavigationBarDelegate? = nil
+  weak var navigationBarDelegate: NavigationBarDelegate? = nil {
+    didSet {
+      
+    }
+  }
   
   private struct Colours {
     static let highlighted = UIColor(colorLiteralRed: 223/255, green: 223/255, blue: 230/255, alpha: 1)
@@ -45,7 +49,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
-    if segue.identifier == Constants.Segues.embed.rawValue {
+    if segue.identifier == Constants.Segues.embedSegue.rawValue {
       
       if let dest = segue.destinationViewController as? PagingVC {
         
@@ -58,11 +62,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     if segue.identifier == Constants.Segues.comments.rawValue {
       
       if let dest = segue.destinationViewController as? CommentsVC {
-        print(selectedPost?.commentText)
-        print(selectedPost?.comments)
-        print(selectedPost?.commentedOn)
-        print(selectedPost?.commentUsers)
-
+        
         dest.post = selectedPost
         dest.postImage = selectedPostImage
         dest.textFrame = textFrame
@@ -96,12 +96,14 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   }
   
   @IBAction func createPostButton(sender: AnyObject) {
+    
     didSelectSegment(0)
+
     updateColours(0)
     UIView.animateWithDuration(0.5, animations: {
       self.postButton.alpha = 1
     })
-    
+
   }
   
   @IBAction func completeButton(sender: AnyObject) {

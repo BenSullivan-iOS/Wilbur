@@ -90,8 +90,6 @@ extension CellConfiguration {
         
         return }
       
-      print(image)
-      
       Cache.shared.profileImageCache.setObject(image, forKey: uid)
       
       ProfileImageTracker.imageLocations.insert(uid)
@@ -114,11 +112,14 @@ extension CellConfiguration {
       
       self.downloadProfileImageTask = pathReference.writeToFile(saveLocation) { URL, error -> Void in
         
-        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription);
+        guard let URL = URL where error == nil else {
+          print("Error - Missing profile pic")
           
           Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (uid))
+          self.profileImg.image = UIImage(named: "profile-placeholder")
           
-          return }
+          return
+        }
         
         if let data = NSData(contentsOfURL: URL) {
           
@@ -126,6 +127,7 @@ extension CellConfiguration {
             
             Cache.shared.profileImageCache.setObject(image, forKey: (uid))
             ProfileImageTracker.imageLocations.insert(uid)
+            print("UID = ", uid)
             
             if self.profileImg.image == UIImage(named: "profile-placeholder") {
               

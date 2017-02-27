@@ -54,7 +54,6 @@
 		B5D85BF51CFA12B800E62148 /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF41CFA12B800E62148 /* WaveformView.swift */; };
 		B5D85BF81CFA134C00E62148 /* ProfileTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */; };
 		B5DE8A011D2E812B00F9C364 /* PostImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE8A001D2E812B00F9C364 /* PostImageView.swift */; };
-		B5DE8A091D2EA42D00F9C364 /* WilburUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE8A081D2EA42D00F9C364 /* WilburUITests.swift */; };
 		B5E484F01D02F83C0099A060 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */; };
 		B5E553121D144EE100982E60 /* PageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E553111D144EE100982E60 /* PageContainer.swift */; };
 		B5FD20A81D3E2C8B0095D583 /* ImageTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FD20A71D3E2C8B0095D583 /* ImageTableCell.swift */; };
@@ -63,16 +62,6 @@
 		B5FD20AE1D3E57BB0095D583 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FD20AD1D3E57BB0095D583 /* LoginService.swift */; };
 		B5FFD6291D54B12800DD0486 /* CellDownloadTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FFD6281D54B12800DD0486 /* CellDownloadTasks.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		B5DE8A0B1D2EA42D00F9C364 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B548A4251CE8FFC40084215C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B548A42C1CE8FFC40084215C;
-			remoteInfo = Wildlife;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		09C30123EA9644A4B56C8EBD /* Pods_Wildlife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wildlife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,7 +119,6 @@
 		B5D85BF41CFA12B800E62148 /* WaveformView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaveformView.swift; path = DevslopesFirebaseShowcase/WaveformView.swift; sourceTree = "<group>"; };
 		B5D85BF71CFA134C00E62148 /* ProfileTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileTableVC.swift; path = DevslopesFirebaseShowcase/ProfileTableVC.swift; sourceTree = "<group>"; };
 		B5DE8A001D2E812B00F9C364 /* PostImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostImageView.swift; sourceTree = "<group>"; };
-		B5DE8A061D2EA42C00F9C364 /* WilburUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WilburUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5DE8A081D2EA42D00F9C364 /* WilburUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WilburUITests.swift; sourceTree = "<group>"; };
 		B5DE8A0A1D2EA42D00F9C364 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5E484EF1D02F83C0099A060 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
@@ -150,13 +138,6 @@
 				B51CBCF91CF4DA4900112B51 /* FDWaveformView.framework in Frameworks */,
 				B548A45B1CE913910084215C /* FBSDKLoginKit.framework in Frameworks */,
 				6CEC7B60788B82C182261ECD /* Pods_Wildlife.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B5DE8A031D2EA42C00F9C364 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +222,6 @@
 			isa = PBXGroup;
 			children = (
 				B548A42D1CE8FFC40084215C /* Wilbur.app */,
-				B5DE8A061D2EA42C00F9C364 /* WilburUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -410,24 +390,6 @@
 			productReference = B548A42D1CE8FFC40084215C /* Wilbur.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B5DE8A051D2EA42C00F9C364 /* WilburUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B5DE8A0D1D2EA42D00F9C364 /* Build configuration list for PBXNativeTarget "WilburUITests" */;
-			buildPhases = (
-				B5DE8A021D2EA42C00F9C364 /* Sources */,
-				B5DE8A031D2EA42C00F9C364 /* Frameworks */,
-				B5DE8A041D2EA42C00F9C364 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B5DE8A0C1D2EA42D00F9C364 /* PBXTargetDependency */,
-			);
-			name = WilburUITests;
-			productName = WilburUITests;
-			productReference = B5DE8A061D2EA42C00F9C364 /* WilburUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -442,10 +404,6 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 2KVYSWMVXX;
 						LastSwiftMigration = 0800;
-					};
-					B5DE8A051D2EA42C00F9C364 = {
-						CreatedOnToolsVersion = 7.3;
-						TestTargetID = B548A42C1CE8FFC40084215C;
 					};
 				};
 			};
@@ -463,7 +421,6 @@
 			projectRoot = "";
 			targets = (
 				B548A42C1CE8FFC40084215C /* Wildlife */,
-				B5DE8A051D2EA42C00F9C364 /* WilburUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -486,13 +443,6 @@
 				B548A44D1CE903690084215C /* NotoSans-Regular.ttf in Resources */,
 				B51CBCFC1CF4EBBE00112B51 /* Login.storyboard in Resources */,
 				B52F44E71D2BE97100FC93EB /* Comments.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B5DE8A041D2EA42C00F9C364 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,23 +542,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B5DE8A021D2EA42C00F9C364 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B5DE8A091D2EA42D00F9C364 /* WilburUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B5DE8A0C1D2EA42D00F9C364 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B548A42C1CE8FFC40084215C /* Wildlife */;
-			targetProxy = B5DE8A0B1D2EA42D00F9C364 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B51CBCD21CF45DB000112B51 /* Feed.storyboard */ = {
@@ -816,28 +750,6 @@
 			};
 			name = Release;
 		};
-		B5DE8A0E1D2EA42D00F9C364 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = WilburUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Sullivan-Applications.WilburUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = Wildlife;
-			};
-			name = Debug;
-		};
-		B5DE8A0F1D2EA42D00F9C364 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = WilburUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Sullivan-Applications.WilburUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = Wildlife;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -855,15 +767,6 @@
 			buildConfigurations = (
 				B548A4401CE8FFC40084215C /* Debug */,
 				B548A4411CE8FFC40084215C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B5DE8A0D1D2EA42D00F9C364 /* Build configuration list for PBXNativeTarget "WilburUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B5DE8A0E1D2EA42D00F9C364 /* Debug */,
-				B5DE8A0F1D2EA42D00F9C364 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
