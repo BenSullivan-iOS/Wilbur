@@ -24,13 +24,11 @@ protocol ReloadTableDelegate: class {
 
 protocol PostCellDelegate: class {
   func showAlert(post: Post)
-//  func reloadTable()
   func customCellCommentButtonPressed()
 }
 
 protocol MyPostsCellDelegate: class {
   func showComments(post: Post, image: UIImage)
-//  func reloadTable()
   func showDeleteAlert(post: Post)
 }
 
@@ -39,9 +37,3 @@ protocol CreatePostDelegate {
   func postSuccessful()
   func postError()
 }
-
-//DEPRECIATED
-
-//protocol AudioPlayerDelegate {
-//  func audioRecorded()
-//}
