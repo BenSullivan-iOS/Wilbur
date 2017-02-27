@@ -12,7 +12,7 @@ class MaterialTextField: UITextField {
 
   override func awakeFromNib() {
     
-    let color = Constants().shadowColor
+    let color = Constants.shadowColor
     layer.borderColor = UIColor(red: color, green: color, blue: color, alpha: 0.1).CGColor
     layer.borderWidth = 1.0
   }

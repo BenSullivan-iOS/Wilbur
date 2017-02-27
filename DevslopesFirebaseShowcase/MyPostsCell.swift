@@ -17,7 +17,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
   @IBOutlet weak var likesLabel: UILabel!
   @IBOutlet weak var username: UILabel!
   @IBOutlet weak var popText: UIButton!
-  @IBOutlet weak var container: MaterialView!
+  @IBOutlet weak var container: UIView!
   @IBOutlet weak var descriptionText: UILabel!
   
   var likeImage: UIImageView!

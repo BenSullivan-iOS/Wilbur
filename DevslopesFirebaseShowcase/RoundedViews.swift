@@ -12,7 +12,7 @@ class MaterialView: UIView {
   
   override func awakeFromNib() {
     
-    let color = Constants().shadowColor
+    let color = Constants.shadowColor
     
     layer.cornerRadius = 2.0
     layer.shadowColor = UIColor(red: color, green: color, blue: color, alpha: 0.5).CGColor
@@ -35,7 +35,6 @@ class ColoredLabel: UILabel {
   
   override func awakeFromNib() {
     
-    layer.cornerRadius = 3.0
     layer.backgroundColor = UIColor(colorLiteralRed: 255/255, green: 243/255, blue: 214/255, alpha: 1.0).CGColor
   }
   

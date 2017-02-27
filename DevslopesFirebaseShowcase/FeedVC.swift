@@ -29,14 +29,18 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     self.tableView.scrollsToTop = false
     DataService.ds.delegate = self
-    DataService.ds.downloadTableContent()
     
-    indicator.startAnimating()
-    indicator.hidesWhenStopped = true
-    indicator.activityIndicatorViewStyle = .Gray
-    indicator.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.width / 2, 15.0, 15.0)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),{
+
+      DataService.ds.downloadTableContent()
+//
+//    dispatch_async(dispatch_get_main_queue(),{
+//
+//      
+//        })
+      })
     
-    self.view.addSubview(indicator)
+    addIndicator()
     
     AppState.shared.currentState = .Feed
     
@@ -63,7 +67,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
-    if segue.identifier == Constants().sharedSegues.showProfile {
+    if segue.identifier == Constants.Segues.showProfile.rawValue {
       let backItem = UIBarButtonItem()
       backItem.title = "Back"
       navigationItem.backBarButtonItem = backItem
@@ -73,7 +77,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   //MARK: - BUTTONS
   
   @IBAction func profileButtonPressed(sender: UIButton) {
-    performSegueWithIdentifier(Constants().sharedSegues.showProfile, sender: self)
+    performSegueWithIdentifier(Constants.Segues.showProfile.rawValue, sender: self)
   }
   
   
@@ -89,39 +93,33 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     if AppState.shared.currentState == .Feed {
       
-      if let cell = tableView.dequeueReusableCellWithIdentifier("postCell") as? PostCell {
-        
-        print("indexPath = ", indexPath.row)
-
-        let post = DataService.ds.posts[indexPath.row]
-        
-        var img: UIImage?
-        var profileImg: UIImage?
-        
-        cell.showcaseImg.hidden = true
-        cell.showcaseImg.image = nil
-        cell.profileImg.hidden = true
-        cell.profileImg.image = nil
-        
-        if let url = post.imageUrl {
-          img = Cache.shared.imageCache.objectForKey(url) as? UIImage
-          cell.showcaseImg.hidden = false
-          cell.showcaseImg.image = UIImage(named: "DownloadingImageBackground")
-        }
-        if indicator.isAnimating() {
-          self.indicator.stopAnimating()
-        }
-
-        if let profileImage = Cache.shared.profileImageCache.objectForKey(post.userKey) as? UIImage {
-          profileImg = profileImage
-        }
+      let cell = tableView.dequeueReusableCellWithIdentifier("postCell", forIndexPath: indexPath) as! PostCell
       
-        cell.delegate = self
-        cell.reloadTableDelegate = self
-        cell.configureCell(post, img: img, profileImg: profileImg)
-                
-        return cell
+      let post = DataService.ds.posts[indexPath.row]
+      
+      var img: UIImage?
+      var profileImg: UIImage?
+      
+      if let url = post.imageUrl {
+        img = Cache.shared.imageCache.objectForKey(url) as? UIImage
+        cell.showcaseImg.hidden = false
+        cell.showcaseImg.image = UIImage(named: "DownloadingImageBackground")
+        
       }
+      
+      if indicator.isAnimating() {
+        self.indicator.stopAnimating()
+      }
+      
+      if let profileImage = Cache.shared.profileImageCache.objectForKey(post.userKey) as? UIImage {
+        profileImg = profileImage
+      }
+      
+      cell.delegate = self
+      cell.reloadTableDelegate = self
+      cell.configureCell(post, img: img, profileImg: profileImg)
+      
+      return cell
     }
     return UITableViewCell()
   }
@@ -130,9 +128,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   //MARK - POST CELL DELEGATE
   
   func reloadTable() {
+    
     tableView.reloadData()
     indicator.stopAnimating()
-
   }
   
   func showAlert(post: Post) {
@@ -283,6 +281,15 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       presentViewController(loginViewController, animated: true, completion: nil)
       
     }
+  }
+  
+  func addIndicator() {
+    indicator.startAnimating()
+    indicator.hidesWhenStopped = true
+    indicator.activityIndicatorViewStyle = .Gray
+    indicator.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.width / 2, 15.0, 15.0)
+    
+    self.view.addSubview(indicator)
   }
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {

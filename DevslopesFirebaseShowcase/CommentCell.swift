@@ -89,10 +89,17 @@ class CommentCell: UITableViewCell, HelperFunctions {
       
       pathReference.writeToFile(saveLocation) { URL, error -> Void in
         
-        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription);
+        guard let URL = URL where error == nil else {
+          
+          print("Error - Profile image not found")
           
           Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (uid))
           
+          dispatch_async(dispatch_get_main_queue(), {
+            
+            self.profileImage.image = UIImage(named: "profile-placeholder")
+          })
+
           return }
         
         if let data = NSData(contentsOfURL: URL) {
@@ -104,7 +111,11 @@ class CommentCell: UITableViewCell, HelperFunctions {
             
             if self.profileImage.image == UIImage(named: "profile-placeholder") {
               
-              self.profileImage.image = image
+              dispatch_async(dispatch_get_main_queue(), { 
+                
+                self.profileImage.image = image
+
+              })
             }
           }
         }

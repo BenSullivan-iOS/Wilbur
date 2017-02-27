@@ -20,7 +20,7 @@ class PostCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
   @IBOutlet weak var popText: UIButton!
   @IBOutlet weak var reportButton: UIButton!
   @IBOutlet weak var descriptionText: UILabel!
-  @IBOutlet weak var container: MaterialView!
+  @IBOutlet weak var container: UIView!
 
   internal var downloadImageTask: FIRStorageDownloadTask? = nil
   internal var downloadProfileImageTask: FIRStorageDownloadTask? = nil
@@ -35,8 +35,6 @@ class PostCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
       return _post
     }
     set {
-      print("post set = ", post, newValue)
-      
       self._post = newValue
     }
   }
@@ -44,14 +42,21 @@ class PostCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
   //MARK: - CELL LIFECYCLE
   
   override func awakeFromNib() {
+    super.awakeFromNib()
     
     setupGestureRecognisers()
     reportButton.imageView?.contentMode = .ScaleAspectFit
     Cache.shared.profileImageCache.delegate = self
-    
   }
   
   override func prepareForReuse() {
+    super.prepareForReuse()
+    
+    showcaseImg.hidden = true
+    showcaseImg.image = nil
+    profileImg.hidden = true
+    profileImg.image = nil
+    
     downloadImageTask?.cancel()
     downloadProfileImageTask?.cancel()
   }
@@ -64,22 +69,27 @@ class PostCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
     delegate?.showAlert(post!)
   }
   
+  
   //MARK: - CELL CONFIGURATION
   
+  func refreshProfileImage() {
+//    configureProfileImage(post, profileImg: profileImg)
+  }
+  
   func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
-    
     self._post = post
     self.likesLabel.text = "\(post.commentText.count)"
     self.username.text = post.username
 
     configureDescriptionText()
-    configureImage(post, img: img)
-    configureProfileImage(post, profileImg: profileImg)
+    
+
+      self.configureImage(post, img: img)
+      self.configureProfileImage(post, profileImg: profileImg)
+      
 
     styleCommentButton()
     
-//    if let label = Cache.shared.labelCache.objectForKey(post.postKey) as? UILabel! {
-
   }
   
   func commentTapped() {

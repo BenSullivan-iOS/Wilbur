@@ -50,7 +50,7 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
-    if segue.identifier == Constants().sharedSegues.showProfile {
+    if segue.identifier == Constants.Segues.showProfile.rawValue {
       let backItem = UIBarButtonItem()
       backItem.title = "Back"
       navigationItem.backBarButtonItem = backItem
@@ -60,7 +60,7 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
   //MARK: - BUTTONS
   
   @IBAction func profileButtonPressed(sender: UIButton) {
-    performSegueWithIdentifier(Constants().sharedSegues.showProfile, sender: self)
+    performSegueWithIdentifier(Constants.Segues.showProfile.rawValue, sender: self)
   }
   
   

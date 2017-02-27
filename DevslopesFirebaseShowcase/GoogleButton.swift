@@ -12,7 +12,7 @@ class GoogleButton: GIDSignInButton {
   
   override func awakeFromNib() {
     
-    let color = Constants().shadowColor
+    let color = Constants.shadowColor
     
     layer.cornerRadius = 2.0
     layer.shadowColor = UIColor(red: color, green: color, blue: color, alpha: 0.5).CGColor

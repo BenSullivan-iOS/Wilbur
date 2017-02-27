@@ -6,6 +6,7 @@
 //  Copyright © 2016 Sullivan Applications. All rights reserved.
 //
 
+import UIKit
 import Firebase
 import FirebaseStorage
 
@@ -29,17 +30,35 @@ extension CellConfiguration {
         
         if let image = UIImage(data: data) {
           
+          let newImage = self.resizeImage(image, newWidth: 414)
+          
+          dispatch_async(dispatch_get_main_queue(), {
+
           self.showcaseImg.clipsToBounds = true
-          self.showcaseImg.image = image
+          self.showcaseImg.image = newImage
           self.showcaseImg.hidden = false
+          })
           
-          Cache.shared.imageCache.setObject(image, forKey: imageLocation)
+          Cache.shared.imageCache.setObject(newImage, forKey: imageLocation)
           
-          self.reloadTableDelegate?.reloadTable()
+//          self.reloadTableDelegate?.reloadTable()
+          print("FIX ME RELOAD DATA")
           
         }
       }
     }
+  }
+  
+  func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+    
+    let scale = newWidth / image.size.width
+    let newHeight = image.size.height * scale
+    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+    image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return newImage!
   }
   
   
@@ -77,7 +96,10 @@ extension CellConfiguration {
       
       ProfileImageTracker.imageLocations.insert(uid)
       
-      self.profileImg.image = image
+      dispatch_async(dispatch_get_main_queue(), {
+
+        self.profileImg.image = image
+      })
       
     })
   }
@@ -107,9 +129,10 @@ extension CellConfiguration {
             
             if self.profileImg.image == UIImage(named: "profile-placeholder") {
               
-              self.profileImg.image = image
+              let newImage = self.resizeImage(image, newWidth: 100)
+              self.profileImg.image = newImage
               
-              self.reloadTableDelegate?.reloadTable()
+              Cache.shared.profileImageCache.setObject(newImage, forKey: uid)
               
             }
           }

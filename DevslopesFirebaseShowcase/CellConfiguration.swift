@@ -32,7 +32,7 @@ protocol CellConfiguration: class, HelperFunctions  {
   var popText: UIButton! { get }
   func styleCommentButton()
   
-  var container: MaterialView! { get }
+  var container: UIView! { get }
   
   func downloadImage(imageLocation: String)
   var downloadImageTask: FIRStorageDownloadTask? { get set }
@@ -45,28 +45,30 @@ extension CellConfiguration {
   
   func configureDescriptionText() {
     
-//    guard let cellPost = post else { return }
-//    
-//    if cellPost.postDescription == "" {
-//      
+    guard let cellPost = post else { return }
+    
+    if cellPost.postDescription == "" {
+      
 //      self.descriptionText.hidden = true
-//      
-//    } else {
-//      
-//      self.descriptionText.hidden = false
-//      self.descriptionText.text = cellPost.postDescription
-//      
-//      Cache.shared.labelCache.setObject(descriptionText, forKey: cellPost.postKey)
-//      
-//    }
+      
+    } else {
+      
+      self.descriptionText.hidden = false
+      self.descriptionText.text = cellPost.postDescription
+      
+      Cache.shared.labelCache.setObject(descriptionText, forKey: cellPost.postKey)
+      
+    }
   }
   
   func configureProfileImage(post: Post, profileImg: UIImage?) {
     
     if let profileImg = profileImg {
-      
-      self.profileImg.hidden = false
-      self.profileImg.image = profileImg
+      dispatch_async(dispatch_get_main_queue(), {
+
+        self.profileImg.hidden = false
+        self.profileImg.image = profileImg
+      })
       
     } else {
       
@@ -81,9 +83,12 @@ extension CellConfiguration {
     if let imageUrl = post.imageUrl {
       
       if let img = img {
-        
-        self.showcaseImg.hidden = false
-        self.showcaseImg.image = img
+        dispatch_async(dispatch_get_main_queue(), { 
+          
+          self.showcaseImg.hidden = false
+          self.showcaseImg.image = img
+        })
+
         
       } else {
         downloadImage(imageUrl)

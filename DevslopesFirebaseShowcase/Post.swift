@@ -25,45 +25,19 @@ struct Post {
   private var _commentedOn: Bool!
   private var _answered: String!
   
-  var answered: String {
-    return _answered
-  }
-  var commentedOn: Bool {
-    return _commentedOn
-  }
-  var date: String {
-    return _date
-  }
-  var userKey: String {
-    return _userKey
-  }
-  var audioURL: String {
-    return _audioURL
-  }
-  var postDescription: String {
-    return _postDescription
-  }
-  var imageUrl: String? {
-    return _imageUrl
-  }
-  var fakeCount: Int {
-    return _fakeCount
-  }
-  var username: String {
-    return _username
-  }
-  var postKey: String {
-    return _postKey
-  }
-  var comments: [String: String] {
-    return _comments
-  }
-  var commentUsers: [String] {
-    return _commentUsers
-  }
-  var commentText: [String] {
-    return _commentText
-  }
+  var answered: String { return _answered }
+  var commentedOn: Bool { return _commentedOn }
+  var date: String { return _date }
+  var userKey: String { return _userKey }
+  var audioURL: String { return _audioURL }
+  var postDescription: String { return _postDescription }
+  var imageUrl: String? { return _imageUrl }
+  var fakeCount: Int { return _fakeCount }
+  var username: String { return _username }
+  var postKey: String { return _postKey }
+  var comments: [String: String] { return _comments }
+  var commentUsers: [String] { return _commentUsers }
+  var commentText: [String] { return _commentText }
   
   mutating func wasCommentedOn(commentedOn: Bool) {
     _commentedOn = commentedOn
