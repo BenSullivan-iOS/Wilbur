@@ -14,29 +14,29 @@ class CommentImageCell: UITableViewCell {
   @IBOutlet weak var postText: UITextView!
   @IBOutlet weak var postDescription: UITextView!
   
-  func configureCell(selectedPost: Post?, downloadedImage: UIImage?) {
+  func configureCell(_ selectedPost: Post?, downloadedImage: UIImage?) {
     
     guard let post = selectedPost else { return }
     
     if let image = downloadedImage {
       postImage.image = image
-      postText.hidden = true
+      postText.isHidden = true
       
       if post.postDescription != "" {
         
         postDescription.text = "\(post.postDescription) - \(post.username)"
-        postDescription.font = UIFont.systemFontOfSize(16.0)
+        postDescription.font = UIFont.systemFont(ofSize: 16.0)
         
       } else {
-        postDescription.hidden = true
+        postDescription.isHidden = true
       }
       
     } else {
-      postImage.hidden = true
-      postDescription.hidden = true
+      postImage.isHidden = true
+      postDescription.isHidden = true
       
       postText.text = "\(post.postDescription) - \(post.username)"
-      postText.font = UIFont.systemFontOfSize(16.0)
+      postText.font = UIFont.systemFont(ofSize: 16.0)
     }
   }
 }

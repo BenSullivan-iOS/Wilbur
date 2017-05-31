@@ -15,14 +15,14 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   @IBOutlet weak var tableView: UITableView!
   
-  private let indicator = UIActivityIndicatorView()
+  fileprivate let indicator = UIActivityIndicatorView()
     
   //MARK: - VC LIFECYCLE
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FeedVC.reloadTable), name: "reloadTables", object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(FeedVC.reloadTable), name: NSNotification.Name(rawValue: "reloadTables"), object: nil)
     
     self.tableView.estimatedRowHeight = 400
     self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -30,7 +30,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     self.tableView.scrollsToTop = false
     DataService.ds.delegate = self
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),{
+    DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
 
       DataService.ds.downloadTableContent()
 //
@@ -42,7 +42,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     addIndicator()
     
-    AppState.shared.currentState = .Feed
+    AppState.shared.currentState = .feed
     
     tableView.delegate = self
     tableView.dataSource = self
@@ -51,21 +51,21 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   }
   
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     
-    if AppState.shared.currentState == .PresentLoginFromComments {
+    if AppState.shared.currentState == .presentLoginFromComments {
       
-      dismissViewControllerAnimated(false, completion: nil)
+      dismiss(animated: false, completion: nil)
       
     } else {
       
-      AppState.shared.currentState = .Feed
+      AppState.shared.currentState = .feed
       tableView.reloadData()
     }
     
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     if segue.identifier == Constants.Segues.showProfile.rawValue {
       let backItem = UIBarButtonItem()
@@ -76,24 +76,24 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   
   //MARK: - BUTTONS
   
-  @IBAction func profileButtonPressed(sender: UIButton) {
-    performSegueWithIdentifier(Constants.Segues.showProfile.rawValue, sender: self)
+  @IBAction func profileButtonPressed(_ sender: UIButton) {
+    performSegue(withIdentifier: Constants.Segues.showProfile.rawValue, sender: self)
   }
   
   
   //MARK: - TABLE VIEW
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     print(DataService.ds.posts.count)
     
     return DataService.ds.posts.count ?? 0
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    if AppState.shared.currentState == .Feed {
+    if AppState.shared.currentState == .feed {
       
-      let cell = tableView.dequeueReusableCellWithIdentifier("postCell", forIndexPath: indexPath) as! PostCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! PostCell
       
       let post = DataService.ds.posts[indexPath.row]
       
@@ -101,17 +101,17 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       var profileImg: UIImage?
       
       if let url = post.imageUrl {
-        img = Cache.shared.imageCache.objectForKey(url) as? UIImage
-        cell.showcaseImg.hidden = false
+        img = Cache.shared.imageCache.object(forKey: url as AnyObject) as? UIImage
+        cell.showcaseImg.isHidden = false
         cell.showcaseImg.image = UIImage(named: "DownloadingImageBackground")
         
       }
       
-      if indicator.isAnimating() {
+      if indicator.isAnimating {
         self.indicator.stopAnimating()
       }
       
-      if let profileImage = Cache.shared.profileImageCache.objectForKey(post.userKey) as? UIImage {
+      if let profileImage = Cache.shared.profileImageCache.object(forKey: post.userKey as AnyObject) as? UIImage {
         profileImg = profileImage
       }
       
@@ -133,34 +133,34 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     indicator.stopAnimating()
   }
   
-  func showAlert(post: Post) {
+  func showAlert(_ post: Post) {
     displayAlert(post)
   }
   
   func customCellCommentButtonPressed() {
     
-    performSegueWithIdentifier(Constants.Segues.showComments.rawValue, sender: self)
+    performSegue(withIdentifier: Constants.Segues.showComments.rawValue, sender: self)
   }
   
   
   //MARK: - ALERTS
   
-  func displayAlert(post: Post) {
+  func displayAlert(_ post: Post) {
     
     guard let user = DataService.ds.currentUserKey else { guestAlert(); return }
     
-    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
       //post belongs to user
       if post.userKey == user {
         
-        alert.addAction(UIAlertAction(title: "   Mark as Answered 😃", style: .Default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "   Mark as Answered 😃", style: .default, handler: { (action) in
           
           self.markAsAnsweredAlert(post)
           
         }))
         
-        alert.addAction(UIAlertAction(title: "   Delete Post 👋", style: .Default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "   Delete Post 👋", style: .default, handler: { (action) in
           
           DataService.ds.deletePost(post)
           
@@ -168,13 +168,13 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         
       } else {
         
-        alert.addAction(UIAlertAction(title: "Report", style: .Default, handler: { action in
+        alert.addAction(UIAlertAction(title: "Report", style: .default, handler: { action in
           
           self.reportAlert(post)
           
         }))
         
-        alert.addAction(UIAlertAction(title: "Block User", style: .Default, handler: { action in
+        alert.addAction(UIAlertAction(title: "Block User", style: .default, handler: { action in
           
           DataService.ds.blockUser(post)
           
@@ -182,41 +182,41 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
         
       }
       
-      alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+      alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
       
-      self.presentViewController(alert, animated: true, completion: nil)
+      self.present(alert, animated: true, completion: nil)
   }
   
-  func reportAlert(post: Post) {
+  func reportAlert(_ post: Post) {
     
-    let alert = UIAlertController(title: "Submit report", message: nil, preferredStyle: .Alert)
+    let alert = UIAlertController(title: "Submit report", message: nil, preferredStyle: .alert)
     
-    alert.addTextFieldWithConfigurationHandler { (textField) in
+    alert.addTextField { (textField) in
       
       textField.placeholder = "Reason for report"
-      textField.returnKeyType = .Default
+      textField.returnKeyType = .default
     }
     
-    alert.addAction(UIAlertAction(title: "Submit", style: .Default, handler: { (action) in
+    alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
       
       DataService.ds.reportPost(post, reason: alert.textFields![0].text!)
       
     }))
     
-    self.presentViewController(alert, animated: true, completion:  nil)
+    self.present(alert, animated: true, completion:  nil)
   }
   
-  func markAsAnsweredAlert(post: Post) {
+  func markAsAnsweredAlert(_ post: Post) {
     
-    let alert = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .Alert)
+    let alert = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .alert)
     
-    alert.addTextFieldWithConfigurationHandler { (textField) in
+    alert.addTextField { (textField) in
       
       textField.placeholder = "Answer"
-      textField.returnKeyType = .Default
+      textField.returnKeyType = .default
     }
     
-    alert.addAction(UIAlertAction(title: "Done", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { action in
       
       print(alert.textFields![0])
       if alert.textFields![0].text == "" {
@@ -231,38 +231,38 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
     
-    self.presentViewController(alert, animated: true, completion:  nil)
+    self.present(alert, animated: true, completion:  nil)
   }
   
-  func answerMissingAlert(post: Post) {
+  func answerMissingAlert(_ post: Post) {
     
-    let alert = UIAlertController(title: "Answer missing!", message: nil, preferredStyle: .Alert)
+    let alert = UIAlertController(title: "Answer missing!", message: nil, preferredStyle: .alert)
     
-    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
       
       self.markAsAnsweredAlert(post)
     }))
     
-    self.presentViewController(alert, animated: true, completion:  nil)
+    self.present(alert, animated: true, completion:  nil)
     
   }
 
   
   func guestAlert() {
     
-    let alert = UIAlertController(title: "Function unavailable 😕", message: "You must be logged in to comment", preferredStyle: .Alert)
+    let alert = UIAlertController(title: "Function unavailable 😕", message: "You must be logged in to comment", preferredStyle: .alert)
     
-    alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Login", style: .default, handler: { action in
       
-      self.dismissViewControllerAnimated(false, completion: nil)
+      self.dismiss(animated: false, completion: nil)
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
     
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: nil)
   }
   
   //MARK: - OTHER FUNCTIONS
@@ -271,14 +271,14 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
     
     if DataService.ds.posts.isEmpty {
 
-      dismissViewControllerAnimated(true, completion: nil)
+      dismiss(animated: true, completion: nil)
       
       let loginViewController: UIViewController!
       
       let storyboard = UIStoryboard(name: "Login", bundle: nil)
-      loginViewController = storyboard.instantiateViewControllerWithIdentifier("LoginVC")
+      loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginVC")
       
-      presentViewController(loginViewController, animated: true, completion: nil)
+      present(loginViewController, animated: true, completion: nil)
       
     }
   }
@@ -286,14 +286,14 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Post
   func addIndicator() {
     indicator.startAnimating()
     indicator.hidesWhenStopped = true
-    indicator.activityIndicatorViewStyle = .Gray
-    indicator.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.width / 2, 15.0, 15.0)
+    indicator.activityIndicatorViewStyle = .gray
+    indicator.frame = CGRect(x: self.view.frame.width / 2, y: self.view.frame.width / 2, width: 15.0, height: 15.0)
     
     self.view.addSubview(indicator)
   }
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return .lightContent
   }
   
 }

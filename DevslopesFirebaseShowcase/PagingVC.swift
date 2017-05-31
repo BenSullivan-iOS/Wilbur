@@ -10,7 +10,7 @@ import UIKit
 
 class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBarDelegate {
   
-  private var currentPage = Int()
+  fileprivate var currentPage = Int()
   
   weak var navButtonsDelegate: UpdateNavButtonsDelegate? = nil
   
@@ -33,30 +33,30 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
   //MARK: - NAVIGATION BAR DELEGATE
   //Scrolls to relevant VC when navigation bar is pressed
   
-  func didSelectSegment(segment: Int) {
+  func didSelectSegment(_ segment: Int) {
     
     switch segment {
       
     case 0:
       
-      if AppState.shared.currentState != .CreatingPost {
-        self.setViewControllers([orderedViewControllers[segment]], direction: .Reverse, animated: true, completion: nil)
+      if AppState.shared.currentState != .creatingPost {
+        self.setViewControllers([orderedViewControllers[segment]], direction: .reverse, animated: true, completion: nil)
       }
       
     case 1:
       
-      if AppState.shared.currentState == .CreatingPost {
-        self.setViewControllers([orderedViewControllers[segment]], direction: .Forward, animated: true, completion: nil)
+      if AppState.shared.currentState == .creatingPost {
+        self.setViewControllers([orderedViewControllers[segment]], direction: .forward, animated: true, completion: nil)
       }
       
-      if AppState.shared.currentState == .Answered {
-        self.setViewControllers([orderedViewControllers[segment]], direction: .Reverse, animated: true, completion: nil)
+      if AppState.shared.currentState == .answered {
+        self.setViewControllers([orderedViewControllers[segment]], direction: .reverse, animated: true, completion: nil)
       }
       
     case 2:
       
-      if AppState.shared.currentState != .Answered {
-        self.setViewControllers([orderedViewControllers[segment]], direction: .Forward, animated: true, completion: nil)
+      if AppState.shared.currentState != .answered {
+        self.setViewControllers([orderedViewControllers[segment]], direction: .forward, animated: true, completion: nil)
       }
       
     default:
@@ -69,7 +69,7 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
   
   //MARK: - CONFIGURE PAGE VIEW CONTROLLER
   
-  func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+  func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     
     guard completed == true else { return }
     
@@ -83,14 +83,14 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
     
     if let setFirstViewController = secondVC {
       setViewControllers([setFirstViewController],
-                         direction: .Forward,
+                         direction: .forward,
                          animated: true,
                          completion: nil)
     }
   }
   
   
-  private lazy var orderedViewControllers: [UIViewController] = {
+  fileprivate lazy var orderedViewControllers: [UIViewController] = {
     
     return [self.newViewController("CreatePostVC"),
             self.newViewController("Feed"),
@@ -98,11 +98,11 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
   }()
   
   
-  private func newViewController(title: String) -> UIViewController {
+  fileprivate func newViewController(_ title: String) -> UIViewController {
     
     if title == "CreatePostVC" {
       
-      let VC = UIStoryboard(name: "Main", bundle: nil) .instantiateViewControllerWithIdentifier(title) as! CreatePostVC
+      let VC = UIStoryboard(name: "Main", bundle: nil) .instantiateViewController(withIdentifier: title) as! CreatePostVC
       
       rootController?.createPostDelegate = VC
       
@@ -110,7 +110,7 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
 
     }
     
-    return UIStoryboard(name: "Main", bundle: nil) .instantiateViewControllerWithIdentifier(title)
+    return UIStoryboard(name: "Main", bundle: nil) .instantiateViewController(withIdentifier: title)
   }
   
 }
@@ -121,10 +121,10 @@ class PagingVC: UIPageViewController, UIPageViewControllerDelegate, NavigationBa
 
 extension PagingVC: UIPageViewControllerDataSource {
   
-  func pageViewController(pageViewController: UIPageViewController,
-                          viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+  func pageViewController(_ pageViewController: UIPageViewController,
+                          viewControllerBefore viewController: UIViewController) -> UIViewController? {
     
-    guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+    guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
       return nil
     }
     
@@ -141,10 +141,10 @@ extension PagingVC: UIPageViewControllerDataSource {
     return orderedViewControllers[previousIndex]
   }
   
-  func pageViewController(pageViewController: UIPageViewController,
-                          viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+  func pageViewController(_ pageViewController: UIPageViewController,
+                          viewControllerAfter viewController: UIViewController) -> UIViewController? {
     
-    guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+    guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
       return nil
     }
     
@@ -162,8 +162,8 @@ extension PagingVC: UIPageViewControllerDataSource {
     return orderedViewControllers[nextIndex]
   }
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return .lightContent
   }
   
 }

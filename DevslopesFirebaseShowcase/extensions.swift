@@ -11,17 +11,17 @@ import UIKit
 
 extension UINavigationController {
   
-  public override func childViewControllerForStatusBarHidden() -> UIViewController? {
+  open override var childViewControllerForStatusBarHidden : UIViewController? {
     return self.topViewController
   }
   
-  public override func childViewControllerForStatusBarStyle() -> UIViewController? {
+  open override var childViewControllerForStatusBarStyle : UIViewController? {
     return self.topViewController
   }
 }
 
 extension Array {
-  func ref (i:Int) -> Element? {
+  func ref (_ i:Int) -> Element? {
     return 0 <= i && i < count ? self[i] : nil
   }
 }

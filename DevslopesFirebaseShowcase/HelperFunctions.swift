@@ -16,7 +16,7 @@ protocol HelperFunctions {
 extension HelperFunctions {
   
   func docsDirect() -> String {
-    let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+    let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
     let documentsDirectory = paths[0]
     return documentsDirectory + "/"
   }

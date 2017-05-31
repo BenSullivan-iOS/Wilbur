@@ -45,7 +45,7 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
   override func awakeFromNib() {
     
     setupGestureRecognisers()
-    reportButton.imageView?.contentMode = .ScaleAspectFit
+    reportButton.imageView?.contentMode = .scaleAspectFit
     Cache.shared.profileImageCache.delegate = self
     
   }
@@ -58,14 +58,14 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
   
   //MARK: - SHOW ALERT
   
-  @IBAction func reportbuttonPressed(sender: AnyObject) {
+  @IBAction func reportbuttonPressed(_ sender: AnyObject) {
     
     delegate?.showAlert(post!)
   }
   
   //MARK: - CELL CONFIGURATION
   
-  func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
+  func configureCell(_ post: Post, img: UIImage?, profileImg: UIImage?) {
     
     self._post = post
     self.likesLabel.text = "\(post.commentText.count)"
@@ -92,19 +92,19 @@ class AnsweredCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
       
       var postInfo:[String: AnyObject] = ["post": wrappedStruct]
       
-      if showcaseImg.hidden == false {
+      if showcaseImg.isHidden == false {
       
         postInfo["image"] = showcaseImg.image
         postInfo["text"] = descriptionText
       }
       
 //      Observed by PageContainer
-      NSNotificationCenter.defaultCenter().postNotificationName("segueToComments", object: self, userInfo: postInfo)
+      NotificationCenter.default.post(name: Notification.Name(rawValue: "segueToComments"), object: self, userInfo: postInfo)
       print("POSTING NOTIFICATION")
     }
   }
   
-  func cache(cache: NSCache, willEvictObject obj: AnyObject) {
+  func cache(_ cache: NSCache<AnyObject, AnyObject>, willEvictObject obj: Any) {
     ProfileImageTracker.imageLocations.removeAll()
   }
   

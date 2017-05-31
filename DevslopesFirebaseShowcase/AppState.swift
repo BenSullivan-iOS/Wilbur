@@ -10,9 +10,9 @@ class AppState {
   
   static let shared = AppState()
   
-  private init() {}
+  fileprivate init() {}
   
-  private var _currentState = State.None
+  fileprivate var _currentState = State.none
   
   var currentState: State {
     
@@ -26,10 +26,10 @@ class AppState {
   }
   
   enum State {
-    case CreatingPost
-    case Feed
-    case Answered
-    case PresentLoginFromComments
-    case None
+    case creatingPost
+    case feed
+    case answered
+    case presentLoginFromComments
+    case none
   }
 }

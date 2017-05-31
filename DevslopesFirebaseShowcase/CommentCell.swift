@@ -20,17 +20,17 @@ class CommentCell: UITableViewCell, HelperFunctions {
     
     profileImage.layer.cornerRadius = profileImage.frame.width / 2
     profileImage.clipsToBounds = true
-    commentText.selectable = false
+    commentText.isSelectable = false
   }
   
-  func configureCell(key: String, value: String, user: String) {
+  func configureCell(_ key: String, value: String, user: String) {
         
     profileImage.image = UIImage(named: "profile-placeholder")
     
     username.text = user
     commentText.text = key
     
-    if let value = Cache.shared.profileImageCache.objectForKey(value) as? UIImage {
+    if let value = Cache.shared.profileImageCache.object(forKey: value as AnyObject) as? UIImage {
       
       profileImage.image = value
     } else {
@@ -38,25 +38,25 @@ class CommentCell: UITableViewCell, HelperFunctions {
     }
   }
   
-  func downloadProfileImage(uid: String) {
+  func downloadProfileImage(_ uid: String) {
     
     let profileImgRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(uid)
     
-    profileImgRef.observeSingleEventOfType(.Value, withBlock: { snap in
+    profileImgRef.observeSingleEvent(of: .value, with: { snap in
       
       guard let value = snap.value else { return }
       
-      let stringURL = String(value)
+      let stringURL = String(describing: value)
       
       print("snap", value)
       print(stringURL)
       
-      guard let url = NSURL(string: stringURL) else {
+      guard let url = URL(string: stringURL) else {
         self.downloadProfileImageFromStorage(uid)
         
         return }
       
-      guard let downloadImage = NSData(contentsOfURL: url) else {
+      guard let downloadImage = try? Data(contentsOf: url) else {
         self.downloadProfileImageFromStorage(uid)
         
         return }
@@ -68,7 +68,7 @@ class CommentCell: UITableViewCell, HelperFunctions {
       
       print(image)
       
-      Cache.shared.profileImageCache.setObject(image, forKey: uid)
+      Cache.shared.profileImageCache.setObject(image, forKey: uid as AnyObject)
       
       ProfileImageTracker.imageLocations.insert(uid)
       
@@ -79,39 +79,39 @@ class CommentCell: UITableViewCell, HelperFunctions {
     
   }
   
-  func downloadProfileImageFromStorage(uid: String) {
+  func downloadProfileImageFromStorage(_ uid: String) {
     
     if !ProfileImageTracker.imageLocations.contains(uid) {
       
-      let saveLocation = NSURL(fileURLWithPath: docsDirect() +  uid)
+      let saveLocation = URL(fileURLWithPath: docsDirect() +  uid)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       
-      pathReference.writeToFile(saveLocation) { URL, error -> Void in
+      pathReference.write(toFile: saveLocation) { URL, error -> Void in
         
-        guard let URL = URL where error == nil else {
+        guard let URL = URL, error == nil else {
           
           print("Error - Profile image not found")
           
-          Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (uid))
+          Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (uid as AnyObject))
           
-          dispatch_async(dispatch_get_main_queue(), {
+          DispatchQueue.main.async(execute: {
             
             self.profileImage.image = UIImage(named: "profile-placeholder")
           })
 
           return }
         
-        if let data = NSData(contentsOfURL: URL) {
+        if let data = try? Data(contentsOf: URL) {
           
           if let image = UIImage(data: data) {
             
-            Cache.shared.profileImageCache.setObject(image, forKey: (uid))
+            Cache.shared.profileImageCache.setObject(image, forKey: (uid as AnyObject))
             ProfileImageTracker.imageLocations.insert(uid)
             
             if self.profileImage.image == UIImage(named: "profile-placeholder") {
               
-              dispatch_async(dispatch_get_main_queue(), { 
+              DispatchQueue.main.async(execute: { 
                 
                 self.profileImage.image = image
 

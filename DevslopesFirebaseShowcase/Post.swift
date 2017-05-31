@@ -10,20 +10,20 @@ import Firebase
 
 struct Post {
   
-  private var _postDescription: String!
-  private var _imageUrl: String?
-  private var _username: String!
-  private var _postKey: String!
-  private var _postRef: FIRDatabaseReference!
-  private var _audioURL: String!
-  private var _date: String!
-  private var _fakeCount: Int!
-  private var _userKey: String!
-  private var _comments: [String: String] = [:]
-  private var _commentText = [String]()
-  private var _commentUsers = [String]()
-  private var _commentedOn: Bool!
-  private var _answered: String!
+  fileprivate var _postDescription: String!
+  fileprivate var _imageUrl: String?
+  fileprivate var _username: String!
+  fileprivate var _postKey: String!
+  fileprivate var _postRef: FIRDatabaseReference!
+  fileprivate var _audioURL: String!
+  fileprivate var _date: String!
+  fileprivate var _fakeCount: Int!
+  fileprivate var _userKey: String!
+  fileprivate var _comments: [String: String] = [:]
+  fileprivate var _commentText = [String]()
+  fileprivate var _commentUsers = [String]()
+  fileprivate var _commentedOn: Bool!
+  fileprivate var _answered: String!
   
   var answered: String { return _answered }
   var commentedOn: Bool { return _commentedOn }
@@ -39,11 +39,11 @@ struct Post {
   var commentUsers: [String] { return _commentUsers }
   var commentText: [String] { return _commentText }
   
-  mutating func wasCommentedOn(commentedOn: Bool) {
+  mutating func wasCommentedOn(_ commentedOn: Bool) {
     _commentedOn = commentedOn
   }
   
-  mutating func adjustFakeCount(addFakeCount: Bool) {
+  mutating func adjustFakeCount(_ addFakeCount: Bool) {
     
     _fakeCount = addFakeCount ? _fakeCount + 1 : _fakeCount - 1
     
@@ -105,7 +105,7 @@ struct Post {
       
       var value = [String: String]()
       
-      var array = [NSDictionary](count: comments.count, repeatedValue: ["nil":"nil"])
+      var array = [NSDictionary](repeating: ["nil":"nil"], count: comments.count)
       
       for i in comments where i.key as! String != "placeholder" {
         
@@ -113,10 +113,10 @@ struct Post {
         let second = Int(first)!
         
         if array[second] == ["nil":"nil"] {
-          array.removeAtIndex(second)
+          array.remove(at: second)
         }
         
-        array.insert(comments[i.key as! String] as! NSDictionary, atIndex: second)
+        array.insert(comments[i.key as! String] as! NSDictionary, at: second)
         
         let commentValue = i.value as! NSDictionary
         
@@ -149,15 +149,15 @@ struct Post {
       
       for i in com.indices {
         
-        var key = String(com[i])
+        var key = String(describing: com[i])
         
-        key = key.stringByReplacingOccurrencesOfString(";\n}", withString: "")
-        key = key.stringByReplacingOccurrencesOfString("{", withString: "")
-        key = key.stringByReplacingOccurrencesOfString("\n    ", withString: "")
-        key = key.stringByReplacingOccurrencesOfString("\"", withString: "")
+        key = key.replacingOccurrences(of: ";\n}", with: "")
+        key = key.replacingOccurrences(of: "{", with: "")
+        key = key.replacingOccurrences(of: "\n    ", with: "")
+        key = key.replacingOccurrences(of: "\"", with: "")
         
-        self._commentText.append(key.componentsSeparatedByString(" = ").first!)
-        self._commentUsers.append(key.componentsSeparatedByString(" = ").last!)
+        self._commentText.append(key.components(separatedBy: " = ").first!)
+        self._commentUsers.append(key.components(separatedBy: " = ").last!)
       }
     }
     

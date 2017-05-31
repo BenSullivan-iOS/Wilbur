@@ -26,7 +26,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     }
   }
   
-  private struct Colours {
+  fileprivate struct Colours {
     static let highlighted = UIColor(colorLiteralRed: 223/255, green: 223/255, blue: 230/255, alpha: 1)
     static let standard = UIColor(colorLiteralRed: 239/255, green: 239/255, blue: 244/255, alpha: 1)
   }
@@ -37,21 +37,21 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     
     postButton.alpha = 0
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PageContainer.customCellCommentButtonPressed(_:)), name: "segueToComments", object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(PageContainer.customCellCommentButtonPressed(_:)), name: NSNotification.Name(rawValue: "segueToComments"), object: nil)
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     
-    if AppState.shared.currentState != .CreatingPost {
+    if AppState.shared.currentState != .creatingPost {
       postButton.alpha = 0
     }
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     if segue.identifier == Constants.Segues.embedSegue.rawValue {
       
-      if let dest = segue.destinationViewController as? PagingVC {
+      if let dest = segue.destination as? PagingVC {
         
         dest.navButtonsDelegate = self
         dest.rootController = self
@@ -61,7 +61,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     
     if segue.identifier == Constants.Segues.comments.rawValue {
       
-      if let dest = segue.destinationViewController as? CommentsVC {
+      if let dest = segue.destination as? CommentsVC {
         
         dest.post = selectedPost
         dest.postImage = selectedPostImage
@@ -77,39 +77,39 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   
   //MARK: - BUTTONS
   
-  @IBAction func profileButtonPressed(sender: AnyObject) {
-    performSegueWithIdentifier(Constants.Segues.showProfile.rawValue, sender: self)
+  @IBAction func profileButtonPressed(_ sender: AnyObject) {
+    performSegue(withIdentifier: Constants.Segues.showProfile.rawValue, sender: self)
   }
   
-  @IBAction func postButtonPressed(sender: AnyObject) {
+  @IBAction func postButtonPressed(_ sender: AnyObject) {
     postButtonPressed()
     
   }
   
-  @IBAction func feedButton(sender: AnyObject) {
+  @IBAction func feedButton(_ sender: AnyObject) {
     didSelectSegment(1)
     updateColours(1)
-    UIView.animateWithDuration(0.2, animations: {
+    UIView.animate(withDuration: 0.2, animations: {
       self.postButton.alpha = 0
     })
     
   }
   
-  @IBAction func createPostButton(sender: AnyObject) {
+  @IBAction func createPostButton(_ sender: AnyObject) {
     
     didSelectSegment(0)
 
     updateColours(0)
-    UIView.animateWithDuration(0.5, animations: {
+    UIView.animate(withDuration: 0.5, animations: {
       self.postButton.alpha = 1
     })
 
   }
   
-  @IBAction func completeButton(sender: AnyObject) {
+  @IBAction func completeButton(_ sender: AnyObject) {
     didSelectSegment(2)
     updateColours(2)
-    UIView.animateWithDuration(0.2, animations: {
+    UIView.animate(withDuration: 0.2, animations: {
       self.postButton.alpha = 0
     })
     
@@ -124,12 +124,12 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   }
   
   //Notifies paging VC to scroll to selected segment
-  func didSelectSegment(segment: Int) {
+  func didSelectSegment(_ segment: Int) {
     
     navigationBarDelegate?.didSelectSegment(segment)
   }
   
-  func customCellCommentButtonPressed(notification: NSNotification) {
+  func customCellCommentButtonPressed(_ notification: Notification) {
     
     if let post = notification.userInfo!["post"] as? Wrap<Post> {
       
@@ -142,14 +142,14 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
 
         textFrame = text.frame
         
-        performSegueWithIdentifier("comments", sender: self)
+        performSegue(withIdentifier: "comments", sender: self)
           
         }
         
         
       } else { //if there is no image
         selectedPost = post.wrappedValue
-        performSegueWithIdentifier("comments", sender: self)
+        performSegue(withIdentifier: "comments", sender: self)
         
       }
       
@@ -163,19 +163,19 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     
     switch AppState.shared.currentState {
       
-    case .CreatingPost:
+    case .creatingPost:
       updateColours(0)
-      UIView.animateWithDuration(0.5, animations: {
+      UIView.animate(withDuration: 0.5, animations: {
         self.postButton.alpha = 1
       })
-    case .Feed:
+    case .feed:
       updateColours(1)
-      UIView.animateWithDuration(0.2, animations: {
+      UIView.animate(withDuration: 0.2, animations: {
         self.postButton.alpha = 0
       })
-    case .Answered:
+    case .answered:
       updateColours(2)
-      UIView.animateWithDuration(0.2, animations: {
+      UIView.animate(withDuration: 0.2, animations: {
         self.postButton.alpha = 0
       })
     default:
@@ -183,7 +183,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
     }
   }
   
-  func updateColours(segment: Int) {
+  func updateColours(_ segment: Int) {
     
     switch segment {
       
@@ -210,7 +210,7 @@ class PageContainer: UIViewController, UpdateNavButtonsDelegate, NavigationBarDe
   
   //MARK: - MISC FUNCTIONS
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return .lightContent
   }
 }

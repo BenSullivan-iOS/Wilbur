@@ -12,9 +12,9 @@ import FirebaseStorage
 
 extension CellConfiguration {
   
-  func downloadImage(imageLocation: String) {
+  func downloadImage(_ imageLocation: String) {
     
-    let saveLocation = NSURL(fileURLWithPath: docsDirect() +  imageLocation)
+    let saveLocation = URL(fileURLWithPath: docsDirect() +  imageLocation)
     
     let storageRef: FIRStorageReference? = FIRStorage.storage().reference()
     
@@ -22,24 +22,24 @@ extension CellConfiguration {
     
     let pathReference = storage.child(imageLocation)
     
-    downloadImageTask = pathReference.writeToFile(saveLocation) { URL, error -> Void in
+    downloadImageTask = pathReference.write(toFile: saveLocation) { URL, error -> Void in
       
-      guard let URL = URL where error == nil else { print("Download Image Error", error.debugDescription); return }
+      guard let URL = URL, error == nil else { print("Download Image Error", error.debugDescription); return }
       
-      if let data = NSData(contentsOfURL: URL) {
+      if let data = try? Data(contentsOf: URL) {
         
         if let image = UIImage(data: data) {
           
           let newImage = self.resizeImage(image, newWidth: 414)
           
-          dispatch_async(dispatch_get_main_queue(), {
+          DispatchQueue.main.async(execute: {
 
           self.showcaseImg.clipsToBounds = true
           self.showcaseImg.image = newImage
-          self.showcaseImg.hidden = false
+          self.showcaseImg.isHidden = false
           })
           
-          Cache.shared.imageCache.setObject(newImage, forKey: imageLocation)
+          Cache.shared.imageCache.setObject(newImage, forKey: imageLocation as AnyObject)
           
 //          self.reloadTableDelegate?.reloadTable()
           print("FIX ME RELOAD DATA")
@@ -49,12 +49,12 @@ extension CellConfiguration {
     }
   }
   
-  func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+  func resizeImage(_ image: UIImage, newWidth: CGFloat) -> UIImage {
     
     let scale = newWidth / image.size.width
     let newHeight = image.size.height * scale
-    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
-    image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+    UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+    image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
@@ -62,25 +62,25 @@ extension CellConfiguration {
   }
   
   
-  func downloadProfileImage(uid: String) {
+  func downloadProfileImage(_ uid: String) {
     
     let profileImgRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(uid)
     
-    profileImgRef.observeSingleEventOfType(.Value, withBlock: { snap in
+    profileImgRef.observeSingleEvent(of: .value, with: { snap in
       
       guard let value = snap.value else { return }
       
-      let stringURL = String(value)
+      let stringURL = String(describing: value)
       
       print("snap", value)
       print(stringURL)
       
-      guard let url = NSURL(string: stringURL) else {
+      guard let url = URL(string: stringURL) else {
         self.downloadProfileImageFromStorage(uid)
         
         return }
       
-      guard let downloadImage = NSData(contentsOfURL: url) else {
+      guard let downloadImage = try? Data(contentsOf: url) else {
         self.downloadProfileImageFromStorage(uid)
         
         return }
@@ -90,11 +90,11 @@ extension CellConfiguration {
         
         return }
       
-      Cache.shared.profileImageCache.setObject(image, forKey: uid)
+      Cache.shared.profileImageCache.setObject(image, forKey: uid as AnyObject)
       
       ProfileImageTracker.imageLocations.insert(uid)
       
-      dispatch_async(dispatch_get_main_queue(), {
+      DispatchQueue.main.async(execute: {
 
         self.profileImg.image = image
       })
@@ -102,30 +102,30 @@ extension CellConfiguration {
     })
   }
   
-  func downloadProfileImageFromStorage(uid: String) {
+  func downloadProfileImageFromStorage(_ uid: String) {
     
     if !ProfileImageTracker.imageLocations.contains(uid) {
       
-      let saveLocation = NSURL(fileURLWithPath: docsDirect() +  uid)
+      let saveLocation = URL(fileURLWithPath: docsDirect() +  uid)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       
-      self.downloadProfileImageTask = pathReference.writeToFile(saveLocation) { URL, error -> Void in
+      self.downloadProfileImageTask = pathReference.write(toFile: saveLocation) { URL, error -> Void in
         
-        guard let URL = URL where error == nil else {
+        guard let URL = URL, error == nil else {
           print("Error - Missing profile pic")
           
-          Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (uid))
+          Cache.shared.profileImageCache.setObject(UIImage(named: "profile-placeholder")!, forKey: (uid as AnyObject))
           self.profileImg.image = UIImage(named: "profile-placeholder")
           
           return
         }
         
-        if let data = NSData(contentsOfURL: URL) {
+        if let data = try? Data(contentsOf: URL) {
           
           if let image = UIImage(data: data) {
             
-            Cache.shared.profileImageCache.setObject(image, forKey: (uid))
+            Cache.shared.profileImageCache.setObject(image, forKey: (uid as AnyObject))
             ProfileImageTracker.imageLocations.insert(uid)
             print("UID = ", uid)
             
@@ -134,7 +134,7 @@ extension CellConfiguration {
               let newImage = self.resizeImage(image, newWidth: 100)
               self.profileImg.image = newImage
               
-              Cache.shared.profileImageCache.setObject(newImage, forKey: uid)
+              Cache.shared.profileImageCache.setObject(newImage, forKey: uid as AnyObject)
               
             }
           }

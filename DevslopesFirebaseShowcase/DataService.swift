@@ -35,21 +35,21 @@ class DataService: HelperFunctions {
   
   weak var delegate: ReloadTableDelegate? = nil
   
-  private init() {}
+  fileprivate init() {}
   
-  private var _REF_BASE = URL_BASE
-  private var _REF_POSTS = URL_BASE.child("posts")
-  private var _REF_USERS = URL_BASE.child("users")
-  private var _posts: [Post]!
-  private var _answeredPosts: [Post]!
-  private var _myPosts: [Post]!
-  private var _currentUserKey: String?
-  private var _usernames: [String: String]!
-  private var count = 0
+  fileprivate var _REF_BASE = URL_BASE
+  fileprivate var _REF_POSTS = URL_BASE.child("posts")
+  fileprivate var _REF_USERS = URL_BASE.child("users")
+  fileprivate var _posts: [Post]!
+  fileprivate var _answeredPosts: [Post]!
+  fileprivate var _myPosts: [Post]!
+  fileprivate var _currentUserKey: String?
+  fileprivate var _usernames: [String: String]!
+  fileprivate var count = 0
 
   var currentUserKey: String? {
     
-    return NSUserDefaults.standardUserDefaults().valueForKey(Constants.KEY_UID) as? String ?? nil
+    return UserDefaults.standard.value(forKey: Constants.KEY_UID) as? String ?? nil
   }
   
   var usernames: [String: String] {
@@ -105,37 +105,39 @@ class DataService: HelperFunctions {
     }
   }
   
-  func deletePostAtIndex(index: Int) {
+  func deletePostAtIndex(_ index: Int) {
     
-    _posts.removeAtIndex(index)
+    _posts.remove(at: index)
   }
   
-  func deleteAnsweredPostAtIndex(index: Int) {
+  func deleteAnsweredPostAtIndex(_ index: Int) {
     
-    _answeredPosts.removeAtIndex(index)
+    _answeredPosts.remove(at: index)
   }
   
-  func deletePostsByBlockedUser(userKey: String) {
+  func deletePostsByBlockedUser(_ userKey: String) {
     
     _posts = _posts.filter { $0.userKey != userKey }
   }
   
-  func createFirebaseUser(uid: String, user: [String:String]) {
+  func createFirebaseUser(_ uid: String, user: [String:String]) {
     
     REF_USERS.child(uid).setValue(user)
     
   }
   
-  func isAfterDate(startDate: NSDate, endDate: NSDate) -> Bool {
+  func isAfterDate(_ startDate: Date, endDate: Date) -> Bool {
     
-    let calendar = NSCalendar.currentCalendar()
+    let calendar = Calendar.current
     
-    let components = calendar.components([.Second],
-                                         fromDate: startDate,
-                                         toDate: endDate.dateByAddingTimeInterval(86400),
+    let components = (calendar as NSCalendar).components([.second],
+                                         from: startDate,
+                                         to: endDate.addingTimeInterval(86400),
                                          options: [])
     
-    if components.day > 0 {
+    guard components.day != nil else { return false }
+    
+    if components.day! > 0 {
       return true
     } else {
       return false
@@ -156,7 +158,7 @@ class DataService: HelperFunctions {
     
     let userRef = DataService.ds.REF_USER_CURRENT
     
-    userRef.observeEventType(.Value, withBlock: { snapshot in
+    userRef.observe(.value, with: { snapshot in
       
       if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot] {
         
@@ -192,7 +194,7 @@ class DataService: HelperFunctions {
     
     let userRef = DataService.ds.REF_USERS
     
-    userRef.observeEventType(.Value, withBlock: { snapshot in
+    userRef.observe(.value, with: { snapshot in
       
       self._usernames = [:]
       
@@ -212,9 +214,9 @@ class DataService: HelperFunctions {
     })
   }
   
-  func downloadPosts(blockedUsers: [String]) {
+  func downloadPosts(_ blockedUsers: [String]) {
     
-    DataService.ds.REF_POSTS.observeEventType(.Value, withBlock: { snapshot in
+    DataService.ds.REF_POSTS.observe(.value, with: { snapshot in
       
       self._posts = []
       self._answeredPosts = []
@@ -244,12 +246,12 @@ class DataService: HelperFunctions {
           }
         }
         
-        self._posts.sortInPlace({ (first, second) -> Bool in
+        self._posts.sort(by: { (first, second) -> Bool in
           
-          let df = NSDateFormatter()
+          let df = DateFormatter()
           df.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
           
-          if let firstDate = df.dateFromString(first.date), secondDate = df.dateFromString(second.date) {
+          if let firstDate = df.date(from: first.date), let secondDate = df.date(from: second.date) {
             
             return self.isAfterDate(firstDate, endDate: secondDate)
           }
@@ -263,24 +265,24 @@ class DataService: HelperFunctions {
           
           self.downloadImage(self.posts)
         }
-        NSNotificationCenter.defaultCenter().postNotificationName("updateComments", object: self)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "updateComments"), object: self)
       }
     })
   }
   
-  func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+  func resizeImage(_ image: UIImage, newWidth: CGFloat) -> UIImage {
     
     let scale = newWidth / image.size.width
     let newHeight = image.size.height * scale
-    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
-    image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+    UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+    image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
     return newImage!
   }
   
-  func downloadImage(posts: [Post]) {
+  func downloadImage(_ posts: [Post]) {
 //    print("POSTS COUNT", count)
 //    print(posts[count])
     
@@ -298,7 +300,7 @@ class DataService: HelperFunctions {
       
       return }
     
-    guard Cache.shared.imageCache.objectForKey(imageLocation) as? UIImage == nil else {
+    guard Cache.shared.imageCache.object(forKey: imageLocation as AnyObject) as? UIImage == nil else {
 //      print("image already downloaded")
       
       if self.count < posts.count - 1 {
@@ -310,24 +312,24 @@ class DataService: HelperFunctions {
       }
       return }
     
-    let saveLocation = NSURL(fileURLWithPath: docsDirect() +  imageLocation)
+    let saveLocation = URL(fileURLWithPath: docsDirect() +  imageLocation)
     let storageRef: FIRStorageReference? = FIRStorage.storage().reference()
     
     guard let storage = storageRef else { return }
     
     let pathReference = storage.child(imageLocation)
     
-    pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+    pathReference.write(toFile: saveLocation) { (URL, error) -> Void in
       
-      guard let URL = URL where error == nil else { print("Data Service download error", error.debugDescription); return }
+      guard let URL = URL, error == nil else { print("Data Service download error", error.debugDescription); return }
       
-      if let data = NSData(contentsOfURL: URL) {
+      if let data = try? Data(contentsOf: URL) {
         
         if let image = UIImage(data: data) {
           
           let newImage = self.resizeImage(image, newWidth: 414)
           
-          Cache.shared.imageCache.setObject(newImage, forKey: imageLocation)
+          Cache.shared.imageCache.setObject(newImage, forKey: imageLocation as AnyObject)
           
           
           if self.count < posts.count - 1 {
@@ -347,24 +349,23 @@ class DataService: HelperFunctions {
     }
   }
   
-  func downloadProfileImage(uid: String) {
+  func downloadProfileImage(_ uid: String) {
 
     if !ProfileImageTracker.imageLocations.contains(uid) {
       
-      let saveLocation = NSURL(fileURLWithPath: docsDirect() + uid)
+      let saveLocation = URL(fileURLWithPath: docsDirect() + uid)
       let storageRef = FIRStorage.storage().reference()
       let pathReference = storageRef.child("profileImages").child(uid + ".jpg")
       
-      pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+      pathReference.write(toFile: saveLocation) { (URL, error) -> Void in
         
-        guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+        guard let URL = URL, error == nil else { print("Error - ", error.debugDescription); return }
         
-        if let data = NSData(contentsOfURL: URL) {
+        if let data = try? Data(contentsOf: URL) {
           
           if let image = UIImage(data: data) {
             
-//          Cache.shared.profileImageCache.setObject(image, forKey: (imageLocation))
-            Cache.shared.profileImageCache.setObject(image, forKey: (uid))
+            Cache.shared.profileImageCache.setObject(image, forKey: (uid as AnyObject))
 
             ProfileImageTracker.imageLocations.insert(uid)
             print(uid)
@@ -375,7 +376,7 @@ class DataService: HelperFunctions {
     }
   }
   
-  func deletePost(post: Post) {
+  func deletePost(_ post: Post) {
     
     let storageImageRef = FIRStorage.storage().reference()
     let postRef = DataService.ds.REF_POSTS.child(post.postKey) as FIRDatabaseReference!
@@ -383,7 +384,7 @@ class DataService: HelperFunctions {
     
     let deleteMethod = storageImageRef.child("images").child(post.postKey + ".jpg")
     
-    deleteMethod.deleteWithCompletion({ error in
+    deleteMethod.delete(completion: { error in
       
       guard error == nil else { print("delete error", error.debugDescription)
         
@@ -402,10 +403,10 @@ class DataService: HelperFunctions {
         if DataService.ds.posts[i].postKey == post.postKey {
           
           DataService.ds.deletePostAtIndex(i)
-          userPostRef.removeValue()
-          postRef.removeValue()
+          userPostRef?.removeValue()
+          postRef?.removeValue()
           
-          NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
+          NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadTables"), object: self)
           
           return
         }
@@ -416,10 +417,10 @@ class DataService: HelperFunctions {
         if DataService.ds.answeredPosts[i].postKey == post.postKey {
           
           DataService.ds.deleteAnsweredPostAtIndex(i)
-          userPostRef.removeValue()
-          postRef.removeValue()
+          userPostRef?.removeValue()
+          postRef?.removeValue()
           
-          NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
+          NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadTables"), object: self)
           
           return
         }
@@ -428,7 +429,7 @@ class DataService: HelperFunctions {
     
   }
   
-  func blockUser(post: Post) {
+  func blockUser(_ post: Post) {
     
     //Add blocked user to database
     let userRef = DataService.ds.REF_USER_CURRENT.child("blockedUsers").child(post.userKey)
@@ -445,16 +446,16 @@ class DataService: HelperFunctions {
       }
     }
     
-    NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
+    NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadTables"), object: self)
     
     DataService.ds.downloadTableContent()
   }
   
-  func markPostAsAnswered(post: Post, answer: String) {
+  func markPostAsAnswered(_ post: Post, answer: String) {
     
     let postRef = DataService.ds.REF_POSTS.child(post.postKey).child("answered") as FIRDatabaseReference!
     
-    postRef.setValue(answer)
+    postRef?.setValue(answer)
     
     for i in DataService.ds.posts.indices {
       
@@ -462,18 +463,18 @@ class DataService: HelperFunctions {
         
         DataService.ds.deletePostAtIndex(i)
         
-        NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadTables"), object: self)
         
         return
       }
     }
   }
   
-  func reportPost(post: Post, reason: String) {
+  func reportPost(_ post: Post, reason: String) {
     
     let postRef = DataService.ds.REF_BASE.child("reportedPosts").child(post.postKey).child(DataService.ds.currentUserKey!) as FIRDatabaseReference!
     
-    postRef.setValue(reason)
+    postRef?.setValue(reason)
     
     //Post needs to be marked as reported or deleted
     

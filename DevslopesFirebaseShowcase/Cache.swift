@@ -12,10 +12,10 @@ class Cache {
   
   static let shared = Cache()
   
-  private init() {}
+  fileprivate init() {}
   
-  let imageCache = NSCache()
-  let profileImageCache = NSCache()
-  let commentedOnCache = NSCache()
-  let labelCache = NSCache()
+  let imageCache = NSCache<AnyObject, AnyObject>()
+  let profileImageCache = NSCache<AnyObject, AnyObject>()
+  let commentedOnCache = NSCache<AnyObject, AnyObject>()
+  let labelCache = NSCache<AnyObject, AnyObject>()
 }

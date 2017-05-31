@@ -15,10 +15,10 @@ class MaterialView: UIView {
     let color = Constants.shadowColor
     
     layer.cornerRadius = 2.0
-    layer.shadowColor = UIColor(red: color, green: color, blue: color, alpha: 0.5).CGColor
+    layer.shadowColor = UIColor(red: color, green: color, blue: color, alpha: 0.5).cgColor
     layer.shadowOpacity = 0.8
     layer.shadowRadius = 5.0
-    layer.shadowOffset = CGSizeMake(0.0, 2.0)
+    layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
   }
 }
 
@@ -35,11 +35,11 @@ class ColoredLabel: UILabel {
   
   override func awakeFromNib() {
     
-    layer.backgroundColor = UIColor(colorLiteralRed: 255/255, green: 243/255, blue: 214/255, alpha: 1.0).CGColor
+    layer.backgroundColor = UIColor(colorLiteralRed: 255/255, green: 243/255, blue: 214/255, alpha: 1.0).cgColor
   }
   
-  override func drawTextInRect(rect: CGRect) {
+  override func drawText(in rect: CGRect) {
     let insets: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 6.0, bottom: 0.0, right: 0.0)
-    super.drawTextInRect(UIEdgeInsetsInsetRect(rect, insets))
+    super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
   }
 }

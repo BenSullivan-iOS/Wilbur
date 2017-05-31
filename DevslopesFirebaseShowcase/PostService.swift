@@ -12,7 +12,7 @@ struct PostService {
     
   var delegate: CreatePostDelegate? = nil
     
-  func uploadImage(localFile: NSURL, username: String, dict: [String: AnyObject]) {
+  func uploadImage(_ localFile: URL, username: String, dict: [String: AnyObject]) {
     
     var post = dict
     
@@ -23,7 +23,7 @@ struct PostService {
     
     riversRef.putFile(localFile, metadata: nil) { metadata, error in
       
-      guard let _ = metadata where error == nil else {
+      guard let _ = metadata, error == nil else {
         
         print("Upload Image Error", error)
         
@@ -34,7 +34,7 @@ struct PostService {
       print("success")
       print("metadata")
       
-      post["imageUrl"] = "images/\(postRef.key).jpg"
+      post["imageUrl"] = "images/\(postRef.key).jpg" as AnyObject
       
       postRef.setValue(post)
       
@@ -46,7 +46,7 @@ struct PostService {
     }
   }
   
-  func savePostToUser(postKey: String, username: String) {
+  func savePostToUser(_ postKey: String, username: String) {
     
     let firebasePost = DataService.ds.REF_USER_CURRENT.child("posts").child(postKey)
     firebasePost.setValue(postKey)

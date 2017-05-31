@@ -12,10 +12,10 @@ import Firebase
 
 enum SelectedRow {
   
-  case MyPosts
-  case PoppedPosts
-  case Feedback
-  case FeatureRequest
+  case myPosts
+  case poppedPosts
+  case feedback
+  case featureRequest
 }
 
 class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, HelperFunctions {
@@ -23,10 +23,10 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   @IBOutlet weak var username: UILabel!
   @IBOutlet weak var profileImage: UIImageView!
   
-  private let imagePicker = UIImagePickerController()
-  private var profileImageRef: FIRDatabaseReference!
-  private var selectedImagePath = NSURL?()
-  private var loggedIn = true
+  fileprivate let imagePicker = UIImagePickerController()
+  fileprivate var profileImageRef: FIRDatabaseReference!
+  fileprivate var selectedImagePath: URL?
+  fileprivate var loggedIn = true
   
   //MARK: - VC LIFECYCLE
   
@@ -35,7 +35,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     
     if let userKey = DataService.ds.currentUserKey {
 
-      if let image = Cache.shared.profileImageCache.objectForKey(userKey) as? UIImage {
+      if let image = Cache.shared.profileImageCache.object(forKey: userKey as AnyObject) as? UIImage {
         
         profileImage.image = image
         
@@ -54,13 +54,13 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
     profileImage.clipsToBounds = true
     
-    if let currentUsername = NSUserDefaults.standardUserDefaults().valueForKey("username") as? String {
+    if let currentUsername = UserDefaults.standard.value(forKey: "username") as? String {
       
       username.text = currentUsername
     }
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     
     if !loggedIn {
       guestAlert()
@@ -70,27 +70,27 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   
   //MARK: - BUTTONS
   
-  @IBAction func setProfileImagePressed(sender: AnyObject) {
+  @IBAction func setProfileImagePressed(_ sender: AnyObject) {
     
-    if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+    if UIImagePickerController.isSourceTypeAvailable(.camera) {
 //      self.imagePicker.sourceType = .Camera
 //      self.imagePicker.cameraDevice = .Front
 //      presentViewController(imagePicker, animated: true, completion: nil)
 
       imagePickerAlert()
     } else {
-      presentViewController(imagePicker, animated: true, completion: nil)
+      present(imagePicker, animated: true, completion: nil)
     }
   }
   
-  @IBAction func backButtonPressed(sender: UIButton) {
+  @IBAction func backButtonPressed(_ sender: UIButton) {
     
-    dismissViewControllerAnimated(true, completion: nil)
+    dismiss(animated: true, completion: nil)
   }
   
   //MARK: - IMAGE FUNCTIONS
   
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     
     let image = info[UIImagePickerControllerOriginalImage] as! UIImage
     profileImage.image = image
@@ -100,18 +100,18 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     
     saveImage(image, path: saveDirectory)
     
-    dismissViewControllerAnimated(true, completion: nil)
+    dismiss(animated: true, completion: nil)
   }
   
   
-  func saveImage(image: UIImage, path: String) -> Bool {
+  func saveImage(_ image: UIImage, path: String) -> Bool {
     
     let compressedImage = resizeImage(image, newWidth: 280)
     if let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0.5) {
-      let result = jpgImageData.writeToFile(String(path), atomically: true)
+      let result = (try? jpgImageData.write(to: URL(fileURLWithPath: String(path)), options: [.atomic])) != nil
       
-      selectedImagePath = NSURL(fileURLWithPath: path)
-      saveProfileImageToFirebaseStorageWithURL(String(selectedImagePath))
+      selectedImagePath = URL(fileURLWithPath: path)
+      saveProfileImageToFirebaseStorageWithURL(String(describing: selectedImagePath))
       
       return result
     }
@@ -119,19 +119,19 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     return false
   }
   
-  func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+  func resizeImage(_ image: UIImage, newWidth: CGFloat) -> UIImage {
     
     let scale = newWidth / image.size.width
     let newHeight = image.size.height * scale
-    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
-    image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+    UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+    image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
     return newImage!
   }
   
-  func saveProfileImageToFirebaseStorageWithURL(imagePath: String) {
+  func saveProfileImageToFirebaseStorageWithURL(_ imagePath: String) {
     
     let firebaseRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(DataService.ds.currentUserKey!)
     
@@ -143,17 +143,17 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     firebaseRef.setValue(firebaseRef.key)
   }
   
-  func uploadImage(localFile: NSURL, firebaseReference: String) {
+  func uploadImage(_ localFile: URL, firebaseReference: String) {
     
     let storageRef = FIRStorage.storage().reference()
     let riversRef = storageRef.child("profileImages/\(firebaseReference).jpg")
     
     riversRef.putFile(localFile, metadata: nil) { metadata, error in
       
-      guard let metadata = metadata where error == nil else { print("error", error); return }
+      guard let metadata = metadata, error == nil else { print("error", error); return }
       
 
-      dispatch_async(dispatch_get_main_queue(), { 
+      DispatchQueue.main.async(execute: { 
         
         Cache.shared.profileImageCache.removeAllObjects()
       })
@@ -167,7 +167,7 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
             
       profileImageRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(currentUser)
       
-      profileImageRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+      profileImageRef.observeSingleEvent(of: .value, with: { snapshot in
         
         if let _ = snapshot.value as? NSNull {
           
@@ -186,25 +186,25 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
     }
   }
 
-  func downloadProfileImage(imageLocation: String) {
+  func downloadProfileImage(_ imageLocation: String) {
     
-    let saveLocation = NSURL(fileURLWithPath: docsDirect() + "/\(imageLocation)")
+    let saveLocation = URL(fileURLWithPath: docsDirect() + "/\(imageLocation)")
     let storageRef = FIRStorage.storage().reference()
     let pathReference = storageRef.child("profileImages").child(imageLocation + ".jpg")
 
-    pathReference.writeToFile(saveLocation) { (URL, error) -> Void in
+    pathReference.write(toFile: saveLocation) { (URL, error) -> Void in
 
-      guard let URL = URL where error == nil else { print("Error - ", error.debugDescription); return }
+      guard let URL = URL, error == nil else { print("Error - ", error.debugDescription); return }
       
       print("SUCCESS - ")
       print(URL)
       print(saveLocation)
       
-      guard let data = NSData(contentsOfURL: URL), image = UIImage(data: data) else { return }
+      guard let data = try? Data(contentsOf: URL), let image = UIImage(data: data) else { return }
       
       self.profileImage.image = image
       
-      Cache.shared.profileImageCache.setObject(image, forKey: DataService.ds.currentUserKey!)
+      Cache.shared.profileImageCache.setObject(image, forKey: DataService.ds.currentUserKey! as AnyObject)
     }
   }
   
@@ -212,59 +212,59 @@ class ProfileVC: UIViewController, UINavigationControllerDelegate, UIImagePicker
   
   func guestAlert() {
     
-    let alert = UIAlertController(title: "Function unavailable", message: "You must be logged in to access your profile", preferredStyle: .Alert)
+    let alert = UIAlertController(title: "Function unavailable", message: "You must be logged in to access your profile", preferredStyle: .alert)
     
-    alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Login", style: .default, handler: { action in
       
-      AppState.shared.currentState = .PresentLoginFromComments
+      AppState.shared.currentState = .presentLoginFromComments
       
-      self.dismissViewControllerAnimated(false, completion: nil)
+      self.dismiss(animated: false, completion: nil)
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { action in
       
-      self.dismissViewControllerAnimated(true, completion: nil)
+      self.dismiss(animated: true, completion: nil)
       
     }))
     
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: nil)
   }
 
   
   func imagePickerAlert() {
     
-    let alert = UIAlertController(title: "Where from??", message: "", preferredStyle: .ActionSheet)
+    let alert = UIAlertController(title: "Where from??", message: "", preferredStyle: .actionSheet)
     alert.popoverPresentationController?.sourceView = self.view
     
-    alert.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { action in
       
       print("camera")
-      self.imagePicker.sourceType = .Camera
-      self.imagePicker.cameraDevice = .Front
+      self.imagePicker.sourceType = .camera
+      self.imagePicker.cameraDevice = .front
       
-      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      self.present(self.imagePicker, animated: true, completion: nil)
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Photo Library", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { action in
       
       print("photo library")
       
-      self.imagePicker.sourceType = .PhotoLibrary
-      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      self.imagePicker.sourceType = .photoLibrary
+      self.present(self.imagePicker, animated: true, completion: nil)
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
     
-    presentViewController(alert, animated: true, completion: nil)
+    present(alert, animated: true, completion: nil)
   }
   
   //MARK: - OTHER
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return .lightContent
   }
   
 }

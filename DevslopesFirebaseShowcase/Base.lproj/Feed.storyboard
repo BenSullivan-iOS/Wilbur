@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -167,9 +167,13 @@
                                                                         <constraint firstAttribute="height" constant="15" id="gOg-Jc-4jm"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRS-Ah-iRS">
+                                                                <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRS-Ah-iRS">
                                                                     <rect key="frame" x="23" y="0.0" width="74" height="15"/>
                                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="74" id="5pE-Qj-PM7"/>
+                                                                        <constraint firstAttribute="height" constant="15" id="NuJ-Ar-UDy"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
                                                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <state key="normal" title="Comment">
@@ -186,8 +190,7 @@
                                                     <constraints>
                                                         <constraint firstItem="TtS-Rg-wHj" firstAttribute="top" secondItem="bzf-fF-7YK" secondAttribute="bottom" constant="2" id="1J2-Ik-84x"/>
                                                         <constraint firstAttribute="bottom" secondItem="QdK-Nw-X1k" secondAttribute="bottom" constant="11" id="3T4-r8-fjB"/>
-                                                        <constraint firstItem="fSR-Yl-xcs" firstAttribute="leading" secondItem="QdK-Nw-X1k" secondAttribute="trailing" constant="80" id="6WO-rp-2fn"/>
-                                                        <constraint firstItem="QdK-Nw-X1k" firstAttribute="leading" secondItem="lQe-s4-wnj" secondAttribute="leading" constant="129" id="JH3-UK-ef3"/>
+                                                        <constraint firstItem="QdK-Nw-X1k" firstAttribute="centerX" secondItem="lQe-s4-wnj" secondAttribute="centerX" id="GzE-wt-nXq"/>
                                                         <constraint firstAttribute="trailing" secondItem="bzf-fF-7YK" secondAttribute="trailing" constant="8" id="Ncp-jr-b1W"/>
                                                         <constraint firstAttribute="bottom" secondItem="fSR-Yl-xcs" secondAttribute="bottom" constant="4" id="ah4-CU-dC3"/>
                                                         <constraint firstItem="fSR-Yl-xcs" firstAttribute="top" secondItem="TtS-Rg-wHj" secondAttribute="bottom" constant="4" id="kY5-1c-elL"/>

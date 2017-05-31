@@ -33,7 +33,7 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, LoginSe
   
   //MARK: - BUTTONS
   
-  @IBAction func guestButtonPressed(sender: UIButton) {
+  @IBAction func guestButtonPressed(_ sender: UIButton) {
     
     presentFeedVC()
   }
@@ -41,15 +41,15 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, LoginSe
   
   //MARK: - LOGIN DELEGATE FUNCTIONS
   
-  func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError?) {
+  func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
     
     var loginService = LoginService()
     
     loginService.delegate = self
-    loginService.didSignIn(signIn, didSignInForUser: user, withError: error)
+    loginService.didSignIn(signIn, didSignInForUser: user, withError: error as? NSError ?? nil)
   }
   
-  func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
+  func sign(_ signIn: GIDSignIn!, didDisconnectWith user:GIDGoogleUser!,
               withError error: NSError!) {
     
     print("did disconnect with user")
@@ -69,27 +69,27 @@ class LoginVC: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, LoginSe
   func presentFeedVC() {
     
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let feedVC = storyboard.instantiateViewControllerWithIdentifier("NavigationContainer")
+    let feedVC = storyboard.instantiateViewController(withIdentifier: "NavigationContainer")
     
-    self.presentViewController(feedVC, animated: true, completion: nil)
+    self.present(feedVC, animated: true, completion: nil)
   }
   
-  func showErrorAlert(title: String, error: String) {
+  func showErrorAlert(_ title: String, error: String) {
     
-    let alert = UIAlertController(title: title, message: error, preferredStyle: .Alert)
+    let alert = UIAlertController(title: title, message: error, preferredStyle: .alert)
     
-    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
       
     }))
     
-    presentViewController(alert, animated: true, completion: nil)
+    present(alert, animated: true, completion: nil)
   }
   
   
   //MARK: - OTHER
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return .lightContent
   }
   
   

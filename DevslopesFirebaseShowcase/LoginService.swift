@@ -23,7 +23,7 @@ struct LoginService: HelperFunctions {
   
   weak var delegate: LoginServiceDelegate? = nil
     
-  func didSignIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError?) {
+  func didSignIn(_ signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError?) {
     
     guard error == nil else {
       
@@ -35,14 +35,14 @@ struct LoginService: HelperFunctions {
     }
     
     let authentication = user.authentication
-    let credential = FIRGoogleAuthProvider.credentialWithIDToken(authentication.idToken,
-                                                                 accessToken: authentication.accessToken)
+    let credential = FIRGoogleAuthProvider.credential(withIDToken: (authentication?.idToken)!,
+                                                                 accessToken: (authentication?.accessToken)!)
     
-    FIRAuth.auth()?.signInWithCredential(credential) { user, error in
+    FIRAuth.auth()?.signIn(with: credential) { user, error in
       
       print(user)
       
-      guard let user = user where error == nil else {
+      guard let user = user, error == nil else {
         
         self.delegate?.loginFailed()
         print(error)
@@ -50,24 +50,31 @@ struct LoginService: HelperFunctions {
         return
       }
       
-      NSUserDefaults.standardUserDefaults().setValue(user.displayName, forKey: "username")
-      NSUserDefaults.standardUserDefaults().setValue(user.uid, forKey: Constants.KEY_UID)
+      UserDefaults.standard.setValue(user.displayName, forKey: "username")
+      UserDefaults.standard.setValue(user.uid, forKey: Constants.KEY_UID)
       
       let userRef = DataService.ds.REF_USER_CURRENT.child("username")
       userRef.setValue(user.displayName)
       
       if let imageURL = user.photoURL {
         
-        let url = String(imageURL)
+        let url = String(describing: imageURL)
         let firebaseRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(user.uid)
         
         firebaseRef.setValue(url)
         
-        guard let downloadImage = NSData(contentsOfURL: imageURL) else { return }
+        guard let downloadImage = try? Data(contentsOf: imageURL) else {
+          
+          Cache.shared.profileImageCache.setObject(#imageLiteral(resourceName: "profile-placeholder"), forKey: user.uid as AnyObject)
+          
+          self.delegate?.loginSuccessful()
+
+          return
+        }
         
         if let image = UIImage(data: downloadImage) {
           
-          Cache.shared.profileImageCache.setObject(image, forKey: user.uid)
+          Cache.shared.profileImageCache.setObject(image, forKey: user.uid as AnyObject)
           
           ProfileImageTracker.imageLocations.insert(user.uid)
           
@@ -88,18 +95,18 @@ struct LoginService: HelperFunctions {
   }
 
   
-  func uploadImage(url: NSURL, uid: String) {
+  func uploadImage(_ url: URL, uid: String) {
     
-    guard let downloadImage = NSData(contentsOfURL: url) else { return }
+    guard let downloadImage = try? Data(contentsOf: url) else { return }
     
     let path = docsDirect() + "images/tempImage.jpg"
 
-    downloadImage.writeToFile(path, atomically: true)
+    try? downloadImage.write(to: URL(fileURLWithPath: path), options: [.atomic])
     
     let storageRef = FIRStorage.storage().reference()
     let profileImgRef = storageRef.child("profileImages/\(uid).jpg")
     
-    let urlOfLocalImage = NSURL(fileURLWithPath: path)
+    let urlOfLocalImage = URL(fileURLWithPath: path)
     
     let task: FIRStorageUploadTask = profileImgRef.putFile(urlOfLocalImage, metadata: nil) { metadata, error in
       
@@ -111,11 +118,11 @@ struct LoginService: HelperFunctions {
       
       print(error ?? "no error")
       
-      dispatch_async(dispatch_get_main_queue(), {
+      DispatchQueue.main.async(execute: {
         
         if let image = UIImage(data: downloadImage) {
         
-          Cache.shared.profileImageCache.setObject(image, forKey: uid)
+          Cache.shared.profileImageCache.setObject(image, forKey: uid as AnyObject)
         }
         
         let firebaseRef = DataService.ds.REF_USER_CURRENT.child("profileImage").child(uid)

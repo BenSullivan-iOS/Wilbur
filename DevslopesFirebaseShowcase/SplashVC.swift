@@ -10,9 +10,9 @@ import UIKit
 
 class SplashVC: UIViewController {
   
-  private var viewInitiallyAppeared = Bool()
+  fileprivate var viewInitiallyAppeared = Bool()
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     
     didViewAppearFromFeed()
     
@@ -25,12 +25,12 @@ class SplashVC: UIViewController {
   
   func checkForUserLoggedIn() {
     
-    dismissViewControllerAnimated(true, completion: nil)
+    dismiss(animated: true, completion: nil)
     
     if DataService.ds.currentUserKey != nil {
-      self.performSegueWithIdentifier(Constants.Segues.loggedInFromSplash.rawValue, sender: self)
+      self.performSegue(withIdentifier: Constants.Segues.loggedInFromSplash.rawValue, sender: self)
     } else {
-      self.performSegueWithIdentifier(Constants.Segues.signUp.rawValue, sender: self)
+      self.performSegue(withIdentifier: Constants.Segues.signUp.rawValue, sender: self)
     }
     
     viewInitiallyAppeared = true
@@ -43,9 +43,9 @@ class SplashVC: UIViewController {
     
     if viewInitiallyAppeared {
       
-      dismissViewControllerAnimated(true, completion: {
+      dismiss(animated: true, completion: {
         
-        self.performSegueWithIdentifier(Constants.Segues.signUp.rawValue, sender: self)
+        self.performSegue(withIdentifier: Constants.Segues.signUp.rawValue, sender: self)
         
       })
     }

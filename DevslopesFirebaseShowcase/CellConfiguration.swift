@@ -22,11 +22,11 @@ protocol CellConfiguration: class, HelperFunctions  {
   
   var profileImg: UIImageView! { get }
   var downloadProfileImageTask: FIRStorageDownloadTask? { get set }
-  func downloadProfileImage(uid: String)
-  func downloadProfileImageFromStorage(uid: String)
+  func downloadProfileImage(_ uid: String)
+  func downloadProfileImageFromStorage(_ uid: String)
   
   var showcaseImg: UIImageView! { get }
-  func configureImage(post: Post, img: UIImage?)
+  func configureImage(_ post: Post, img: UIImage?)
   
   var likeImage: UIImageView! { get }
   var popText: UIButton! { get }
@@ -34,7 +34,7 @@ protocol CellConfiguration: class, HelperFunctions  {
   
   var container: UIView! { get }
   
-  func downloadImage(imageLocation: String)
+  func downloadImage(_ imageLocation: String)
   var downloadImageTask: FIRStorageDownloadTask? { get set }
   
   func commentTapped()
@@ -53,38 +53,38 @@ extension CellConfiguration {
       
     } else {
       
-      self.descriptionText.hidden = false
+      self.descriptionText.isHidden = false
       self.descriptionText.text = cellPost.postDescription
       
-      Cache.shared.labelCache.setObject(descriptionText, forKey: cellPost.postKey)
+      Cache.shared.labelCache.setObject(descriptionText, forKey: cellPost.postKey as AnyObject)
       
     }
   }
   
-  func configureProfileImage(post: Post, profileImg: UIImage?) {
+  func configureProfileImage(_ post: Post, profileImg: UIImage?) {
     
     if let profileImg = profileImg {
-      dispatch_async(dispatch_get_main_queue(), {
+      DispatchQueue.main.async(execute: {
 
-        self.profileImg.hidden = false
+        self.profileImg.isHidden = false
         self.profileImg.image = profileImg
       })
       
     } else {
       
-      self.profileImg.hidden = false
+      self.profileImg.isHidden = false
       self.profileImg.image = UIImage(named: "profile-placeholder")
       self.downloadProfileImage(post.userKey)
     }
   }
   
-  func configureImage(post: Post, img: UIImage?) {
+  func configureImage(_ post: Post, img: UIImage?) {
     
     if let imageUrl = post.imageUrl {
       
       if let img = img {
         
-        showcaseImg.hidden = false
+        showcaseImg.isHidden = false
         showcaseImg.image = img
         
       } else {
@@ -92,7 +92,7 @@ extension CellConfiguration {
       }
     } else {
       print(post.postDescription)
-      showcaseImg.hidden = true
+      showcaseImg.isHidden = true
     }
   }
   
@@ -101,17 +101,17 @@ extension CellConfiguration {
     let highlightedColor = UIColor(colorLiteralRed: 42/255, green: 140/255, blue: 166/255, alpha: 1)
     let greyColor = UIColor(colorLiteralRed: 169/255, green: 194/255, blue: 194/255, alpha: 1)
     
-    if let commentedOn = Cache.shared.commentedOnCache.objectForKey(post!.postKey) as? Bool {
+    if let commentedOn = Cache.shared.commentedOnCache.object(forKey: post!.postKey as AnyObject) as? Bool {
       
       print("commentedOn", commentedOn)
       if commentedOn {
         self.likeImage.image = UIImage(named: "commentCounter")
-        self.popText.setTitleColor(highlightedColor, forState: .Normal)
+        self.popText.setTitleColor(highlightedColor, for: UIControlState())
         
         
       } else {
         self.likeImage.image = UIImage(named: "commentCounterGrey")
-        self.popText.setTitleColor(greyColor, forState: .Normal)
+        self.popText.setTitleColor(greyColor, for: UIControlState())
         
       }
       
@@ -122,25 +122,25 @@ extension CellConfiguration {
       
       if let commentRef = commentRef {
         
-        commentRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        commentRef.observeSingleEvent(of: .value, with: { snapshot in
           
           if let _ = snapshot.value as? NSNull {
             
             self.likeImage.image = UIImage(named: "commentCounterGrey")
-            self.popText.setTitleColor(greyColor, forState: .Normal)
+            self.popText.setTitleColor(greyColor, for: UIControlState())
             
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-              Cache.shared.commentedOnCache.setObject(false, forKey: (self.post?.postKey)!)
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
+              Cache.shared.commentedOnCache.setObject(false as AnyObject, forKey: (self.post?.postKey)! as AnyObject)
             }
           } else {
             
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) { [weak weakSelf = self] in
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async { [weak weakSelf = self] in
               
               weakSelf?.post?.wasCommentedOn(true)
-              Cache.shared.commentedOnCache.setObject(true, forKey: (self.post?.postKey)!)
+              Cache.shared.commentedOnCache.setObject(true as AnyObject, forKey: (self.post?.postKey)! as AnyObject)
             }
             self.likeImage.image = UIImage(named: "commentCounter")
-            self.popText.setTitleColor(highlightedColor, forState: .Normal)
+            self.popText.setTitleColor(highlightedColor, for: UIControlState())
           }
         })
         
@@ -157,20 +157,20 @@ extension CellConfiguration {
     tap.numberOfTapsRequired = 1
     
     likeImage.addGestureRecognizer(tap)
-    likeImage.userInteractionEnabled = true
+    likeImage.isUserInteractionEnabled = true
     
     let containerTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
     
     containerTap.numberOfTapsRequired = 1
     
     container.addGestureRecognizer(tap)
-    container.userInteractionEnabled = true
+    container.isUserInteractionEnabled = true
     
     let likeTextTap = UITapGestureRecognizer(target: self, action: #selector(PostCell.commentTapped))
     
     likeTextTap.numberOfTapsRequired = 1
     
     popText.addGestureRecognizer(likeTextTap)
-    popText.userInteractionEnabled = true
+    popText.isUserInteractionEnabled = true
   }
 }

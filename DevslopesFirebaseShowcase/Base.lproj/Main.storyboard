@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VCo-nX-tNm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VCo-nX-tNm">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -881,7 +881,7 @@ Cg
             <objects>
                 <navigationController storyboardIdentifier="NavigationContainer" automaticallyAdjustsScrollViewInsets="NO" id="qWm-7o-hYB" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" misplaced="YES" id="BkH-52-2ZM">
+                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" id="BkH-52-2ZM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.16470588235294117" green="0.5490196078431373" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -952,7 +952,7 @@ Cg
                                                             <rect key="frame" x="8" y="8" width="556" height="70"/>
                                                             <subviews>
                                                                 <stackView contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ejx-kG-oEw">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="163" height="70"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="158" height="70"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" verticalCompressionResistancePriority="800" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="ctr-Oi-nOk" customClass="RoundedImage" customModule="Wilbur" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -962,7 +962,7 @@ Cg
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MVZ-O8-76f">
-                                                                            <rect key="frame" x="75" y="0.0" width="88" height="70"/>
+                                                                            <rect key="frame" x="75" y="0.0" width="83" height="70"/>
                                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <fontDescription key="fontDescription" name="NotoSans" family="Noto Sans" pointSize="18"/>
                                                                             <color key="textColor" red="0.11065994203090668" green="0.2925051748752594" blue="0.36725360155105591" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1085,10 +1085,10 @@ Cg
                                                             </variation>
                                                         </stackView>
                                                         <stackView contentMode="scaleToFill" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="wZ3-ca-jm9">
-                                                            <rect key="frame" x="238" y="456" width="97" height="15"/>
+                                                            <rect key="frame" x="241.5" y="456" width="90" height="15"/>
                                                             <subviews>
                                                                 <stackView contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="AP4-Sx-m9e">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="97" height="15"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="15"/>
                                                                     <subviews>
                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="commentCounterGrey" translatesAutoresizingMaskIntoConstraints="NO" id="g1h-qD-9Wy">
                                                                             <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
@@ -1100,7 +1100,7 @@ Cg
                                                                             </constraints>
                                                                         </imageView>
                                                                         <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ncp-N3-BZ6">
-                                                                            <rect key="frame" x="23" y="0.0" width="74" height="15"/>
+                                                                            <rect key="frame" x="23" y="0.0" width="67" height="15"/>
                                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <fontDescription key="fontDescription" name="NotoSans-Bold" family="Noto Sans" pointSize="15"/>
                                                                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1199,7 +1199,7 @@ Cg
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TCA-sC-For" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="v1h-hh-TCn">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v1h-hh-TCn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.1647058824" green="0.54901960780000003" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

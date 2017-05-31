@@ -20,7 +20,7 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnsweredVC.reloadTable), name: "reloadTables", object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(AnsweredVC.reloadTable), name: NSNotification.Name(rawValue: "reloadTables"), object: nil)
     
     self.tableView.estimatedRowHeight = 300
     self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -34,21 +34,21 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
   }
   
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     
-    if AppState.shared.currentState == .PresentLoginFromComments {
+    if AppState.shared.currentState == .presentLoginFromComments {
       
-      dismissViewControllerAnimated(false, completion: nil)
+      dismiss(animated: false, completion: nil)
       
     } else {
       
-      AppState.shared.currentState = .Answered
+      AppState.shared.currentState = .answered
       tableView.reloadData()
     }
     
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     if segue.identifier == Constants.Segues.showProfile.rawValue {
       let backItem = UIBarButtonItem()
@@ -59,23 +59,23 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
   
   //MARK: - BUTTONS
   
-  @IBAction func profileButtonPressed(sender: UIButton) {
-    performSegueWithIdentifier(Constants.Segues.showProfile.rawValue, sender: self)
+  @IBAction func profileButtonPressed(_ sender: UIButton) {
+    performSegue(withIdentifier: Constants.Segues.showProfile.rawValue, sender: self)
   }
   
   
   //MARK: - TABLE VIEW
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
     return DataService.ds.answeredPosts.count ?? 0
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    if AppState.shared.currentState == .Answered {
+    if AppState.shared.currentState == .answered {
       
-      if let cell = tableView.dequeueReusableCellWithIdentifier("answeredCell") as? AnsweredCell {
+      if let cell = tableView.dequeueReusableCell(withIdentifier: "answeredCell") as? AnsweredCell {
 
         print("indexPath = ", indexPath.row)
         
@@ -84,18 +84,18 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         var img: UIImage?
         var profileImg: UIImage?
         
-        cell.showcaseImg.hidden = false
+        cell.showcaseImg.isHidden = false
         cell.showcaseImg.image = nil
-        cell.profileImg.hidden = false
+        cell.profileImg.isHidden = false
         cell.profileImg.image = nil
         
         if let url = post.imageUrl {
-          img = Cache.shared.imageCache.objectForKey(url) as? UIImage
-          cell.showcaseImg.hidden = false
+          img = Cache.shared.imageCache.object(forKey: url as AnyObject) as? UIImage
+          cell.showcaseImg.isHidden = false
           cell.showcaseImg.image = UIImage(named: "DownloadingImageBackground")
         }
         
-        if let profileImage = Cache.shared.profileImageCache.objectForKey(post.userKey) as? UIImage {
+        if let profileImage = Cache.shared.profileImageCache.object(forKey: post.userKey as AnyObject) as? UIImage {
           profileImg = profileImage
         }
         
@@ -118,23 +118,23 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
   }
   
-  func showAlert(post: Post) {
+  func showAlert(_ post: Post) {
     displayAlert(post)
   }
   
   func customCellCommentButtonPressed() {
     
-    performSegueWithIdentifier("showComments", sender: self)
+    performSegue(withIdentifier: "showComments", sender: self)
   }
   
   
   //MARK: - ALERTS
   
-  func displayAlert(post: Post) {
+  func displayAlert(_ post: Post) {
     
     guard let user = DataService.ds.currentUserKey else { guestAlert(); return }
     
-    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
     //post belongs to user
     if post.userKey == user {
@@ -146,7 +146,7 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 //        
 //      }))
       
-      alert.addAction(UIAlertAction(title: "   Delete Post 👋", style: .Default, handler: { (action) in
+      alert.addAction(UIAlertAction(title: "   Delete Post 👋", style: .default, handler: { (action) in
         
         DataService.ds.deletePost(post)
         
@@ -154,13 +154,13 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
       
     } else {
       
-      alert.addAction(UIAlertAction(title: "Report", style: .Default, handler: { action in
+      alert.addAction(UIAlertAction(title: "Report", style: .default, handler: { action in
         
         self.reportAlert(post)
         
       }))
       
-      alert.addAction(UIAlertAction(title: "Block User", style: .Default, handler: { action in
+      alert.addAction(UIAlertAction(title: "Block User", style: .default, handler: { action in
         
         DataService.ds.blockUser(post)
         
@@ -168,47 +168,47 @@ class AnsweredVC: UIViewController, UITableViewDelegate, UITableViewDataSource, 
       
     }
     
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
     
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: nil)
   }
   
-  func reportAlert(post: Post) {
+  func reportAlert(_ post: Post) {
     
-    let alert = UIAlertController(title: "Submit report", message: nil, preferredStyle: .Alert)
+    let alert = UIAlertController(title: "Submit report", message: nil, preferredStyle: .alert)
     
-    alert.addTextFieldWithConfigurationHandler { (textField) in
+    alert.addTextField { (textField) in
       
       textField.placeholder = "Reason for report"
-      textField.returnKeyType = .Default
+      textField.returnKeyType = .default
     }
     
-    alert.addAction(UIAlertAction(title: "Submit", style: .Default, handler: { (action) in
+    alert.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
       
       DataService.ds.reportPost(post, reason: alert.textFields![0].text!)
       
     }))
     
-    self.presentViewController(alert, animated: true, completion:  nil)
+    self.present(alert, animated: true, completion:  nil)
   }
   
   func guestAlert() {
     
-    let alert = UIAlertController(title: "Function unavailable 😕", message: "You must be logged in to comment", preferredStyle: .Alert)
+    let alert = UIAlertController(title: "Function unavailable 😕", message: "You must be logged in to comment", preferredStyle: .alert)
     
-    alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Login", style: .default, handler: { action in
       
-      self.dismissViewControllerAnimated(false, completion: nil)
+      self.dismiss(animated: false, completion: nil)
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
     
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: nil)
   }
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return .lightContent
   }
   
 }

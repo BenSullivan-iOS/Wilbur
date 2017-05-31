@@ -10,7 +10,7 @@ import FDWaveformView
 
 extension FDWaveformView {
   
-  public override func awakeFromNib() {
+  open override func awakeFromNib() {
     
     wavesColor = UIColor(colorLiteralRed: 96/255, green: 148/255, blue: 252/255, alpha: 1.0)
   }

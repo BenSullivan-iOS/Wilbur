@@ -52,7 +52,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
   
   //MARK: - CELL CONFIGURATION
   
-  func configureCell(post: Post, img: UIImage?, profileImg: UIImage?) {
+  func configureCell(_ post: Post, img: UIImage?, profileImg: UIImage?) {
     
     self._post = post
     self.likesLabel.text = "\(post.commentText.count)"
@@ -69,7 +69,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
     delegate?.showComments(post!, image: showcaseImg.image!)
   }
   
-  func cache(cache: NSCache, willEvictObject obj: AnyObject) {
+  func cache(_ cache: NSCache<AnyObject, AnyObject>, willEvictObject obj: Any) {
     ProfileImageTracker.imageLocations.removeAll()
   }
   
@@ -133,7 +133,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
     containerTap.numberOfTapsRequired = 1
     
     container.addGestureRecognizer(tap)
-    container.userInteractionEnabled = true
+    container.isUserInteractionEnabled = true
     
     
     let likeTextTap = UITapGestureRecognizer(target: self, action: #selector(MyPostsCell.showDeleteAlert))
@@ -141,7 +141,7 @@ class MyPostsCell: UITableViewCell, NSCacheDelegate, CellConfiguration {
     likeTextTap.numberOfTapsRequired = 1
     
     popText.addGestureRecognizer(likeTextTap)
-    popText.userInteractionEnabled = true
+    popText.isUserInteractionEnabled = true
   }
   
   func showDeleteAlert() {

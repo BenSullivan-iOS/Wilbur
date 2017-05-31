@@ -25,10 +25,10 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   @IBOutlet weak var selectedImage: UIImageView!
   @IBOutlet weak var tableView: UITableView!
   
-  private var checkAudioRecorded = Bool()
-  private let imagePicker = UIImagePickerController()
-  private var selectedImagePath = NSURL?()
-  private let tap = UITapGestureRecognizer()
+  fileprivate var checkAudioRecorded = Bool()
+  fileprivate let imagePicker = UIImagePickerController()
+  fileprivate var selectedImagePath: URL?
+  fileprivate let tap = UITapGestureRecognizer()
   
   //MARK: - VC LIFESCYCLE
   
@@ -39,21 +39,21 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     configureTextField()
     configureTapGestureRecogniser()
 
-    scrollView.scrollEnabled = false
+    scrollView.isScrollEnabled = false
     
-    micIcon.imageView?.contentMode = .ScaleAspectFit
-    
-  }
-  
-  override func viewWillAppear(animated: Bool) {
-    
-    AppState.shared.currentState = .CreatingPost
-    tap.enabled = true
+    micIcon.imageView?.contentMode = .scaleAspectFit
     
   }
   
-  override func viewWillDisappear(animated: Bool) {
-    tap.enabled = false
+  override func viewWillAppear(_ animated: Bool) {
+    
+    AppState.shared.currentState = .creatingPost
+    tap.isEnabled = true
+    
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    tap.isEnabled = false
   }
   
   
@@ -65,16 +65,16 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     postToFirebase()
   }
   
-  @IBAction func takePhotoButtonPressed(sender: AnyObject) {
+  @IBAction func takePhotoButtonPressed(_ sender: AnyObject) {
     
-    guard NSUserDefaults.standardUserDefaults().valueForKey("username") != nil else { displayAlert("Function unavailable", message: "You must be logged in to post", state: .notLoggedIn); return }
+    guard UserDefaults.standard.value(forKey: "username") != nil else { displayAlert("Function unavailable", message: "You must be logged in to post", state: .notLoggedIn); return }
     
-    if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+    if UIImagePickerController.isSourceTypeAvailable(.camera) {
       
         imagePickerAlert()
       
     } else {
-      presentViewController(imagePicker, animated: true, completion: nil)
+      present(imagePicker, animated: true, completion: nil)
     }
   }
   
@@ -86,7 +86,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     self.selectedImagePath = nil
     self.descriptionText.text = DescriptionText.defaultText
     
-    NSNotificationCenter.defaultCenter().postNotificationName("reloadTables", object: self)
+    NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadTables"), object: self)
     
     selectedImage.image = UIImage(named: "createPostPlaceholder")
     
@@ -96,7 +96,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   func postError() {
     
-    self.dismissViewControllerAnimated(false) { _ in
+    self.dismiss(animated: false) { _ in
       
       self.displayAlert("Error saving image", message: "Please check your internet connection", state: .noPhoto)
     }
@@ -106,7 +106,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   func postToFirebase() {
     
-    guard AppState.shared.currentState == .CreatingPost else {
+    guard AppState.shared.currentState == .creatingPost else {
       
       displayAlert("Error 🤔", message: "Please select 'Create Post'", state: .noPhoto)
       
@@ -127,7 +127,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
       return
     }
     
-    guard let username = NSUserDefaults.standardUserDefaults().valueForKey("username") as? String else { print("no username"); return }
+    guard let username = UserDefaults.standard.value(forKey: "username") as? String else { print("no username"); return }
     
     guard let userKey = DataService.ds.currentUserKey else { print("no username key"); return }
     
@@ -140,11 +140,14 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     
     postingAlert()
     
+    let formatter = DateFormatter()
+    let dateString = formatter.string(from: Date())
+    
     let post: [String: AnyObject] = [
-      "description" : description,
-      "user": username,
-      "date": String(NSDate()),
-      "userKey": userKey,
+      "description" : description as AnyObject,
+      "user": username as AnyObject,
+      "date": dateString as AnyObject,
+      "userKey": userKey as AnyObject,
     ]
   
     var postService = PostService()
@@ -155,12 +158,12 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   //MARK: - TABLE VIEW
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 1
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("imageCell") as! ImageTable
+  func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell") as! ImageTable
   
     if selectedImage.image != UIImage(named: "createPostPlaceholder") {
       cell.tableImage.image = selectedImage.image
@@ -185,15 +188,15 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     
     descriptionText.layer.cornerRadius = 3.0
     descriptionText.layer.borderWidth = 1.0
-    descriptionText.layer.borderColor = UIColor(colorLiteralRed: 170/255, green: 170/255, blue: 170/255, alpha: 0.5).CGColor
+    descriptionText.layer.borderColor = UIColor(colorLiteralRed: 170/255, green: 170/255, blue: 170/255, alpha: 0.5).cgColor
   }
   
-  func textViewDidBeginEditing(textView: UITextView) {
+  func textViewDidBeginEditing(_ textView: UITextView) {
     
     if descriptionText.text == DescriptionText.defaultText {
     descriptionText.text = ""
     }
-    descriptionText.textColor = .grayColor()
+    descriptionText.textColor = .gray
   }
   
   func tapReceived() {
@@ -205,7 +208,7 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     
     tap.addTarget(self, action: #selector(self.tapReceived))
     tap.numberOfTapsRequired = 1
-    tap.enabled = true
+    tap.isEnabled = true
 
     self.view.addGestureRecognizer(tap)
     
@@ -214,11 +217,11 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   //MARK: - CAMERA FUNCTIONS
   
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
 
-    scrollView.scrollEnabled = true
+    scrollView.isScrollEnabled = true
     
-    dismissViewControllerAnimated(true, completion: nil)
+    dismiss(animated: true, completion: nil)
     
     let image = info[UIImagePickerControllerOriginalImage] as! UIImage
     selectedImage.image = image
@@ -228,25 +231,25 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     saveImage(image, path: saveDirectory)
     
     print("Did finish picking image - ", saveDirectory)
-    let height = AVMakeRectWithAspectRatioInsideRect(image.size, selectedImage.frame).height
+    let height = AVMakeRect(aspectRatio: image.size, insideRect: selectedImage.frame).height
 
     tableView.rowHeight = height
     tableView.reloadData()
   }
   
-  func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+  func resizeImage(_ image: UIImage, newWidth: CGFloat) -> UIImage {
     
     let scale = newWidth / image.size.width
     let newHeight = image.size.height * scale
-    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
-    image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+    UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+    image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
     return newImage!
   }
   
-  func saveImage (image: UIImage, path: String) -> Bool {
+  func saveImage (_ image: UIImage, path: String) -> Bool {
     
     let path2 = docsDirect() + "tempImage.jpg"
     print(path2)
@@ -254,9 +257,9 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
     let compressedImage = resizeImage(image, newWidth: 1000)
 
     let jpgImageData = UIImageJPEGRepresentation(compressedImage, 0.2)
-    let result = jpgImageData!.writeToFile(path2, atomically: true)
+    let result = (try? jpgImageData!.write(to: URL(fileURLWithPath: path2), options: [.atomic])) != nil
     print(result)
-    selectedImagePath = NSURL(fileURLWithPath: path2)
+    selectedImagePath = URL(fileURLWithPath: path2)
     
     return result
   }
@@ -268,80 +271,80 @@ class CreatePostVC: UIViewController, UITextViewDelegate, UIGestureRecognizerDel
   
   func imagePickerAlert() {
     
-    let alert = UIAlertController(title: "Choose source type", message: "", preferredStyle: .ActionSheet)
+    let alert = UIAlertController(title: "Choose source type", message: "", preferredStyle: .actionSheet)
     alert.popoverPresentationController?.sourceView = self.view
     
-    alert.addAction(UIAlertAction(title: "Take photo 📷", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Take photo 📷", style: .default, handler: { action in
       
-      self.imagePicker.sourceType = .Camera
+      self.imagePicker.sourceType = .camera
 
       //FIXME: - allow cropping
       
-      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      self.present(self.imagePicker, animated: true, completion: nil)
       
     }))
     
     
-    alert.addAction(UIAlertAction(title: "Photo library 📱", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Photo library 📱", style: .default, handler: { action in
       
-      self.imagePicker.sourceType = .PhotoLibrary
-      self.presentViewController(self.imagePicker, animated: true, completion: nil)
+      self.imagePicker.sourceType = .photoLibrary
+      self.present(self.imagePicker, animated: true, completion: nil)
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
     
-    presentViewController(alert, animated: true, completion: nil)
+    present(alert, animated: true, completion: nil)
   }
   
-  func displayAlert(title: String, message: String, state: AlertState) {
+  func displayAlert(_ title: String, message: String, state: AlertState) {
 
     self.view.endEditing(true)
     
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
     
     switch state {
     case .noPhoto:
-      alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+      alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
       
     case .notLoggedIn:
-      alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
+      alert.addAction(UIAlertAction(title: "Login", style: .default, handler: { action in
       
-        self.dismissViewControllerAnimated(false, completion: nil)
+        self.dismiss(animated: false, completion: nil)
       
       }))
       
-      alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+      alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
       
     }
     
-    presentViewController(alert, animated: true, completion: nil)
+    present(alert, animated: true, completion: nil)
   }
   
   func postingAlert() {
     
     self.view.endEditing(true)
     
-    let alert = UIAlertController(title: "🙈 Posting...", message: nil, preferredStyle: .Alert)
+    let alert = UIAlertController(title: "🙈 Posting...", message: nil, preferredStyle: .alert)
     
-    presentViewController(alert, animated: true, completion: nil)
+    present(alert, animated: true, completion: nil)
   }
   
   func postedAlert() {
     
-    dismissViewControllerAnimated(false) { _ in
+    dismiss(animated: false) { _ in
       
-      let alert = UIAlertController(title: "Posted! 🎉", message: nil, preferredStyle: .Alert)
+      let alert = UIAlertController(title: "Posted! 🎉", message: nil, preferredStyle: .alert)
       
-      self.presentViewController(alert, animated: true, completion: nil)
+      self.present(alert, animated: true, completion: nil)
       
-      NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(CreatePostVC.dismissAlert), userInfo: nil, repeats: false)
+      Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(CreatePostVC.dismissAlert), userInfo: nil, repeats: false)
     }
   }
   
   func dismissAlert() {
-    dismissViewControllerAnimated(true, completion: nil)
+    dismiss(animated: true, completion: nil)
   }
   
   //MARK: - OTHER

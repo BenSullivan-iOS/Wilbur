@@ -7,7 +7,7 @@
 //
 
 protocol NavigationBarDelegate: class {
-  func didSelectSegment(segment: Int)
+  func didSelectSegment(_ segment: Int)
 }
 
 protocol UpdateNavButtonsDelegate: class {
@@ -23,17 +23,17 @@ protocol ReloadTableDelegate: class {
 }
 
 protocol PostCellDelegate: class {
-  func showAlert(post: Post)
+  func showAlert(_ post: Post)
   func customCellCommentButtonPressed()
 }
 
 protocol MyPostsCellDelegate: class {
-  func showComments(post: Post, image: UIImage)
-  func showDeleteAlert(post: Post)
+  func showComments(_ post: Post, image: UIImage)
+  func showDeleteAlert(_ post: Post)
 }
 
 protocol CreatePostDelegate {
-  func displayAlert(title: String, message: String, state: AlertState)
+  func displayAlert(_ title: String, message: String, state: AlertState)
   func postSuccessful()
   func postError()
 }

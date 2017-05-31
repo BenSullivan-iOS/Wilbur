@@ -9,6 +9,30 @@
 import UIKit
 import AVFoundation
 import Firebase
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
   
@@ -18,13 +42,13 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   @IBOutlet var keyboardHeightLayoutConstraint: NSLayoutConstraint?
   @IBOutlet var postButtonHeightLayoutConstraint: NSLayoutConstraint?
 
-  private var viewAppeared = false
-  private var viewDismissing = false
-  private var keyArray = [String]()
-  private var valueArray = [String]()
-  private var usernameArray = [String]()
+  fileprivate var viewAppeared = false
+  fileprivate var viewDismissing = false
+  fileprivate var keyArray = [String]()
+  fileprivate var valueArray = [String]()
+  fileprivate var usernameArray = [String]()
 
-  private var commentRef: FIRDatabaseReference!
+  fileprivate var commentRef: FIRDatabaseReference!
     
   var post: Post? = nil
   var postImage: UIImage? = nil
@@ -41,25 +65,25 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     configureTableView()
     configureTextView()
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentsVC.reloadComments), name: "updateComments", object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(CommentsVC.reloadComments), name: NSNotification.Name(rawValue: "updateComments"), object: nil)
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentsVC.keyboardNotification(_:)),name: UIKeyboardWillChangeFrameNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(CommentsVC.keyboardNotification(_:)),name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
     
     keyArray = (post?.commentText)!
     valueArray = (post?.commentUsers)!
 
     populateUsernames()
     
-    postButton.enabled = false
+    postButton.isEnabled = false
     
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     viewDismissing = false
     viewAppeared = true
   }
   
-  override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(_ animated: Bool) {
     viewDismissing = true
   }
   
@@ -71,27 +95,26 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     populateUsernames()
   
   }
-  @IBAction func postButtonPressed(sender: AnyObject) {
+  @IBAction func postButtonPressed(_ sender: AnyObject) {
     
     guard let currentUser = DataService.ds.currentUserKey else { guestAlert(); return }
 
-    guard var comment = commentTextView.text
-      where comment != DescriptionText.defaultText && commentTextView.text != "" else { return }
+    guard var comment = commentTextView.text, comment != DescriptionText.defaultText && commentTextView.text != "" else { return }
     
     //FIXME: Work on this bug fix, functions correctly but inefficient
     //Commnt Key/Values need to be swapped
-    comment = comment.stringByReplacingOccurrencesOfString(".", withString: ",")
-    comment = comment.stringByReplacingOccurrencesOfString("#", withString: "-")
-    comment = comment.stringByReplacingOccurrencesOfString("$", withString: "£")
-    comment = comment.stringByReplacingOccurrencesOfString("[", withString: "(")
-    comment = comment.stringByReplacingOccurrencesOfString("]", withString: ")")
-    comment = comment.stringByReplacingOccurrencesOfString("/", withString: "-")
-    comment = comment.stringByReplacingOccurrencesOfString("\\", withString: "-")
+    comment = comment.replacingOccurrences(of: ".", with: ",")
+    comment = comment.replacingOccurrences(of: "#", with: "-")
+    comment = comment.replacingOccurrences(of: "$", with: "£")
+    comment = comment.replacingOccurrences(of: "[", with: "(")
+    comment = comment.replacingOccurrences(of: "]", with: ")")
+    comment = comment.replacingOccurrences(of: "/", with: "-")
+    comment = comment.replacingOccurrences(of: "\\", with: "-")
 
     commentTextView.text = DescriptionText.defaultText
-    commentTextView.textColor = .lightGrayColor()
+    commentTextView.textColor = .lightGray
     bringCursorToStart()
-    postButton.enabled = false
+    postButton.isEnabled = false
 
     let newCommentRef = DataService.ds.REF_POSTS.child(post!.postKey).child("comments").child(String(keyArray.count)).child(comment)
     keyArray.append(comment)
@@ -111,13 +134,13 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     
     commentRef = DataService.ds.REF_USER_CURRENT.child("comments").child(selectedPost.postKey)
     
-    commentRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+    commentRef.observeSingleEvent(of: .value, with: { snapshot in
       
       if let _ = snapshot.value as? NSNull {
 
         self.commentRef.setValue(true)
         
-        Cache.shared.commentedOnCache.removeObjectForKey(selectedPost.postKey)
+        Cache.shared.commentedOnCache.removeObject(forKey: selectedPost.postKey as AnyObject)
         
       }
     })
@@ -144,7 +167,7 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
       
       let userRef = DataService.ds.REF_USERS.child(i)
       
-      userRef.observeEventType(FIRDataEventType.Value, withBlock: { snapshot in
+      userRef.observe(FIRDataEventType.value, with: { snapshot in
         let userDict = snapshot.value as! [String : AnyObject]
         
         for user in userDict where user.0 == "username" {
@@ -163,18 +186,18 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   
   //MARK: - TABLE VIEW
   
-  private struct cellID {
+  fileprivate struct cellID {
     static let commentCell = "commentCell"
     static let imageCell = "commentCellImage"
   }
   
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     
     if indexPath.section == 0 {
       
       if let image = postImage {
         
-        let height = AVMakeRectWithAspectRatioInsideRect((image.size), self.view.frame).height
+        let height = AVMakeRect(aspectRatio: (image.size), insideRect: self.view.frame).height
         
         if let textHeight = textFrame?.height {
           
@@ -194,15 +217,15 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
 
   }
   
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     return 2
   }
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     self.view.endEditing(true)
   }
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
    
     switch section {
     case 0:
@@ -214,10 +237,9 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     }
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    if let cell = tableView.dequeueReusableCellWithIdentifier(cellID.commentCell) as? CommentCell
-      where indexPath.section == 1 {
+    if let cell = tableView.dequeueReusableCell(withIdentifier: cellID.commentCell) as? CommentCell, indexPath.section == 1 {
      
       let ip = indexPath.row
       
@@ -232,8 +254,7 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
       return cell
     }
     
-    if let cellContent = tableView.dequeueReusableCellWithIdentifier(cellID.imageCell) as? CommentImageCell
-      where indexPath.section == 0 {
+    if let cellContent = tableView.dequeueReusableCell(withIdentifier: cellID.imageCell) as? CommentImageCell, indexPath.section == 0 {
       
       cellContent.configureCell(post, downloadedImage: postImage)
       
@@ -252,35 +273,35 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     static let defaultText = "Write a suggestion"
   }
   
-  func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
     
     if textView.text != DescriptionText.defaultText || textView.text != "" {
-      postButton.enabled = true
+      postButton.isEnabled = true
     }
     
     if textView.text == DescriptionText.defaultText && viewAppeared == true {
       commentTextView.text = ""
-      commentTextView.textColor = .blackColor()
+      commentTextView.textColor = .black
     }
     return true
   }
   
   
   deinit {
-    NSNotificationCenter.defaultCenter().removeObserver(self)
+    NotificationCenter.default.removeObserver(self)
   }
   
-  func keyboardNotification(notification: NSNotification) {
+  func keyboardNotification(_ notification: Notification) {
     
-    if let userInfo = notification.userInfo where viewDismissing == false {
+    if let userInfo = notification.userInfo, viewDismissing == false {
       
-      let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue()
-      let duration: NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+      let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+      let duration: TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
       let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
-      let animationCurveRaw = animationCurveRawNSN?.unsignedLongValue ?? UIViewAnimationOptions.CurveEaseInOut.rawValue
+      let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions().rawValue
       let animationCurve: UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
       
-      if endFrame?.origin.y >= UIScreen.mainScreen().bounds.size.height {
+      if endFrame?.origin.y >= UIScreen.main.bounds.size.height {
         
         self.keyboardHeightLayoutConstraint?.constant = 0.0
         self.postButtonHeightLayoutConstraint?.constant = 0.0
@@ -292,8 +313,8 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
 
       }
       
-      UIView.animateWithDuration(duration,
-                                 delay: NSTimeInterval(0),
+      UIView.animate(withDuration: duration,
+                                 delay: TimeInterval(0),
                                  options: animationCurve,
                                  animations: { self.view.layoutIfNeeded() },
                                  completion: nil)
@@ -321,20 +342,20 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
     commentTextView.becomeFirstResponder()
     commentTextView.delegate = self
     commentTextView.text = DescriptionText.defaultText
-    commentTextView.textColor = .lightGrayColor()
-    commentTextView.layer.addBorder(.Top, color: customGrey, thickness: 1)
-    postButton.layer.addBorder(.Top, color: customGrey, thickness: 1)
+    commentTextView.textColor = .lightGray
+    commentTextView.layer.addBorder(.top, color: customGrey, thickness: 1)
+    postButton.layer.addBorder(.top, color: customGrey, thickness: 1)
 
     bringCursorToStart()
   }
   
-  func textViewDidBeginEditing(textView: UITextView) {//Not working, needs to move cursor
+  func textViewDidBeginEditing(_ textView: UITextView) {//Not working, needs to move cursor
     
     if viewAppeared && commentTextView.text == DescriptionText.defaultText {
       
       commentTextView.text = ""
-      commentTextView.textColor = .blackColor()
-      postButton.enabled = false
+      commentTextView.textColor = .black
+      postButton.isEnabled = false
 
     }
     
@@ -342,27 +363,27 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   
   func bringCursorToStart() {
     let start = commentTextView.beginningOfDocument
-    commentTextView.selectedTextRange = commentTextView.textRangeFromPosition(start, toPosition: start)
+    commentTextView.selectedTextRange = commentTextView.textRange(from: start, to: start)
   }
   
   //MARK: - ALERTS
   
   func guestAlert() {
     
-    let alert = UIAlertController(title: "Function unavailable", message: "You must be logged in to comment", preferredStyle: .Alert)
+    let alert = UIAlertController(title: "Function unavailable", message: "You must be logged in to comment", preferredStyle: .alert)
     
-    alert.addAction(UIAlertAction(title: "Login", style: .Default, handler: { action in
+    alert.addAction(UIAlertAction(title: "Login", style: .default, handler: { action in
     
-    AppState.shared.currentState = .PresentLoginFromComments
+    AppState.shared.currentState = .presentLoginFromComments
       
-    self.navigationController?.popViewControllerAnimated(false)
+    self.navigationController?.popViewController(animated: false)
       
     }))
     
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: nil))
+    alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
 
     
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: nil)
   }
   
   func tapped() {
@@ -372,25 +393,25 @@ class CommentsVC: UIViewController, UITextViewDelegate, UITableViewDelegate, UIT
   
   //MARK: - MISC
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return .lightContent
   }
   
 }
 
 private extension CALayer {
   
-  func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+  func addBorder(_ edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
     
     let border = CALayer()
     
     switch edge {
-    case UIRectEdge.Top:
-      border.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), thickness)
+    case UIRectEdge.top:
+      border.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: thickness)
         default: break
     }
     
-    border.backgroundColor = color.CGColor;
+    border.backgroundColor = color.cgColor;
     
     self.addSublayer(border)
   }

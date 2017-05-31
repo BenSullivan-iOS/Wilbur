@@ -25,7 +25,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
     
     self.title = "Posts"
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MyPostsVC.reloadTable), name: "reloadTables", object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(MyPostsVC.reloadTable), name: NSNotification.Name(rawValue: "reloadTables"), object: nil)
     
     self.tableView.estimatedRowHeight = 300
     self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -37,11 +37,11 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
   }
   
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     
-    if AppState.shared.currentState == .PresentLoginFromComments {
+    if AppState.shared.currentState == .presentLoginFromComments {
       
-      dismissViewControllerAnimated(false, completion: nil)
+      dismiss(animated: false, completion: nil)
       
     } else {
       
@@ -50,7 +50,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
     
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     if segue.identifier == Constants.Segues.showProfile.rawValue {
       let backItem = UIBarButtonItem()
@@ -60,7 +60,7 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
     
     if segue.identifier == "showComments" {
       
-      if let dest = segue.destinationViewController as? CommentsVC {
+      if let dest = segue.destination as? CommentsVC {
         
         dest.post = selectedPost
         dest.postImage = selectedPostImage
@@ -73,21 +73,21 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
   
   //MARK: - BUTTONS
   
-  @IBAction func profileButtonPressed(sender: UIButton) {
-    performSegueWithIdentifier(Constants.Segues.showProfile.rawValue, sender: self)
+  @IBAction func profileButtonPressed(_ sender: UIButton) {
+    performSegue(withIdentifier: Constants.Segues.showProfile.rawValue, sender: self)
   }
   
   
   //MARK: - TABLE VIEW
   
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
     return DataService.ds.myPosts.count ?? 0
   }
   
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-      if let cell = tableView.dequeueReusableCellWithIdentifier("myPostCell") as? MyPostsCell {
+      if let cell = tableView.dequeueReusableCell(withIdentifier: "myPostCell") as? MyPostsCell {
         
         print("indexPath = ", indexPath.row)
         
@@ -96,18 +96,18 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
         var img: UIImage?
         var profileImg: UIImage?
         
-        cell.showcaseImg.hidden = true
+        cell.showcaseImg.isHidden = true
         cell.showcaseImg.image = nil
-        cell.profileImg.hidden = true
+        cell.profileImg.isHidden = true
         cell.profileImg.image = nil
         
         if let url = post.imageUrl {
-          img = Cache.shared.imageCache.objectForKey(url) as? UIImage
-          cell.showcaseImg.hidden = false
+          img = Cache.shared.imageCache.object(forKey: url as AnyObject) as? UIImage
+          cell.showcaseImg.isHidden = false
           cell.showcaseImg.image = UIImage(named: "DownloadingImageBackground")
         }
         
-        if let profileImage = Cache.shared.profileImageCache.objectForKey(post.userKey) as? UIImage {
+        if let profileImage = Cache.shared.profileImageCache.object(forKey: post.userKey as AnyObject) as? UIImage {
           profileImg = profileImage
         }
         
@@ -123,12 +123,12 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
   
   //MARK - POST CELL DELEGATE
   
-  func showComments(post: Post, image: UIImage) {
+  func showComments(_ post: Post, image: UIImage) {
     
     selectedPostImage = image
     selectedPost = post
     
-    performSegueWithIdentifier("showComments", sender: self)
+    performSegue(withIdentifier: "showComments", sender: self)
   }
   func reloadTable() {
     
@@ -136,25 +136,25 @@ class MyPostsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, M
     
   }
   
-  func showDeleteAlert(post: Post) {
+  func showDeleteAlert(_ post: Post) {
     
-    let alert = UIAlertController(title: "Are you sure you want to delete this post??", message: nil, preferredStyle: .ActionSheet)
+    let alert = UIAlertController(title: "Are you sure you want to delete this post??", message: nil, preferredStyle: .actionSheet)
     
-    alert.addAction(UIAlertAction(title: "🤔...Yes please!", style: .Default, handler: { (action) in
+    alert.addAction(UIAlertAction(title: "🤔...Yes please!", style: .default, handler: { (action) in
         
         DataService.ds.deletePost(post)
         
       }))
     
-    alert.addAction(UIAlertAction(title: "   No thanks 😁", style: .Cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "   No thanks 😁", style: .cancel, handler: nil))
     
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.present(alert, animated: true, completion: nil)
   }
   
   //MARK: - ALERTS
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return .lightContent
   }
   
 }
